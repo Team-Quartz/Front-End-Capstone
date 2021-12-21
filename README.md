@@ -1,5 +1,7 @@
 # Front-End-Capstone
 
+**DO NOT MAKE CHANGES DIRECTLY TO MAIN BRANCH**
+
 ### Initial Setup Steps
 
 git clone https://github.com/Team-Quartz/Front-End-Capstone.git
@@ -7,10 +9,13 @@ git clone https://github.com/Team-Quartz/Front-End-Capstone.git
 npm install
 npm start
 
+##Git Workflow
 
 ### Starting a ticket
 - git pull origin main
-- git checkout -b <ticket name> 
+- git checkout -b <ticket name>  **it is important to make branch so that you aren't on the main branch** (this is called cutting a branch)
+  
+_if you make changes while on main (or the wrong branch), you can cut a new branch before committing - it will save your work so you can push it to your branch_
 
 ### Completing a ticket
 In terminal
