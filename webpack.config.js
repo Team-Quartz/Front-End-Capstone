@@ -12,7 +12,7 @@ module.exports = {
     path:path.resolve(__dirname, "client/dist"), // string (default)
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
-    filename: "[name].js", // string (default)
+    filename: "bundle.js", // string (default)
     // the filename template for entry chunks
   }
 }
