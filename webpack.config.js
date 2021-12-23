@@ -32,3 +32,4 @@ module.exports = {
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]
 };
+
