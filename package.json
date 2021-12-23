@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Team-Quartz/Front-End-Capstone/issues"
   },
-  "homepage": "https://github.com/Team-Quartz/Front-End-Capstone#readme"
+  "homepage": "https://github.com/Team-Quartz/Front-End-Capstone#readme",
+  "dependencies": {
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
 }
