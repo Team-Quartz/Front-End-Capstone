@@ -16,3 +16,4 @@ module.exports = {
     // the filename template for entry chunks
   }
 }
+
