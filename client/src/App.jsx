@@ -9,15 +9,15 @@ import utils from './utils/Utils.js';
 class App extends react.Component {
   constructor(props) {
     super(props);
-    this.state = {/** to be determined */},
+    this.state = {/** to be determined */}
   };
 
   render() {
     return (
-      <ProductDetails />
-      <QuestionsAndAnswers />
-      <RatingsAndReviews />
-      <RelatedItemsAndComparisons />
+      // <ProductDetails />
+      // <QuestionsAndAnswers />
+      // <RatingsAndReviews />
+      // <RelatedItemsAndComparisons />
     );
   };
 }
