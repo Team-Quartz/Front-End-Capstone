@@ -14,6 +14,7 @@ class App extends react.Component {
 
   render() {
     return (
+      <div>Hello, world!</div>
       // <ProductDetails />
       // <QuestionsAndAnswers />
       // <RatingsAndReviews />
