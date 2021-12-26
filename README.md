@@ -18,19 +18,19 @@
 
 ### Starting work on a ticket
 - `git checkout main` (to make sure your new branch is based off of main)
-- `git checkout -b <ticket name>`
+- `git checkout -b <ticket-name>`
   - **it is important to make branch so that you aren't on the main branch** (this is called cutting a branch)
-  - `<firstname>-<ticketType>-<ticketName>`
-    - e.g. `liam/bug/crash-when-opening-page`
-  
+  - `<firstname>/<ticket-name>`
+    - e.g. `liam/crash-when-opening-page`
+
 _if you make changes while on main (or the wrong branch), you can cut a new branch before committing - it will save your work so you can push it to your branch_
 
 ### Completing a ticket
 In terminal
-- `git add <all the files you changed>` 
+- `git add <all the files you changed>`
 - `git commit` <- please do many regular, granular commits with clear names!
 - `git push origin <ticket name>`
-  
+
 _if ticket is not complete, you can push an incomplete ticket (just don't make a pull request)_
 
 On GitHub website
