@@ -22,7 +22,7 @@ class App extends react.Component {
         {/* <ProductDetails /> */}
         {/* <RelatedItemsAndComparisons /> */}
         {/* <QuestionsAndAnswers /> */}
-        {/* <RatingsAndReviews /> */}
+        <RatingsAndReviews />
       </div>
     );
   }
