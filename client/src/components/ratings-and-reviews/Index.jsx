@@ -40,7 +40,10 @@ class RatingsAndReviews extends react.Component {
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
-        <div>
+        <div style={{
+          display:'flex',
+          flexDirection:'row'
+        }}>
           <div className='starsAndBars'>
             <div>3.5 * * * _ _</div>
             {/** replace with stars component */}
