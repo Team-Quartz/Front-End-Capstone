@@ -10,7 +10,7 @@
 `npm install`
 `npm run webp`
 
-##Git Workflow
+## Git Workflow
 
 ### frequently (any time anyone merges changes, or when you start a new ticket)
 
