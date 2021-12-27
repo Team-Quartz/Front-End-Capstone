@@ -6,6 +6,7 @@
 
 `git clone https://github.com/Team-Quartz/Front-End-Capstone.git`
 
+`brew install sass/sass/sass`
 `npm install`
 `npm start`
 
