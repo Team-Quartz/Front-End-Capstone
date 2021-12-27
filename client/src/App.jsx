@@ -15,11 +15,13 @@ class App extends react.Component {
 
   render() {
     return (
-      <div>Hello, world!</div>
-      // <ProductDetails />
-      // <QuestionsAndAnswers />
-      // <RatingsAndReviews />
-      // <RelatedItemsAndComparisons />
+      <div>
+        <div>Hello, world!</div>
+        {/* <ProductDetails /> */}
+        {/* <QuestionsAndAnswers /> */}
+        <RatingsAndReviews />
+        {/* <RelatedItemsAndComparisons /> */}
+      </div>
     );
   };
 }
