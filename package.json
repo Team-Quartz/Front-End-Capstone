@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webp": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,18 @@
   },
   "homepage": "https://github.com/Team-Quartz/Front-End-Capstone#readme",
   "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.2.3",
+    "sass": "^1.45.1",
+    "sass-loader": "^12.4.0",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
   }
 }
-
