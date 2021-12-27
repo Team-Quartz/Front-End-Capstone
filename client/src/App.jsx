@@ -10,8 +10,10 @@ import utils from './Utils.js';
 class App extends react.Component {
   constructor(props) {
     super(props);
-    this.state = {/** to be determined */}
-  };
+    this.state = {
+      /** to be determined */
+    };
+  }
 
   render() {
     return (
@@ -23,7 +25,7 @@ class App extends react.Component {
         <RatingsAndReviews />
       </div>
     );
-  };
+  }
 }
 
 reactDOM.render(<App />, document.getElementById('app'));
