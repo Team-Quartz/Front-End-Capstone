@@ -10,6 +10,7 @@ const blankState = {
 class RatingsAndReviews extends react.Component {
   constructor(props) {
     super(props);
+    this.state = blankState;
   }
 
   componentDidMount() {
@@ -61,7 +62,11 @@ class RatingsAndReviews extends react.Component {
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
-            <div>{/* reviews list */}</div>
+            <div>
+              {this.state.loadedReviews.map((review) => (
+                <div key={review.review_id}>{review.summary}</div>
+              ))}
+            </div>
             <div>
               <button>MORE REVIEWS</button>
               <button>ADD A REVIEW +</button>
