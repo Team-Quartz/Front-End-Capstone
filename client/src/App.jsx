@@ -20,9 +20,9 @@ class App extends react.Component {
       <div>
         <div>Hello, world!</div>
         {/* <ProductDetails /> */}
-        {/* <QuestionsAndAnswers /> */}
-        {/* <QuestionsAndAnswers /> */}
         {/* <RelatedItemsAndComparisons /> */}
+        {/* <QuestionsAndAnswers /> */}
+        {/* <RatingsAndReviews /> */}
       </div>
     );
   }
