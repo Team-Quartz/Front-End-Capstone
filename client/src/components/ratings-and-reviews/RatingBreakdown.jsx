@@ -3,7 +3,7 @@ import react from 'react';
 const flexRow = {
   display: 'flex',
   flexDirection: 'row',
-  alignItems:'center',
+  alignItems:'stretch',
 };
 
 function RatingBreakdown({ rating, count, total }) {
@@ -20,8 +20,9 @@ function RatingBreakdown({ rating, count, total }) {
         style={{
           display: 'flex',
           flexDirection: 'row',
-          width: '100px',
-          height: '10px',
+          flexBasis:'100%',
+          flexShrink: '100000',
+          margin:'1% 0',
         }}
       >
         <div
