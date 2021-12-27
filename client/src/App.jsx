@@ -10,18 +10,22 @@ import utils from './Utils.js';
 class App extends react.Component {
   constructor(props) {
     super(props);
-    this.state = {/** to be determined */}
-  };
+    this.state = {
+      /** to be determined */
+    };
+  }
 
   render() {
     return (
-      <div>Hello, world!</div>
-      // <ProductDetails />
-      // <QuestionsAndAnswers />
-      // <RatingsAndReviews />
-      // <RelatedItemsAndComparisons />
+      <div>
+        <div>Hello, world!</div>
+        {/* <ProductDetails /> */}
+        {/* <RelatedItemsAndComparisons /> */}
+        {/* <QuestionsAndAnswers /> */}
+        {/* <RatingsAndReviews /> */}
+      </div>
     );
-  };
+  }
 }
 
 reactDOM.render(<App />, document.getElementById('app'));
