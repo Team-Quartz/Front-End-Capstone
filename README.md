@@ -8,7 +8,7 @@
 
 `brew install sass/sass/sass`
 `npm install`
-`npm start`
+`npm run webp`
 
 ##Git Workflow
 
