@@ -41,7 +41,7 @@ module.exports.reviews = {
   ],
 };
 
-module.exports.reviewsMeta = {
+const reviewsMeta = {
   product_id: '2',
   ratings: {
     2: 1,
@@ -68,4 +68,13 @@ module.exports.reviewsMeta = {
     },
     // ...
   },
+};
+
+//TODO: totalRatings should eventually be calculated up in the function that GETs the reviewsMeta data
+reviewsMeta.totalRatings = 0;
+Object.entries(reviewsMeta.ratings).forEach((rating) => (reviewsMeta.totalRatings += rating[1]));
+
+module.exports.props = {
+  reviewsMeta,
+  currentProduct: '2',
 };
