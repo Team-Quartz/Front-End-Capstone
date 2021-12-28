@@ -1,20 +1,23 @@
 const StyleSelector = (props) => {
   //TODO: make a size list and quantity list based on passed in props
-  const sizeList = [<option value="XL"/>, <option value="XXL" />];
-  const quantityList = [<option value="1"/>, <option value="2" />];
+  const sizeList = [<option value="XL" key="1"/>, <option value="XXL" key="2"/>];
+  const quantityList = [<option value="1" key="1"/>, <option value="2" key="2"/>];
   //todo: handle form submission
   //note: this is placeholder text and elements for styling later
   return (
     <form className="style-selctor">
-      <input list="size-list" id="size-list" />
-      <datalist>
-        <option>--Please choose a size---</option>
+
+      <label htmlFor="size-list">Sizes</label>
+      <input list="size-list-options" id="size-list" />
+      <datalist id="size-list-options">
+        <option value="--Please choose a size---" key="0"/>
         {sizeList}
       </datalist>
 
-      <input list="quantity-list" id="quantity-list"/>
-      <datalist>
-        <option>--Please choose an amount---</option>
+      <label htmlFor="quantity-list">Quantity</label>
+      <input list="quantity-list-data" id="quantity-list"/>
+      <datalist id="quantity-list-data">
+        <option value="--Please choose an amount---" key="0"/>
         {quantityList}
       </datalist>
 
