@@ -15,13 +15,15 @@ class App extends react.Component {
 
   render() {
     return (
-      <div>Hello, world!</div>
-      // <ProductDetails />
-      // <QuestionsAndAnswers />
+      <div>
+        <div>Hello, world!</div>
+        <ProductDetails />
+      {/* // <QuestionsAndAnswers />
       // <RatingsAndReviews />
-      // <RelatedItemsAndComparisons />
+      // <RelatedItemsAndComparisons /> */}
+      </div>
     );
   };
 }
-
+console.log(ProductDetails);
 reactDOM.render(<App />, document.getElementById('app'));
