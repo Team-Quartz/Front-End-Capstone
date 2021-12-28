@@ -17,7 +17,7 @@ const Bar = styled.div`
   position: relative;
   height: 100%;
   width: ${(props) => (props.background ? 100 - props.proportion : props.proportion)}%;
-  background-color: ${(props) => (props.background ? 'LightGrey' : 'SpringGreen')};
+  background-color: ${(props) => (props.background ? 'LightGrey' : 'MediumAquaMarine')};
 `;
 
 function RatingBreakdown({ rating, count, total }) {
