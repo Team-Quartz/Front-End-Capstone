@@ -13,6 +13,12 @@ const BarFrame = styled(FlexDiv)`
   margin: 1% 0;
 `;
 
+const Bar = styled.div`
+  position: relative;
+  height: 100%;
+  width: ${props => props.background ? 100 - props.proportion : props.proportion}%;
+  background-color: ${props => props.background ? 'lightgrey' : 'SpringGreen'};
+`;
 
 function RatingBreakdown({ rating, count, total }) {
   let proportion;
@@ -25,22 +31,8 @@ function RatingBreakdown({ rating, count, total }) {
     <FlexDiv>
       <div>{rating} stars</div>
       <BarFrame>
-        <div
-          style={{
-            position: 'relative',
-            backgroundColor: 'green',
-            width: `${proportion}%`,
-            height: '100%',
-          }}
-        ></div>
-        <div
-          style={{
-            position: 'relative',
-            backgroundColor: 'grey',
-            width: `${100 - proportion}%`,
-            height: '100%',
-          }}
-        ></div>
+        <Bar proportion={proportion} background={false}/>
+        <Bar proportion={proportion} background={true}/>
       </BarFrame>
     </FlexDiv>
   );
