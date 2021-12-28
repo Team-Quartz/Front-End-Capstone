@@ -1,6 +1,7 @@
 import react from 'react';
 import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
+import RatingBreakdown from './RatingBreakdown.jsx';
 
 const blankState = {
   loadedReviews: [],
@@ -12,33 +13,23 @@ class RatingsAndReviews extends react.Component {
   constructor(props) {
     super(props);
     this.state = blankState;
-    this.placeholderProps = {
-      reviewsMeta: this.loadMeta(),
-    }
   }
 
   componentDidMount() {
     this.loadNewProduct();
-    this.loadReviews();
   }
 
   loadNewProduct() {
-    //TODO: get current product from props
     this.setState(blankState);
+    this.loadReviews();
   }
 
   loadReviews() {
-    //TODO: get current product from props
     this.setState((state, props) => {
       const reviewPage = ++state.reviewPage;
       const loadedReviews = state.loadedReviews.concat(placeholder.reviews.results);
       return { loadedReviews, reviewPage };
     });
-  }
-
-  loadMeta() {
-    //TODO: get current product from props
-    return placeholder.reviewsMeta;
   }
 
   render() {
@@ -56,13 +47,16 @@ class RatingsAndReviews extends react.Component {
             <div>3.5 * * * _ _</div>
             <div>100% of reviews recommend this product</div>
             <div className='starsFilters'>
-              <div>5 stars ---------____</div>
-              <div>4 stars -------______</div>
-              <div>3 stars -------------</div>
-              <div>2 stars ---------____</div>
-              <div>1 stars ----_________</div>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <RatingBreakdown
+                  rating={rating}
+                  count={placeholder.props.reviewsMeta.ratings[rating]}
+                  total={placeholder.props.reviewsMeta.totalRatings}
+                  key={rating}
+                />
+              ))}
             </div>
-            <ProductBreakdown characteristics={this.placeholderProps.reviewsMeta.characteristics}/>
+            <ProductBreakdown characteristics={placeholder.props.reviewsMeta.characteristics}/>
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
