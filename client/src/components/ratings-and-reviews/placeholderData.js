@@ -76,4 +76,5 @@ Object.entries(reviewsMeta.ratings).forEach((rating) => (reviewsMeta.totalRating
 
 module.exports.props = {
   reviewsMeta,
+  currentProduct: '2',
 };

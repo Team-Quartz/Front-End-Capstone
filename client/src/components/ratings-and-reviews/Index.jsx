@@ -19,14 +19,11 @@ class RatingsAndReviews extends react.Component {
   }
 
   loadNewProduct() {
-    //TODO: get current product from props
-    const newState = Object.assign({}, blankState);
-    this.setState(newState);
+    this.setState(blankState);
     this.loadReviews();
   }
 
   loadReviews() {
-    //TODO: get current product from props
     this.setState((state, props) => {
       const reviewPage = ++state.reviewPage;
       const loadedReviews = state.loadedReviews.concat(placeholder.reviews.results);
