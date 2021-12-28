@@ -7,17 +7,18 @@ const FlexDiv = styled.div`
   align-items: stretch;
 `;
 
-const BarFrame = styled(FlexDiv)`
+const BarBackground = styled(FlexDiv)`
   flex-basis: 100%;
   flex-shrink: 100000;
   margin: 1% 0;
+  background-color: LightGrey;
 `;
 
 const Bar = styled.div`
   position: relative;
   height: 100%;
-  width: ${(props) => (props.background ? 100 - props.proportion : props.proportion)}%;
-  background-color: ${(props) => (props.background ? 'LightGrey' : 'MediumAquaMarine')};
+  width: ${(props) => (props.proportion)}%;
+  background-color: MediumAquaMarine;
 `;
 
 function RatingBreakdown({ rating, count, total }) {
@@ -30,10 +31,9 @@ function RatingBreakdown({ rating, count, total }) {
   return (
     <FlexDiv>
       <div>{rating} stars</div>
-      <BarFrame>
-        <Bar proportion={proportion} background={false} />
-        <Bar proportion={proportion} background={true} />
-      </BarFrame>
+      <BarBackground>
+        <Bar proportion={proportion}/>
+      </BarBackground>
     </FlexDiv>
   );
 }
