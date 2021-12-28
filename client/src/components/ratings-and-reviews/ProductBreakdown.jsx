@@ -14,6 +14,7 @@ const BarFrame = styled.div`
     position: absolute;
     left: ${props => props.position * 100}%;
     transform: translateX(-50%);
+    bottom: -35%;
   }
 `;
 
