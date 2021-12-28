@@ -6,10 +6,6 @@ const blankState = {
   loadedReviews: [],
   filters: [],
   reviewPage: 0,
-  ratings: {},
-  totalRatings: 0,
-  characteristics: {},
-  recommended: {},
 };
 
 class RatingsAndReviews extends react.Component {
@@ -25,14 +21,6 @@ class RatingsAndReviews extends react.Component {
   loadNewProduct() {
     //TODO: get current product from props
     const newState = Object.assign({}, blankState);
-    const meta = placeholder.reviewsMeta;
-    newState.ratings = meta.ratings;
-    newState.recommended = meta.recommended;
-    newState.characteristics = meta.characteristics;
-    newState.totalRatings = 0;
-    Object.entries(meta.ratings).forEach(
-      (rating) => (newState.totalRatings += rating[1])
-    );
     this.setState(newState);
     this.loadReviews();
   }
@@ -64,8 +52,8 @@ class RatingsAndReviews extends react.Component {
               {[1, 2, 3, 4, 5].map((rating) => (
                 <RatingBreakdown
                   rating={rating}
-                  count={this.state.ratings[rating]}
-                  total={this.state.totalRatings}
+                  count={placeholder.props.reviewsMeta.ratings[rating]}
+                  total={placeholder.props.reviewsMeta.totalRatings}
                   key={rating}
                 />
               ))}
