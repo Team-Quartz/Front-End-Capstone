@@ -19,7 +19,7 @@ class App extends react.Component {
     return (
       <div>
         <div>Hello, world!</div>
-        {/* <ProductDetails /> */}
+        <ProductDetails />
         {/* <RelatedItemsAndComparisons /> */}
         {/* <QuestionsAndAnswers /> */}
         <RatingsAndReviews />
@@ -27,5 +27,4 @@ class App extends react.Component {
     );
   }
 }
-
 reactDOM.render(<App />, document.getElementById('app'));
