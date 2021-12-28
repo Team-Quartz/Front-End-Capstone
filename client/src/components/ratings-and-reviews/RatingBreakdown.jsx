@@ -1,10 +1,18 @@
 import react from 'react';
+import styled from 'styled-components'
 
-const flexRow = {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems:'stretch',
-};
+const FlexDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items:stretch;
+`;
+
+const BarFrame = styled(FlexDiv)`
+  flex-basis: 100%;
+  flex-shrink: 100000;
+  margin: 1% 0;
+`;
+
 
 function RatingBreakdown({ rating, count, total }) {
   let proportion;
@@ -14,17 +22,9 @@ function RatingBreakdown({ rating, count, total }) {
     proportion = (total / count) * 10;
   }
   return (
-    <div style={flexRow}>
+    <FlexDiv>
       <div>{rating} stars</div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexBasis:'100%',
-          flexShrink: '100000',
-          margin:'1% 0',
-        }}
-      >
+      <BarFrame>
         <div
           style={{
             position: 'relative',
@@ -41,8 +41,8 @@ function RatingBreakdown({ rating, count, total }) {
             height: '100%',
           }}
         ></div>
-      </div>
-    </div>
+      </BarFrame>
+    </FlexDiv>
   );
 }
 
