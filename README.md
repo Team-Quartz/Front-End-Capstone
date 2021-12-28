@@ -6,10 +6,11 @@
 
 `git clone https://github.com/Team-Quartz/Front-End-Capstone.git`
 
+`brew install sass/sass/sass`
 `npm install`
-`npm start`
+`npm run webp`
 
-##Git Workflow
+## Git Workflow
 
 ### frequently (any time anyone merges changes, or when you start a new ticket)
 
