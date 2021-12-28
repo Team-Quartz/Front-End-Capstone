@@ -4,7 +4,6 @@ import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
-console.log(data);
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +16,6 @@ class ProductDetail extends React.Component {
 
     return (
     <div>
-        {console.log('data actual', this.state.stylesData)}
         <ImageGallery data={{}}/>
         <ProductInformation productData={this.state.productData} starsData={{}}/>
         <StyleSelector stylesData={this.state.stylesData.results}/>
