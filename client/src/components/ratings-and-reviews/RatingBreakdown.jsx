@@ -8,8 +8,7 @@ const FlexDiv = styled.div`
 `;
 
 const BarBackground = styled(FlexDiv)`
-  flex-basis: 100%;
-  flex-shrink: 100000;
+  flex: 1;
   margin: 1% 0;
   background-color: LightGrey;
 `;
