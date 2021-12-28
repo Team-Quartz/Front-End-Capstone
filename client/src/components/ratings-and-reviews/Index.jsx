@@ -1,5 +1,6 @@
 import react from 'react';
 import placeholder from './placeholderData.js';
+import ProductBreakdown from './ProductBreakdown.jsx';
 
 const blankState = {
   loadedReviews: [],
@@ -11,6 +12,9 @@ class RatingsAndReviews extends react.Component {
   constructor(props) {
     super(props);
     this.state = blankState;
+    this.placeholderProps = {
+      reviewsMeta: this.loadMeta(),
+    }
   }
 
   componentDidMount() {
@@ -58,7 +62,7 @@ class RatingsAndReviews extends react.Component {
               <div>2 stars ---------____</div>
               <div>1 stars ----_________</div>
             </div>
-            <div></div>
+            <ProductBreakdown characteristics={this.placeholderProps.reviewsMeta.characteristics}/>
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
