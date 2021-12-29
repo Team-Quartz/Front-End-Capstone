@@ -18,15 +18,30 @@ const TextButton = styled.button`
   background: none;
 `;
 
-function renderResponse(response) {
+function Response({ response }) {
   if (response) {
     return (
       <div>
         Response:
         <div>{response}</div>
       </div>
-    )
+    );
   }
+  return '';
+}
+
+function PhotoGallery({ photos }) {
+  if (photos) {
+    return (
+      <div>
+        {photos.map((photo) => (
+          //TODO: on click, open photo in window
+          <img src={photo.url} key={photo.id} />
+        ))}
+      </div>
+    );
+  }
+  return '';
 }
 
 function ReviewsList({ reviews }) {
@@ -44,8 +59,9 @@ function ReviewsList({ reviews }) {
             </SpreadRow>
             <h3>{review.summary}</h3>
             <div>{review.body}</div>
+            <PhotoGallery photos={review.photos} />
             {review.recommend ? 'I recommend this product' : undefined}
-            {renderResponse(review.response)}
+            <Response response={review.response} />
             <FlexRow>
               Helpful?
               <TextButton>Yes</TextButton>
