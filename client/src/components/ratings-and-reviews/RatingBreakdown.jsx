@@ -22,10 +22,10 @@ const Bar = styled.div`
 
 function RatingBreakdown({ rating, count, total }) {
   let proportion;
-  if (!total) {
+  if (!count) {
     proportion = 0;
   } else {
-    proportion = (count / total) * 100;
+    proportion = (total / count) * 10;
   }
   return (
     <FlexDiv>
