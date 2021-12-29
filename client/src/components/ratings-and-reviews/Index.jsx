@@ -1,5 +1,6 @@
 import react from 'react';
 import placeholder from './placeholderData.js';
+import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 
 const blankState = {
@@ -55,7 +56,7 @@ class RatingsAndReviews extends react.Component {
                 />
               ))}
             </div>
-            <div></div>
+            <ProductBreakdown characteristics={placeholder.props.reviewsMeta.characteristics}/>
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
