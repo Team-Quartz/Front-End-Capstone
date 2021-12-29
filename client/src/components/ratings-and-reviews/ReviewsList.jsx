@@ -94,7 +94,7 @@ function ReviewsList({ reviews }) {
             <h3>{review.summary}</h3>
             <Body body={review.body} />
             <PhotoGallery photos={review.photos} />
-            {review.recommend ? 'I recommend this product' : undefined}
+            {review.recommend ? '✓ I recommend this product' : undefined}
             <Response response={review.response} />
             <FlexRow>
               Helpful?
