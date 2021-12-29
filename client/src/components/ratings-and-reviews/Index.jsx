@@ -2,6 +2,7 @@ import react from 'react';
 import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
+import { Stars } from '../sharedComponents.jsx';
 
 const blankState = {
   loadedReviews: [],
@@ -44,19 +45,19 @@ class RatingsAndReviews extends react.Component {
         >
           <div className='starsAndBars'>
             {/** replace with stars component */}
-            <div>3.5 * * * _ _</div>
+            <Stars reviewsMeta={this.props.reviewsMeta}/>
             <div>100% of reviews recommend this product</div>
             <div className='starsFilters'>
               {[1, 2, 3, 4, 5].map((rating) => (
                 <RatingBreakdown
                   rating={rating}
-                  count={placeholder.props.reviewsMeta.ratings[rating]}
-                  total={placeholder.props.reviewsMeta.totalRatings}
+                  count={this.props.reviewsMeta.ratings[rating]}
+                  total={this.props.reviewsMeta.totalRatings}
                   key={rating}
                 />
               ))}
             </div>
-            <ProductBreakdown characteristics={placeholder.props.reviewsMeta.characteristics}/>
+            <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics}/>
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
