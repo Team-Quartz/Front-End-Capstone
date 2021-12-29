@@ -14,4 +14,4 @@ module.exports.parseReviewsMeta = (reviewsMeta) => {
     reviewsMeta.averageRating = ratingSum / reviewsMeta.totalRatings;
   }
   return reviewsMeta;
-}
+};
