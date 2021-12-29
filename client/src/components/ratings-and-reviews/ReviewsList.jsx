@@ -1,6 +1,7 @@
 import react from 'react';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 
 const FlexRow = styled.div`
   display: flex;
@@ -17,6 +18,17 @@ const TextButton = styled.button`
   background: none;
 `;
 
+function renderResponse(response) {
+  if (response) {
+    return (
+      <div>
+        Response:
+        <div>{response}</div>
+      </div>
+    )
+  }
+}
+
 function ReviewsList({ reviews }) {
   return (
     <div>
@@ -26,11 +38,14 @@ function ReviewsList({ reviews }) {
             <SpreadRow>
               <Stars reviewsMeta={{ averageRating: review.rating }} />
               <div>
-                {review.reviewer_name},{review.date}
+                {`${review.reviewer_name}, `}
+                {dayjs(review.date).format('MMMM DD, YYYY')}
               </div>
             </SpreadRow>
             <h3>{review.summary}</h3>
             <div>{review.body}</div>
+            {review.recommend ? 'I recommend this product' : undefined}
+            {renderResponse(review.response)}
             <FlexRow>
               Helpful?
               <TextButton>Yes</TextButton>
