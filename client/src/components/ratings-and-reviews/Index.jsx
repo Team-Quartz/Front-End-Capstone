@@ -4,6 +4,12 @@ import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import { Stars } from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
+import styled from 'styled-components';
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const blankState = {
   loadedReviews: [],
@@ -45,8 +51,10 @@ class RatingsAndReviews extends react.Component {
           }}
         >
           <div className='starsAndBars'>
-            {/** replace with stars component */}
-            <Stars reviewsMeta={this.props.reviewsMeta}/>
+            <FlexRow>
+              <div>{this.props.reviewsMeta.averageRating}</div>
+              <Stars reviewsMeta={this.props.reviewsMeta} />
+            </FlexRow>
             <div>100% of reviews recommend this product</div>
             <div className='starsFilters'>
               {[1, 2, 3, 4, 5].map((rating) => (
@@ -58,11 +66,11 @@ class RatingsAndReviews extends react.Component {
                 />
               ))}
             </div>
-            <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics}/>
+            <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
-            <ReviewsList reviews={this.state.loadedReviews}/>
+            <ReviewsList reviews={this.state.loadedReviews} />
             <div>
               <button>MORE REVIEWS</button>
               <button>ADD A REVIEW +</button>
