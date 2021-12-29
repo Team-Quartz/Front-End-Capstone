@@ -6,12 +6,13 @@ import QuestionsAndAnwsers from './components/questions-and-answers/Index.jsx';
 import RatingsAndReviews from './components/ratings-and-reviews/Index.jsx';
 import RelatedItemsAndComparisons from './components/related-items-and-comparisons/Index.jsx';
 import utils from './Utils.js';
+import { reviewsMeta } from './placeholderData.js';
 
 class App extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
-      /** to be determined */
+      reviewsMeta: reviewsMeta,
     };
   }
 
@@ -22,7 +23,7 @@ class App extends react.Component {
         <ProductDetails />
         {/* <RelatedItemsAndComparisons /> */}
         {/* <QuestionsAndAnswers /> */}
-        <RatingsAndReviews />
+        <RatingsAndReviews reviewsMeta={this.state.reviewsMeta}/>
       </div>
     );
   }
