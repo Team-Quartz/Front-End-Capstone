@@ -1,4 +1,4 @@
-import react from 'react';
+import react, { useState } from 'react';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -44,38 +44,30 @@ function PhotoGallery({ photos }) {
   return '';
 }
 
-class Body extends react.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-  }
-  render() {
-    let body = this.props.body;
-    if (body.length < 250) {
-      return <div>{body}</div>;
-    }
+function ReviewBody(props) {
+  const [expanded, setExpanded] = useState(false);
 
-    let buttonText = 'hide';
-    if (!this.state.expanded) {
-      buttonText = 'show more';
-      const splitIndex = body.lastIndexOf(' ', 250);
-      if (splitIndex >= 0) {
-        body = `${body.substring(0, splitIndex)}...`;
-      } else {
-        body = body.substring(0, 250);
-      }
-    }
-    return (
-      <div>
-        {body}
-        <TextButton onClick={() => this.setState({ expanded: !this.state.expanded })}>
-          {buttonText}
-        </TextButton>
-      </div>
-    );
+  let body = props.body;
+  if (body.length < 250) {
+    return <div>{body}</div>;
   }
+
+  let buttonText = 'hide';
+  if (!expanded) {
+    buttonText = 'show more';
+    const splitIndex = body.lastIndexOf(' ', 250);
+    if (splitIndex >= 0) {
+      body = `${body.substring(0, splitIndex)}...`;
+    } else {
+      body = body.substring(0, 250);
+    }
+  }
+  return (
+    <div>
+      {body}
+      <TextButton onClick={() => setExpanded(!expanded)}>{buttonText}</TextButton>
+    </div>
+  );
 }
 
 function ReviewsList({ reviews }) {
@@ -92,7 +84,7 @@ function ReviewsList({ reviews }) {
               </div>
             </SpreadRow>
             <h3>{review.summary}</h3>
-            <Body body={review.body} />
+            <ReviewBody body={review.body} />
             <PhotoGallery photos={review.photos} />
             {review.recommend ? '✓ I recommend this product' : undefined}
             <Response response={review.response} />
