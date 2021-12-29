@@ -3,6 +3,7 @@ import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import { Stars } from '../sharedComponents.jsx';
+import ReviewsList from './ReviewsList.jsx';
 
 const blankState = {
   loadedReviews: [],
@@ -61,11 +62,7 @@ class RatingsAndReviews extends react.Component {
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
-            <div>
-              {this.state.loadedReviews.map((review) => (
-                <div key={review.review_id}>{review.summary}</div>
-              ))}
-            </div>
+            <ReviewsList reviews={this.state.loadedReviews}/>
             <div>
               <button>MORE REVIEWS</button>
               <button>ADD A REVIEW +</button>
