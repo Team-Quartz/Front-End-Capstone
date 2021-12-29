@@ -33,8 +33,8 @@ function ProductBreakdown({ characteristics }) {
             {characteristic}
             <BarFrame position={(value - 1) / 4} />
             <LabelsFrame>
-              {characteristicsMap[characteristic].barLabels.map((label) => (
-                <div>{label}</div>
+              {characteristicsMap[characteristic].barLabels.map((label, i) => (
+                <div key={i}>{label}</div>
               ))}
             </LabelsFrame>
           </Characteristic>
