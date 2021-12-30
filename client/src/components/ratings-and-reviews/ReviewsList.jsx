@@ -2,11 +2,7 @@ import react, { useState } from 'react';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import { FlexRow } from '../sharedComponents.jsx';
 
 const SpreadRow = styled(FlexRow)`
   justify-content: space-between;

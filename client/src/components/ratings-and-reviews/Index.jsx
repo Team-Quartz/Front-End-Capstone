@@ -2,14 +2,9 @@ import react from 'react';
 import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars } from '../sharedComponents.jsx';
+import { Stars, FlexRow } from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
 const blankState = {
   loadedReviews: [],
@@ -44,13 +39,8 @@ class RatingsAndReviews extends react.Component {
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
-          <div className='starsAndBars'>
+        <FlexRow>
+          <div style={{ flex: 1 }}>
             <FlexRow>
               <div>{this.props.reviewsMeta.averageRating}</div>
               <Stars reviewsMeta={this.props.reviewsMeta} />
@@ -68,7 +58,7 @@ class RatingsAndReviews extends react.Component {
             </div>
             <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
           </div>
-          <div className='reviewsList'>
+          <div style={{ flex: 2 }}>
             <div>248 reviews, sorted by relevance</div>
             <ReviewsList reviews={this.state.loadedReviews} />
             <div>
@@ -76,7 +66,7 @@ class RatingsAndReviews extends react.Component {
               <button>ADD A REVIEW +</button>
             </div>
           </div>
-        </div>
+        </FlexRow>
       </div>
     );
   }
