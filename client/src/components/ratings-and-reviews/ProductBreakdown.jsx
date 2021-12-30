@@ -14,7 +14,7 @@ const BarFrame = styled.div`
     content: '▼';
     position: absolute;
     left: ${(props) => props.position * 100}%;
-    transform: translateX(-50%) translateY(-10%);
+    transform: translateX(-50%) translateY(-3px);
   }
 `;
 const LabelsFrame = styled.div`
