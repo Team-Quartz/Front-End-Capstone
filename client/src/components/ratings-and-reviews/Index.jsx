@@ -46,7 +46,7 @@ class RatingsAndReviews extends react.Component {
               <Stars reviewsMeta={this.props.reviewsMeta} />
             </FlexRow>
             <div>100% of reviews recommend this product</div>
-            <div className='starsFilters'>
+            <div>
               {[1, 2, 3, 4, 5].map((rating) => (
                 <RatingBreakdown
                   rating={rating}
