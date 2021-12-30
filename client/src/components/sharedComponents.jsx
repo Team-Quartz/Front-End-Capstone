@@ -1,7 +1,19 @@
 import react from 'react';
 import styled from 'styled-components';
 
-const FlexRow = styled.div`
+export const rootStyle = `
+font-family: Arial, sans-serif;
+margin: 4px;
+`;
+
+export const AppStyle = styled.div`
+  ${rootStyle}
+  * {
+    margin: inherit;
+  }
+`;
+
+export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
 `;
@@ -11,6 +23,7 @@ const StarBounds = styled.div`
   height: 1em;
   overflow: hidden;
   position: relative;
+  margin: 0;
 `;
 
 const StarImg = styled.img`
@@ -27,7 +40,7 @@ export const Stars = ({ reviewsMeta }) => {
   for (let i = 0; i < 20; i += 4) {
     stars.push(
       <StarBounds key={i}>
-        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))}/>
+        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))} />
       </StarBounds>
     );
   }

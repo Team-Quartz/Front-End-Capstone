@@ -7,6 +7,7 @@ import RatingsAndReviews from './components/ratings-and-reviews/Index.jsx';
 import RelatedItemsAndComparisons from './components/related-items-and-comparisons/Index.jsx';
 import utils from './Utils.js';
 import { reviewsMeta } from './placeholderData.js';
+import { AppStyle } from './components/sharedComponents.jsx';
 
 class App extends react.Component {
   constructor(props) {
@@ -18,13 +19,12 @@ class App extends react.Component {
 
   render() {
     return (
-      <div>
-        <div>Hello, world!</div>
+      <AppStyle>
         <ProductDetails />
         {/* <RelatedItemsAndComparisons /> */}
         {/* <QuestionsAndAnswers /> */}
-        <RatingsAndReviews reviewsMeta={this.state.reviewsMeta}/>
-      </div>
+        <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
+      </AppStyle>
     );
   }
 }
