@@ -1,6 +1,10 @@
 import react from 'react';
 import styled from 'styled-components';
 
+export const AppContainer = styled.div`
+  max-width: 1200px;
+  margin: auto;
+`;
 export const rootStyle = `
 font-family: Arial, sans-serif;
 margin: 4px;

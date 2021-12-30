@@ -3,7 +3,7 @@ import reactDOM from 'react-dom';
 
 //  note: it's important that sharedComponents be imported early in App,
 //  so its styles get added before any other modules (for consistent overriding behavior)
-import { AppStyle } from './components/sharedComponents.jsx';
+import { AppContainer, AppStyle } from './components/sharedComponents.jsx';
 
 import ProductDetails from './components/product-details/Index.jsx';
 import QuestionsAndAnwsers from './components/questions-and-answers/Index.jsx';
@@ -22,12 +22,14 @@ class App extends react.Component {
 
   render() {
     return (
-      <AppStyle>
-        <ProductDetails />
-        {/* <RelatedItemsAndComparisons /> */}
-        {/* <QuestionsAndAnswers /> */}
-        <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
-      </AppStyle>
+      <AppContainer>
+        <AppStyle>
+          <ProductDetails />
+          {/* <RelatedItemsAndComparisons /> */}
+          {/* <QuestionsAndAnswers /> */}
+          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
+        </AppStyle>
+      </AppContainer>
     );
   }
 }
