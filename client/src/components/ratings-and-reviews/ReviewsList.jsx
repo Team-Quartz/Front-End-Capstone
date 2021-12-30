@@ -58,7 +58,7 @@ function ReviewBody(props) {
     }
   }
   return (
-    <div>
+    <div style={{ maxWidth: '600px'}}>
       {body}
       <TextButton onClick={() => setExpanded(!expanded)}>{buttonText}</TextButton>
     </div>
