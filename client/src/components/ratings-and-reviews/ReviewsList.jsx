@@ -73,30 +73,28 @@ function ReviewBody(props) {
 function ReviewsList({ reviews }) {
   return (
     <div>
-      {reviews.map((review) => {
-        return (
-          <div key={review.review_id}>
-            <SpreadRow>
-              <Stars reviewsMeta={{ averageRating: review.rating }} />
-              <div>
-                {`${review.reviewer_name}, `}
-                {dayjs(review.date).format('MMMM DD, YYYY')}
-              </div>
-            </SpreadRow>
-            <h3>{review.summary}</h3>
-            <ReviewBody body={review.body} />
-            <PhotoGallery photos={review.photos} />
-            {review.recommend ? '✓ I recommend this product' : undefined}
-            <Response response={review.response} />
-            <FlexRow>
-              Helpful?
-              <TextButton>Yes</TextButton>
-              {`(${review.helpfulness}) | `}
-              <TextButton>Report</TextButton>
-            </FlexRow>
-          </div>
-        );
-      })}
+      {reviews.map((review) => (
+        <div key={review.review_id}>
+          <SpreadRow>
+            <Stars reviewsMeta={{ averageRating: review.rating }} />
+            <div>
+              {`${review.reviewer_name}, `}
+              {dayjs(review.date).format('MMMM DD, YYYY')}
+            </div>
+          </SpreadRow>
+          <h3>{review.summary}</h3>
+          <ReviewBody body={review.body} />
+          <PhotoGallery photos={review.photos} />
+          {review.recommend ? '✓ I recommend this product' : undefined}
+          <Response response={review.response} />
+          <FlexRow>
+            Helpful?
+            <TextButton>Yes</TextButton>
+            {`(${review.helpfulness}) | `}
+            <TextButton>Report</TextButton>
+          </FlexRow>
+        </div>
+      ))}
     </div>
   );
 }
