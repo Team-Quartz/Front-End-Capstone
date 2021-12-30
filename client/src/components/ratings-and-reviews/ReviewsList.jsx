@@ -12,6 +12,9 @@ const TextButton = styled.button`
   border: none;
   text-decoration: underline;
   background: none;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
 `;
 
 function Response({ response }) {
@@ -85,9 +88,9 @@ function ReviewsList({ reviews }) {
             {review.recommend ? '✓ I recommend this product' : undefined}
             <Response response={review.response} />
             <FlexRow>
-              Helpful?
+              Helpful?&nbsp;
               <TextButton>Yes</TextButton>
-              {`(${review.helpfulness}) | `}
+              &nbsp;({review.helpfulness})&nbsp;|&nbsp;
               <TextButton>Report</TextButton>
             </FlexRow>
           </div>
