@@ -4,10 +4,6 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
 
-const SpreadRow = styled(FlexRow)`
-  justify-content: space-between;
-`;
-
 const TextButton = styled.button`
   border: none;
   text-decoration: underline;
@@ -75,13 +71,13 @@ function ReviewsList({ reviews }) {
       {reviews.map((review) => {
         return (
           <div key={review.review_id}>
-            <SpreadRow>
+            <FlexRow style={{ justifyContent: 'space-between' }}>
               <Stars reviewsMeta={{ averageRating: review.rating }} />
               <div>
                 {`${review.reviewer_name}, `}
                 {dayjs(review.date).format('MMMM DD, YYYY')}
               </div>
-            </SpreadRow>
+            </FlexRow>
             <h3>{review.summary}</h3>
             <ReviewBody body={review.body} />
             <PhotoGallery photos={review.photos} />
