@@ -4,6 +4,7 @@
 import React from 'react';
 import reactDOM from 'react-dom';
 import { Stars } from '../src/components/sharedComponents.jsx';
+import renderer from 'react-test-renderer';
 
 describe('Shared Components', () => {
   let stars;
@@ -13,9 +14,9 @@ describe('Shared Components', () => {
     reactDOM.render(<Stars reviewsMeta={{ averageRating: 3.25 }} />, stars);
   });
   describe('Stars component', () => {
-    //TODO: replace this test with a DOM snapshot
-    it('should have five children, nested in a div', () => {
-      expect(stars.children[0].children.length).toEqual(5);
+    it('renders correctly', () => {
+      const tree = renderer.create(<Stars reviewsMeta={{ averageRating: 3.25 }} />).toJSON();
+      expect(tree).toMatchSnapshot();
     });
   });
 });

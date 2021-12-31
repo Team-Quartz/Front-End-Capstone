@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shared Components Stars component renders correctly 1`] = `
+<div
+  className="sc-bdvvtL kOOFdf"
+>
+  <div
+    className="sc-gsDKAQ exZWXk"
+  >
+    <img
+      className="sc-dkPtRN sAWEY"
+      src="./img/stars.png"
+    />
+  </div>
+  <div
+    className="sc-gsDKAQ exZWXk"
+  >
+    <img
+      className="sc-dkPtRN sAWEY"
+      src="./img/stars.png"
+    />
+  </div>
+  <div
+    className="sc-gsDKAQ exZWXk"
+  >
+    <img
+      className="sc-dkPtRN sAWEY"
+      src="./img/stars.png"
+    />
+  </div>
+  <div
+    className="sc-gsDKAQ exZWXk"
+  >
+    <img
+      className="sc-dkPtRN htyiDR"
+      src="./img/stars.png"
+    />
+  </div>
+  <div
+    className="sc-gsDKAQ exZWXk"
+  >
+    <img
+      className="sc-dkPtRN jEbGhI"
+      src="./img/stars.png"
+    />
+  </div>
+</div>
+`;
