@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Shared Components Stars component renders correctly 1`] = `
+exports[`Shared Components Stars component, react-test-renderer renders correctly 1`] = `
 <div
   className="sc-bdvvtL kOOFdf"
 >
