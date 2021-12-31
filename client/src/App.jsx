@@ -12,6 +12,7 @@ class App extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentProductId: {id : 38328},
       reviewsMeta: reviewsMeta,
     };
   }
@@ -21,7 +22,7 @@ class App extends react.Component {
       <div>
         <div>Hello, world!</div>
         <ProductDetails />
-        {/* <RelatedItemsAndComparisons /> */}
+        <RelatedItemsAndComparisons currentProductId={this.state.currentProductId.id}/>
         {/* <QuestionsAndAnswers /> */}
         <RatingsAndReviews reviewsMeta={this.state.reviewsMeta}/>
       </div>
