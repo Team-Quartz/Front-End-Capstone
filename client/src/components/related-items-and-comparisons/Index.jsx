@@ -2,9 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import RelatedItems from './components/RelatedItems.jsx'
 import OutfitItems from "./components/OutfitItems.jsx";
-import exampleRelated from './dummydata/sampleRelated.js';
-import exampleStyles from "./dummydata/sampleStyles.js";
-import exampleProduct from "./dummydata/sampleProduct.js";
+import exampleRelated from './dummy-data/sampleRelated.js';
+import exampleStyles from "./dummy-data/sampleStyles.js";
+import exampleProduct from "./dummy-data/sampleProduct.js";
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const Title = styled.h5`
 `;
 
 
-const Index = () => {
+const Index = ({reviewsMeta}) => {
   const [defaultStyles] = useState(exampleStyles[0]);
   const [relatedItems] = useState(exampleRelated)
   const [currentProduct] = useState(exampleProduct)
@@ -50,6 +50,7 @@ const Index = () => {
           currentItemId={currentProduct}
           defaultStyle={defaultStyles}
           relatedItems={relatedItems}
+          reviewsMeta={reviewsMeta}
         />
       </RelatedProducts>
       <Outfit>
@@ -57,6 +58,7 @@ const Index = () => {
         <OutfitItems
           currentItem={currentProduct}
           defaultStyle={defaultStyles}
+          reviewsMeta={reviewsMeta}
         />
       </Outfit>
     </Wrapper>

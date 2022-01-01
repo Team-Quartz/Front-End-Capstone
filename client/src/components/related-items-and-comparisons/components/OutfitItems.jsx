@@ -2,7 +2,7 @@ import React from "react";
 import Outfit from "./Outfit";
 import styled from "styled-components";
 import { useState } from "react";
-import sampleOutfitList from "../dummydata/sampleOutfitlist";
+import sampleOutfitList from "../dummy-data/sampleOutfitlist";
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +13,8 @@ const Container = styled.div`
 
 // change top position on final product
 const Arrow = styled.div`
-  width: 50px;
-  height: 50px:
+  width: 5%;
+  height: 13%;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ const Arrow = styled.div`
   bottom: 0px;
   margin: auto;
   cursor: pointer;
-  border: 1px solid black;
+  border: 3px solid black;
 `;
 
 const Wrapper = styled.div`
@@ -38,19 +38,19 @@ const Wrapper = styled.div`
 `;
 
 const AddToOutfitCard = styled.div`
-border: 1px solid lightgrey;
-display: flex;
-width: 200px;
-margin: 10px;
-flex-direction: column;
-position: relative;
-justify-content:center;
-align-items: center;
-background: lightgray;
-&:hover {
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-  bottom-border: 0px;
-  cursor: pointer;
+  border: 1px solid lightgrey;
+  display: flex;
+  width: 200px;
+  margin: 10px;
+  flex-direction: column;
+  position: relative;
+  justify-content:center;
+  align-items: center;
+  background: lightgray;
+  &:hover {
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    bottom-border: 0px;
+    cursor: pointer;
 `;
 
 const AddToOutfitButton = styled.button`
@@ -67,14 +67,17 @@ const InnerWrapper = styled.div`
 `
 //fix
 const LeftArrow = styled.div`
-  width: 50%;
+  width: 100%;
   height: auto;
   display: ${(props) => props.position === "none" && "none"};
+  border: 3px solid red;
+
 `;
 const RightArrow = styled.div`
-  width: 50%;
+  width: 100%;
   height: auto;
   display: ${(props) => props.position === "none" && "none"};
+  border: 3px solid red;
 `;
 
 const OutfitItems = ({currentItem, defaultStyle}) => {

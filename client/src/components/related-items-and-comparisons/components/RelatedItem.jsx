@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import exampleStyles from "../dummydata/sampleStyles";
-import exampleProducts from "../dummydata/sampleProducts";
+import exampleStyles from "../dummy-data/sampleStyles";
+import exampleProducts from "../dummy-data/sampleProducts";
 import CompareModal from "./CompareModal";
-import comparedProducttest from "../dummydata/sampleCompareProductFeat";
-import currentProduct from "../dummydata/sampleCurrentProductFeat";
+import comparedProducttest from "../dummy-data/sampleCompareProductFeat";
+import currentProduct from "../dummy-data/sampleCurrentProductFeat";
 
 const Container = styled.div`
   display: flex;
@@ -34,14 +34,15 @@ const Uppercard = styled.div`
 `;
 
 const ActionButton = styled.button`
+  height: 25px;
+  width: 25px;
   position: absolute;
-  right: -8%;
-  top: 1%;
+  right: 0;
+  top: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  z-index: 100;
-  border: 1px solid black;
+  border: 5px solid black;
 `;
 
 const ActionIcon = styled.div`

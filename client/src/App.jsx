@@ -22,7 +22,7 @@ class App extends react.Component {
       <div>
         <div>Hello, world!</div>
         <ProductDetails />
-        <RelatedItemsAndComparisons currentProductId={this.state.currentProductId.id}/>
+        <RelatedItemsAndComparisons currentProductId={this.state.currentProductId.id} reviewsMeta={this.state.reviewsMeta}/>
         {/* <QuestionsAndAnswers /> */}
         <RatingsAndReviews reviewsMeta={this.state.reviewsMeta}/>
       </div>

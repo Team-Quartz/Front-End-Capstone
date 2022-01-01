@@ -26,6 +26,7 @@ const Arrow = styled.div`
   bottom: 0px;
   margin: auto;
   cursor: pointer;
+  border: 3px solid black;
 `
 
 const Wrapper = styled.div`
@@ -34,15 +35,19 @@ const Wrapper = styled.div`
   transition: all 1.0s ease;
   transform: translateX(${(props) => props.slideIndex * -16}vw);
 `
-const LeftArrow = styled.img`
-  width: 50%;
+const LeftArrow = styled.div`
+  width: 100%;
   height: auto;
   display: ${(props) => props.position === "none" && "none"};
+  border: 3px solid red;
+
 `
-const RightArrow = styled.img`
-  width: 50%;
+const RightArrow = styled.div`
+  width: 100%;
   height: auto;
   display: ${(props) => props.position === "none" && "none"};
+  border: 3px solid red;
+
 `
 
 
@@ -70,6 +75,7 @@ const RelatedItems = (props) => {
             key={index}
             currentItem={props.currentItem}
             defaultStyle={props.defaultStyle}
+            reviewsMeta={props.reviewsMeta}
           />
         )
       })}

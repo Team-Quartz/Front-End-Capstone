@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import exampleStyles from "../dummydata/sampleStyles";
+import exampleStyles from "../dummy-data/sampleStyles";
 
 
 const Container = styled.div`
@@ -27,20 +27,24 @@ const Uppercard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 1px solid black;
+
 `;
 
 const ActionButton = styled.button`
+  height: 25px;
+  width: 25px;
   position: absolute;
-  right: -8%;
-  top: 1%;
+  right: 0;
+  top: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  z-index: 100;
+  border: 5px solid black;
 `;
 
-const ActionIcon = styled.img`
-  width: 50%;
+const ActionIcon = styled.div`
+  width: 100%;
   height: auto;
 `;
 
