@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: none;
+  border: 1px solid lightgrey;
   display: flex;
   width: 200px;
   height: 100%;
@@ -29,8 +29,6 @@ const Uppercard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-
 `;
 
 const ActionButton = styled.button`
@@ -52,8 +50,8 @@ const Lowercard = styled.div`
   background: lightgrey;
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  bottom: 0px;
+  padding: 5px 5px 0px;
+
 `;
 
 const Catergory = styled.div`
@@ -77,13 +75,13 @@ const ImgWrapper = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: scale-down;
+  object-fit: cover;
 `;
 //temp
 const ReviewWrapper = styled.div`
   padding-top: 10px;
-  border: 1px solid black;
 `;
+
 const Stars = styled.img`
   width: 40%;
   height: auto;

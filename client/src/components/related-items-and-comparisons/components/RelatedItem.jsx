@@ -56,8 +56,7 @@ const Lowercard = styled.div`
   background: lightgrey;
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  bottom: 0px;
+  padding: 5px 5px 0px;
 `;
 
 const Catergory = styled.div`
