@@ -14,6 +14,7 @@ const Card = styled.div`
   border: none;
   display: flex;
   width: 200px;
+  height: 100%;
   margin: 10px;
   flex-direction: column;
   position: relative;
@@ -76,7 +77,7 @@ const ImgWrapper = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: scale-down;
 `;
 //temp
 const ReviewWrapper = styled.div`
@@ -90,7 +91,7 @@ const Stars = styled.img`
 
 
 const Outfit = ({item, removeFromOutfit}) => {
-   const [defaultProductStyle] = useState(exampleStyles.results[0]);
+   const [defaultProductStyle] = useState(exampleStyles.results[3]);
 
   const removeOutfit = () => {
     removeFromOutfit(item)
@@ -105,7 +106,7 @@ const Outfit = ({item, removeFromOutfit}) => {
               <FaRegTimesCircle size={45}/>
             </ActionButton>
             <ImgWrapper>
-              <Image src={defaultProductStyle.photos[1].thumbnail_url} />
+              <Image src={defaultProductStyle.photos[0].thumbnail_url} />
             </ImgWrapper>
           </Uppercard>
           <Lowercard>

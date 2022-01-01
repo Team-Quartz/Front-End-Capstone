@@ -56,9 +56,9 @@ const RightArrow = styled.div`
 `
 
 
-const RelatedItems = (props) => {
+const RelatedItems = ({relatedItems, changeCurrentProduct, currentProduct}) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const index = props.relatedItems.length - 3;
+  const index = relatedItems.length - 3;
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex - 1);
@@ -74,15 +74,13 @@ const RelatedItems = (props) => {
         </LeftArrow>
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-      {props.relatedItems.map((item, index) => {
+      {relatedItems.map((item, index) => {
         return (
           <RelatedItem
-            changeCurrentProduct={props.changeCurrentProduct}
-            item={item}
+            changeCurrentProduct={changeCurrentProduct}
+            relatedItemId={item}
             key={index}
-            currentItem={props.currentItem}
-            defaultStyle={props.defaultStyle}
-            reviewsMeta={props.reviewsMeta}
+            currentProduct={currentProduct}
           />
         )
       })}

@@ -42,6 +42,7 @@ const AddToOutfitCard = styled.div`
   border: 1px solid lightgrey;
   display: flex;
   width: 200px;
+  height: 100%;
   margin: 10px;
   flex-direction: column;
   position: relative;

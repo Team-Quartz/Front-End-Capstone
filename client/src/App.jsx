@@ -12,9 +12,14 @@ class App extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProductId: {id : 38328},
+      currentProductId: 38328,
       reviewsMeta: reviewsMeta,
     };
+    this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
+  }
+
+  changeCurrentProduct(productId) {
+    this.setState({currentProductId: productId})
   }
 
   render() {
@@ -22,7 +27,10 @@ class App extends react.Component {
       <div>
         <div>Hello, world!</div>
         <ProductDetails />
-        <RelatedItemsAndComparisons currentProductId={this.state.currentProductId.id} reviewsMeta={this.state.reviewsMeta}/>
+        <RelatedItemsAndComparisons
+          currentProductId={this.state.currentProductId}
+          changeCurrentProduct={this.changeCurrentProduct}
+          />
         {/* <QuestionsAndAnswers /> */}
         <RatingsAndReviews reviewsMeta={this.state.reviewsMeta}/>
       </div>

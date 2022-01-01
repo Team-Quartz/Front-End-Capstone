@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import RelatedItems from './components/RelatedItems.jsx'
 import OutfitItems from "./components/OutfitItems.jsx";
 import exampleRelated from './dummy-data/sampleRelated.js';
@@ -11,10 +12,11 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center
   flex-direction: column;
-  height: 100vh;
+  height: 900px;
   width: 56%;
   padding: 0px 10px;
   margin: auto;
+  position: relative;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -36,10 +38,42 @@ const Title = styled.h5`
 `;
 
 
-const Index = ({reviewsMeta}) => {
+const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
   const [defaultStyles] = useState(exampleStyles[0]);
-  const [relatedItems] = useState(exampleRelated)
-  const [currentProduct] = useState(exampleProduct)
+  const [relatedItems, setRelatedItems] = useState(exampleRelated)
+  const [currentProduct, setCurrentProduct] = useState(exampleProduct)
+
+  //API FETCH
+  const fetchRelatedProductIds = () => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/related`,
+    {
+      headers: {
+        'Authorization': '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'
+      }
+    }).then((relatedIds) => {
+      setRelatedItems(relatedIds.data)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const fetchCurrentProduct = () => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/`,
+    {
+      headers: {
+        'Authorization': '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'
+      }
+    }).then((currentProductInfo) => {
+      setCurrentProduct(currentProductInfo.data)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    fetchRelatedProductIds();
+    fetchCurrentProduct()
+  }, [])
 
   return (
     <Container>
@@ -47,9 +81,12 @@ const Index = ({reviewsMeta}) => {
       <RelatedProducts>
         <Title>RELATED PRODUCTS</Title>
         <RelatedItems
-          currentItemId={currentProduct}
-          defaultStyle={defaultStyles}
+          changeCurrentProduct={changeCurrentProduct}
+          currentProductId={currentProductId}
           relatedItems={relatedItems}
+          currentProduct={currentProduct}
+
+          defaultStyle={defaultStyles}
           reviewsMeta={reviewsMeta}
         />
       </RelatedProducts>

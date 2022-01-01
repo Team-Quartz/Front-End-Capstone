@@ -94,11 +94,11 @@ const RightColumn = styled.div`
   row-gap: 5px;
   font-size: 11px;
   justify-items: center;
-
 `;
 
 const InnerRightColumn = styled.div`
   height: 15px;
+
 `
 const InnerLeftColumn = styled.div`
   height: 15px;
@@ -107,7 +107,7 @@ const InnerMiddleColumn = styled.div`
   height: 15px;
 `
 
-const CompareModal = ({ showCompare, setShowCompare, combinedFeatures }) => {
+const CompareModal = ({ showCompare, setShowCompare, combinedFeatures, currentItem, defaultProduct }) => {
   var {currentProduct, feature, comparisonProduct} = combinedFeatures;
 
   return (
@@ -118,8 +118,8 @@ const CompareModal = ({ showCompare, setShowCompare, combinedFeatures }) => {
            <Top>
              <CompareTitle>Compare</CompareTitle>
              <Header>
-               <CurrentProduct>Product 1</CurrentProduct>
-               <ComparedProduct>Product 2</ComparedProduct>
+               <CurrentProduct>{currentItem.name}</CurrentProduct>
+               <ComparedProduct>{defaultProduct.name}</ComparedProduct>
              </Header>
            </Top>
            <Body>
