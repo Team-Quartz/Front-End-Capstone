@@ -5,6 +5,7 @@ import exampleProducts from "../dummy-data/sampleProducts";
 import CompareModal from "./CompareModal";
 import comparedProducttest from "../dummy-data/sampleCompareProductFeat";
 import currentProduct from "../dummy-data/sampleCurrentProductFeat";
+import { FaRegStar } from 'react-icons/fa'
 
 const Container = styled.div`
   display: flex;
@@ -34,20 +35,17 @@ const Uppercard = styled.div`
 `;
 
 const ActionButton = styled.button`
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
   position: absolute;
   right: 0;
   top: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  border: 5px solid black;
-`;
-
-const ActionIcon = styled.div`
-  width: 50%;
-  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Lowercard = styled.div`
@@ -156,7 +154,7 @@ const RelatedItem = (props) => {
         <Card>
           <Uppercard>
             <ActionButton onClick={onModalClick}>
-              <ActionIcon />
+              <FaRegStar size={40}/>
             </ActionButton>
             <ImgWrapper>
               <Image src={defaultProductStyle.photos[1].thumbnail_url} />
@@ -167,7 +165,7 @@ const RelatedItem = (props) => {
             <Product>{defaultProduct[0].name}</Product>
             <Price>${defaultProduct[0].default_price}</Price>
             <ReviewWrapper>
-              <Stars />
+              Stars review goes here
             </ReviewWrapper>
           </Lowercard>
       <CompareModal showCompare={showCompare} setShowCompare={setShowCompare} combinedFeatures={combinedFeatures}/>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import exampleStyles from "../dummy-data/sampleStyles";
+import { FaRegTimesCircle } from 'react-icons/fa'
 
 
 const Container = styled.div`
@@ -10,7 +11,7 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid lightgrey;
+  border: none;
   display: flex;
   width: 200px;
   margin: 10px;
@@ -32,20 +33,17 @@ const Uppercard = styled.div`
 `;
 
 const ActionButton = styled.button`
-  height: 25px;
-  width: 25px;
+  height: 40px;
+  width: 40px;
   position: absolute;
   right: 0;
   top: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  border: 5px solid black;
-`;
-
-const ActionIcon = styled.div`
-  width: 100%;
-  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Lowercard = styled.div`
@@ -104,7 +102,7 @@ const Outfit = ({item, removeFromOutfit}) => {
         <Card>
           <Uppercard>
             <ActionButton onClick={removeOutfit}>
-              <ActionIcon />
+              <FaRegTimesCircle size={45}/>
             </ActionButton>
             <ImgWrapper>
               <Image src={defaultProductStyle.photos[1].thumbnail_url} />
@@ -115,7 +113,7 @@ const Outfit = ({item, removeFromOutfit}) => {
             <Product>{item.name}</Product>
             <Price>${item.default_price}</Price>
             <ReviewWrapper>
-              <Stars />
+              Stars review goes here
             </ReviewWrapper>
           </Lowercard>
         </Card>

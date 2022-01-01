@@ -3,6 +3,7 @@ import Outfit from "./Outfit";
 import styled from "styled-components";
 import { useState } from "react";
 import sampleOutfitList from "../dummy-data/sampleOutfitlist";
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +14,8 @@ const Container = styled.div`
 
 // change top position on final product
 const Arrow = styled.div`
-  width: 5%;
-  height: 13%;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -27,7 +28,7 @@ const Arrow = styled.div`
   bottom: 0px;
   margin: auto;
   cursor: pointer;
-  border: 3px solid black;
+  padding: 2px;
 `;
 
 const Wrapper = styled.div`
@@ -68,17 +69,23 @@ const InnerWrapper = styled.div`
 //fix
 const LeftArrow = styled.div`
   width: 100%;
-  height: auto;
-  display: ${(props) => props.position === "none" && "none"};
-  border: 3px solid red;
-
+  height: 100%;
+  display: ${(props) => props.position === "none" ? "none" : "flex"};
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(218, 223, 225, 0.8);
+  border-radius: 50%;
 `;
+
 const RightArrow = styled.div`
   width: 100%;
-  height: auto;
-  display: ${(props) => props.position === "none" && "none"};
-  border: 3px solid red;
-`;
+  height: 100%;
+  display: ${(props) => props.position === "none" ? "none" : "flex"};
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(218, 223, 225, 0.8);
+  border-radius: 50%;
+`
 
 const OutfitItems = ({currentItem, defaultStyle}) => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -109,9 +116,9 @@ const OutfitItems = ({currentItem, defaultStyle}) => {
   return (
     <Container >
       <Arrow direction="left" onClick={() => handleClick("left")}>
-        <LeftArrow
-          position={slideIndex <= 0 ? "none" : ""}
-        />
+        <LeftArrow position={slideIndex <= 0 ? "none" : ""}>
+          <FaAngleLeft size={30} />
+        </LeftArrow>
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
         <AddToOutfitCard>
@@ -126,9 +133,9 @@ const OutfitItems = ({currentItem, defaultStyle}) => {
         ) : null}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick("right")}>
-        <RightArrow
-          position={slideIndex >= index ? "none" : ""}
-        />
+      <RightArrow position={slideIndex >= index ? "none" : "unset"}>
+          <FaAngleRight size={30}/>
+        </RightArrow>
       </Arrow>
     </Container>
   );

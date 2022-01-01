@@ -9,9 +9,9 @@ const Container = styled.div`
   position: absolute;
   left: 8%;
   top: 10%;
-  z-index: 100;
   border-radius: 5px;
   overflow: auto;
+  z-index: 5;
 `;
 
 const Wrapper = styled.div`
