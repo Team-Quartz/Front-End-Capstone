@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const FlexRow = styled.div`
@@ -55,6 +55,13 @@ const ModalBody = styled.div`
   padding: 2em;
 `;
 
+/**
+ *
+ * @param {{ show: boolean, onClose: function }} props react props.
+ * @param props.show boolean state, whether or not modal should be displayed.
+ * @param props.onClose callback to be run when modal closes.
+ * @returns
+ */
 export function Modal({ show, onClose, children }) {
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
