@@ -54,8 +54,6 @@ const ModalBody = styled.div`
   padding: 2em;
 `;
 
-function onEsc(e, cb) {}
-
 /**
  *
  * @param {{ show: boolean, onClose: function }} props react props.
@@ -80,8 +78,8 @@ export function Modal({ show, onClose, children }) {
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
     return (
-      <ModalBackground>
-        <ModalBody>
+      <ModalBackground onClick={onClose}>
+        <ModalBody onClick={(e) => e.stopPropagation()}>
           <button onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
             X
           </button>
