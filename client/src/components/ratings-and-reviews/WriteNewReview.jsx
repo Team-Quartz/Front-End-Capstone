@@ -8,14 +8,11 @@ function printReviewScore(rating) {
 }
 
 function Input({ label, placeholder, value, id, context, type = 'text' }) {
-  let CustomTag = 'input';
-  if (type === 'textarea') {
-    CustomTag = 'textarea';
-  }
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <CustomTag
+      <input
+        style={{ width: '50%' }}
         id={id}
         type='text'
         value={value}
@@ -27,22 +24,22 @@ function Input({ label, placeholder, value, id, context, type = 'text' }) {
   );
 }
 
-function Characteristic({characteristic:[characteristic, value], updateCharacteristic}) {
+function Characteristic({ characteristic: [characteristic, value], updateCharacteristic }) {
   return (
     <FlexRow>
       {characteristic}
       {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => {
-        const buttonId = characteristic+i
+        const buttonId = characteristic + i;
         return (
           <div key={characteristicLabel}>
             <label htmlFor={buttonId}>{characteristicLabel}</label>
-            <br/>
-            <input type='radio' id={buttonId} name={characteristic}/>
+            <br />
+            <input type='radio' id={buttonId} name={characteristic} />
           </div>
-        )
+        );
       })}
     </FlexRow>
-  )
+  );
 }
 
 const blankState = {
@@ -50,7 +47,7 @@ const blankState = {
   recommend: null,
   characteristics: [],
   summary: '',
-  body: '',
+  body: ['', '4em'],
   photos: '',
   nickname: '',
   email: '',
@@ -88,6 +85,11 @@ export default class WriteNewReview extends React.Component {
     this.setState(stateOb);
   }
 
+  handleBodyChange(e) {
+    const newState = { body: [e.target.value, e.target.scrollHeight] };
+    this.setState(newState);
+  }
+
   starsClick(index) {
     this.setState({ rating: index + 1 });
   }
@@ -116,38 +118,53 @@ export default class WriteNewReview extends React.Component {
             No
             <input type='radio' id='no' name='recommend' />
           </div>
-          <div>{this.state.characteristics.map((characteristic) => <Characteristic characteristic={characteristic} key={characteristic}/>)}</div>
+          <div>
+            {this.state.characteristics.map((characteristic) => (
+              <Characteristic characteristic={characteristic} key={characteristic} />
+            ))}
+          </div>
           <Input
-            label='Review Summary'
+            label='Review Summary:'
             placeholder='Example: Best purchase ever!'
             value={this.state.summary}
             id={'summary'}
             context={this}
           />
-          <Input
-            label='Review Body'
-            placeholder='Why did you like this product or not?'
-            value={this.state.body}
-            id={'body'}
-            context={this}
-            type='textarea'
-          />
+          <div>
+            <label htmlFor={'body'}>Review Body:</label>
+            <br />
+            <textarea
+              style={{
+                width: '90%',
+                height: this.state.body[1],
+                minHeight: '4em',
+                maxHeight: '20em',
+              }}
+              id='body'
+              type='text'
+              value={this.state.body[0]}
+              onChange={this.handleBodyChange.bind(this)}
+              placeholder='Why did you like the product or not?'
+            />
+          </div>
           <div>Upload your Photos</div>
           <Input
-            label='Your nickname'
+            label='Your nickname:'
             placeholder='Example: jackson11!'
             value={this.state.nickname}
             id={'nickname'}
             context={this}
           />
+          For privacy reasons, do not use your full name or email address
           <Input
-            label='Your email'
-            placeholder='Your email'
+            label='Your email:'
+            placeholder='Example: jackson11@email.com'
             value={this.state.email}
             id={'email'}
             context={this}
           />
-          <FlexRow style={{justifyContent: 'flex-end'}}>
+          For authentication reasons, you will be emailed
+          <FlexRow style={{ justifyContent: 'flex-end' }}>
             {/* Error printout here */}
             <button>Submit</button>
           </FlexRow>
