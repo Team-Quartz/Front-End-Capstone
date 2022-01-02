@@ -5,11 +5,13 @@ import RatingBreakdown from './RatingBreakdown.jsx';
 import { Stars, FlexRow } from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
+import WriteNewReview from './WriteNewReview.jsx';
 
 const blankState = {
   loadedReviews: [],
   filters: [],
   reviewPage: 0,
+  writingNewReview: false,
 };
 
 class RatingsAndReviews extends react.Component {
@@ -32,6 +34,12 @@ class RatingsAndReviews extends react.Component {
       const reviewPage = ++state.reviewPage;
       const loadedReviews = state.loadedReviews.concat(placeholder.reviews.results);
       return { loadedReviews, reviewPage };
+    });
+  }
+
+  openWriteNewReview(open) {
+    this.setState({
+      writingNewReview: open,
     });
   }
 
@@ -63,10 +71,14 @@ class RatingsAndReviews extends react.Component {
             <ReviewsList reviews={this.state.loadedReviews} />
             <div>
               <button>MORE REVIEWS</button>
-              <button>ADD A REVIEW +</button>
+              <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
             </div>
           </div>
         </FlexRow>
+        <WriteNewReview
+          onClose={() => this.openWriteNewReview(false)}
+          show={this.state.writingNewReview}
+        />
       </div>
     );
   }
