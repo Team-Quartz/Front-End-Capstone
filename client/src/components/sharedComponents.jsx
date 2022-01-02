@@ -35,12 +35,13 @@ function WrapStarBounds({ clickStar, i, children }) {
 
 /**
  *
- * @param {{reviewsMeta: { averageRating: number }, onClick: function}}} props
+ * @param {{reviewsMeta: { averageRating: number }, clickStar: function}}} props
  * @param props.reviewsMeta.averageRating value (from 1 to 5, inclusive) for the stars to display
- * @param props.onClick callback to execute on click, passed the index of the star that was clicked
+ * @param props.clickStar callback to execute on clicking a star, passes the index of the star that was clicked
  * @returns react component to render
  */
 export const Stars = ({ reviewsMeta, clickStar }) => {
+  //TODO: test for different returns based on clickStar value
   const ratingClipped = Math.floor(reviewsMeta.averageRating * 4);
   const stars = [];
   for (let i = 0; i < 5; i++) {
@@ -96,6 +97,7 @@ export function Modal({ show, onClose, children }) {
   });
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
+    //TODO: test returns for different values of show, test that onClose is properly working
     return (
       <ModalBackground onClick={onClose}>
         <ModalBody onClick={(e) => e.stopPropagation()}>
