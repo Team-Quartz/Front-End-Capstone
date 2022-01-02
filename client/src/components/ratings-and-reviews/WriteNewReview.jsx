@@ -29,10 +29,15 @@ export default class WriteNewReview extends React.Component {
     this.setState({ rating: index + 1 });
   }
 
+  submitForm(e) {
+    e.preventDefault();
+    console.log('submit')
+  }
+
   render() {
     return (
       <Modal onClose={this.props.onClose} show={this.props.show}>
-        <form>
+        <form onSubmit={this.submitForm.bind(this)}>
           <h2>Write Your Review</h2>
           <h3>About the {this.props.product.name}</h3>
           <div>
@@ -56,7 +61,7 @@ export default class WriteNewReview extends React.Component {
           <div>Email</div>
           <div>
             {`[error printout]`}
-            Submit
+            <button>Submit</button>
           </div>
         </form>
       </Modal>
