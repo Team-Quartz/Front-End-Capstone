@@ -87,10 +87,8 @@ const Stars = styled.img`
 `;
 
 const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
-  const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[0])
+  const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[1])
   const [outfitProduct, setOutfitProduct] = useState([])
-
-  console.log('out', outfitProductId)
 
   // FETCH API
 
@@ -136,10 +134,13 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
     fetchOutfitProductStyles();
   }, []);
 
+
+  // fix this, not working as intended
   const removeOutfit = () => {
     removeFromOutfit(outfitProductId);
   };
 
+  console.log('outfitPro', outfitProductId)
   return (
     <>
       <Container>

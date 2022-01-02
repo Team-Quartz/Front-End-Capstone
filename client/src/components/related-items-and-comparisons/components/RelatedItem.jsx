@@ -7,6 +7,7 @@ import CompareModal from "./CompareModal";
 import comparedProducttest from "../dummy-data/sampleCompareProductFeat";
 import currentProduct from "../dummy-data/sampleCurrentProductFeat";
 import { FaRegStar } from "react-icons/fa";
+import { Stars } from "../../sharedComponents.jsx"
 
 const Container = styled.div`
   display: flex;
@@ -94,10 +95,7 @@ const Image = styled.img`
 const ReviewWrapper = styled.div`
   padding-top: 10px;
 `;
-const Stars = styled.div`
-  width: 40%;
-  height: auto;
-`;
+
 
 const RelatedItem = ({
   setRelatedItems,
@@ -115,6 +113,8 @@ const RelatedItem = ({
 
   const [showCompare, setShowCompare] = useState(false);
   const [combinedFeatures, setCombinedFeatures] = useState({});
+  const [metadata, setMetadata] = useState({})
+  const [averageRating, setAverageRating] = useState(0)
 
   // FETCH API
   const fetchRelatedProduct = () => {
@@ -153,9 +153,43 @@ const RelatedItem = ({
       });
   };
 
+  const fetchMetadata = () => {
+    axios
+      .get(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id={relatedItemId}`,
+        {
+          headers: {
+            Authorization: "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",
+          },
+        }
+      )
+      .then((metadataInfo) => {
+        setMetadata(metadataInfo.data.ratings);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const averageRatingCalc = (metadata) => {
+    let sum = 0
+    for (let key in ratings) {
+      sum += parseInt(key) * parseInt(ratings[key])
+    }
+    console.log(Object.keys(ratings))
+    const totalReviews = Object.values(ratings).reduce((acc, value) => {
+      return acc + parseInt(value);
+
+    }, 0)
+    setAverageRating(sum/totalReviews)
+  }
+
+  console.log(averageRating)
+
   useEffect(() => {
     fetchRelatedProduct();
     fetchRelatedProductStyles();
+    fetchMetadata();
   }, []);
 
   const changeCurrentItem = (itemId) => {
@@ -233,7 +267,9 @@ const RelatedItem = ({
             <Catergory>{defaultProduct.category}</Catergory>
             <Product>{defaultProduct.name}</Product>
             <Price>${defaultProduct.default_price}</Price>
-            <ReviewWrapper>Stars review goes here</ReviewWrapper>
+            <ReviewWrapper>
+              <Stars reviewsMeta={averageRating} />
+            </ReviewWrapper>
           </Lowercard>
           <CompareModal
             showCompare={showCompare}

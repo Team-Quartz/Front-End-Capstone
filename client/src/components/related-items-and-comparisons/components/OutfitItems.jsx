@@ -112,9 +112,11 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
     }
   }
 
-  const removeFromOutfit = (product) => {
-    setOutfits(outfits.filter((x) => x !== product))
+  const removeFromOutfit = (productId) => {
+    setOutfits(outfits.filter((id) => id !== productId))
   }
+
+  console.log('ar',outfits)
 
   return (
     <Container >
@@ -129,10 +131,9 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
         </AddToOutfitCard>
         {outfits.length > 0 ? (
           <InnerWrapper>
-            {outfits.map((item, index) => {
-              console.log(item)
+            {outfits.map((id, index) => {
               return <Outfit
-                outfitProductId={item}
+                outfitProductId={id}
                 key={index}
                 currentProductId={currentProductId}
                 removeFromOutfit={removeFromOutfit}/>;
