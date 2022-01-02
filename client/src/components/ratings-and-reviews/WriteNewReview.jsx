@@ -16,7 +16,7 @@ const blankState = {
   nickname: '',
   email: '',
   errors: [],
-}
+};
 
 //{ onClose, show, reviewsMeta, product }
 export default class WriteNewReview extends React.Component {
@@ -26,8 +26,7 @@ export default class WriteNewReview extends React.Component {
   }
 
   starsClick(index) {
-    console.log(index)
-    this.setState({rating: index + 1});
+    this.setState({ rating: index + 1 });
   }
 
   render() {
@@ -37,8 +36,11 @@ export default class WriteNewReview extends React.Component {
           <h2>Write Your Review</h2>
           <h3>About the {this.props.product.name}</h3>
           <div>
-            <Stars reviewsMeta={{ averageRating: this.props.rating }} clickStar={this.starsClick.bind(this)} />
-            {printReviewScore(this.props.rating)}
+            <Stars
+              reviewsMeta={{ averageRating: this.state.rating }}
+              clickStar={this.starsClick.bind(this)}
+            />
+            {printReviewScore(this.state.rating)}
           </div>
           <div className='FlexRow'>
             Do you recommend this product? Yes
