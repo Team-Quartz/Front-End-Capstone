@@ -6,6 +6,22 @@ function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
 }
 
+function Input({ label, placeholder, value, id }) {
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        type='text'
+        value={value}
+        onChange={(e) => this.handleTextChange(e, id)}
+        placeholder={placeholder}
+        //TODO: on lose focus, check if valid contents
+      />
+    </div>
+  );
+}
+
 const blankState = {
   rating: 0,
   recommend: null,
@@ -25,13 +41,19 @@ export default class WriteNewReview extends React.Component {
     this.state = blankState;
   }
 
+  handleTextChange(e, stateProp) {
+    const stateOb = {};
+    stateOb[stateProp] = e.target.value;
+    this.setState(stateOb);
+  }
+
   starsClick(index) {
     this.setState({ rating: index + 1 });
   }
 
   submitForm(e) {
     e.preventDefault();
-    console.log('submit')
+    console.log('submit');
   }
 
   render() {
@@ -54,11 +76,31 @@ export default class WriteNewReview extends React.Component {
             <input type='radio' id='no' name='recommend' />
           </div>
           <div>{`[characteristics]`}</div>
-          <div>Review Summary</div>
-          <div>Review Body</div>
+          <Input
+            label='Review Summary'
+            placeholder='Example: Best purchase ever!'
+            value={this.state.summary}
+            id={'summary'}
+          />
+          <Input
+            label='Review Body'
+            placeholder='Why did you like this product or not?'
+            value={this.state.body}
+            id={'body'}
+          />
           <div>Upload your Photos</div>
-          <div>Nickname</div>
-          <div>Email</div>
+          <Input
+            label='Your nickname'
+            placeholder='Example: jackson11!'
+            value={this.state.nickname}
+            id={'nickname'}
+          />
+          <Input
+            label='Your email'
+            placeholder='Your email'
+            value={this.state.email}
+            id={'email'}
+          />
           <div>
             {`[error printout]`}
             <button>Submit</button>
