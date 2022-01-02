@@ -57,6 +57,7 @@ const ModalBody = styled.div`
 
 export function Modal({ show, onClose, children }) {
   if (show) {
+    //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
     return (
       <ModalMain>
         <ModalBody>
