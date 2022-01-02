@@ -28,12 +28,12 @@ const StarImg = styled.img`
  * @param props.onClick callback to execute on click, passed the index of the star that was clicked
  * @returns react component to render
  */
-export const Stars = ({ reviewsMeta, onClick }) => {
+export const Stars = ({ reviewsMeta, onClick = () => {} }) => {
   const ratingClipped = Math.floor(reviewsMeta.averageRating * 4);
   const stars = [];
   for (let i = 0; i < 20; i += 4) {
     stars.push(
-      <StarBounds key={i}>
+      <StarBounds key={i} onClick={() => onClick(i / 4)}>
         <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))} />
       </StarBounds>
     );
