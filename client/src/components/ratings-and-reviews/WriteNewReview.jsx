@@ -4,7 +4,7 @@ import {Stars, Modal} from '../sharedComponents.jsx';
 
 
 
-export default function WriteNewReview({ onClose, show}) {
+export default function WriteNewReview({ onClose, show, reviewsMeta, product}) {
   //rating
   //recommend
   //Characteristics
@@ -18,7 +18,7 @@ export default function WriteNewReview({ onClose, show}) {
     <Modal onClose={onClose} show={show}>
       <form>
         <h2>Write Your Review</h2>
-        <h3>About the {`[product name]`}</h3>
+        <h3>About the {product.name}</h3>
         <div>{`[star rating]`}</div>
         <div className='FlexRow'>
           Do you recommend this product? Yes
