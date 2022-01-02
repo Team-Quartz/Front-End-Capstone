@@ -27,13 +27,16 @@ function Characteristic({characteristic:[characteristic, value], updateCharacter
   return (
     <FlexRow>
       {characteristic}
-      {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => (
-        <div key={characteristicLabel}>
-          <label htmlFor={characteristic+i}>{characteristicLabel}</label>
-          <br/>
-          <input type='radio' id={characteristic+i} name={characteristic}/>
-        </div>
-      ))}
+      {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => {
+        const buttonId = characteristic+i
+        return (
+          <div key={characteristicLabel}>
+            <label htmlFor={buttonId}>{characteristicLabel}</label>
+            <br/>
+            <input type='radio' id={buttonId} name={characteristic}/>
+          </div>
+        )
+      })}
     </FlexRow>
   )
 }
