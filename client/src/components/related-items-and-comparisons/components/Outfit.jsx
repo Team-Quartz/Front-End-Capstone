@@ -3,6 +3,8 @@ import styled from "styled-components";
 import exampleStyles from "../dummy-data/sampleStyles";
 import { FaRegTimesCircle } from "react-icons/fa";
 import axios from "axios";
+import { Stars } from "../../sharedComponents.jsx"
+import utils from '../../../Utils.js'
 
 const Container = styled.div`
   display: flex;
@@ -81,14 +83,10 @@ const ReviewWrapper = styled.div`
   padding-top: 10px;
 `;
 
-const Stars = styled.img`
-  width: 40%;
-  height: auto;
-`;
-
 const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[1])
   const [outfitProduct, setOutfitProduct] = useState([])
+  const [metadata, setMetadata] = useState({})
 
   // FETCH API
 
@@ -129,9 +127,28 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
       });
   };
 
+  const fetchMetadata = () => {
+    axios
+      .get(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${currentProductId}`,
+        {
+          headers: {
+            Authorization: "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",
+          },
+        }
+      )
+      .then((metadataInfo) => {
+        setMetadata(utils.parseReviewsMeta(metadataInfo.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
     fetchCurrentProduct();
     fetchOutfitProductStyles();
+    fetchMetadata();
   }, []);
 
 
@@ -161,7 +178,9 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
             <Catergory>{outfitProduct.category}</Catergory>
             <Product>{outfitProduct.name}</Product>
             <Price>${outfitProduct.default_price}</Price>
-            <ReviewWrapper>Stars review goes here</ReviewWrapper>
+            <ReviewWrapper>
+              <Stars reviewsMeta={metadata} />
+            </ReviewWrapper>
           </Lowercard>
         </Card>
       </Container>
