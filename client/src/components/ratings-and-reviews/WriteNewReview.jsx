@@ -4,7 +4,7 @@ import {Stars, Modal} from '../sharedComponents.jsx';
 
 
 
-export default function WriteNewReview({ onClose, show}) {
+export default function WriteNewReview({ onClose, show }) {
   //rating
   //recommend
   //Characteristics
