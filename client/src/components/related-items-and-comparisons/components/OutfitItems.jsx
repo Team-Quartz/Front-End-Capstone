@@ -2,7 +2,6 @@ import React from "react";
 import Outfit from "./Outfit";
 import styled from "styled-components";
 import { useState } from "react";
-import sampleOutfitList from "../dummy-data/sampleOutfitlist";
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 
 const Container = styled.div`
@@ -91,7 +90,6 @@ const RightArrow = styled.div`
 const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [outfits,setOutfits] = useState([]);
-  const [outfitsArray, setOutfitsArray] = useState([])
 
   const index = outfits.length - 2;
 
@@ -105,7 +103,7 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
 
   const addToOutfit = (currentProductId) => {
     if (!outfits.includes(currentProductId)) {
-      const newOutfit = [currentProductId, ...outfits];
+      const newOutfit = [...outfits, currentProductId];
       setOutfits(newOutfit)
     } else {
       alert('Item already exists in your outfits')
@@ -115,8 +113,6 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
   const removeFromOutfit = (productId) => {
     setOutfits(outfits.filter((id) => id !== productId))
   }
-
-  console.log('ar',outfits)
 
   return (
     <Container >
@@ -134,6 +130,7 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
             {outfits.map((id, index) => {
               return <Outfit
                 outfitProductId={id}
+                outfits={outfits}
                 key={index}
                 currentProductId={currentProductId}
                 removeFromOutfit={removeFromOutfit}/>;

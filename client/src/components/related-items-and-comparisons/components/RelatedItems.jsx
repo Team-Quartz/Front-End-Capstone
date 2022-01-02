@@ -58,7 +58,9 @@ const RightArrow = styled.div`
 
 const RelatedItems = ({setRelatedItems, relatedItems, changeCurrentProduct, currentProduct}) => {
   const [slideIndex, setSlideIndex] = useState(0);
+
   const index = relatedItems.length - 3;
+
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex - 1);
@@ -74,19 +76,21 @@ const RelatedItems = ({setRelatedItems, relatedItems, changeCurrentProduct, curr
           <FaAngleLeft size={30} />
         </LeftArrow>
       </Arrow>
-      <Wrapper slideIndex={slideIndex}>
-      {relatedItems.map((itemId, index) => {
-        return (
-          <RelatedItem
-            changeCurrentProduct={changeCurrentProduct}
-            relatedItemId={itemId}
-            setRelatedItems={setRelatedItems}
-            key={index}
-            currentProduct={currentProduct}
-          />
-        )
-      })}
+      {relatedItems.length > 0 ? (
+        <Wrapper slideIndex={slideIndex}>
+        {relatedItems.map((itemId, index) => {
+          return (
+            <RelatedItem
+              changeCurrentProduct={changeCurrentProduct}
+              relatedItemId={itemId}
+              setRelatedItems={setRelatedItems}
+              key={index}
+              currentProduct={currentProduct}
+            />
+          )
+        })}
       </Wrapper>
+      ) : null}
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <RightArrow position={slideIndex >= index ? "none" : "unset"}>
           <FaAngleRight size={30}/>

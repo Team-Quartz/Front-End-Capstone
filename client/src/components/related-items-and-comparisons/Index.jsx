@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import RelatedItems from './components/RelatedItems.jsx'
 import OutfitItems from "./components/OutfitItems.jsx";
-import exampleRelated from './dummy-data/sampleRelated.js';
 import exampleStyles from "./dummy-data/sampleStyles.js";
-import exampleProduct from "./dummy-data/sampleProduct.js";
+
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +17,7 @@ const Container = styled.div`
   margin: auto;
   position: relative;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
@@ -25,13 +25,13 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
+
 const RelatedProducts = styled.div`
   flex: 1;
-
 `;
+
 const Outfit = styled.div`
   flex: 1;
-
 `;
 
 const Title = styled.h5`
@@ -39,14 +39,11 @@ const Title = styled.h5`
   position: relative;
 `;
 
-
-const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
+const Index = ({changeCurrentProduct, currentProductId}) => {
   const [defaultStyles] = useState(exampleStyles[0]);
-  const [relatedItems, setRelatedItems] = useState(exampleRelated)
-  const [currentProduct, setCurrentProduct] = useState(exampleProduct)
+  const [relatedItems, setRelatedItems] = useState(0)
+  const [currentProduct, setCurrentProduct] = useState({})
 
-
-  console.log('curid', currentProductId)
   //API FETCH
   const fetchRelatedProductIds = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/related`,
@@ -90,9 +87,7 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
           relatedItems={relatedItems}
           currentProduct={currentProduct}
           setRelatedItems={setRelatedItems}
-
           defaultStyle={defaultStyles}
-          reviewsMeta={reviewsMeta}
         />
       </RelatedProducts>
       <Outfit>
@@ -100,7 +95,6 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
         <OutfitItems
           currentItem={currentProduct}
           defaultStyle={defaultStyles}
-          reviewsMeta={reviewsMeta}
           currentProductId={currentProductId}
         />
       </Outfit>

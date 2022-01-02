@@ -83,8 +83,8 @@ const ReviewWrapper = styled.div`
   padding-top: 10px;
 `;
 
-const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
-  const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[1])
+const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentProductId }) => {
+  const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[0])
   const [outfitProduct, setOutfitProduct] = useState([])
   const [metadata, setMetadata] = useState({})
 
@@ -93,7 +93,7 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
   const fetchCurrentProduct = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/`,
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/`,
         {
           headers: {
             Authorization: "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",
@@ -112,7 +112,7 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
   const fetchOutfitProductStyles = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/styles`,
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/styles`,
         {
           headers: {
             Authorization: "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",
@@ -130,7 +130,7 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
   const fetchMetadata = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${currentProductId}`,
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${outfitProductId}`,
         {
           headers: {
             Authorization: "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",
@@ -149,15 +149,12 @@ const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
     fetchCurrentProduct();
     fetchOutfitProductStyles();
     fetchMetadata();
-  }, []);
+  }, [outfits]);
 
-
-  // fix this, not working as intended
   const removeOutfit = () => {
     removeFromOutfit(outfitProductId);
   };
 
-  console.log('outfitPro', outfitProductId)
   return (
     <>
       <Container>

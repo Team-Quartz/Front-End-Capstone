@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import exampleStyles from "../dummy-data/sampleStyles";
-import exampleProducts from "../dummy-data/sampleProducts";
 import CompareModal from "./CompareModal";
-import comparedProducttest from "../dummy-data/sampleCompareProductFeat";
-import currentProduct from "../dummy-data/sampleCurrentProductFeat";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx"
 import utils from '../../../Utils.js'
@@ -72,13 +69,16 @@ const Lowercard = styled.div`
 const Catergory = styled.div`
   font-size: 14px;
 `;
+
 const Product = styled.div`
   font-weight: 900;
 `;
+
 const Price = styled.div`
   font-size: 13px;
   bottom-padding: 10px;
 `;
+
 const ImgWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -92,14 +92,12 @@ const Image = styled.img`
   height: 100%;
   object-fit: contain;
 `;
-//temp
+
 const ReviewWrapper = styled.div`
   padding-top: 10px;
 `;
 
-
 const RelatedItem = ({
-  setRelatedItems,
   changeCurrentProduct,
   currentProductId,
   relatedItemId,
@@ -108,15 +106,13 @@ const RelatedItem = ({
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     exampleStyles.results[0]
   );
-  const [defaultProduct, setDefaultProduct] = useState(38328);
-  const [defaultProductFeatures] = useState(currentProduct);
-  const [compareToProductFeatures] = useState(comparedProducttest);
+  const [defaultProduct, setDefaultProduct] = useState(currentProductId || 38328);
+  const [defaultProductFeatures] = useState([]);
+  const [compareToProductFeatures] = useState([]);
 
   const [showCompare, setShowCompare] = useState(false);
   const [combinedFeatures, setCombinedFeatures] = useState({});
   const [metadata, setMetadata] = useState({})
-
-  console.log('md',metadata)
 
   // FETCH API
   const fetchRelatedProduct = () => {
@@ -172,7 +168,6 @@ const RelatedItem = ({
         console.log(err);
       });
   }
-
 
   useEffect(() => {
     fetchRelatedProduct();

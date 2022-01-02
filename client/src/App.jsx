@@ -12,7 +12,7 @@ class App extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProductId: 39241,
+      currentProductId: 38322,
       reviewsMeta: reviewsMeta,
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
@@ -24,7 +24,7 @@ class App extends react.Component {
 
 
   changeCurrentProduct(productId) {
-    this.setState({currentProductId: productId})
+    this.setState({currentProductId: productId || 38322})
   }
 
 
