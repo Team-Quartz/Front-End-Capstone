@@ -1,4 +1,4 @@
-var exampleStyles = {
+var cardLoader = {
   "product_id": "38328",
   "results": [
       {
@@ -18,4 +18,4 @@ var exampleStyles = {
 }
 
 
-export default exampleStyles
+export default cardLoader

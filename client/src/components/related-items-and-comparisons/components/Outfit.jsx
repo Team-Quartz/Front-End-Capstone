@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import exampleStyles from "../dummy-data/sampleStyles";
+import cardLoader from "../card-loader/cardLoader";
 import { FaRegTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import { Stars } from "../../sharedComponents.jsx"
@@ -84,7 +84,7 @@ const ReviewWrapper = styled.div`
 `;
 
 const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentProductId }) => {
-  const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[0])
+  const [defaultProductStyle, setDefaultProductStyle] = useState(cardLoader.results[0])
   const [outfitProduct, setOutfitProduct] = useState([])
   const [metadata, setMetadata] = useState({})
 

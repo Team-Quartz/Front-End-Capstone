@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import exampleStyles from "../dummy-data/sampleStyles";
+import cardLoader from "../card-loader/cardLoader";
 import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx"
@@ -104,7 +104,7 @@ const RelatedItem = ({
   currentProduct,
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    exampleStyles.results[0]
+    cardLoader.results[0]
   );
   const [defaultProduct, setDefaultProduct] = useState(currentProductId || 38328);
   const [defaultProductFeatures] = useState([]);

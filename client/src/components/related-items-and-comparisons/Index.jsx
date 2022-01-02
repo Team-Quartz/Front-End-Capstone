@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import RelatedItems from './components/RelatedItems.jsx'
 import OutfitItems from "./components/OutfitItems.jsx";
-import exampleStyles from "./dummy-data/sampleStyles.js";
+import cardLoader from "./card-loader/cardLoader";
 
 
 const Container = styled.div`
@@ -40,7 +40,7 @@ const Title = styled.h5`
 `;
 
 const Index = ({changeCurrentProduct, currentProductId}) => {
-  const [defaultStyles] = useState(exampleStyles[0]);
+  const [defaultStyles] = useState(cardLoader[0]);
   const [relatedItems, setRelatedItems] = useState(0)
   const [currentProduct, setCurrentProduct] = useState({})
 
