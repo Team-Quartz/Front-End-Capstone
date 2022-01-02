@@ -11,6 +11,7 @@ function Input({ label, placeholder, value, id, context, type = 'text' }) {
   return (
     <div>
       <label htmlFor={id}>{label}</label>
+      <br />
       <input
         style={{ width: '50%' }}
         id={id}
@@ -147,7 +148,7 @@ export default class WriteNewReview extends React.Component {
               placeholder='Why did you like the product or not?'
             />
           </div>
-          <div>Upload your Photos</div>
+          {/*<div>Upload your Photos</div>*/}
           <Input
             label='Your nickname:'
             placeholder='Example: jackson11!'
