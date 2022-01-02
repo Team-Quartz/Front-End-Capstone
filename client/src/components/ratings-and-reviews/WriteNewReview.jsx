@@ -8,15 +8,15 @@ function printReviewScore(rating) {
 
 export default function WriteNewReview({ onClose, show, reviewsMeta, product }) {
   const [reviewRating, setReviewRating] = useState(0);
+  const [reviewRecommend, setReviewRecommend] = useState(null);
+  const [reviewCharacteristics, setReviewCharacteristics] = useState([]);
+  const [reviewSummary, setReviewSummary] = useState('');
+  const [reviewBody, setReviewBody] = useState('');
+  const [reviewPhotos, setReviewPhotos] = useState([]);
+  const [reviewNickname, setReviewNickname] = useState('');
+  const [reviewEmail, setReviewEmail] = useState('');
+  const [reviewErrors, setReviewErrors] = useState([]);
 
-  //recommend
-  //Characteristics
-  //Summary
-  //Body
-  //Photos
-  //Nickname
-  //Email
-  //DisplayError
   function starsClick(index) {
     setReviewRating(index + 1);
   }
