@@ -27,14 +27,16 @@ const Wrapper = styled.div`
 `;
 const RelatedProducts = styled.div`
   flex: 1;
+
 `;
 const Outfit = styled.div`
   flex: 1;
+
 `;
 
 const Title = styled.h5`
   margin: 10px;
-  padding:
+  position: relative;
 `;
 
 
@@ -42,6 +44,8 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
   const [defaultStyles] = useState(exampleStyles[0]);
   const [relatedItems, setRelatedItems] = useState(exampleRelated)
   const [currentProduct, setCurrentProduct] = useState(exampleProduct)
+
+
 
   //API FETCH
   const fetchRelatedProductIds = () => {
@@ -73,7 +77,9 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
   useEffect(() => {
     fetchRelatedProductIds();
     fetchCurrentProduct()
-  }, [])
+  }, [currentProductId])
+
+  console.log(relatedItems)
 
   return (
     <Container>
@@ -85,6 +91,7 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
           currentProductId={currentProductId}
           relatedItems={relatedItems}
           currentProduct={currentProduct}
+          setRelatedItems={setRelatedItems}
 
           defaultStyle={defaultStyles}
           reviewsMeta={reviewsMeta}

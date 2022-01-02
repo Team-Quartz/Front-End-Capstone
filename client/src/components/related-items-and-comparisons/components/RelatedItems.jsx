@@ -56,7 +56,7 @@ const RightArrow = styled.div`
 `
 
 
-const RelatedItems = ({relatedItems, changeCurrentProduct, currentProduct}) => {
+const RelatedItems = ({setRelatedItems, relatedItems, changeCurrentProduct, currentProduct}) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const index = relatedItems.length - 3;
   const handleClick = (direction) => {
@@ -66,6 +66,8 @@ const RelatedItems = ({relatedItems, changeCurrentProduct, currentProduct}) => {
       setSlideIndex(slideIndex + 1);
     }
   }
+
+  console.log(relatedItems)
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
@@ -74,11 +76,12 @@ const RelatedItems = ({relatedItems, changeCurrentProduct, currentProduct}) => {
         </LeftArrow>
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-      {relatedItems.map((item, index) => {
+      {relatedItems.map((itemId, index) => {
         return (
           <RelatedItem
             changeCurrentProduct={changeCurrentProduct}
-            relatedItemId={item}
+            relatedItemId={itemId}
+            setRelatedItems={setRelatedItems}
             key={index}
             currentProduct={currentProduct}
           />

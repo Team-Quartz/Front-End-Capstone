@@ -18,9 +18,17 @@ class App extends react.Component {
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
 
+  componentDidMount() {
+    this.changeCurrentProduct()
+  }
+
+
   changeCurrentProduct(productId) {
     this.setState({currentProductId: productId})
+    console.log(productId)
+    console.log(this.state.currentProductId)
   }
+
 
   render() {
     return (
