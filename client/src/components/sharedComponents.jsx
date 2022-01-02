@@ -34,7 +34,6 @@ export const Stars = ({ reviewsMeta }) => {
   return <FlexRow>{stars}</FlexRow>;
 };
 
-
 const ModalBackground = styled.div`
   position: fixed;
   top: 0;
@@ -55,20 +54,37 @@ const ModalBody = styled.div`
   padding: 2em;
 `;
 
+function onEsc(e, cb) {}
+
 /**
  *
  * @param {{ show: boolean, onClose: function }} props react props.
  * @param props.show boolean state, whether or not modal should be displayed.
- * @param props.onClose callback to be run when modal closes.
+ * @param props.onClose callback to be run when modal closes, this should change the 'show' state
  * @returns
  */
 export function Modal({ show, onClose, children }) {
+  function escListener(e) {
+    if (show) {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    }
+  }
+  React.useEffect(() => {
+    window.addEventListener('keydown', escListener);
+    return () => {
+      window.removeEventListener('keydown', escListener);
+    };
+  });
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
     return (
       <ModalBackground>
         <ModalBody>
-          <button onClick={onClose}>X</button>
+          <button onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
+            X
+          </button>
           {children}
         </ModalBody>
       </ModalBackground>
