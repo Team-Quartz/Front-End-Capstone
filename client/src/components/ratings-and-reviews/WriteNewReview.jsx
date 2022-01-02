@@ -8,10 +8,14 @@ function printReviewScore(rating) {
 }
 
 function Input({ label, placeholder, value, id, context, type = 'text' }) {
+  let CustomTag = 'input';
+  if (type === 'textarea') {
+    CustomTag = 'textarea';
+  }
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <input
+      <CustomTag
         id={id}
         type='text'
         value={value}
@@ -126,6 +130,7 @@ export default class WriteNewReview extends React.Component {
             value={this.state.body}
             id={'body'}
             context={this}
+            type='textarea'
           />
           <div>Upload your Photos</div>
           <Input
@@ -142,8 +147,8 @@ export default class WriteNewReview extends React.Component {
             id={'email'}
             context={this}
           />
-          <FlexRow>
-            {`[error printout]`}
+          <FlexRow style={{justifyContent: 'flex-end'}}>
+            {/* Error printout here */}
             <button>Submit</button>
           </FlexRow>
         </form>
