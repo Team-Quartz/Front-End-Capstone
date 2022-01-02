@@ -29,8 +29,9 @@ function Characteristic({characteristic:[characteristic, value], updateCharacter
       {characteristic}
       {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => (
         <div key={characteristicLabel}>
-          {characteristicLabel}
-          <input type='radio' id={i} name={characteristic}/>
+          <label htmlFor={characteristic+i}>{characteristicLabel}</label>
+          <br/>
+          <input type='radio' id={characteristic+i} name={characteristic}/>
         </div>
       ))}
     </FlexRow>
