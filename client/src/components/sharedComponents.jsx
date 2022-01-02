@@ -12,6 +12,11 @@ const StarBounds = styled.div`
   overflow: hidden;
   position: relative;
 `;
+const StarBoundsButton = styled(StarBounds)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const StarImg = styled.img`
   position: absolute;
@@ -21,6 +26,13 @@ const StarImg = styled.img`
   width: 5em;
 `;
 
+function WrapStarBounds({ clickStar, i, children }) {
+  if (clickStar) {
+    return <StarBoundsButton onClick={() => clickStar(i)}>{children}</StarBoundsButton>;
+  }
+  return <StarBounds>{children}</StarBounds>;
+}
+
 /**
  *
  * @param {{reviewsMeta: { averageRating: number }, onClick: function}}} props
@@ -28,14 +40,14 @@ const StarImg = styled.img`
  * @param props.onClick callback to execute on click, passed the index of the star that was clicked
  * @returns react component to render
  */
-export const Stars = ({ reviewsMeta, onClick = () => {} }) => {
+export const Stars = ({ reviewsMeta, clickStar }) => {
   const ratingClipped = Math.floor(reviewsMeta.averageRating * 4);
   const stars = [];
   for (let i = 0; i < 20; i += 4) {
     stars.push(
-      <StarBounds key={i} onClick={() => onClick(i / 4)}>
+      <WrapStarBounds key={i} i={i / 4} clickStar={clickStar}>
         <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))} />
-      </StarBounds>
+      </WrapStarBounds>
     );
   }
   return <FlexRow>{stars}</FlexRow>;
