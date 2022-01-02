@@ -35,7 +35,7 @@ export const Stars = ({ reviewsMeta }) => {
 };
 
 
-const ModalMain = styled.div`
+const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -59,12 +59,12 @@ export function Modal({ show, onClose, children }) {
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
     return (
-      <ModalMain>
+      <ModalBackground>
         <ModalBody>
           <button onClick={onClose}>X</button>
           {children}
         </ModalBody>
-      </ModalMain>
+      </ModalBackground>
     );
   }
   return '';
