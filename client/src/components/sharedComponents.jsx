@@ -27,9 +27,44 @@ export const Stars = ({ reviewsMeta }) => {
   for (let i = 0; i < 20; i += 4) {
     stars.push(
       <StarBounds key={i}>
-        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))}/>
+        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))} />
       </StarBounds>
     );
   }
   return <FlexRow>{stars}</FlexRow>;
 };
+
+
+const ModalMain = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
+const ModalBody = styled.div`
+  position: fixed;
+  width: auto;
+  height: auto;
+  background: white;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2em;
+`;
+
+export function Modal({ show, onClose, children }) {
+  if (show) {
+    return (
+      <ModalMain>
+        <ModalBody>
+          <button onClick={onClose}>X</button>
+          {children}
+        </ModalBody>
+      </ModalMain>
+    );
+  }
+  return '';
+}

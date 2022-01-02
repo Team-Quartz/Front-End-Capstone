@@ -3,11 +3,13 @@ import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import { Stars } from '../sharedComponents.jsx';
+import WriteNewReview from './WriteNewReview.jsx';
 
 const blankState = {
   loadedReviews: [],
   filters: [],
   reviewPage: 0,
+  writingNewReview: false,
 };
 
 class RatingsAndReviews extends react.Component {
@@ -33,6 +35,12 @@ class RatingsAndReviews extends react.Component {
     });
   }
 
+  openWriteNewReview(open) {
+    this.setState({
+      writingNewReview: open,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -45,7 +53,7 @@ class RatingsAndReviews extends react.Component {
         >
           <div className='starsAndBars'>
             {/** replace with stars component */}
-            <Stars reviewsMeta={this.props.reviewsMeta}/>
+            <Stars reviewsMeta={this.props.reviewsMeta} />
             <div>100% of reviews recommend this product</div>
             <div className='starsFilters'>
               {[1, 2, 3, 4, 5].map((rating) => (
@@ -57,7 +65,7 @@ class RatingsAndReviews extends react.Component {
                 />
               ))}
             </div>
-            <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics}/>
+            <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
           </div>
           <div className='reviewsList'>
             <div>248 reviews, sorted by relevance</div>
@@ -68,10 +76,14 @@ class RatingsAndReviews extends react.Component {
             </div>
             <div>
               <button>MORE REVIEWS</button>
-              <button>ADD A REVIEW +</button>
+              <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
             </div>
           </div>
         </div>
+        <WriteNewReview
+          onClose={() => this.openWriteNewReview(false)}
+          show={this.state.writingNewReview}
+        />
       </div>
     );
   }

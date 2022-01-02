@@ -1,7 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
+import {Stars, Modal} from '../sharedComponents.jsx';
 
 
-export default function WriteNewReview(props) {
+
+export default function WriteNewReview({ onClose, show}) {
   //rating
   //recommend
   //Characteristics
@@ -12,7 +15,7 @@ export default function WriteNewReview(props) {
   //Email
   //DisplayError
   return (
-    <div>
+    <Modal onClose={onClose} show={show}>
       <h2>Write Your Review</h2>
       <h3>About the {`[product name]`}</h3>
       <div>{`[star rating]`}</div>
@@ -41,6 +44,6 @@ export default function WriteNewReview(props) {
         {`[error printout]`}
         Submit
       </div>
-    </div>
+    </Modal>
   )
 }
