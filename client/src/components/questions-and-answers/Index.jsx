@@ -23,6 +23,7 @@ class QuestionsAndAnswers extends react.Component {
   render() {
     return(
       <div>
+        <div>Questions &amp; Answers</div>
         {/* <SearchBar updateSearchFilter={this.updateSearchFilter} /> */}
         {/* <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/> */}
       </div>
@@ -30,3 +31,4 @@ class QuestionsAndAnswers extends react.Component {
   }
 }
 
+export default QuestionsAndAnswers;
