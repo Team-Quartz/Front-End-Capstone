@@ -25,7 +25,9 @@ class QuestionsAndAnswers extends react.Component {
       <div>
         <div>Questions &amp; Answers</div>
         {/* <SearchBar updateSearchFilter={this.updateSearchFilter} /> */}
+        <div>SearchBar placeholder</div>
         {/* <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/> */}
+        <div>QuestionsList placeholder</div>
       </div>
     )
   }
