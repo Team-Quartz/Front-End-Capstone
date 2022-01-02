@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Stars, Modal } from '../sharedComponents.jsx';
 
-function starsClick(index) {
-  console.log(index);
-}
-
 export default function WriteNewReview({ onClose, show, reviewsMeta, product }) {
-  //rating
+  const [reviewRating, setReviewRating] = useState(1);
+
   //recommend
   //Characteristics
   //Summary
@@ -16,12 +13,15 @@ export default function WriteNewReview({ onClose, show, reviewsMeta, product }) 
   //Nickname
   //Email
   //DisplayError
+  function starsClick(index) {
+    setReviewRating(index + 1);
+  }
   return (
     <Modal onClose={onClose} show={show}>
       <form>
         <h2>Write Your Review</h2>
         <h3>About the {product.name}</h3>
-        <Stars reviewsMeta={{averageRating: 3}} onClick={starsClick}/>
+        <Stars reviewsMeta={{ averageRating: reviewRating }} onClick={starsClick} />
         <div className='FlexRow'>
           Do you recommend this product? Yes
           <input type='radio' id='yes' name='recommend' />
