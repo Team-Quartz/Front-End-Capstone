@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Stars, Modal } from '../sharedComponents.jsx';
+import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
+import characteristicsMap from './characteristicsMap';
 
 function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
 }
 
-function Input({ label, placeholder, value, id }) {
+function Input({ label, placeholder, value, id, context, type = 'text' }) {
   return (
     <div>
       <label htmlFor={id}>{label}</label>
@@ -14,12 +15,26 @@ function Input({ label, placeholder, value, id }) {
         id={id}
         type='text'
         value={value}
-        onChange={(e) => this.handleTextChange(e, id)}
+        onChange={(e) => context.handleTextChange(e, id)}
         placeholder={placeholder}
         //TODO: on lose focus, check if valid contents
       />
     </div>
   );
+}
+
+function Characteristic({characteristic:[characteristic, value], updateCharacteristic}) {
+  return (
+    <FlexRow>
+      {characteristic}
+      {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => (
+        <div key={characteristicLabel}>
+          {characteristicLabel}
+          <input type='radio' id={i} name={characteristic}/>
+        </div>
+      ))}
+    </FlexRow>
+  )
 }
 
 const blankState = {
@@ -41,6 +56,24 @@ export default class WriteNewReview extends React.Component {
     this.state = blankState;
   }
 
+  componentDidMount() {
+    this.clearState();
+  }
+
+  clearState() {
+    const newState = Object.assign({}, blankState);
+    newState.characteristics = Object.keys(this.props.reviewsMeta.characteristics).map((key) => [
+      key,
+      null,
+    ]);
+    this.setState(newState);
+  }
+
+  closeForm() {
+    this.clearState();
+    this.props.onClose();
+  }
+
   handleTextChange(e, stateProp) {
     const stateOb = {};
     stateOb[stateProp] = e.target.value;
@@ -58,35 +91,37 @@ export default class WriteNewReview extends React.Component {
 
   render() {
     return (
-      <Modal onClose={this.props.onClose} show={this.props.show}>
+      <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
         <form onSubmit={this.submitForm.bind(this)}>
           <h2>Write Your Review</h2>
           <h3>About the {this.props.product.name}</h3>
-          <div>
+          <FlexRow>
             <Stars
               reviewsMeta={{ averageRating: this.state.rating }}
               clickStar={this.starsClick.bind(this)}
             />
             {printReviewScore(this.state.rating)}
-          </div>
+          </FlexRow>
           <div className='FlexRow'>
             Do you recommend this product? Yes
             <input type='radio' id='yes' name='recommend' />
             No
             <input type='radio' id='no' name='recommend' />
           </div>
-          <div>{`[characteristics]`}</div>
+          <div>{this.state.characteristics.map((characteristic) => <Characteristic characteristic={characteristic} key={characteristic}/>)}</div>
           <Input
             label='Review Summary'
             placeholder='Example: Best purchase ever!'
             value={this.state.summary}
             id={'summary'}
+            context={this}
           />
           <Input
             label='Review Body'
             placeholder='Why did you like this product or not?'
             value={this.state.body}
             id={'body'}
+            context={this}
           />
           <div>Upload your Photos</div>
           <Input
@@ -94,17 +129,19 @@ export default class WriteNewReview extends React.Component {
             placeholder='Example: jackson11!'
             value={this.state.nickname}
             id={'nickname'}
+            context={this}
           />
           <Input
             label='Your email'
             placeholder='Your email'
             value={this.state.email}
             id={'email'}
+            context={this}
           />
-          <div>
+          <FlexRow>
             {`[error printout]`}
             <button>Submit</button>
-          </div>
+          </FlexRow>
         </form>
       </Modal>
     );
