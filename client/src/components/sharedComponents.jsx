@@ -43,10 +43,10 @@ function WrapStarBounds({ clickStar, i, children }) {
 export const Stars = ({ reviewsMeta, clickStar }) => {
   const ratingClipped = Math.floor(reviewsMeta.averageRating * 4);
   const stars = [];
-  for (let i = 0; i < 20; i += 4) {
+  for (let i = 0; i < 5; i++) {
     stars.push(
-      <WrapStarBounds key={i} i={i / 4} clickStar={clickStar}>
-        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))} />
+      <WrapStarBounds key={i} i={i} clickStar={clickStar}>
+        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i * 4))} />
       </WrapStarBounds>
     );
   }
