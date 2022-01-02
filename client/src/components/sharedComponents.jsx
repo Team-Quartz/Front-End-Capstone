@@ -21,7 +21,14 @@ const StarImg = styled.img`
   width: 5em;
 `;
 
-export const Stars = ({ reviewsMeta }) => {
+/**
+ *
+ * @param {{reviewsMeta: { averageRating: number }, onClick: function}}} props
+ * @param props.reviewsMeta.averageRating value (from 1 to 5, inclusive) for the stars to display
+ * @param props.onClick callback to execute on click, passed the index of the star that was clicked
+ * @returns react component to render
+ */
+export const Stars = ({ reviewsMeta, onClick }) => {
   const ratingClipped = Math.floor(reviewsMeta.averageRating * 4);
   const stars = [];
   for (let i = 0; i < 20; i += 4) {
