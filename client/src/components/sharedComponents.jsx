@@ -1,7 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const FlexRow = styled.div`
+export const AppContainer = styled.div`
+  max-width: 1200px;
+  margin: auto;
+`;
+export const rootStyle = `
+font-family: Arial, sans-serif;
+margin: 4px;
+`;
+
+export const AppStyle = styled.div`
+  ${rootStyle}
+  * {
+    margin: inherit;
+  }
+`;
+
+export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
 `;
@@ -11,6 +27,7 @@ const StarBounds = styled.div`
   height: 1em;
   overflow: hidden;
   position: relative;
+  margin: 0;
 `;
 const StarBoundsButton = styled(StarBounds)`
   &:hover {

@@ -2,20 +2,15 @@ import react, { useState } from 'react';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const SpreadRow = styled(FlexRow)`
-  justify-content: space-between;
-`;
+import { FlexRow } from '../sharedComponents.jsx';
 
 const TextButton = styled.button`
   border: none;
   text-decoration: underline;
   background: none;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
 `;
 
 function Response({ response }) {
@@ -73,28 +68,30 @@ function ReviewBody(props) {
 function ReviewsList({ reviews }) {
   return (
     <div>
-      {reviews.map((review) => (
-        <div key={review.review_id}>
-          <SpreadRow>
-            <Stars reviewsMeta={{ averageRating: review.rating }} />
-            <div>
-              {`${review.reviewer_name}, `}
-              {dayjs(review.date).format('MMMM DD, YYYY')}
-            </div>
-          </SpreadRow>
-          <h3>{review.summary}</h3>
-          <ReviewBody body={review.body} />
-          <PhotoGallery photos={review.photos} />
-          {review.recommend ? '✓ I recommend this product' : undefined}
-          <Response response={review.response} />
-          <FlexRow>
-            Helpful?
-            <TextButton>Yes</TextButton>
-            {`(${review.helpfulness}) | `}
-            <TextButton>Report</TextButton>
-          </FlexRow>
-        </div>
-      ))}
+      {reviews.map((review) => {
+        return (
+          <div key={review.review_id}>
+            <FlexRow style={{ justifyContent: 'space-between' }}>
+              <Stars reviewsMeta={{ averageRating: review.rating }} />
+              <div>
+                {`${review.reviewer_name}, `}
+                {dayjs(review.date).format('MMMM DD, YYYY')}
+              </div>
+            </FlexRow>
+            <h3>{review.summary}</h3>
+            <ReviewBody body={review.body} />
+            <PhotoGallery photos={review.photos} />
+            {review.recommend ? '✓ I recommend this product' : undefined}
+            <Response response={review.response} />
+            <FlexRow>
+              Helpful?&nbsp;
+              <TextButton>Yes</TextButton>
+              &nbsp;({review.helpfulness})&nbsp;|&nbsp;
+              <TextButton>Report</TextButton>
+            </FlexRow>
+          </div>
+        );
+      })}
     </div>
   );
 }
