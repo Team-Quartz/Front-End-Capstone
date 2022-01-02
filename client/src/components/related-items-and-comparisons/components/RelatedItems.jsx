@@ -67,7 +67,6 @@ const RelatedItems = ({setRelatedItems, relatedItems, changeCurrentProduct, curr
     }
   }
 
-  console.log(relatedItems)
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>

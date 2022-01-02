@@ -8,6 +8,7 @@ import comparedProducttest from "../dummy-data/sampleCompareProductFeat";
 import currentProduct from "../dummy-data/sampleCurrentProductFeat";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx"
+import utils from '../../../Utils.js'
 
 const Container = styled.div`
   display: flex;
@@ -114,7 +115,8 @@ const RelatedItem = ({
   const [showCompare, setShowCompare] = useState(false);
   const [combinedFeatures, setCombinedFeatures] = useState({});
   const [metadata, setMetadata] = useState({})
-  const [averageRating, setAverageRating] = useState(0)
+
+  console.log('md',metadata)
 
   // FETCH API
   const fetchRelatedProduct = () => {
@@ -156,7 +158,7 @@ const RelatedItem = ({
   const fetchMetadata = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id={relatedItemId}`,
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${relatedItemId}`,
         {
           headers: {
             Authorization: "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",
@@ -164,27 +166,13 @@ const RelatedItem = ({
         }
       )
       .then((metadataInfo) => {
-        setMetadata(metadataInfo.data.ratings);
+        setMetadata(utils.parseReviewsMeta(metadataInfo.data));
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  const averageRatingCalc = (metadata) => {
-    let sum = 0
-    for (let key in ratings) {
-      sum += parseInt(key) * parseInt(ratings[key])
-    }
-    console.log(Object.keys(ratings))
-    const totalReviews = Object.values(ratings).reduce((acc, value) => {
-      return acc + parseInt(value);
-
-    }, 0)
-    setAverageRating(sum/totalReviews)
-  }
-
-  console.log(averageRating)
 
   useEffect(() => {
     fetchRelatedProduct();
@@ -268,7 +256,7 @@ const RelatedItem = ({
             <Product>{defaultProduct.name}</Product>
             <Price>${defaultProduct.default_price}</Price>
             <ReviewWrapper>
-              <Stars reviewsMeta={averageRating} />
+              <Stars reviewsMeta={metadata} />
             </ReviewWrapper>
           </Lowercard>
           <CompareModal
