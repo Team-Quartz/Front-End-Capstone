@@ -109,7 +109,7 @@ const RelatedItem = ({
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     exampleStyles.results[0]
   );
-  const [defaultProduct, setDefaultProduct] = useState(exampleProducts);
+  const [defaultProduct, setDefaultProduct] = useState(38328);
   const [defaultProductFeatures] = useState(currentProduct);
   const [compareToProductFeatures] = useState(comparedProducttest);
 
@@ -209,14 +209,13 @@ const RelatedItem = ({
       comparisonObject.comparisonProduct.push(values[i][1]);
     }
     setCombinedFeatures(comparisonObject);
-    console.log(comparisonObject);
   };
 
   return (
     <>
       <Container>
         <Card>
-          <Uppercard >
+          <Uppercard>
             <ButtonWrapper>
               <ActionButton onClick={onModalClick}>
                 <FaRegStar size={40} />
@@ -230,12 +229,12 @@ const RelatedItem = ({
               )}
             </ImgWrapper>
           </Uppercard>
-          <Lowercard >
+          <Lowercard>
             <Catergory>{defaultProduct.category}</Catergory>
             <Product>{defaultProduct.name}</Product>
             <Price>${defaultProduct.default_price}</Price>
             <ReviewWrapper>Stars review goes here</ReviewWrapper>
-          </Lowercard >
+          </Lowercard>
           <CompareModal
             showCompare={showCompare}
             setShowCompare={setShowCompare}

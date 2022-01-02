@@ -46,7 +46,7 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
   const [currentProduct, setCurrentProduct] = useState(exampleProduct)
 
 
-
+  console.log('curid', currentProductId)
   //API FETCH
   const fetchRelatedProductIds = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/related`,
@@ -79,8 +79,6 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
     fetchCurrentProduct()
   }, [currentProductId])
 
-  console.log(relatedItems)
-
   return (
     <Container>
     <Wrapper>
@@ -103,6 +101,7 @@ const Index = ({reviewsMeta, changeCurrentProduct, currentProductId}) => {
           currentItem={currentProduct}
           defaultStyle={defaultStyles}
           reviewsMeta={reviewsMeta}
+          currentProductId={currentProductId}
         />
       </Outfit>
     </Wrapper>

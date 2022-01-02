@@ -25,8 +25,6 @@ class App extends react.Component {
 
   changeCurrentProduct(productId) {
     this.setState({currentProductId: productId})
-    console.log(productId)
-    console.log(this.state.currentProductId)
   }
 
 

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import exampleStyles from "../dummy-data/sampleStyles";
-import { FaRegTimesCircle } from 'react-icons/fa'
-
+import { FaRegTimesCircle } from "react-icons/fa";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +51,6 @@ const Lowercard = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px 5px 0px;
-
 `;
 
 const Catergory = styled.div`
@@ -87,13 +86,59 @@ const Stars = styled.img`
   height: auto;
 `;
 
+const Outfit = ({ outfitProductId, removeFromOutfit, currentProductId }) => {
+  const [defaultProductStyle, setDefaultProductStyle] = useState(exampleStyles.results[0])
+  const [outfitProduct, setOutfitProduct] = useState([])
 
-const Outfit = ({item, removeFromOutfit}) => {
-   const [defaultProductStyle] = useState(exampleStyles.results[3]);
+  console.log('out', outfitProductId)
+
+  // FETCH API
+
+  const fetchCurrentProduct = () => {
+    axios
+      .get(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/`,
+        {
+          headers: {
+            Authorization: "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",
+          },
+        }
+      )
+      .then((currentItemInfo) => {
+        setOutfitProduct(currentItemInfo.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const fetchOutfitProductStyles = () => {
+    axios
+      .get(
+        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/styles`,
+        {
+          headers: {
+            Authorization: "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",
+          },
+        }
+      )
+      .then((outfitStyles) => {
+        setDefaultProductStyle(outfitStyles.data.results[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchCurrentProduct();
+    fetchOutfitProductStyles();
+  }, []);
 
   const removeOutfit = () => {
-    removeFromOutfit(item)
-  }
+    removeFromOutfit(outfitProductId);
+  };
 
   return (
     <>
@@ -101,24 +146,26 @@ const Outfit = ({item, removeFromOutfit}) => {
         <Card>
           <Uppercard>
             <ActionButton onClick={removeOutfit}>
-              <FaRegTimesCircle size={45}/>
+              <FaRegTimesCircle size={45} />
             </ActionButton>
             <ImgWrapper>
-              <Image src={defaultProductStyle.photos[0].thumbnail_url} />
+              {defaultProductStyle.photos[0].thumbnail_url === null ? (
+                <Image src="./img/imageNotAvailable.png" />
+              ) : (
+                <Image src={defaultProductStyle.photos[0].thumbnail_url} />
+              )}
             </ImgWrapper>
           </Uppercard>
           <Lowercard>
-            <Catergory>{item.category}</Catergory>
-            <Product>{item.name}</Product>
-            <Price>${item.default_price}</Price>
-            <ReviewWrapper>
-              Stars review goes here
-            </ReviewWrapper>
+            <Catergory>{outfitProduct.category}</Catergory>
+            <Product>{outfitProduct.name}</Product>
+            <Price>${outfitProduct.default_price}</Price>
+            <ReviewWrapper>Stars review goes here</ReviewWrapper>
           </Lowercard>
         </Card>
       </Container>
     </>
   );
-}
+};
 
-export default Outfit
+export default Outfit;

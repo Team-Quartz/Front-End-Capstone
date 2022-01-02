@@ -88,9 +88,11 @@ const RightArrow = styled.div`
   border-radius: 50%;
 `
 
-const OutfitItems = ({currentItem, defaultStyle}) => {
+const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [outfits,setOutfits] = useState(sampleOutfitList);
+  const [outfits,setOutfits] = useState([]);
+  const [outfitsArray, setOutfitsArray] = useState([])
+
   const index = outfits.length - 2;
 
   const handleClick = (direction) => {
@@ -101,9 +103,9 @@ const OutfitItems = ({currentItem, defaultStyle}) => {
     }
   };
 
-  const addToOutfit = (currentItem) => {
-    if (!outfits.includes(currentItem)) {
-      const newOutfit = [currentItem, ...outfits];
+  const addToOutfit = (currentProductId) => {
+    if (!outfits.includes(currentProductId)) {
+      const newOutfit = [currentProductId, ...outfits];
       setOutfits(newOutfit)
     } else {
       alert('Item already exists in your outfits')
@@ -123,12 +125,17 @@ const OutfitItems = ({currentItem, defaultStyle}) => {
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
         <AddToOutfitCard>
-          <AddToOutfitButton onClick={() => addToOutfit(currentItem)}>+ ADD TO YOUR OUTFIT</AddToOutfitButton>
+          <AddToOutfitButton onClick={() => addToOutfit(currentProductId)}>+ ADD TO YOUR OUTFIT</AddToOutfitButton>
         </AddToOutfitCard>
         {outfits.length > 0 ? (
           <InnerWrapper>
             {outfits.map((item, index) => {
-              return <Outfit item={item} key={index} removeFromOutfit={removeFromOutfit}/>;
+              console.log(item)
+              return <Outfit
+                outfitProductId={item}
+                key={index}
+                currentProductId={currentProductId}
+                removeFromOutfit={removeFromOutfit}/>;
             })}
           </InnerWrapper>
         ) : null}
