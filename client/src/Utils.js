@@ -7,11 +7,12 @@ module.exports.parseReviewsMeta = (reviewsMeta) => {
   reviewsMeta.totalRatings = 0;
   let ratingSum = 0;
   Object.entries(reviewsMeta.ratings).forEach((rating) => {
-    reviewsMeta.totalRatings += rating[1];
-    ratingSum += rating[0] * rating[1];
+    reviewsMeta.totalRatings += parseInt(rating[1]);
+    ratingSum += parseInt(rating[0]) * parseInt(rating[1]);
   });
   if (reviewsMeta.totalRatings > 0) {
     reviewsMeta.averageRating = ratingSum / reviewsMeta.totalRatings;
   }
   return reviewsMeta;
 };
+

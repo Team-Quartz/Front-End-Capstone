@@ -1,19 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 export const AppContainer = styled.div`
   max-width: 1200px;
   margin: auto;
+  position: relative;
 `;
 export const rootStyle = `
-font-family: Arial, sans-serif;
-margin: 4px;
+  font-family: Arial, sans-serif;
+  margin: 4px;
 `;
 
 export const AppStyle = styled.div`
   ${rootStyle}
   * {
     margin: inherit;
+
   }
 `;
 
@@ -45,7 +47,9 @@ const StarImg = styled.img`
 
 function WrapStarBounds({ clickStar, i, children }) {
   if (clickStar) {
+
     return <StarBoundsButton onClick={() => clickStar(i)}>{children}</StarBoundsButton>;
+
   }
   return <StarBounds>{children}</StarBounds>;
 }
@@ -101,15 +105,15 @@ const ModalBody = styled.div`
 export function Modal({ show, onClose, children }) {
   function escListener(e) {
     if (show) {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     }
   }
   React.useEffect(() => {
-    window.addEventListener('keydown', escListener);
+    window.addEventListener("keydown", escListener);
     return () => {
-      window.removeEventListener('keydown', escListener);
+      window.removeEventListener("keydown", escListener);
     };
   });
   if (show) {
@@ -126,5 +130,5 @@ export function Modal({ show, onClose, children }) {
       </ModalBackground>
     );
   }
-  return '';
+  return "";
 }
