@@ -31,7 +31,7 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
     characteristicDisplay = characteristicsMap[characteristic].labels[value - 1];
   }
   return (
-    <div style={{margin: 0, padding: '4px'}}>
+    <div style={{ margin: 0, padding: '4px' }}>
       {`${characteristic}: ${characteristicDisplay}`}
       <FlexRow style={{ justifyContent: 'space-around' }}>
         {[1, 2, 3, 4, 5].map((i) => (
@@ -41,11 +41,10 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
             name={characteristic}
             checked={i === value}
             onChange={() => updateCharacteristic(characteristic, i)}
-
           />
-          ))}
+        ))}
       </FlexRow>
-      <FlexRow style={{justifyContent: 'space-between'}}>
+      <FlexRow style={{ justifyContent: 'space-between' }}>
         <div>{characteristicsMap[characteristic].labels[0]}</div>
         <div>{characteristicsMap[characteristic].labels[4]}</div>
       </FlexRow>
@@ -65,7 +64,6 @@ const blankState = {
   errors: [],
 };
 
-//{ onClose, show, reviewsMeta, product }
 export default class WriteNewReview extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +77,9 @@ export default class WriteNewReview extends React.Component {
   clearState() {
     const newState = Object.assign({}, blankState);
     newState.characteristics = {};
-    Object.keys(this.props.reviewsMeta.characteristics).forEach((key) => newState.characteristics[key] = 0);
+    Object.keys(this.props.reviewsMeta.characteristics).forEach(
+      (key) => (newState.characteristics[key] = 0)
+    );
     this.setState(newState);
   }
 
