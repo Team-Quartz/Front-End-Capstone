@@ -1,6 +1,6 @@
 import React from 'react';
 import { dummyData } from './dummyData.js';
-// import QuestionEntry from './QuestionEntry.jsx';
+import QuestionEntry from './QuestionEntry.jsx';
 import { Modal } from '../sharedComponents.jsx';
 
 class QuestionsList extends React.Component {
@@ -8,7 +8,7 @@ class QuestionsList extends React.Component {
     super(props);
     this.state = {
       questions: dummyData.results,
-      displayCount: 2,
+      questionCount: 2,
       searchFilter: this.props.searchFilter,
       isQuestionModal: false
     }
@@ -24,8 +24,7 @@ class QuestionsList extends React.Component {
   }
 
   showMoreQuestions() {
-    console.log('total to display: ', this.state.displayCount);
-    this.setState((prevState, props) => ({ displayCount: prevState.displayCount + 2 }));
+    this.setState((prevState, props) => ({ questionCount: prevState.questionCount + 2 }));
   }
 
   showQuestionModal() {
@@ -36,11 +35,11 @@ class QuestionsList extends React.Component {
   render() {
     return (
       <div>
-        { this.state.questions.slice(0, this.state.displayCount).map((question, idx) => {
-          // <QuestionEntry key={idx} question={question} />
-          return <p key={idx}>Q: {question.question_body}</p>
+        {this.state.questions.slice(0, this.state.questionCount).map((question, idx) => {
+          return <QuestionEntry key={idx} question={question} />
+          // return <p key={idx}>Q: {question.question_body}</p>
         })}
-        {this.state.questions.length > this.state.displayCount
+        {this.state.questions.length > this.state.questionCount
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
         : null}
         {this.state.isQuestionModal
