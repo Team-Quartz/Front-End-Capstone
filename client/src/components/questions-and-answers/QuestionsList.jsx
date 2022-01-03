@@ -1,20 +1,24 @@
 import React from 'react';
 import { dummyData } from './dummyData.js';
 import QuestionEntry from './QuestionEntry.jsx';
-import { Modal } from '../sharedComponents.jsx';
+import QuestionModal from './QuestionModal.jsx';
+// import { Modal } from '../sharedComponents.jsx';
 
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      productName: 'test product',
       questions: dummyData.results,
       questionCount: 2,
       searchFilter: this.props.searchFilter,
-      isQuestionModal: false
+      isQuestionModal: false,
+      writeNewQuestion: false
     }
     //function bindings
     this.showMoreQuestions = this.showMoreQuestions.bind(this);
-    this.showQuestionModal = this.showQuestionModal.bind(this);
+    // this.showQuestionModal = this.showQuestionModal.bind(this);
+    this.openQuestionModal = this.openQuestionModal.bind(this);
   }
 
   componentDidMount() {
@@ -27,9 +31,15 @@ class QuestionsList extends React.Component {
     this.setState((prevState, props) => ({ questionCount: prevState.questionCount + 2 }));
   }
 
-  showQuestionModal() {
-    console.log('should pop up modal', this.state.isQuestionModal);
-    this.setState((prevState, props) => ({ isQuestionModal: !prevState.isQuestionModal }));
+  // showQuestionModal() {
+  //   console.log('should pop up modal', this.state.isQuestionModal);
+  //   this.setState((prevState, props) => ({ isQuestionModal: !prevState.isQuestionModal }));
+  // }
+
+  openQuestionModal(open) {
+    this.setState({
+      writeNewQuestion: open,
+    });
   }
 
   render() {
@@ -42,11 +52,16 @@ class QuestionsList extends React.Component {
         {this.state.questions.length > this.state.questionCount
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
         : null}
-        {this.state.isQuestionModal
+        {this.state.writeNewQuestion
           //TODO: create AddQuestionModal (use Liam's from shared components)
-        ? <Modal />
-        : <button onClick={this.showQuestionModal}>ADD A QUESTION +</button>
+        ? <QuestionModal
+            onClose={() => this.openQuestionModal(false)}
+            show={this.state.writeNewQuestion}
+            productName={this.state.productName}
+          />
+        : null
         }
+        <button onClick={() => this.openQuestionModal(true)}>ADD A QUESTION +</button>
       </div>
     )
   }
