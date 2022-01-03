@@ -168,6 +168,7 @@ export default class WriteNewReview extends React.Component {
               type='radio'
               id='yes'
               name='recommend'
+              checked={this.state.recommend}
               onChange={() => this.setState({ recommend: true })}
             />
             <label htmlFor='yes'>Yes</label>
@@ -175,6 +176,7 @@ export default class WriteNewReview extends React.Component {
               type='radio'
               id='no'
               name='recommend'
+              checked={this.state.recommend === false}
               onChange={() => this.setState({ recommend: false })}
             />
             <label htmlFor='no'>No</label>
