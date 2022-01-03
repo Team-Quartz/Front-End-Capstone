@@ -118,6 +118,10 @@ export default class WriteNewReview extends React.Component {
     this.setState({ characteristics });
   }
 
+  checkFormCompleteness() {
+
+  }
+
   render() {
     return (
       <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
