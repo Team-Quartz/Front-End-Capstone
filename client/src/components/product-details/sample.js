@@ -9,11 +9,11 @@ module.exports.stylesData = {
             "default?": true,
             "photos": [
   			{
-                    "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
+                    "thumbnail_url": "https://static.wixstatic.com/media/747083_b400ff589ebf474083386cff48221e9d~mv2.jpg/v1/fill/w_880,h_964,al_c,q_90/747083_b400ff589ebf474083386cff48221e9d~mv2.jpg",
                     "url": "urlplaceholder/style_1_photo_number.jpg"
                 },
   			{
-                    "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
+                    "thumbnail_url": "http://placekitten.com/75/75",
                     "url": "urlplaceholder/style_1_photo_number.jpg"
                 }
   			// ...
@@ -42,7 +42,7 @@ module.exports.stylesData = {
         "default?": false,
         "photos": [
   			{
-                    "thumbnail_url": "urlplaceholder/style_2_photo_number_thumbnail.jpg",
+                    "thumbnail_url": "https://bbts1.azureedge.net/images/p/full/2020/06/da38ebce-0135-47de-8d38-43bda3d7d745.jpg",
                     "url": "urlplaceholder/style_2_photo_number.jpg"
         }
       // ...
