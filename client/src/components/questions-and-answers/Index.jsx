@@ -1,11 +1,12 @@
 import React from 'react';
+import QuestionsList from './QuestionsList.jsx';
 import SearchBar from './SearchBar.jsx';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: null,
+      productId: this.props.productId,
       searchFilter: ''
     }
     //function bindings
@@ -27,7 +28,7 @@ class QuestionsAndAnswers extends React.Component {
         <div>Questions &amp; Answers</div>
         <SearchBar updateSearchFilter={this.updateSearchFilter} />
         <div>SearchBar placeholder</div>
-        {/* <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/> */}
+        <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/>
         <div>QuestionsList placeholder</div>
       </div>
     )
