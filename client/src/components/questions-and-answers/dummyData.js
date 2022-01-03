@@ -30,7 +30,7 @@ module.exports.dummyData = {
           70: {
             "id": 70,
             "body": "Some of the seams started splitting the first time I wore it!",
-            " ": "2019-11-28T00:00:00.000Z",
+            "date": "2019-11-28T00:00:00.000Z",
             "answerer_name": "sillyguy",
             "helpfulness": 6,
             "photos": [],
