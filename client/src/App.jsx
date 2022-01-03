@@ -24,11 +24,7 @@ class App extends react.Component {
     return (
       <AppContainer>
         <AppStyle>
-<<<<<<< HEAD
-        <ProductDetails reviewMeta={this.state.reviewsMeta} />
-=======
-          {/* <ProductDetails /> */}
->>>>>>> 7955f6f39e88cc9a39b3b7e307a1d27ef5cf4868
+          <ProductDetails reviewsMeta={this.state.reviewsMeta} />
           {/* <RelatedItemsAndComparisons /> */}
           <QuestionsAndAnswers />
           <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />

@@ -27,7 +27,7 @@ class ProductDetail extends React.Component {
     this.setState({selectedStyle: stylesData.results[0]});
   }
   render() {
-    const starProp = <Stars reviewsMeta={this.props.reviewMeta}/>;
+    const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
 
     return (
     <div>
