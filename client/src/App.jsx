@@ -11,6 +11,13 @@ import RatingsAndReviews from './components/ratings-and-reviews/Index.jsx';
 import RelatedItemsAndComparisons from './components/related-items-and-comparisons/Index.jsx';
 import utils from './Utils.js';
 import { reviewsMeta } from './placeholderData.js';
+import styled from 'styled-components';
+
+const StylesOverrideFix = styled.div`
+* {
+  margin: 0;
+
+}`;
 
 class App extends react.Component {
   constructor(props) {
@@ -30,16 +37,21 @@ class App extends react.Component {
     this.setState({ currentProductId: productId || 38322 });
   }
 
+
   render() {
     return (
       <AppContainer>
+        <AppStyle>
           <ProductDetails />
-          <RelatedItemsAndComparisons
-            currentProductId={this.state.currentProductId}
-            changeCurrentProduct={this.changeCurrentProduct}
-          />
+          <StylesOverrideFix>
+            <RelatedItemsAndComparisons
+              currentProductId={this.state.currentProductId}
+              changeCurrentProduct={this.changeCurrentProduct}
+            />
+          </StylesOverrideFix>
           <QuestionsAndAnswers />
           <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
+        </AppStyle>
       </AppContainer>
     );
   }
