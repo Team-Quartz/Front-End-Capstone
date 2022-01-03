@@ -11,9 +11,6 @@ const API_URL = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx`;
 
 app.use('/API', (req, res) => {
   req.headers.Authorization = GITHUB_API_KEY;
-  console.log('sending to:', req.url)
-  console.log('========================================================================================')
-  //cookies?
   axios({
     method: req.method,
     url: API_URL + req.url,
