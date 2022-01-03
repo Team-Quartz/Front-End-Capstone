@@ -47,18 +47,12 @@ class RatingsAndReviews extends react.Component {
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
-        {/* <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        > */}
         <FlexRow>
-          <div className='starsAndBars'>
-            {/* <FlexRow> */}
+          <div style={{ flex: 1 }}>
+            <FlexRow>
               <div>{this.props.reviewsMeta.averageRating}</div>
               <Stars reviewsMeta={this.props.reviewsMeta} />
-            {/* </FlexRow> */}
+            </FlexRow>
             <div>100% of reviews recommend this product</div>
             <div>
               {[1, 2, 3, 4, 5].map((rating) => (
@@ -81,6 +75,10 @@ class RatingsAndReviews extends react.Component {
             </div>
           </div>
         </FlexRow>
+        <WriteNewReview
+          onClose={() => this.openWriteNewReview(false)}
+          show={this.state.writingNewReview}
+        />
       </div>
     );
   }
