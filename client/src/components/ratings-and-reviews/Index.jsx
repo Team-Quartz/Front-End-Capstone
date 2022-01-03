@@ -78,6 +78,8 @@ class RatingsAndReviews extends react.Component {
         <WriteNewReview
           onClose={() => this.openWriteNewReview(false)}
           show={this.state.writingNewReview}
+          reviewsMeta={this.props.reviewsMeta}
+          product={placeholder.props.currentProduct}
         />
       </div>
     );
