@@ -16,7 +16,13 @@ class ProductDetail extends React.Component {
     this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
   StyleSelectorHandler (targetKey) {
-    const matchedStyle = this.state.stylesData.results.find((styleObject) => styleObject.style_id === targetKey)
+    targetKey = targetKey.substring(0, targetKey.length - 1);
+    const matchedStyle = this.state.stylesData.results.find((styleObject) => {
+      console.log('????', styleObject, targetKey)
+      return styleObject.style_id === targetKey
+    })
+    console.log('What is matchedStyle???', matchedStyle);
+    console.log(targetKey);
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
 
@@ -24,7 +30,7 @@ class ProductDetail extends React.Component {
 
     return (
     <div>
-        <ImageGallery data={{}}/>
+        <ImageGallery data={this.state.selectedStyle}/>
         <ProductInformation productData={this.state.productData} starsData={{}}/>
         <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
         <AddToCart />
