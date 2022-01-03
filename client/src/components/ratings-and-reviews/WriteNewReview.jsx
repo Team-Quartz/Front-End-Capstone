@@ -27,19 +27,21 @@ function Input({ label, placeholder, value, id, context, type = 'text' }) {
 
 function Characteristic({ characteristic: [characteristic, value], updateCharacteristic }) {
   return (
-    <FlexRow>
-      {characteristic}
+    <tr>
+      <td>{characteristic}</td>
       {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => {
         const buttonId = characteristic + i;
         return (
-          <div key={characteristicLabel}>
+          <td key={characteristicLabel} style={{
+            textAlign:'center',
+          }}>
             <label htmlFor={buttonId}>{characteristicLabel}</label>
             <br />
             <input type='radio' id={buttonId} name={characteristic} />
-          </div>
+          </td>
         );
       })}
-    </FlexRow>
+    </tr>
   );
 }
 
@@ -113,17 +115,20 @@ export default class WriteNewReview extends React.Component {
             />
             {printReviewScore(this.state.rating)}
           </FlexRow>
-          <div className='FlexRow'>
-            Do you recommend this product? Yes
-            <input type='radio' id='yes' name='recommend' />
-            No
-            <input type='radio' id='no' name='recommend' />
-          </div>
           <div>
-            {this.state.characteristics.map((characteristic) => (
-              <Characteristic characteristic={characteristic} key={characteristic} />
-            ))}
+            Do you recommend this product?
+            <input type='radio' id='yes' name='recommend' />
+            <label htmlFor='yes'>Yes</label>
+            <input type='radio' id='no' name='recommend' />
+            <label htmlFor='no'>No</label>
           </div>
+          <table>
+            <tbody>
+              {this.state.characteristics.map((characteristic) => (
+                <Characteristic characteristic={characteristic} key={characteristic} />
+              ))}
+            </tbody>
+          </table>
           <Input
             label='Review Summary:'
             placeholder='Example: Best purchase ever!'
