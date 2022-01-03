@@ -29,6 +29,11 @@ const StarBounds = styled.div`
   position: relative;
   margin: 0;
 `;
+const StarBoundsButton = styled(StarBounds)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const StarImg = styled.img`
   position: absolute;
@@ -38,14 +43,29 @@ const StarImg = styled.img`
   width: 5em;
 `;
 
-export const Stars = ({ reviewsMeta }) => {
+function WrapStarBounds({ clickStar, i, children }) {
+  if (clickStar) {
+    return <StarBoundsButton onClick={() => clickStar(i)}>{children}</StarBoundsButton>;
+  }
+  return <StarBounds>{children}</StarBounds>;
+}
+
+/**
+ *
+ * @param {{reviewsMeta: { averageRating: number }, clickStar: function}}} props
+ * @param props.reviewsMeta.averageRating value (from 1 to 5, inclusive) for the stars to display
+ * @param props.clickStar callback to execute on clicking a star, passes the index of the star that was clicked
+ * @returns react component to render
+ */
+export const Stars = ({ reviewsMeta, clickStar }) => {
+  //TODO: test for different returns based on clickStar value
   const ratingClipped = Math.floor(reviewsMeta.averageRating * 4);
   const stars = [];
-  for (let i = 0; i < 20; i += 4) {
+  for (let i = 0; i < 5; i++) {
     stars.push(
-      <StarBounds key={i}>
-        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i))} />
-      </StarBounds>
+      <WrapStarBounds key={i} i={i} clickStar={clickStar}>
+        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i * 4))} />
+      </WrapStarBounds>
     );
   }
   return <FlexRow>{stars}</FlexRow>;
@@ -94,6 +114,7 @@ export function Modal({ show, onClose, children }) {
   });
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
+    //TODO: test returns for different values of show, test that onClose is properly working
     return (
       <ModalBackground onClick={onClose}>
         <ModalBody onClick={(e) => e.stopPropagation()}>
