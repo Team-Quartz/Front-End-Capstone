@@ -1,10 +1,12 @@
-import react from 'react';
+import React from 'react';
+import QuestionsList from './QuestionsList.jsx';
+import SearchBar from './SearchBar.jsx';
 
-class QuestionsAndAnswers extends react.Component {
+class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: null,
+      productId: this.props.productId,
       searchFilter: ''
     }
     //function bindings
@@ -12,21 +14,21 @@ class QuestionsAndAnswers extends react.Component {
   }
 
   componentDidMount() {
-    //load current product
+    //TODO: load current product
   }
 
   updateSearchFilter(query) {
-    this.setState({ productId: filter })
-    //need to pass new filter to QuestionsList - might be done after automatic re-render
+    this.setState({ searchFilter: query });
+    //TODO: make sure new filter is passed to QuestionsList - might be done after automatic re-render
   }
 
   render() {
-    return(
+    return (
       <div>
         <div>Questions &amp; Answers</div>
-        {/* <SearchBar updateSearchFilter={this.updateSearchFilter} /> */}
+        <SearchBar updateSearchFilter={this.updateSearchFilter} />
         <div>SearchBar placeholder</div>
-        {/* <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/> */}
+        <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/>
         <div>QuestionsList placeholder</div>
       </div>
     )
