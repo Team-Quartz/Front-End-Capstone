@@ -105,7 +105,8 @@ export default class WriteNewReview extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    console.log('submit');
+    console.log('NOTHING WAS SUBMITTED');
+    this.props.onClose();
   }
 
   updateCharacteristic(characteristic, value) {
