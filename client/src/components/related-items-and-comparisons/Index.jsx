@@ -16,6 +16,7 @@ const Container = styled.div`
   padding: 0px 10px;
   margin: auto;
   position: relative;
+  border: black solid 1px;
 `;
 
 const Wrapper = styled.div`

@@ -22,7 +22,7 @@ const Arrow = styled.div`
   z-index: 2;
   position: absolute;
   left: ${(props) => props.direction === "left" && "2px"};
-  right: ${(props) => props.direction === "right" && "100px"};
+  right: ${(props) => props.direction === "right" && "2px"};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -63,7 +63,7 @@ const RelatedItems = ({
 }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const index = relatedItems.length - 3;
+  const index = relatedItems.length - 5;
 
   const handleClick = (direction) => {
     if (direction === "left") {
