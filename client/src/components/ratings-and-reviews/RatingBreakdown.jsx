@@ -1,15 +1,15 @@
 import react from 'react';
 import styled from 'styled-components';
+import { FlexRow } from '../sharedComponents.jsx';
 
-const FlexDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+const FlexCenter = styled(FlexRow)`
+  align-items: center;
 `;
 
-const BarBackground = styled(FlexDiv)`
+const BarBackground = styled(FlexRow)`
   flex: 1;
-  margin: 1% 0;
+  margin: 0;
+  height: .5em;
   background-color: LightGrey;
 `;
 
@@ -22,18 +22,18 @@ const Bar = styled.div`
 
 function RatingBreakdown({ rating, count, total }) {
   let proportion;
-  if (!count) {
+  if (!total) {
     proportion = 0;
   } else {
-    proportion = (total / count) * 10;
+    proportion = (count / total) * 100;
   }
   return (
-    <FlexDiv>
+    <FlexCenter>
       <div>{rating} stars</div>
       <BarBackground>
         <Bar proportion={proportion}/>
       </BarBackground>
-    </FlexDiv>
+    </FlexCenter>
   );
 }
 
