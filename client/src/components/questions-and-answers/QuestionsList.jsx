@@ -1,11 +1,7 @@
 import React from 'react';
 import { dummyData } from './dummyData.js';
 import QuestionEntry from './QuestionEntry.jsx';
-<<<<<<< HEAD
-import { Modal } from '../sharedComponents.jsx';
-=======
 import QuestionModal from './QuestionModal.jsx';
->>>>>>> main
 
 class QuestionsList extends React.Component {
   constructor(props) {
