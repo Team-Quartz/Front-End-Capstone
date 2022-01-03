@@ -90,7 +90,7 @@ const OutfitItems = ({ currentItem, defaultStyle, currentProductId }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [outfits, setOutfits] = useState([]);
 
-  const index = outfits.length - 3;
+  const index = outfits.length - 2;
 
   const handleClick = (direction) => {
     if (direction === "left") {
