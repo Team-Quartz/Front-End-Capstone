@@ -16,6 +16,9 @@ class SearchBar extends React.Component {
     if (e.target.value.length >= 3) {
       this.props.updateSearchFilter(e.target.value);
     }
+    if (e.target.value.length < 3) {
+      this.props.updateSearchFilter('');
+    }
     this.setState({searchFilter: e.target.value});
   }
 
