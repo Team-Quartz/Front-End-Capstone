@@ -30,13 +30,39 @@ module.exports.dummyData = {
           70: {
             "id": 70,
             "body": "Some of the seams started splitting the first time I wore it!",
-            "date": "2019-11-28T00:00:00.000Z",
+            " ": "2019-11-28T00:00:00.000Z",
             "answerer_name": "sillyguy",
             "helpfulness": 6,
             "photos": [],
           },
           78: {
             "id": 78,
+            "body": "9 lives",
+            "date": "2019-11-12T00:00:00.000Z",
+            "answerer_name": "iluvdogz",
+            "helpfulness": 31,
+            "photos": [],
+          }
+        }
+      },
+      {
+        "question_id": 38,
+        "question_body": "What is it?",
+        "question_date": "2019-08-28T00:00:00.000Z",
+        "asker_name": "dopeyguy",
+        "question_helpfulness": 1,
+        "reported": false,
+        "answers": {
+          80: {
+            "id": 80,
+            "body": "Some of the seams started splitting the first time I wore it!",
+            "date": "2019-11-28T00:00:00.000Z",
+            "answerer_name": "sillyguy",
+            "helpfulness": 6,
+            "photos": [],
+          },
+          81: {
+            "id": 81,
             "body": "9 lives",
             "date": "2019-11-12T00:00:00.000Z",
             "answerer_name": "iluvdogz",

@@ -25,11 +25,9 @@ class QuestionsAndAnswers extends React.Component {
   render() {
     return (
       <div>
-        <div>Questions &amp; Answers</div>
+        <h2>Questions &amp; Answers</h2>
         <SearchBar updateSearchFilter={this.updateSearchFilter} />
-        <div>SearchBar placeholder</div>
         <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/>
-        <div>QuestionsList placeholder</div>
       </div>
     )
   }
