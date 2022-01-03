@@ -127,6 +127,10 @@ export default class WriteNewReview extends React.Component {
     this.setState({ characteristics });
   }
 
+  checkEmailFormat() {
+    return !this.state.email.match(/\w+@\w+\.\w\w+/);
+  }
+
   checkFormCompleteness() {
     const characteristicErrors = Object.entries(this.state.characteristics).map(([key, val]) => [
       `Select a rating for the product ${key}`,
@@ -139,12 +143,13 @@ export default class WriteNewReview extends React.Component {
       ['The review body must be 50 characters or more', this.state.body[0].length < 50],
       ['Add your nickname', this.state.nickname === ''],
       ['Add your email', this.state.email === ''],
-      ['the email address provided is not in the correct email format', false], //TODO: check email format
+      ['the email address provided is not in the correct email format', this.checkEmailFormat()], //TODO: check email format
       ['the images selected are invalid or unable to be uploaded', false], //TODO: check images
     ].filter((entry) => entry[1]);
     this.setState({ errors });
     return errors;
   }
+
 
   render() {
     return (
