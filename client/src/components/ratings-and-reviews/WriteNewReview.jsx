@@ -143,7 +143,7 @@ export default class WriteNewReview extends React.Component {
       ['The review body must be 50 characters or more', this.state.body[0].length < 50],
       ['Add your nickname', this.state.nickname === ''],
       ['Add your email', this.state.email === ''],
-      ['the email address provided is not in the correct email format', this.checkEmailFormat()], //TODO: check email format
+      ['the email address provided is not in the correct email format', this.checkEmailFormat()],
       ['the images selected are invalid or unable to be uploaded', false], //TODO: check images
     ].filter((entry) => entry[1]);
     this.setState({ errors });
@@ -173,7 +173,7 @@ export default class WriteNewReview extends React.Component {
               type='radio'
               id='yes'
               name='recommend'
-              checked={this.state.recommend}
+              checked={this.state.recommend === true}
               onChange={() => this.setState({ recommend: true })}
             />
             <label htmlFor='yes'>Yes</label>
