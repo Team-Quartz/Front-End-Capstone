@@ -1,5 +1,5 @@
-import react from 'react';
-import reactDOM from 'react-dom';
+import react from "react";
+import reactDOM from "react-dom";
 
 //  note: it's important that sharedComponents be imported early in App,
 //  so its styles get added before any other modules (for consistent overriding behavior)
@@ -11,21 +11,44 @@ import RatingsAndReviews from './components/ratings-and-reviews/Index.jsx';
 import RelatedItemsAndComparisons from './components/related-items-and-comparisons/Index.jsx';
 import utils from './Utils.js';
 import { reviewsMeta } from './placeholderData.js';
+import styled from 'styled-components';
+
+const StylesOverrideFix = styled.div`
+* {
+  margin: 0;
+
+}`;
 
 class App extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentProductId: 38322,
       reviewsMeta: reviewsMeta,
     };
+    this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
+
+  componentDidMount() {
+    this.changeCurrentProduct();
+  }
+
+  changeCurrentProduct(productId) {
+    this.setState({ currentProductId: productId || 38322 });
+  }
+
 
   render() {
     return (
       <AppContainer>
         <AppStyle>
           <ProductDetails />
-          {/* <RelatedItemsAndComparisons /> */}
+          <StylesOverrideFix>
+            <RelatedItemsAndComparisons
+              currentProductId={this.state.currentProductId}
+              changeCurrentProduct={this.changeCurrentProduct}
+            />
+          </StylesOverrideFix>
           <QuestionsAndAnswers />
           <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
         </AppStyle>
@@ -33,4 +56,4 @@ class App extends react.Component {
     );
   }
 }
-reactDOM.render(<App />, document.getElementById('app'));
+reactDOM.render(<App />, document.getElementById("app"));
