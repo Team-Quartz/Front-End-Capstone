@@ -164,9 +164,19 @@ export default class WriteNewReview extends React.Component {
           <br />
           <h4>Do you recommend this product?*</h4>
           <div>
-            <input type='radio' id='yes' name='recommend' />
+            <input
+              type='radio'
+              id='yes'
+              name='recommend'
+              onChange={() => this.setState({ recommend: true })}
+            />
             <label htmlFor='yes'>Yes</label>
-            <input type='radio' id='no' name='recommend' />
+            <input
+              type='radio'
+              id='no'
+              name='recommend'
+              onChange={() => this.setState({ recommend: false })}
+            />
             <label htmlFor='no'>No</label>
           </div>
           <br />
@@ -235,9 +245,13 @@ export default class WriteNewReview extends React.Component {
           For authentication reasons, you will be emailed
           <FlexRow style={{ justifyContent: 'flex-end' }}>
             <ErrorDialog>
-              {this.state.errors.map((error, i) => <div key={i}>{error[0]}</div>)}
+              {this.state.errors.map((error, i) => (
+                <div key={i}>{error[0]}</div>
+              ))}
             </ErrorDialog>
-            <div><button>Submit</button></div>
+            <div>
+              <button>Submit</button>
+            </div>
           </FlexRow>
         </form>
       </Modal>
