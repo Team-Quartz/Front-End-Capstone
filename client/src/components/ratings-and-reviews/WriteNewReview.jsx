@@ -31,24 +31,27 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
     characteristicDisplay = characteristicsMap[characteristic].labels[value - 1];
   }
   return (
-    <div style={{ margin: 0, padding: '4px' }}>
-      {`${characteristic}: ${characteristicDisplay}`}
-      <FlexRow style={{ justifyContent: 'space-around' }}>
-        {[1, 2, 3, 4, 5].map((i) => (
-          <input
-            type='radio'
-            key={characteristic + i}
-            name={characteristic}
-            checked={i === value}
-            onChange={() => updateCharacteristic(characteristic, i)}
-          />
-        ))}
-      </FlexRow>
-      <FlexRow style={{ justifyContent: 'space-between' }}>
-        <div>{characteristicsMap[characteristic].labels[0]}</div>
-        <div>{characteristicsMap[characteristic].labels[4]}</div>
-      </FlexRow>
-    </div>
+    <FlexRow style={{ margin: 0, padding: '4px'}}>
+      {characteristic}:&nbsp;
+      <div style={{flex: 1}}>
+        {characteristicDisplay}
+        <FlexRow style={{ justifyContent: 'space-around'}}>
+          {[1, 2, 3, 4, 5].map((i) => (
+            <input
+              type='radio'
+              key={characteristic + i}
+              name={characteristic}
+              checked={i === value}
+              onChange={() => updateCharacteristic(characteristic, i)}
+            />
+          ))}
+        </FlexRow>
+        <FlexRow style={{ justifyContent: 'space-between' }}>
+          <div>{characteristicsMap[characteristic].labels[0]}</div>
+          <div>{characteristicsMap[characteristic].labels[4]}</div>
+        </FlexRow>
+      </div>
+    </FlexRow>
   );
 }
 
