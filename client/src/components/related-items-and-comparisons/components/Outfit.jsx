@@ -3,8 +3,8 @@ import styled from "styled-components";
 import cardLoader from "../card-loader/cardLoader";
 import { FaRegTimesCircle } from "react-icons/fa";
 import axios from "axios";
-import { Stars } from "../../sharedComponents.jsx"
-import utils from '../../../Utils.js'
+import { Stars } from "../../sharedComponents.jsx";
+import utils from "../../../Utils.js";
 
 const Container = styled.div`
   display: flex;
@@ -83,10 +83,12 @@ const ReviewWrapper = styled.div`
   padding-top: 10px;
 `;
 
-const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentProductId }) => {
-  const [defaultProductStyle, setDefaultProductStyle] = useState(cardLoader.results[0])
-  const [outfitProduct, setOutfitProduct] = useState([])
-  const [metadata, setMetadata] = useState({})
+const Outfit = ({ outfits, outfitProductId, removeFromOutfit }) => {
+  const [defaultProductStyle, setDefaultProductStyle] = useState(
+    cardLoader.results[0]
+  );
+  const [outfitProduct, setOutfitProduct] = useState([]);
+  const [metadata, setMetadata] = useState({});
 
   // FETCH API
 
@@ -107,7 +109,6 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentProductId }
         console.log(err);
       });
   };
-
 
   const fetchOutfitProductStyles = () => {
     axios
@@ -143,7 +144,7 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentProductId }
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   useEffect(() => {
     fetchCurrentProduct();

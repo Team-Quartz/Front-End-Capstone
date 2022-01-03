@@ -83,11 +83,9 @@ const Index = ({changeCurrentProduct, currentProductId}) => {
         <Title>RELATED PRODUCTS</Title>
         <RelatedItems
           changeCurrentProduct={changeCurrentProduct}
-          currentProductId={currentProductId}
           relatedItems={relatedItems}
           currentProduct={currentProduct}
           setRelatedItems={setRelatedItems}
-          defaultStyle={defaultStyles}
         />
       </RelatedProducts>
       <Outfit>

@@ -1,8 +1,8 @@
 import React from "react";
 import Outfit from "./Outfit";
 import styled from "styled-components";
-import { useState } from "react";
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
+import { useState, useEffect } from "react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
@@ -60,17 +60,16 @@ const AddToOutfitButton = styled.button`
   cursor: pointer;
   height: 100%;
   width: 100%;
-
 `;
 
 const InnerWrapper = styled.div`
   display: flex;
-`
+`;
 //fix
 const LeftArrow = styled.div`
   width: 100%;
   height: 100%;
-  display: ${(props) => props.position === "none" ? "none" : "flex"};
+  display: ${(props) => (props.position === "none" ? "none" : "flex")};
   align-items: center;
   justify-content: center;
   background-color: rgba(218, 223, 225, 0.8);
@@ -80,18 +79,18 @@ const LeftArrow = styled.div`
 const RightArrow = styled.div`
   width: 100%;
   height: 100%;
-  display: ${(props) => props.position === "none" ? "none" : "flex"};
+  display: ${(props) => (props.position === "none" ? "none" : "flex")};
   align-items: center;
   justify-content: center;
   background-color: rgba(218, 223, 225, 0.8);
   border-radius: 50%;
-`
+`;
 
-const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
+const OutfitItems = ({ currentItem, defaultStyle, currentProductId }) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [outfits,setOutfits] = useState([]);
+  const [outfits, setOutfits] = useState([]);
 
-  const index = outfits.length - 2;
+  const index = outfits.length - 3;
 
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -104,18 +103,31 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
   const addToOutfit = (currentProductId) => {
     if (!outfits.includes(currentProductId)) {
       const newOutfit = [...outfits, currentProductId];
-      setOutfits(newOutfit)
+      setOutfits(newOutfit);
     } else {
-      alert('Item already exists in your outfits')
+      alert("Item already exists in your outfits");
     }
-  }
+  };
 
   const removeFromOutfit = (productId) => {
-    setOutfits(outfits.filter((id) => id !== productId))
-  }
+    setOutfits(outfits.filter((id) => id !== productId));
+  };
+
+  // LOCAL STORAGE
+
+  // useEffect(() => {
+  //   const data = localStorage.getItem("my-outfit");
+  //   if (data) {
+  //     setOutfits(JSON.parse(data))
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   localStorage.setItem("my-outfit", JSON.stringify(outfits))
+  // })
 
   return (
-    <Container >
+    <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <LeftArrow position={slideIndex <= 0 ? "none" : ""}>
           <FaAngleLeft size={30} />
@@ -123,24 +135,28 @@ const OutfitItems = ({currentItem, defaultStyle, currentProductId}) => {
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
         <AddToOutfitCard>
-          <AddToOutfitButton onClick={() => addToOutfit(currentProductId)}>+ ADD TO YOUR OUTFIT</AddToOutfitButton>
+          <AddToOutfitButton onClick={() => addToOutfit(currentProductId)}>
+            + ADD TO YOUR OUTFIT
+          </AddToOutfitButton>
         </AddToOutfitCard>
         {outfits.length > 0 ? (
           <InnerWrapper>
             {outfits.map((id, index) => {
-              return <Outfit
-                outfitProductId={id}
-                outfits={outfits}
-                key={index}
-                currentProductId={currentProductId}
-                removeFromOutfit={removeFromOutfit}/>;
+              return (
+                <Outfit
+                  outfitProductId={id}
+                  outfits={outfits}
+                  key={index}
+                  removeFromOutfit={removeFromOutfit}
+                />
+              );
             })}
           </InnerWrapper>
         ) : null}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick("right")}>
-      <RightArrow position={slideIndex >= index ? "none" : "unset"}>
-          <FaAngleRight size={30}/>
+        <RightArrow position={slideIndex >= index ? "none" : ""}>
+          <FaAngleRight size={30} />
         </RightArrow>
       </Arrow>
     </Container>

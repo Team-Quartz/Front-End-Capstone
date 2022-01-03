@@ -4,8 +4,8 @@ import axios from "axios";
 import cardLoader from "../card-loader/cardLoader";
 import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
-import { Stars } from "../../sharedComponents.jsx"
-import utils from '../../../Utils.js'
+import { Stars } from "../../sharedComponents.jsx";
+import utils from "../../../Utils.js";
 
 const Container = styled.div`
   display: flex;
@@ -106,13 +106,15 @@ const RelatedItem = ({
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     cardLoader.results[0]
   );
-  const [defaultProduct, setDefaultProduct] = useState(currentProductId || 38328);
+  const [defaultProduct, setDefaultProduct] = useState(
+    currentProductId || 38328
+  );
   const [defaultProductFeatures] = useState([]);
   const [compareToProductFeatures] = useState([]);
 
   const [showCompare, setShowCompare] = useState(false);
   const [combinedFeatures, setCombinedFeatures] = useState({});
-  const [metadata, setMetadata] = useState({})
+  const [metadata, setMetadata] = useState({});
 
   // FETCH API
   const fetchRelatedProduct = () => {
@@ -167,7 +169,7 @@ const RelatedItem = ({
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   useEffect(() => {
     fetchRelatedProduct();

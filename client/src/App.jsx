@@ -1,12 +1,12 @@
-import react from 'react';
-import reactDOM from 'react-dom';
+import react from "react";
+import reactDOM from "react-dom";
 
-import ProductDetails from './components/product-details/Index.jsx';
-import QuestionsAndAnwsers from './components/questions-and-answers/Index.jsx';
-import RatingsAndReviews from './components/ratings-and-reviews/Index.jsx';
-import RelatedItemsAndComparisons from './components/related-items-and-comparisons/Index.jsx';
-import utils from './Utils.js';
-import { reviewsMeta } from './placeholderData.js';
+import ProductDetails from "./components/product-details/Index.jsx";
+import QuestionsAndAnwsers from "./components/questions-and-answers/Index.jsx";
+import RatingsAndReviews from "./components/ratings-and-reviews/Index.jsx";
+import RelatedItemsAndComparisons from "./components/related-items-and-comparisons/Index.jsx";
+import utils from "./Utils.js";
+import { reviewsMeta } from "./placeholderData.js";
 
 class App extends react.Component {
   constructor(props) {
@@ -19,14 +19,12 @@ class App extends react.Component {
   }
 
   componentDidMount() {
-    this.changeCurrentProduct()
+    this.changeCurrentProduct();
   }
-
 
   changeCurrentProduct(productId) {
-    this.setState({currentProductId: productId || 38322})
+    this.setState({ currentProductId: productId || 38322 });
   }
-
 
   render() {
     return (
@@ -36,11 +34,11 @@ class App extends react.Component {
         <RelatedItemsAndComparisons
           currentProductId={this.state.currentProductId}
           changeCurrentProduct={this.changeCurrentProduct}
-          />
+        />
         {/* <QuestionsAndAnswers /> */}
-        <RatingsAndReviews reviewsMeta={this.state.reviewsMeta}/>
+        <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
       </div>
     );
   }
 }
-reactDOM.render(<App />, document.getElementById('app'));
+reactDOM.render(<App />, document.getElementById("app"));
