@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 
-const narrow = { margin: 0, padding: '4px'};
+const narrow = { margin: 0, padding: '4px' };
 
 function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
@@ -33,9 +33,9 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
   return (
     <FlexRow style={narrow}>
       {characteristic}:&nbsp;
-      <div style={{flex: 1}}>
+      <div style={{ flex: 1 }}>
         {characteristicDisplay}
-        <FlexRow style={{ justifyContent: 'space-around'}}>
+        <FlexRow style={{ justifyContent: 'space-around' }}>
           {[1, 2, 3, 4, 5].map((i) => (
             <input
               type='radio'
@@ -153,7 +153,9 @@ export default class WriteNewReview extends React.Component {
             ))}
           </div>
           <br />
-          <label htmlFor={'summary'}><h4>{'Review Summary'}</h4></label>
+          <label htmlFor={'summary'}>
+            <h4>{'Review Summary'}</h4>
+          </label>
           <Input
             placeholder='Example: Best purchase ever!'
             value={this.state.summary}
@@ -161,7 +163,9 @@ export default class WriteNewReview extends React.Component {
             context={this}
           />
           <br />
-          <label htmlFor={'body'}><h4>Review Body*</h4></label>
+          <label htmlFor={'body'}>
+            <h4>Review Body*</h4>
+          </label>
           <div>
             <textarea
               style={{
@@ -179,7 +183,9 @@ export default class WriteNewReview extends React.Component {
           </div>
           <br />
           {/*<div>Upload your Photos</div>*/}
-          <label htmlFor={'nickname'}><h4>{'Your nickname*'}</h4></label>
+          <label htmlFor={'nickname'}>
+            <h4>{'Your nickname*'}</h4>
+          </label>
           <Input
             placeholder='Example: jackson11!'
             value={this.state.nickname}
@@ -189,7 +195,9 @@ export default class WriteNewReview extends React.Component {
           For privacy reasons, do not use your full name or email address
           <br />
           <br />
-          <label htmlFor={'email'}><h4>{'Your email*'}</h4></label>
+          <label htmlFor={'email'}>
+            <h4>{'Your email*'}</h4>
+          </label>
           <Input
             placeholder='Example: jackson11@email.com'
             value={this.state.email}
