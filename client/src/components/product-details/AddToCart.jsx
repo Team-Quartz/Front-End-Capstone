@@ -5,7 +5,7 @@ const StyleSelector = (props) => {
   //todo: handle form submission
   //note: this is placeholder text and elements for styling later
   return (
-    <form className="style-selctor">
+    <form className="style-selctor" onSubmit={() => {console.log('Submission')}} id='shopping-cart'>
 
       <label htmlFor="size-list">Sizes</label>
       <input list="size-list-options" id="size-list" />
@@ -21,7 +21,7 @@ const StyleSelector = (props) => {
         {quantityList}
       </datalist>
 
-      <button id="add-to-cart">Add To Cart</button>
+      <button id="add-to-cart" type='submit' form='shopping-cart' disabled={true}>Add To Cart</button>
     </form>
   )
 }

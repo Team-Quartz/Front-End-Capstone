@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
 // import AnswerEntry from './AnswerEntry.jsx';
 import dayjs from 'dayjs';
+import AnswerModal from './AnswerModal.jsx';
 
 class QuestionEntry extends React.Component {
   constructor(props) {
