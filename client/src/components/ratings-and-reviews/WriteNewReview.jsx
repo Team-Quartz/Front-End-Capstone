@@ -9,7 +9,7 @@ function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
 }
 
-function Input({ label, placeholder, value, id, context, type = 'text' }) {
+function Input({ label, placeholder, value, id, context, max = 60, type = 'text' }) {
   return (
     <div>
       <input
@@ -17,7 +17,7 @@ function Input({ label, placeholder, value, id, context, type = 'text' }) {
         id={id}
         type='text'
         value={value}
-        onChange={(e) => context.handleTextChange(e, id)}
+        onChange={(e) => context.handleTextChange(e, id, max)}
         placeholder={placeholder}
         //TODO: on lose focus, check if valid contents
       />
@@ -91,14 +91,14 @@ export default class WriteNewReview extends React.Component {
     this.props.onClose();
   }
 
-  handleTextChange(e, stateProp) {
+  handleTextChange(e, stateProp, max) {
     const stateOb = {};
-    stateOb[stateProp] = e.target.value;
+    stateOb[stateProp] = e.target.value.substring(0, max);
     this.setState(stateOb);
   }
 
   handleBodyChange(e) {
-    const newState = { body: [e.target.value, e.target.scrollHeight] };
+    const newState = { body: [e.target.value.substring(0, 20), e.target.scrollHeight] };
     this.setState(newState);
   }
 
@@ -108,6 +108,7 @@ export default class WriteNewReview extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
+    this.checkFormCompleteness();
     console.log('NOTHING WAS SUBMITTED');
     this.props.onClose();
   }
@@ -119,7 +120,25 @@ export default class WriteNewReview extends React.Component {
   }
 
   checkFormCompleteness() {
-
+    const errorsMap = [
+      ['Product rating', this.state.rating === 0],
+      ...Object.entries(this.state.characteristics).map(([key, val]) => [`Product ${key} characteristic`, val === 0]),
+      ['Product recommendation', this.state.recommend === null],
+      ['Review Body', this.state.body[0] === ''],
+      ['Your nickname', this.state.nickname === ''],
+      ['Your email', this.state.email === ''],
+    ].filter((entry) => entry[1])
+    console.log(errorsMap);
+    // Any mandatory fields are blank
+    //rating
+    //recommend
+    //characteristics
+    //body
+    //nickname
+    //email
+    // The review body is less than 50 characters
+    // The email address provided is not in correct email format
+    // The images selected are invalid or unable to be uploaded.
   }
 
   render() {
