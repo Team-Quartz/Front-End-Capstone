@@ -5,7 +5,6 @@ const StyleSelectorMaker = (styleObject, handler) => {
   width: 75px;
   height: 75px;
   `
-  console.log( '<<<<', styleObject.style_id )
   return (
     <StyledImage src={styleObject.photos[0].thumbnail_url} key={styleObject.style_id + ''} id={styleObject.style_id + '#'} onClick={(e) => {handler(e.target.getAttribute('id'))}} />
   )

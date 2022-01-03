@@ -18,11 +18,8 @@ class ProductDetail extends React.Component {
   StyleSelectorHandler (targetKey) {
     targetKey = targetKey.substring(0, targetKey.length - 1);
     const matchedStyle = this.state.stylesData.results.find((styleObject) => {
-      console.log('????', styleObject, targetKey)
-      return styleObject.style_id === targetKey
+      return styleObject.style_id + '' === targetKey
     })
-    console.log('What is matchedStyle???', matchedStyle);
-    console.log(targetKey);
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
 
