@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 
+const narrow = { margin: 0, padding: '4px'};
+
 function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
 }
@@ -10,8 +12,6 @@ function printReviewScore(rating) {
 function Input({ label, placeholder, value, id, context, type = 'text' }) {
   return (
     <div>
-      <label htmlFor={id}>{label}</label>
-      <br />
       <input
         style={{ width: '50%' }}
         id={id}
@@ -31,7 +31,7 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
     characteristicDisplay = characteristicsMap[characteristic].labels[value - 1];
   }
   return (
-    <FlexRow style={{ margin: 0, padding: '4px'}}>
+    <FlexRow style={narrow}>
       {characteristic}:&nbsp;
       <div style={{flex: 1}}>
         {characteristicDisplay}
@@ -125,7 +125,7 @@ export default class WriteNewReview extends React.Component {
           <h2>Write Your Review</h2>
           <h3>About the {this.props.product.name}</h3>
           <br />
-          Overall Rating*
+          <h4>Overall Rating*</h4>
           <FlexRow>
             <Stars
               reviewsMeta={{ averageRating: this.state.rating }}
@@ -134,15 +134,15 @@ export default class WriteNewReview extends React.Component {
             {printReviewScore(this.state.rating)}
           </FlexRow>
           <br />
+          <h4>Do you recommend this product?*</h4>
           <div>
-            Do you recommend this product?* <br />
             <input type='radio' id='yes' name='recommend' />
             <label htmlFor='yes'>Yes</label>
             <input type='radio' id='no' name='recommend' />
             <label htmlFor='no'>No</label>
           </div>
           <br />
-          Characteristics*
+          <h4>Characteristics*</h4>
           <div>
             {Object.entries(this.state.characteristics).map((characteristic) => (
               <Characteristic
@@ -153,17 +153,16 @@ export default class WriteNewReview extends React.Component {
             ))}
           </div>
           <br />
+          <label htmlFor={'summary'}><h4>{'Review Summary'}</h4></label>
           <Input
-            label='Review Summary'
             placeholder='Example: Best purchase ever!'
             value={this.state.summary}
             id={'summary'}
             context={this}
           />
           <br />
+          <label htmlFor={'body'}><h4>Review Body*</h4></label>
           <div>
-            <label htmlFor={'body'}>Review Body*</label>
-            <br />
             <textarea
               style={{
                 width: '90%',
@@ -180,16 +179,18 @@ export default class WriteNewReview extends React.Component {
           </div>
           <br />
           {/*<div>Upload your Photos</div>*/}
+          <label htmlFor={'nickname'}><h4>{'Your nickname*'}</h4></label>
           <Input
-            label='Your nickname*'
             placeholder='Example: jackson11!'
             value={this.state.nickname}
             id={'nickname'}
             context={this}
           />
           For privacy reasons, do not use your full name or email address
+          <br />
+          <br />
+          <label htmlFor={'email'}><h4>{'Your email*'}</h4></label>
           <Input
-            label='Your email*'
             placeholder='Example: jackson11@email.com'
             value={this.state.email}
             id={'email'}
