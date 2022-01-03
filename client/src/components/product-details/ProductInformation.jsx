@@ -22,7 +22,7 @@ const ProductInformation = ({productData, starsData, selectedStyle}) => {
   TODO: create conditional rendering for price and style accordingly. Create links for social media
   Note: currently do not have access to number of stars and need to look into that. Also needs a way to make links for social media
   */
- console.log(selectedStyle)
+
  if (selectedStyle !== null && selectedStyle["default?"]) {
     const {sale_price, original_price} = selectedStyle;
     const OriginalPriceStyled = styled(Descriptors)`
