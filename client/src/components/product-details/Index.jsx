@@ -23,14 +23,16 @@ class ProductDetail extends React.Component {
     })
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
-
+  componentDidMount () {
+    this.setState({selectedStyle: stylesData.results[0]});
+  }
   render() {
     const starProp = <Stars reviewsMeta={this.props.reviewMeta}/>;
 
     return (
     <div>
         <ImageGallery data={this.state.selectedStyle}/>
-        <ProductInformation productData={this.state.productData} starsData={starProp}/>
+        <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
         <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
         <AddToCart />
     </div>

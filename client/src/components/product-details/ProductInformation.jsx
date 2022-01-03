@@ -14,17 +14,30 @@ const CategoryStyle = styled(Descriptors)`
   font-size: 24px;
 `;
 
-const ProductInformation = ({ productData, starsData }) => {
-  const { category, name, default_price, description } = productData;
+const ProductInformation = ({productData, starsData, selectedStyle}) => {
+
+  const { category, name, description, default_price} = productData;
+  let SalePriceStyle = <Descriptors>${default_price}</Descriptors>
   /*
   TODO: create conditional rendering for price and style accordingly. Create links for social media
   Note: currently do not have access to number of stars and need to look into that. Also needs a way to make links for social media
   */
+ console.log(selectedStyle)
+ if (selectedStyle !== null && selectedStyle["default?"]) {
+    const {sale_price, original_price} = selectedStyle;
+    const OriginalPriceStyled = styled(Descriptors)`
+    text-decoration-line: line-through;
+    `
+    const DiscountedPriceStyled = styled(Descriptors)`
+    color: red;
+    `
+    SalePriceStyle = <Descriptors><OriginalPriceStyled>${original_price}</OriginalPriceStyled><DiscountedPriceStyled> ${sale_price}</DiscountedPriceStyled></Descriptors>;
+  }
   return (
     <ProductInfoDiv>
       {starsData}
       <CategoryStyle>{category}</CategoryStyle>
-      <Descriptors>${default_price}</Descriptors>
+      {SalePriceStyle}
       <Descriptors>{description}</Descriptors>
       <Descriptors>Social Media placeholder</Descriptors>
     </ProductInfoDiv>
