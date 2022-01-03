@@ -8,9 +8,10 @@ class QuestionEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      productName: 'product name placeholder',
       answers: this.props.question.answers, //this is an object
       answerCount: 2,
-      isAnswerModal: false
+      writeNewAnswer: false
     }
     //function bindings
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
@@ -18,7 +19,7 @@ class QuestionEntry extends React.Component {
     this.updateAnswerHelpfulCount = this.updateAnswerHelpfulCount.bind(this);
     // this.reportQuestion = this.reportQuestion.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
-    this.showAnswerModal = this.showAnswerModal.bind(this);
+    this.openAnswerModal = this.openAnswerModal.bind(this);
   }
 
   showMoreAnswers() {
@@ -41,9 +42,10 @@ class QuestionEntry extends React.Component {
     //TODO: create PUT request to report question
   }
 
-  showAnswerModal() {
-    console.log('should pop up modal', this.state.isAnswerModal);
-    this.setState((prevState, props) => ({ isAnswerModal: !prevState.isAnswerModal }));
+  openAnswerModal(open) {
+    this.setState({
+      writeNewAnswer: open,
+    });
   }
 
   render() {
@@ -54,8 +56,14 @@ class QuestionEntry extends React.Component {
           Helpful?
           <u onClick={this.updateQuestionHelpfulCount}>Yes</u>
           ({this.props.question.question_helpfulness})
-           | <u onClick={this.showAnswerModal}>Add Answer</u>
+           | <u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
         </div>
+        <AnswerModal
+          onClose={() => this.openAnswerModal(false)}
+          show={this.state.writeNewAnswer}
+          productName={this.state.productName}
+          questionBody={this.props.question.question_body}
+        />
         {/* TODO: optimize using Object.entries */}
         {Object.keys(this.state.answers).map((answerKey, idx) => {
           return (
@@ -75,7 +83,7 @@ class QuestionEntry extends React.Component {
           )
           {/* <AnswerEntry key={idx} /> */}
         })}
-        {this.state.isAnswerModal
+        {this.state.writeNewAnswer
         ? <Modal />
         : null
         }
