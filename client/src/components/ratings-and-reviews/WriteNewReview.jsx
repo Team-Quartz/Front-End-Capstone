@@ -5,6 +5,13 @@ import characteristicsMap from './characteristicsMap';
 
 const narrow = { margin: 0, padding: '4px' };
 
+const ErrorDialog = styled.div`
+  color: red;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+`;
+
 function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
 }
@@ -98,7 +105,7 @@ export default class WriteNewReview extends React.Component {
   }
 
   handleBodyChange(e) {
-    const newState = { body: [e.target.value.substring(0, 20), e.target.scrollHeight] };
+    const newState = { body: [e.target.value.substring(0, 1000), e.target.scrollHeight] };
     this.setState(newState);
   }
 
@@ -108,7 +115,8 @@ export default class WriteNewReview extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    this.checkFormCompleteness();
+    const errors = this.checkFormCompleteness();
+    if (errors.length > 0) return;
     console.log('NOTHING WAS SUBMITTED');
     this.props.onClose();
   }
@@ -120,21 +128,22 @@ export default class WriteNewReview extends React.Component {
   }
 
   checkFormCompleteness() {
-
     const characteristicErrors = Object.entries(this.state.characteristics).map(([key, val]) => [
-      `Product ${key} characteristic`,
+      `Select a rating for the product ${key}`,
       val === 0,
-    ])
-    const errorsMap = [
-      ['Product rating', this.state.rating === 0],
+    ]);
+    const errors = [
+      ['Select a product rating', this.state.rating === 0],
       ...characteristicErrors,
-      ['Product recommendation', this.state.recommend === null],
+      ['Select a product recommendation', this.state.recommend === null],
       ['The review body must be 50 characters or more', this.state.body[0].length < 50],
-      ['Your nickname', this.state.nickname === ''],
-      ['Your email', this.state.email === ''],
+      ['Add your nickname', this.state.nickname === ''],
+      ['Add your email', this.state.email === ''],
       ['the email address provided is not in the correct email format', false], //TODO: check email format
       ['the images selected are invalid or unable to be uploaded', false], //TODO: check images
     ].filter((entry) => entry[1]);
+    this.setState({ errors });
+    return errors;
   }
 
   render() {
@@ -225,8 +234,10 @@ export default class WriteNewReview extends React.Component {
           />
           For authentication reasons, you will be emailed
           <FlexRow style={{ justifyContent: 'flex-end' }}>
-            {/* Error printout here */}
-            <button>Submit</button>
+            <ErrorDialog>
+              {this.state.errors.map((error, i) => <div key={i}>{error[0]}</div>)}
+            </ErrorDialog>
+            <div><button>Submit</button></div>
           </FlexRow>
         </form>
       </Modal>
