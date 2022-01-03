@@ -124,21 +124,12 @@ export default class WriteNewReview extends React.Component {
       ['Product rating', this.state.rating === 0],
       ...Object.entries(this.state.characteristics).map(([key, val]) => [`Product ${key} characteristic`, val === 0]),
       ['Product recommendation', this.state.recommend === null],
-      ['Review Body', this.state.body[0] === ''],
+      ['The review body must be 50 characters or more', this.state.body[0].length < 50],
       ['Your nickname', this.state.nickname === ''],
       ['Your email', this.state.email === ''],
+      ['the email address provided is not in the correct email format', false], //TODO: check email format
+      ['the images selected are invalid or unable to be uploaded', false], //TODO: check images
     ].filter((entry) => entry[1])
-    console.log(errorsMap);
-    // Any mandatory fields are blank
-    //rating
-    //recommend
-    //characteristics
-    //body
-    //nickname
-    //email
-    // The review body is less than 50 characters
-    // The email address provided is not in correct email format
-    // The images selected are invalid or unable to be uploaded.
   }
 
   render() {
