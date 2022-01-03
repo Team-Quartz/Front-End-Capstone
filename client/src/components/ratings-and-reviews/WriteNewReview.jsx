@@ -121,6 +121,8 @@ export default class WriteNewReview extends React.Component {
         <form onSubmit={this.submitForm.bind(this)}>
           <h2>Write Your Review</h2>
           <h3>About the {this.props.product.name}</h3>
+          <br />
+          Overall Rating*
           <FlexRow>
             <Stars
               reviewsMeta={{ averageRating: this.state.rating }}
@@ -128,15 +130,16 @@ export default class WriteNewReview extends React.Component {
             />
             {printReviewScore(this.state.rating)}
           </FlexRow>
+          <br />
           <div>
-            Do you recommend this product?
+            Do you recommend this product?* <br />
             <input type='radio' id='yes' name='recommend' />
             <label htmlFor='yes'>Yes</label>
             <input type='radio' id='no' name='recommend' />
             <label htmlFor='no'>No</label>
           </div>
           <br />
-          Attributes
+          Characteristics*
           <div>
             {Object.entries(this.state.characteristics).map((characteristic) => (
               <Characteristic
@@ -148,14 +151,15 @@ export default class WriteNewReview extends React.Component {
           </div>
           <br />
           <Input
-            label='Review Summary:'
+            label='Review Summary'
             placeholder='Example: Best purchase ever!'
             value={this.state.summary}
             id={'summary'}
             context={this}
           />
+          <br />
           <div>
-            <label htmlFor={'body'}>Review Body:</label>
+            <label htmlFor={'body'}>Review Body*</label>
             <br />
             <textarea
               style={{
@@ -171,9 +175,10 @@ export default class WriteNewReview extends React.Component {
               placeholder='Why did you like the product or not?'
             />
           </div>
+          <br />
           {/*<div>Upload your Photos</div>*/}
           <Input
-            label='Your nickname:'
+            label='Your nickname*'
             placeholder='Example: jackson11!'
             value={this.state.nickname}
             id={'nickname'}
@@ -181,7 +186,7 @@ export default class WriteNewReview extends React.Component {
           />
           For privacy reasons, do not use your full name or email address
           <Input
-            label='Your email:'
+            label='Your email*'
             placeholder='Example: jackson11@email.com'
             value={this.state.email}
             id={'email'}
