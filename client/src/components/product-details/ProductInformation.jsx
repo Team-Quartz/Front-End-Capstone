@@ -13,6 +13,12 @@ const Descriptors = styled.div`
 const CategoryStyle = styled(Descriptors)`
   font-size: 24px;
 `;
+const OriginalPriceStyled = styled(Descriptors)`
+text-decoration-line: line-through;
+`
+const DiscountedPriceStyled = styled(Descriptors)`
+color: red;
+`
 
 const ProductInformation = ({productData, starsData, selectedStyle}) => {
 
@@ -25,12 +31,6 @@ const ProductInformation = ({productData, starsData, selectedStyle}) => {
 
  if (selectedStyle !== null && selectedStyle["default?"]) {
     const {sale_price, original_price} = selectedStyle;
-    const OriginalPriceStyled = styled(Descriptors)`
-    text-decoration-line: line-through;
-    `
-    const DiscountedPriceStyled = styled(Descriptors)`
-    color: red;
-    `
     SalePriceStyle = <Descriptors><OriginalPriceStyled>${original_price}</OriginalPriceStyled><DiscountedPriceStyled> ${sale_price}</DiscountedPriceStyled></Descriptors>;
   }
   return (

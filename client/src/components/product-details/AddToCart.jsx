@@ -21,7 +21,7 @@ const StyleSelector = (props) => {
         {quantityList}
       </datalist>
 
-      <button id="add-to-cart" type='submit' form='shopping-cart' disabled='true'>Add To Cart</button>
+      <button id="add-to-cart" type='submit' form='shopping-cart' disabled={true}>Add To Cart</button>
     </form>
   )
 }
