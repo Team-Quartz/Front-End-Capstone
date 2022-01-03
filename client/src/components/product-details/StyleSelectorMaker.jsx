@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
+const StyledImage = styled.img`
+width: 75px;
+height: 75px;
+`
 const StyleSelectorMaker = (styleObject, handler) => {
-  const StyledImage = styled.img`
-  width: 75px;
-  height: 75px;
-  `
   return (
     <StyledImage src={styleObject.photos[0].thumbnail_url} key={styleObject.style_id + ''} id={styleObject.style_id + '#'} onClick={(e) => {handler(e.target.getAttribute('id'))}} />
   )
