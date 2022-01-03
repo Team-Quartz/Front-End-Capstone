@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-const API_URL = `https://app-hrsei-api.herokuapp.com/api/fec2/:hratx`;
+const API_URL = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx`;
 
 app.use('/API', (req, res) => {
   req.headers.Authorization = GITHUB_API_KEY;
@@ -23,10 +23,7 @@ app.use('/API', (req, res) => {
     }
   })
     .then(response => {
-      console.log(response);
-    })
-    .then(() => {
-      res.send('hi there!');
+      res.send(response.data);
     })
     .catch(err => {
       console.error(err);
