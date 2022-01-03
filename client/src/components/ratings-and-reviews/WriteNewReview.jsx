@@ -26,29 +26,37 @@ function Input({ label, placeholder, value, id, context, type = 'text' }) {
 }
 
 function Characteristic({ characteristic: [characteristic, value], updateCharacteristic }) {
+  let characteristicDisplay = 'none selected';
+  if (value) {
+    characteristicDisplay = characteristicsMap[characteristic].labels[value - 1];
+  }
   return (
-    <tr>
-      <td>{characteristic}</td>
-      {characteristicsMap[characteristic].labels.map((characteristicLabel, i) => {
-        const buttonId = characteristic + i;
-        return (
-          <td key={characteristicLabel} style={{
-            textAlign:'center',
-          }}>
-            <label htmlFor={buttonId}>{characteristicLabel}</label>
-            <br />
-            <input type='radio' id={buttonId} name={characteristic} />
-          </td>
-        );
-      })}
-    </tr>
+    <div style={{margin: 0, padding: '4px'}}>
+      {`${characteristic}: ${characteristicDisplay}`}
+      <FlexRow style={{ justifyContent: 'space-around' }}>
+        {[1, 2, 3, 4, 5].map((i) => (
+          <input
+            type='radio'
+            key={characteristic + i}
+            name={characteristic}
+            checked={i === value}
+            onChange={() => updateCharacteristic(characteristic, i)}
+
+          />
+          ))}
+      </FlexRow>
+      <FlexRow style={{justifyContent: 'space-between'}}>
+        <div>{characteristicsMap[characteristic].labels[0]}</div>
+        <div>{characteristicsMap[characteristic].labels[4]}</div>
+      </FlexRow>
+    </div>
   );
 }
 
 const blankState = {
   rating: 0,
   recommend: null,
-  characteristics: [],
+  characteristics: {},
   summary: '',
   body: ['', '4em'],
   photos: '',
@@ -70,10 +78,8 @@ export default class WriteNewReview extends React.Component {
 
   clearState() {
     const newState = Object.assign({}, blankState);
-    newState.characteristics = Object.keys(this.props.reviewsMeta.characteristics).map((key) => [
-      key,
-      null,
-    ]);
+    newState.characteristics = {};
+    Object.keys(this.props.reviewsMeta.characteristics).forEach((key) => newState.characteristics[key] = 0);
     this.setState(newState);
   }
 
@@ -102,6 +108,12 @@ export default class WriteNewReview extends React.Component {
     console.log('submit');
   }
 
+  updateCharacteristic(characteristic, value) {
+    const characteristics = Object.assign({}, this.state.characteristics);
+    characteristics[characteristic] = value;
+    this.setState({ characteristics });
+  }
+
   render() {
     return (
       <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
@@ -122,13 +134,18 @@ export default class WriteNewReview extends React.Component {
             <input type='radio' id='no' name='recommend' />
             <label htmlFor='no'>No</label>
           </div>
-          <table>
-            <tbody>
-              {this.state.characteristics.map((characteristic) => (
-                <Characteristic characteristic={characteristic} key={characteristic} />
-              ))}
-            </tbody>
-          </table>
+          <br />
+          Attributes
+          <div>
+            {Object.entries(this.state.characteristics).map((characteristic) => (
+              <Characteristic
+                characteristic={characteristic}
+                key={characteristic}
+                updateCharacteristic={this.updateCharacteristic.bind(this)}
+              />
+            ))}
+          </div>
+          <br />
           <Input
             label='Review Summary:'
             placeholder='Example: Best purchase ever!'
