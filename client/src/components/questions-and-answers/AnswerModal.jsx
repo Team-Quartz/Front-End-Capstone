@@ -45,7 +45,8 @@ class AnswerModal extends React.Component {
   // }
 
   uploadPhoto() {
-    let updatedPhotosList = this.state.photosList.push(this.state.photoUrlToAdd);
+    let updatedPhotosList = this.state.photosList.slice();
+    updatedPhotosList.push(this.state.photoUrlToAdd);
     this.setState({ photosList: updatedPhotosList });
   }
   //TODO: create POST request to add question
