@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
+import ErrorModal from './ErrorModal.jsx';
 
 class AnswerModal extends React.Component {
   constructor(props) {
@@ -7,32 +8,39 @@ class AnswerModal extends React.Component {
     this.state = {
       productName: this.props.productName,
       questionBody: this.props.questionBody,
-      questionEntry: '',
-      nicknameEntry: '',
+      questionInput: '',
+      nicknameInput: '',
+      emailInput: '',
       photoUrlToAdd: '',
       photosList: [],
-      emailEntry: ''
+      showErrorModal: false,
+      errorMessage: 'inputs must not be blank, and email address and photo URLs must be valid'
     }
     this.handleQuestionChange = this.handleQuestionChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePhotoUrlChange = this.handlePhotoUrlChange.bind(this);
     this.uploadPhoto= this.uploadPhoto.bind(this);
+    this.checkAnswersInputValidity = this.checkAnswersInputValidity.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.openErrorModal = this.openErrorModal.bind(this);
+    this.closeUponSuccess = this.closeUponSuccess.bind(this);
+    this.validatePhoto = this.validatePhoto.bind(this);
   }
 
   handleQuestionChange(e) {
     e.preventDefault();
-    this.setState({questionEntry: e.target.value});
+    this.setState({questionInput: e.target.value});
   }
 
   handleNicknameChange(e) {
     e.preventDefault();
-    this.setState({nicknameEntry: e.target.value});
+    this.setState({nicknameInput: e.target.value});
   }
 
   handleEmailChange(e) {
     e.preventDefault();
-    this.setState({emailEntry: e.target.value});
+    this.setState({emailInput: e.target.value});
   }
 
   handlePhotoUrlChange(e) {
@@ -43,11 +51,66 @@ class AnswerModal extends React.Component {
   // checkInputValiditiy() {
   //   if
   // }
+  validatePhoto(photoUrl) {
+    const http = new XMLHttpRequest();
+    http.open('HEAD', photoUrl, false);
+    http.send();
+    console.log('HTTP Status', http.status)
+    return http.status !== 404;
+  }
 
   uploadPhoto() {
-    let updatedPhotosList = this.state.photosList.slice();
-    updatedPhotosList.push(this.state.photoUrlToAdd);
-    this.setState({ photosList: updatedPhotosList });
+    if (this.state.photoUrlToAdd === '' ||
+    !this.validatePhoto(this.state.photoUrlToAdd) ||
+    this.state.photosList.length > 4) {
+      this.openErrorModal(true);
+    } else {
+      let updatedPhotosList = this.state.photosList.slice();
+      updatedPhotosList.push(this.state.photoUrlToAdd);
+      console.log('photos list: ', updatedPhotosList);
+      this.setState({
+        photoUrlToAdd: '',
+        photosList: updatedPhotosList
+      });
+    }
+  }
+
+  validateEmail(email) {
+    let isValid = true;
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g;
+    if (!email.match(regex)) {
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  checkAnswersInputValidity() {
+    if (!this.state.questionInput || !this.state.nicknameInput || !this.state.emailInput) {
+      this.openErrorModal(true);
+    } else if (!this.validateEmail(this.state.emailInput)) {
+      this.openErrorModal(true);
+    } else {
+      //TODO: invoke POST request
+      this.closeUponSuccess();
+      this.setState({
+        questionInput: '',
+        nicknameInput: '',
+        emailInput: '',
+        photoUrlToAdd: '',
+        photosList: [],
+      })
+    }
+  }
+
+  openErrorModal(open) {
+    this.setState({
+      showErrorModal: open,
+    });
+  }
+
+  closeUponSuccess() {
+    this.props.success();
+    this.props.onClose();
   }
   //TODO: create POST request to add question
 
@@ -64,11 +127,16 @@ class AnswerModal extends React.Component {
         <p>Your email</p>
         <input onChange={this.handleEmailChange} />
         <p>For authentication reasons, you will not be emailed</p>
-        <input onChange={this.handlePhotoUrlChange} />
+        <input onChange={this.handlePhotoUrlChange}  value={this.state.photoUrlToAdd}/>
         <button onClick={this.uploadPhoto}>Upload your photos</button>
-        <button>
+        <button onClick={this.checkAnswersInputValidity}>
           Submit Answer
         </button>
+        <ErrorModal
+          onClose={() => this.openErrorModal(false)}
+          show={this.state.showErrorModal}
+          message={this.state.errorMessage}
+        />
       </Modal>
     )
   }
