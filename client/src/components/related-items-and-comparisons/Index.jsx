@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import RelatedItems from './components/RelatedItems.jsx'
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import RelatedItems from "./components/RelatedItems.jsx";
 import OutfitItems from "./components/OutfitItems.jsx";
 import cardLoader from "./card-loader/cardLoader";
-import { GITHUB_API_KEY } from '../../../../server/config.js';
-
-
 
 const Container = styled.div`
   display: flex;
@@ -42,67 +39,67 @@ const Title = styled.h5`
   font-size: 20px;
 `;
 
-const Index = ({changeCurrentProduct, currentProductId, currentStyleId}) => {
+const Index = ({ changeCurrentProduct, currentProductId, currentStyleId }) => {
   const [defaultStyles] = useState(cardLoader[0]);
-  const [relatedItems, setRelatedItems] = useState(0)
-  const [currentProduct, setCurrentProduct] = useState({})
+  const [relatedItems, setRelatedItems] = useState(0);
+  const [currentProduct, setCurrentProduct] = useState({});
 
   //API FETCH
   const fetchRelatedProductIds = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/related`, {
-      headers: {
-        Authorization: GITHUB_API_KEY
-      }
-    })
-    .then((relatedIds) => {
-      setRelatedItems(relatedIds.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
+    axios
+      .get(
+        `/API/products/${currentProductId}/related`
+      )
+      .then((relatedIds) => {
+        setRelatedItems(relatedIds.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const fetchCurrentProduct = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/`, {
-      headers: {
-        Authorization: GITHUB_API_KEY
-      }
-    })
-    .then((currentProductInfo) => {
-      setCurrentProduct(currentProductInfo.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
+    axios
+      .get(
+        `/API/products/${currentProductId}/`
+      )
+      .then((currentProductInfo) => {
+        setCurrentProduct(currentProductInfo.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     fetchRelatedProductIds();
-    fetchCurrentProduct()
-  }, [currentProductId])
+    fetchCurrentProduct();
+  }, [currentProductId]);
 
   return (
     <Container>
-    <Wrapper>
-      <RelatedProducts>
-        <Title>RELATED PRODUCTS</Title>
-        <RelatedItems
-          changeCurrentProduct={changeCurrentProduct}
-          relatedItems={relatedItems}
-          currentProduct={currentProduct}
-          setRelatedItems={setRelatedItems}
-        />
-      </RelatedProducts>
-      <Outfit>
-        <Title>YOUR OUTFIT</Title>
-        <OutfitItems
-          currentItem={currentProduct}
-          defaultStyle={defaultStyles}
-          currentProductId={currentProductId}
-          currentStyleId={currentStyleId}
-        />
-      </Outfit>
-    </Wrapper>
-  </Container>
-  )
-}
+      <Wrapper>
+        <RelatedProducts>
+          <Title>RELATED PRODUCTS</Title>
+          <RelatedItems
+            changeCurrentProduct={changeCurrentProduct}
+            relatedItems={relatedItems}
+            currentProduct={currentProduct}
+            setRelatedItems={setRelatedItems}
+          />
+        </RelatedProducts>
+        <Outfit>
+          <Title>YOUR OUTFIT</Title>
+          <OutfitItems
+            currentItem={currentProduct}
+            defaultStyle={defaultStyles}
+            currentProductId={currentProductId}
+            currentStyleId={currentStyleId}
+          />
+        </Outfit>
+      </Wrapper>
+    </Container>
+  );
+};
 
-export default Index
+export default Index;

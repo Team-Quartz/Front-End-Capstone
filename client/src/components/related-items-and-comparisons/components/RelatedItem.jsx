@@ -6,7 +6,6 @@ import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx";
 import utils from "../../../Utils.js";
-import { GITHUB_API_KEY } from "../../../../../server/config";
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +25,6 @@ const Card = styled.div`
     box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     bottom-border: 0px;
     cursor: pointer;
-
 `;
 
 const Uppercard = styled.div`
@@ -103,7 +101,7 @@ const RelatedItem = ({
   changeCurrentProduct,
   currentProductId,
   relatedItemId,
-  currentProduct
+  currentProduct,
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     cardLoader.results[0]
@@ -118,17 +116,11 @@ const RelatedItem = ({
   const [combinedFeatures, setCombinedFeatures] = useState({});
   const [metadata, setMetadata] = useState({});
 
-
   // FETCH API
   const fetchRelatedProduct = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${relatedItemId}/`,
-        {
-          headers: {
-            Authorization: GITHUB_API_KEY,
-          }
-        }
+        `/API/products/${relatedItemId}/`
       )
       .then((relatedItemInfo) => {
         setDefaultProduct(relatedItemInfo.data);
@@ -141,12 +133,7 @@ const RelatedItem = ({
   const fetchRelatedProductStyles = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${relatedItemId}/styles`,
-        {
-          headers: {
-            Authorization: GITHUB_API_KEY,
-          }
-        }
+        `/API/products/${relatedItemId}/styles`
       )
       .then((relatedItemStyles) => {
         setDefaultProductStyle(relatedItemStyles.data.results[0]);
@@ -159,12 +146,7 @@ const RelatedItem = ({
   const fetchMetadata = () => {
     axios
       .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${relatedItemId}`,
-        {
-          headers: {
-            Authorization: GITHUB_API_KEY,
-          }
-        }
+        `/API/reviews/meta?product_id=${relatedItemId}`
       )
       .then((metadataInfo) => {
         setMetadata(utils.parseReviewsMeta(metadataInfo.data));
