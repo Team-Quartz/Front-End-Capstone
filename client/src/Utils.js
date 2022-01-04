@@ -9,8 +9,8 @@ parseReviewsMeta = (reviewsMeta) => {
   reviewsMeta.totalRatings = 0;
   let ratingSum = 0;
   Object.entries(reviewsMeta.ratings).forEach((rating) => {
-    reviewsMeta.totalRatings += Number.parseInt(rating[1]);
-    ratingSum += Number.parseInt(rating[0]) * Number.parseInt(rating[1]);
+    reviewsMeta.totalRatings += parseInt(rating[1]);
+    ratingSum += parseInt(rating[0]) * parseInt(rating[1]);
   });
   if (reviewsMeta.totalRatings > 0) {
     reviewsMeta.averageRating = ratingSum / reviewsMeta.totalRatings;

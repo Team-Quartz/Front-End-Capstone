@@ -7,11 +7,10 @@ class QuestionEntry extends React.Component {
     super(props);
     this.state = {
       productName: 'product name placeholder',
-      answers: this.props.question.answers, //this is an object
+      answers: this.props.question.answers,
       answerCount: 2,
       writeNewAnswer: false
     }
-    //function bindings
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
     this.updateAnswerHelpfulCount = this.updateAnswerHelpfulCount.bind(this);
