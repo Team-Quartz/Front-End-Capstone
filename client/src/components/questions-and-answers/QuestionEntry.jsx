@@ -1,6 +1,4 @@
 import React from 'react';
-import { Modal } from '../sharedComponents.jsx';
-// import AnswerEntry from './AnswerEntry.jsx';
 import dayjs from 'dayjs';
 import AnswerModal from './AnswerModal.jsx';
 
@@ -81,12 +79,7 @@ class QuestionEntry extends React.Component {
               </p>
             </div>
           )
-          {/* <AnswerEntry key={idx} /> */}
         })}
-        {this.state.writeNewAnswer
-        ? <Modal />
-        : null
-        }
       </div>
     )
   }
