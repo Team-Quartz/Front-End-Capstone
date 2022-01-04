@@ -1,5 +1,4 @@
 import React from 'react';
-import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import { Stars, FlexRow } from '../sharedComponents.jsx';
@@ -69,6 +68,9 @@ class RatingsAndReviews extends React.Component {
   }
 
   render() {
+    if (!this.props.currentProduct) {
+      return null;
+    }
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
@@ -110,7 +112,7 @@ class RatingsAndReviews extends React.Component {
           onClose={() => this.openWriteNewReview(false)}
           show={this.state.writingNewReview}
           reviewsMeta={this.props.reviewsMeta}
-          product={placeholder.props.currentProduct}
+          currentProduct={this.props.currentProduct}
         />
       </div>
     );

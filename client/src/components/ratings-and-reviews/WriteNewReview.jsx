@@ -158,7 +158,7 @@ export default class WriteNewReview extends React.Component {
       <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
         <form onSubmit={this.submitForm.bind(this)}>
           <h2>Write Your Review</h2>
-          <h3>About the {this.props.product.name}</h3>
+          <h3>About the {this.props.currentProduct.name}</h3>
           <br />
           <h4>Overall Rating*</h4>
           <FlexRow>

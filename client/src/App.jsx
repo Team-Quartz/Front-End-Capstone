@@ -43,7 +43,7 @@ class App extends react.Component {
           <ProductDetails reviewsMeta={this.state.reviewsMeta} />
           {/* <RelatedItemsAndComparisons /> */}
           <QuestionsAndAnswers />
-          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
+          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} currentProduct={this.state.currentProduct}/>
         </AppStyle>
       </AppContainer>
     );
