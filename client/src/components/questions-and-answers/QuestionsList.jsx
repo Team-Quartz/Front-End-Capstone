@@ -58,7 +58,8 @@ class QuestionsList extends React.Component {
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
         : null}
         <QuestionModal
-          onClose={this.closeQuestionModal}
+          onClose={() => this.openQuestionModal(false)}
+          success={() => this.openSuccessModal(true)}
           show={this.state.writeNewQuestion}
           productName={this.state.productName}
         />

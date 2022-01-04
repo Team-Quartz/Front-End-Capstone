@@ -18,6 +18,7 @@ class QuestionModal extends React.Component {
     this.checkQuestionsInputValidity = this.checkQuestionsInputValidity.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
     this.openErrorModal = this.openErrorModal.bind(this);
+    this.closeUponSuccess = this.closeUponSuccess.bind(this);
   }
 
   handleQuestionChange(e) {
@@ -44,6 +45,11 @@ class QuestionModal extends React.Component {
     return isValid;
   }
 
+  closeUponSuccess() {
+    this.props.success();
+    this.props.onClose();
+  }
+
   checkQuestionsInputValidity() {
     if (!this.state.questionInput || !this.state.nicknameInput || !this.state.emailInput) {
       this.openErrorModal(true);
@@ -51,7 +57,7 @@ class QuestionModal extends React.Component {
       this.openErrorModal(true);
     } else {
       //TODO: invoke POST request
-      this.props.onClose();
+      this.closeUponSuccess();
     }
   }
 
