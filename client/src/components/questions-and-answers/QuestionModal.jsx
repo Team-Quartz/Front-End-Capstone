@@ -13,6 +13,7 @@ class QuestionModal extends React.Component {
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.checkQuestionsInputValidity = this.checkQuestionsInputValidity.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
   }
 
   handleQuestionChange(e) {
@@ -29,19 +30,26 @@ class QuestionModal extends React.Component {
     e.preventDefault();
     this.setState({emailInput: e.target.value});
   }
-  //TODO:create email check helper function
 
-  //TODO: functions to check validity of inputs
+  validateEmail(email) {
+    let isValid = true;
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g;
+    if (!email.match(regex)) {
+      isValid = false;
+    }
+    return isValid;
+  }
+
   checkQuestionsInputValidity() {
     if (!this.state.questionInput || !this.state.nicknameInput || !this.state.emailInput) {
       //TODO: add warning message
       console.log('one of your inputs is empty');
-    } else if (!this.state.emailInput.includes('@')) {
+    } else if (!this.validateEmail(this.state.emailInput)) {
       //TODO: add warning message
       console.log('the email you entered is not valid');
     } else {
       //TODO: invoke POST request
-      //TODO:
+      //TODO: create nice message alert to user?
       console.log('submission success!')
     }
   }
@@ -59,7 +67,7 @@ class QuestionModal extends React.Component {
         <input onChange={this.handleNicknameChange} />
         <p>Your email</p>
         <input onChange={this.handleEmailChange} />
-        <button onClick={this.checkQuestionsInputValidity}>
+        <button onClick={this.checkQuestionsInputValidity} onClick={this.props.onClose}>
           Submit Question
         </button>
       </Modal>
