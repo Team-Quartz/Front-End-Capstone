@@ -23,7 +23,6 @@ class ProductDetail extends React.Component {
     this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
   StyleSelectorHandler (targetKey) {
-    targetKey = targetKey.substring(0, targetKey.length - 1);
     const matchedStyle = this.state.stylesData.find((styleObject) => {
       return styleObject.style_id + '' === targetKey
     })
@@ -41,7 +40,7 @@ class ProductDetail extends React.Component {
           <StyledPlaceHolder src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif"/>
           :
           <div>
-            <ImageGallery data={this.state.selectedStyle}/>
+            <ImageGallery photos={this.state.selectedStyle.photos}/>
             <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
             <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} />
             <AddToCart />

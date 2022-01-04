@@ -13,8 +13,7 @@ const ImageGallery = ({data}) => {
 
   return (
     <div>
-      {/* <img className="gallery" src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif" alt="A lot of random images"/> */}
-      <StyledImage className="gallery" src={source} alt="A lot of random images"/>
+
     </div>
   )
 }
