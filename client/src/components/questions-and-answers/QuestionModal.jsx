@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
+import ErrorModal from './ErrorModal.jsx';
 
 class QuestionModal extends React.Component {
   constructor(props) {
@@ -7,13 +8,16 @@ class QuestionModal extends React.Component {
     this.state = {
       questionInput: '',
       nicknameInput: '',
-      emailInput: ''
+      emailInput: '',
+      showErrorModal: false,
+      errorMessage: 'inputs must not be blank and email address must be valid'
     }
     this.handleQuestionChange = this.handleQuestionChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.checkQuestionsInputValidity = this.checkQuestionsInputValidity.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
+    this.openErrorModal = this.openErrorModal.bind(this);
   }
 
   handleQuestionChange(e) {
@@ -42,16 +46,19 @@ class QuestionModal extends React.Component {
 
   checkQuestionsInputValidity() {
     if (!this.state.questionInput || !this.state.nicknameInput || !this.state.emailInput) {
-      //TODO: add warning message
-      console.log('one of your inputs is empty');
+      this.openErrorModal(true);
     } else if (!this.validateEmail(this.state.emailInput)) {
-      //TODO: add warning message
-      console.log('the email you entered is not valid');
+      this.openErrorModal(true);
     } else {
       //TODO: invoke POST request
-      //TODO: create nice message alert to user?
-      console.log('submission success!')
+      this.props.onClose();
     }
+  }
+
+  openErrorModal(open) {
+    this.setState({
+      showErrorModal: open,
+    });
   }
 
   //TODO: create POST request to add question
@@ -65,11 +72,18 @@ class QuestionModal extends React.Component {
         <input onChange={this.handleQuestionChange} />
         <p>What is your nickname?</p>
         <input onChange={this.handleNicknameChange} />
+        <p>For privacy reasons, do not use your full name or email address</p>
         <p>Your email</p>
         <input onChange={this.handleEmailChange} />
-        <button onClick={this.checkQuestionsInputValidity} onClick={this.props.onClose}>
+        <p>For authentication reasons, you will not be emailed</p>
+        <button onClick={this.checkQuestionsInputValidity}>
           Submit Question
         </button>
+        <ErrorModal
+          onClose={() => this.openErrorModal(false)}
+          show={this.state.showErrorModal}
+          message={this.state.errorMessage}
+        />
       </Modal>
     )
   }

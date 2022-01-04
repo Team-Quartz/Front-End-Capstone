@@ -58,7 +58,6 @@ class AnswerModal extends React.Component {
         <h3>{this.state.productName}: {this.state.questionBody}</h3>
         <p>Your Answer</p>
         <input onChange={this.handleQuestionChange} />
-        <p>For privacy reasons, do not use your full name or email address</p>
         <p>What is your nickname?</p>
         <input onChange={this.handleNicknameChange} />
         <p>For privacy reasons, do not use your full name or email address</p>

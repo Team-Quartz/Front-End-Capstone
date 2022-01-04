@@ -2,6 +2,7 @@ import React from 'react';
 import { dummyData } from './dummyData.js';
 import QuestionEntry from './QuestionEntry.jsx';
 import QuestionModal from './QuestionModal.jsx';
+import SuccessModal from './SuccessModal.jsx';
 
 class QuestionsList extends React.Component {
   constructor(props) {
@@ -11,11 +12,13 @@ class QuestionsList extends React.Component {
       questions: dummyData.results,
       questionCount: 2,
       searchFilter: this.props.searchFilter,
-      writeNewQuestion: false
+      writeNewQuestion: false,
+      showSuccess: false
     }
-    //function bindings
     this.showMoreQuestions = this.showMoreQuestions.bind(this);
     this.openQuestionModal = this.openQuestionModal.bind(this);
+    this.openSuccessModal = this.openSuccessModal.bind(this);
+    this.closeQuestionModal = this.closeQuestionModal.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +37,17 @@ class QuestionsList extends React.Component {
     });
   }
 
+  openSuccessModal(open) {
+    this.setState({
+      showSuccess: open,
+    });
+  }
+
+  closeQuestionModal() {
+    this.openQuestionModal(false);
+    this.openSuccessModal(true);
+  }
+
   render() {
     return (
       <div>
@@ -44,9 +58,13 @@ class QuestionsList extends React.Component {
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
         : null}
         <QuestionModal
-          onClose={() => this.openQuestionModal(false)}
+          onClose={this.closeQuestionModal}
           show={this.state.writeNewQuestion}
           productName={this.state.productName}
+        />
+        <SuccessModal
+          onClose={() => this.openSuccessModal(false)}
+          show={this.state.showSuccess}
         />
         <button onClick={() => this.openQuestionModal(true)}>ADD A QUESTION +</button>
       </div>
