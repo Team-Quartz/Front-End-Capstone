@@ -47,12 +47,24 @@ class RatingsAndReviews extends react.Component {
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
+<<<<<<< Updated upstream
         <FlexRow>
           <div style={{ flex: 1 }}>
             <FlexRow>
+=======
+        {/* <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        > */}
+        <FlexRow>
+          <div className='starsAndBars'>
+            {/* <FlexRow> */}
+>>>>>>> Stashed changes
               <div>{this.props.reviewsMeta.averageRating}</div>
               <Stars reviewsMeta={this.props.reviewsMeta} />
-            </FlexRow>
+            {/* </FlexRow> */}
             <div>100% of reviews recommend this product</div>
             <div>
               {[1, 2, 3, 4, 5].map((rating) => (
@@ -75,12 +87,15 @@ class RatingsAndReviews extends react.Component {
             </div>
           </div>
         </FlexRow>
+<<<<<<< Updated upstream
         <WriteNewReview
           onClose={() => this.openWriteNewReview(false)}
           show={this.state.writingNewReview}
           reviewsMeta={this.props.reviewsMeta}
           product={placeholder.props.currentProduct}
         />
+=======
+>>>>>>> Stashed changes
       </div>
     );
   }
