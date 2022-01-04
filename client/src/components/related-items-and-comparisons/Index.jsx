@@ -4,6 +4,8 @@ import axios from 'axios';
 import RelatedItems from './components/RelatedItems.jsx'
 import OutfitItems from "./components/OutfitItems.jsx";
 import cardLoader from "./card-loader/cardLoader";
+import { GITHUB_API_KEY } from '../../../../server/config.js';
+
 
 
 const Container = styled.div`
@@ -47,12 +49,12 @@ const Index = ({changeCurrentProduct, currentProductId, currentStyleId}) => {
 
   //API FETCH
   const fetchRelatedProductIds = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/related`,
-    {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/related`, {
       headers: {
-        'Authorization': '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'
+        Authorization: GITHUB_API_KEY
       }
-    }).then((relatedIds) => {
+    })
+    .then((relatedIds) => {
       setRelatedItems(relatedIds.data)
     }).catch((err) => {
       console.log(err)
@@ -60,12 +62,12 @@ const Index = ({changeCurrentProduct, currentProductId, currentStyleId}) => {
   }
 
   const fetchCurrentProduct = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/`,
-    {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${currentProductId}/`, {
       headers: {
-        'Authorization': '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'
+        Authorization: GITHUB_API_KEY
       }
-    }).then((currentProductInfo) => {
+    })
+    .then((currentProductInfo) => {
       setCurrentProduct(currentProductInfo.data)
     }).catch((err) => {
       console.log(err)

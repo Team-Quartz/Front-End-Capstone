@@ -5,6 +5,7 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import axios from "axios";
 import { Stars } from "../../sharedComponents.jsx";
 import utils from "../../../Utils.js";
+import { GITHUB_API_KEY } from "../../../../../server/config";
 
 const Container = styled.div`
   display: flex;
@@ -56,13 +57,13 @@ const Lowercard = styled.div`
 `;
 
 const Catergory = styled.div`
-  font-size: 14px;
+  font-size: 18px;
 `;
 const Product = styled.div`
   font-weight: 900;
 `;
 const Price = styled.div`
-  font-size: 13px;
+  font-size: 18px;
   bottom-padding: 10px;
 `;
 const ImgWrapper = styled.div`
@@ -93,15 +94,15 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) 
   // FETCH API
 
   const fetchCurrentProduct = () => {
-    axios
-      .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/`,
-        {
-          headers: {
-            Authorization: "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",
-          },
-        }
-      )
+      axios
+        .get(
+          `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/`,
+          {
+            headers: {
+              Authorization: GITHUB_API_KEY,
+            }
+          }
+        )
       .then((currentItemInfo) => {
         setOutfitProduct(currentItemInfo.data);
       })
@@ -116,8 +117,8 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) 
         `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/styles`,
         {
           headers: {
-            Authorization: "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",
-          },
+            Authorization: GITHUB_API_KEY,
+          }
         }
       )
       .then((outfitStyles) => {
@@ -134,8 +135,8 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) 
         `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${outfitProductId}`,
         {
           headers: {
-            Authorization: "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",
-          },
+            Authorization: GITHUB_API_KEY
+          }
         }
       )
       .then((metadataInfo) => {

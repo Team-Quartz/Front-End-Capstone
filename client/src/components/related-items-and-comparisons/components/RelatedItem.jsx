@@ -6,6 +6,7 @@ import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx";
 import utils from "../../../Utils.js";
+import { GITHUB_API_KEY } from "../../../../../server/config";
 
 const Container = styled.div`
   display: flex;
@@ -117,6 +118,7 @@ const RelatedItem = ({
   const [combinedFeatures, setCombinedFeatures] = useState({});
   const [metadata, setMetadata] = useState({});
 
+
   // FETCH API
   const fetchRelatedProduct = () => {
     axios
@@ -124,8 +126,8 @@ const RelatedItem = ({
         `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${relatedItemId}/`,
         {
           headers: {
-            Authorization: "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",
-          },
+            Authorization: GITHUB_API_KEY,
+          }
         }
       )
       .then((relatedItemInfo) => {
@@ -142,8 +144,8 @@ const RelatedItem = ({
         `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${relatedItemId}/styles`,
         {
           headers: {
-            Authorization: "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",
-          },
+            Authorization: GITHUB_API_KEY,
+          }
         }
       )
       .then((relatedItemStyles) => {
@@ -160,8 +162,8 @@ const RelatedItem = ({
         `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${relatedItemId}`,
         {
           headers: {
-            Authorization: "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",
-          },
+            Authorization: GITHUB_API_KEY,
+          }
         }
       )
       .then((metadataInfo) => {
