@@ -5,7 +5,6 @@ class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //TODO create state for each input
       productName: this.props.productName,
       questionBody: this.props.questionBody,
       questionEntry: '',
@@ -44,8 +43,10 @@ class AnswerModal extends React.Component {
   // checkInputValiditiy() {
   //   if
   // }
+
   uploadPhoto() {
-    let updatedPhotosList = this.state.photosList.push(this.state.photoUrlToAdd);
+    let updatedPhotosList = this.state.photosList.slice();
+    updatedPhotosList.push(this.state.photoUrlToAdd);
     this.setState({ photosList: updatedPhotosList });
   }
   //TODO: create POST request to add question
@@ -57,7 +58,6 @@ class AnswerModal extends React.Component {
         <h3>{this.state.productName}: {this.state.questionBody}</h3>
         <p>Your Answer</p>
         <input onChange={this.handleQuestionChange} />
-        <p>For privacy reasons, do not use your full name or email address</p>
         <p>What is your nickname?</p>
         <input onChange={this.handleNicknameChange} />
         <p>For privacy reasons, do not use your full name or email address</p>
