@@ -17,7 +17,6 @@ class App extends react.Component {
     super(props);
     this.state = {
       currentProductId: 38322,
-      currentStyleId: 227500,
       reviewsMeta: reviewsMeta,
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
@@ -31,22 +30,17 @@ class App extends react.Component {
     this.setState({ currentProductId: productId || 38322 });
   }
 
-  // placeholder
-  changeCurrentStyleId(styleId) {
-    this.setState({ currentStyleId: styleId})
-  }
-
   render() {
     return (
       <AppContainer>
         <AppStyle>
           <ProductDetails reviewsMeta={this.state.reviewsMeta} />
         </AppStyle>
-          <RelatedItemsAndComparisons
-            currentProductId={this.state.currentProductId}
-            changeCurrentProduct={this.changeCurrentProduct}
-            currentStyleId={this.state.currentStyleId}
-          />
+        <RelatedItemsAndComparisons
+          currentProductId={this.state.currentProductId}
+          changeCurrentProduct={this.changeCurrentProduct}
+          currentStyleId={this.state.currentStyleId}
+        />
         <AppStyle>
           <QuestionsAndAnswers />
           <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />

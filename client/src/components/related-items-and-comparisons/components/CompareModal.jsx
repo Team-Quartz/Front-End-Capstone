@@ -52,6 +52,7 @@ const Header = styled.div`
   font-size: 15px;
   font-weight: 900;
 `;
+
 const CurrentProduct = styled.div`
   grid-column: 1/2;
   font-size: 20px;
@@ -72,6 +73,7 @@ const Body = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: minmax(14px, 15px);
 `;
+
 const LeftColumn = styled.div`
   grid-column: 1/2;
   display: grid;
@@ -100,9 +102,11 @@ const RightColumn = styled.div`
 const InnerRightColumn = styled.div`
   height: 15px;
 `;
+
 const InnerLeftColumn = styled.div`
   height: 15px;
 `;
+
 const InnerMiddleColumn = styled.div`
   height: 15px;
 `;

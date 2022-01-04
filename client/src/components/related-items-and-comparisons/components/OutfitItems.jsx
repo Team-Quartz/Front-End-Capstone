@@ -11,7 +11,6 @@ const Container = styled.div`
   position: relative;
 `;
 
-// change top position on final product
 const ArrowWrapper = styled.div`
   width: 40px;
   height: 40px;

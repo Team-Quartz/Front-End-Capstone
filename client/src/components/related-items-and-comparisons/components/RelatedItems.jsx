@@ -12,7 +12,6 @@ const Container = styled.div`
   margin: 2px;
 `;
 
-// change top position on final product
 const ArrowWrapper = styled.div`
   width: 40px;
   height: 40px;
@@ -36,8 +35,8 @@ const Wrapper = styled.div`
   display: flex;
   transition: all 1s ease;
   transform: translateX(${(props) => props.slideIndex * -16}vw);
-
 `;
+
 const Arrow = styled.div`
   width: 100%;
   height: 100%;
@@ -69,11 +68,11 @@ const RelatedItems = ({
   return (
     <Container>
       {slideIndex <= 0 ? null : (
-      <ArrowWrapper direction="left" onClick={() => handleClick("left")}>
-      <Arrow>
-        <FaAngleLeft size={30} />
-      </Arrow>
-    </ArrowWrapper>
+        <ArrowWrapper direction="left" onClick={() => handleClick("left")}>
+          <Arrow>
+            <FaAngleLeft size={30} />
+          </Arrow>
+        </ArrowWrapper>
       )}
       {relatedItems.length > 0 ? (
         <Wrapper slideIndex={slideIndex}>
@@ -91,14 +90,12 @@ const RelatedItems = ({
         </Wrapper>
       ) : null}
       {slideIndex >= index ? null : (
-      <ArrowWrapper direction="right" onClick={() => handleClick("right")}>
-      <Arrow>
-        <FaAngleRight size={30} />
-      </Arrow>
-    </ArrowWrapper>
+        <ArrowWrapper direction="right" onClick={() => handleClick("right")}>
+          <Arrow>
+            <FaAngleRight size={30} />
+          </Arrow>
+        </ArrowWrapper>
       )}
-
-
     </Container>
   );
 };
