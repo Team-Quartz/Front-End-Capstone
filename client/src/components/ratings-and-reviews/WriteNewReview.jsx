@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
-import utils from '../../Utils.js'
+import utils from '../../Utils.js';
 
 const narrow = { margin: 0, padding: '4px' };
 
@@ -119,17 +119,21 @@ export default class WriteNewReview extends React.Component {
     e.preventDefault();
     const errors = this.checkFormCompleteness();
     if (errors.length > 0) return;
+    const characteristics = {};
+    Object.entries(this.state.characteristics).forEach(([characteristic, value]) => {
+      characteristics[this.props.reviewsMeta.characteristics[characteristic].id] = value;
+    });
     utils.submitReview(
       this.props.currentProduct.id,
-      this.state.summary,
       this.state.rating,
-      this.state.recommend,
+      this.state.summary,
       this.state.body,
-      this.state.email,
+      this.state.recommend,
       this.state.nickname,
-      this.state.characteristics,
-      this.state.photos,
-    )
+      this.state.email,
+      this.state.photos.length ? this.state.photos : undefined,
+      characteristics,
+    );
     this.clearState();
     this.closeForm();
   }
@@ -162,7 +166,6 @@ export default class WriteNewReview extends React.Component {
     this.setState({ errors });
     return errors;
   }
-
 
   render() {
     return (

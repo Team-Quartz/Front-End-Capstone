@@ -66,28 +66,28 @@ module.exports.scrollIntoView = (ref) => {
 
 module.exports.submitReview = (
   product_id,
-  summary,
   rating,
-  recommend,
+  summary,
   body,
-  email,
+  recommend,
   name,
-  characteristics,
-  photos
+  email,
+  photos,
+  characteristics
 ) => {
   const requestBody = {
     product_id,
-    summary,
     rating,
-    recommend,
+    summary,
     body,
-    email,
+    recommend,
     name,
-    characteristics,
+    email,
     photos,
+    characteristics,
   };
   console.log(requestBody);
-  return axios.post('/API/reviews', { body: requestBody });
+  return axios.post('/API/reviews', requestBody);
   /*
   I don't even have the glasses, but they look neat. Anyways burritos are pretty cool, I'd like to recommend them.
   */
