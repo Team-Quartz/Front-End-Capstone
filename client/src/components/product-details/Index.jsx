@@ -19,11 +19,14 @@ class ProductDetail extends React.Component {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       stylesData: [null],
       productData: {data: null},
       selectedStyle: {data: null},
       highlightStyle: '0',
 =======
+=======
+>>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
 =======
 >>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
 =======
@@ -34,6 +37,9 @@ class ProductDetail extends React.Component {
       highlightStyle: null,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
+=======
 >>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
 =======
 >>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
@@ -65,7 +71,11 @@ class ProductDetail extends React.Component {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} />
+=======
+        <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
+>>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
 =======
         <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
 >>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
