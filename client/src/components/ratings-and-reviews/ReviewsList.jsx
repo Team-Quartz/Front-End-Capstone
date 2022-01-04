@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import React, { useState } from 'react';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -58,7 +58,7 @@ function ReviewBody(props) {
     }
   }
   return (
-    <div style={{ maxWidth: '600px'}}>
+    <div style={{ maxWidth: '600px' }}>
       {body}
       <TextButton onClick={() => setExpanded(!expanded)}>{buttonText}</TextButton>
     </div>
@@ -67,7 +67,7 @@ function ReviewBody(props) {
 
 function ReviewsList({ reviews }) {
   return (
-    <div>
+    <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
       {reviews.map((review) => {
         return (
           <div key={review.review_id}>
