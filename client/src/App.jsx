@@ -17,7 +17,19 @@ class App extends react.Component {
     super(props);
     this.state = {
       reviewsMeta: reviewsMeta,
+      currentProduct: null,
     };
+  }
+
+  componentDidMount() {
+    utils
+      .fetchProduct(38323)
+      .then((currentProduct) => this.setState({ currentProduct }))
+      .catch((err) => console.error(err));
+    utils
+      .fetchReviewsMeta(38323)
+      .then((reviewsMeta) => this.setState({ reviewsMeta }))
+      .catch((err) => console.error(err));
   }
 
   render() {
