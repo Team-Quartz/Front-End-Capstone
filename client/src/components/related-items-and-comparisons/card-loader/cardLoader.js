@@ -2,7 +2,7 @@ var cardLoader = {
   "product_id": "38328",
   "results": [
       {
-          "style_id": "LOADING",
+          "style_id": "LOADINGt",
           "name": "LOADING",
           "original_price": "LOADING",
           "sale_price": "LOADING",

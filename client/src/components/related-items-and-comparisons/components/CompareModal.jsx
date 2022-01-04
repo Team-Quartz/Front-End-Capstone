@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 310px;
-  height: 200px;
+  width: 400px;
+  height: 300px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: grey;
   color: #000;
@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 const Top = styled.div`
   display: grid;
-  width: 290px;
+  width: 395px;
   grid-template-columns: repeat(3, 1fr);
   position: fixed;
   z-index: 10;
@@ -41,27 +41,29 @@ const CompareTitle = styled.div`
   grid-column: 1/4;
   align-self: start;
   position: relative;
-  font-size: 12px;
+  font-size: 20px;
 
 `
 
 const Header = styled.div`
-  width: 105%;
+  width: 100%;
   grid-column: 1/4;
   display: grid;
-  grid-template-columns: (1fr .5fr 1fr);
-  position: relative;
+  grid-template-columns: (1fr 1fr);
   font-size: 15px;
   font-weight: 900;
 `
 const CurrentProduct = styled.div`
-  grid-column: 1/2;
+  grid-column: 1;
+  font-size: 20px;
+  justify-self: start;
 `
 
 const ComparedProduct = styled.div`
-  grid-column: 3/4;
+  grid-column: 2;
   justify-self: end;
   text-align: end;
+  font-size: 20px;
 `
 
 const Body = styled.div`
@@ -74,16 +76,16 @@ const Body = styled.div`
 const LeftColumn = styled.div`
   grid-column: 1/2;
   display:grid;
-  row-gap: 5px;
-  font-size: 11px;
+  row-gap: 20px;
+  font-size: 15px;
   justify-items: center;
 `
 
 const MidColumn = styled.div`
   grid-column: 2/3;
   display:grid;
-  row-gap: 5px;
-  font-size: 12px;
+  row-gap: 20px;
+  font-size: 18px;
   font-weight: 900;
   justify-items: center;
 `
@@ -91,8 +93,8 @@ const MidColumn = styled.div`
 const RightColumn = styled.div`
   grid-column: 3/4;
   display:grid;
-  row-gap: 5px;
-  font-size: 11px;
+  row-gap: 20px;
+  font-size: 15px;
   justify-items: center;
 `;
 

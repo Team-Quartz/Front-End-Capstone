@@ -40,8 +40,8 @@ const Wrapper = styled.div`
 const AddToOutfitCard = styled.div`
   border: 1px solid lightgrey;
   display: flex;
-  width: 200px;
-  height: 100%;
+  width: 310px;
+  height: 400px;
   margin: 10px;
   flex-direction: column;
   position: relative;
@@ -60,6 +60,8 @@ const AddToOutfitButton = styled.button`
   cursor: pointer;
   height: 100%;
   width: 100%;
+  font-size: 30px;
+  font-weight: 500;
 `;
 
 const InnerWrapper = styled.div`
@@ -86,11 +88,11 @@ const RightArrow = styled.div`
   border-radius: 50%;
 `;
 
-const OutfitItems = ({ currentItem, defaultStyle, currentProductId }) => {
+const OutfitItems = ({ currentItem, defaultStyle, currentProductId, currentStyleId }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [outfits, setOutfits] = useState([]);
 
-  const index = outfits.length - 4;
+  const index = outfits.length - 2;
 
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -148,6 +150,7 @@ const OutfitItems = ({ currentItem, defaultStyle, currentProductId }) => {
                   outfits={outfits}
                   key={index}
                   removeFromOutfit={removeFromOutfit}
+                  currentStyleId={currentProductId}
                 />
               );
             })}

@@ -15,8 +15,8 @@ const Container = styled.div`
 const Card = styled.div`
   border: 1px solid lightgrey;
   display: flex;
-  width: 200px;
-  height: 100%;
+  width: 310px;
+  height: 400px;
   margin: 10px;
   flex-direction: column;
   position: relative;
@@ -26,7 +26,7 @@ const Card = styled.div`
     cursor: pointer;
 `;
 const Uppercard = styled.div`
-  flex: 3;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,7 +48,7 @@ const ActionButton = styled.button`
 `;
 
 const Lowercard = styled.div`
-  flex: 1;
+  height: 100px;
   background: lightgrey;
   display: flex;
   flex-direction: column;
@@ -83,7 +83,7 @@ const ReviewWrapper = styled.div`
   padding-top: 10px;
 `;
 
-const Outfit = ({ outfits, outfitProductId, removeFromOutfit }) => {
+const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     cardLoader.results[0]
   );
@@ -155,6 +155,8 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit }) => {
   const removeOutfit = () => {
     removeFromOutfit(outfitProductId);
   };
+
+
 
   return (
     <>

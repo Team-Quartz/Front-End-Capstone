@@ -14,10 +14,10 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid lightgrey;
+  border: 0.5px solid lightgrey;
   display: flex;
-  width: 200px;
-  height: 100%;
+  width: 310px;
+  height: 400px;
   margin: 10px;
   flex-direction: column;
   position: relative;
@@ -25,10 +25,11 @@ const Card = styled.div`
     box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     bottom-border: 0px;
     cursor: pointer;
+
 `;
 
 const Uppercard = styled.div`
-  flex: 3;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +60,7 @@ const ActionButton = styled.button`
 `;
 
 const Lowercard = styled.div`
-  flex: 1;
+  flex: 100px;
   background: lightgrey;
   display: flex;
   flex-direction: column;
@@ -101,7 +102,7 @@ const RelatedItem = ({
   changeCurrentProduct,
   currentProductId,
   relatedItemId,
-  currentProduct,
+  currentProduct
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     cardLoader.results[0]

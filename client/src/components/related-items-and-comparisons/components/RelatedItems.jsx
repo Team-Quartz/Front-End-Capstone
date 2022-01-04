@@ -63,7 +63,7 @@ const RelatedItems = ({
 }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const index = relatedItems.length - 5;
+  const index = relatedItems.length - 3;
 
   const handleClick = (direction) => {
     if (direction === "left") {

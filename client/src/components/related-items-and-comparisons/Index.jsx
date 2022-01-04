@@ -11,12 +11,11 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center
   flex-direction: column;
-  height: 900px;
+  height: 920px;
   width: 100%;
   padding: 0px 10px;
   margin: auto;
   position: relative;
-  border: black solid 1px;
 `;
 
 const Wrapper = styled.div`
@@ -38,9 +37,10 @@ const Outfit = styled.div`
 const Title = styled.h5`
   margin: 10px;
   position: relative;
+  font-size: 20px;
 `;
 
-const Index = ({changeCurrentProduct, currentProductId}) => {
+const Index = ({changeCurrentProduct, currentProductId, currentStyleId}) => {
   const [defaultStyles] = useState(cardLoader[0]);
   const [relatedItems, setRelatedItems] = useState(0)
   const [currentProduct, setCurrentProduct] = useState({})
@@ -95,6 +95,7 @@ const Index = ({changeCurrentProduct, currentProductId}) => {
           currentItem={currentProduct}
           defaultStyle={defaultStyles}
           currentProductId={currentProductId}
+          currentStyleId={currentStyleId}
         />
       </Outfit>
     </Wrapper>
