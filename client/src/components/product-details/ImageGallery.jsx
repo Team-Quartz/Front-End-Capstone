@@ -1,20 +1,27 @@
 import styled from 'styled-components';
+import React from 'react';
+
 const StyledImage = styled.img`
 height: 300;
 width: 300;
 `
 
-const ImageGallery = ({data}) => {
-  let source = "https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif";
+class ImageGallery extends React.Component {
+  constructor(props) {
+    super(props);
+    const {photos} = props;
 
-  if (data !== null) {
-    source = data.photos[0].url;
+    this.state = {
+
     }
+  }
 
-  return (
-    <div>
+  render () {
+    return (
+      <div>
 
-    </div>
-  )
+      </div>
+    )
+  }
 }
 export default ImageGallery;
