@@ -25,7 +25,7 @@ class RatingsAndReviews extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
-      this.loadReviews();
+      this.loadNewProduct();
     }
     if (
       this.state.reviews &&
