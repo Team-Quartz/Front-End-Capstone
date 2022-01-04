@@ -29,8 +29,6 @@ class RatingsAndReviews extends React.Component {
       this.state.reviews &&
       (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
     ) {
-      //TODO: smooth scrolling
-      //TODO: might be redundant with reviewList internal scrollIntoView
       this.scrollIntoView(this.reviewsBottom);
     }
   }
@@ -72,7 +70,7 @@ class RatingsAndReviews extends React.Component {
   }
 
   scrollIntoView(ref) {
-    ref.current.scrollIntoView({behavior: 'smooth'});
+    ref.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   render() {
@@ -82,40 +80,48 @@ class RatingsAndReviews extends React.Component {
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
-        <FlexRow>
-          <div style={{ flex: 1 }}>
-            <FlexRow>
-              <div>{this.props.reviewsMeta.averageRating}</div>
-              <Stars reviewsMeta={this.props.reviewsMeta} />
-            </FlexRow>
-            <div>100% of reviews recommend this product</div>
-            <div>
-              {[1, 2, 3, 4, 5].map((rating) =>
-                this.props.reviewsMeta.ratings ? (
-                  <RatingBreakdown
-                    rating={rating}
-                    count={this.props.reviewsMeta.ratings[rating]}
-                    total={this.props.reviewsMeta.totalRatings}
-                    key={rating}
-                  />
-                ) : (
-                  <RatingBreakdown rating={rating} count={0} total={0} key={rating} />
-                )
-              )}
+        {this.props.reviewsMeta.averageRating ? (
+          <FlexRow>
+            <div style={{ flex: 1 }}>
+              <FlexRow>
+                <div>{Math.round(this.props.reviewsMeta.averageRating * 4) / 4}</div>
+                <Stars reviewsMeta={this.props.reviewsMeta} />
+              </FlexRow>
+              <div>
+                {Math.round(
+                  (this.props.reviewsMeta.recommended.true / this.props.reviewsMeta.totalRatings) *
+                    100
+                )}
+                % of reviews recommend this product
+              </div>
+              <div>
+                {[1, 2, 3, 4, 5].map((rating) =>
+                  this.props.reviewsMeta.ratings ? (
+                    <RatingBreakdown
+                      rating={rating}
+                      count={this.props.reviewsMeta.ratings[rating]}
+                      total={this.props.reviewsMeta.totalRatings}
+                      key={rating}
+                    />
+                  ) : (
+                    <RatingBreakdown rating={rating} count={0} total={0} key={rating} />
+                  )
+                )}
+              </div>
+              <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
             </div>
-            <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
-          </div>
-          <div style={{ flex: 2 }}>
-            <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
-            <ReviewsList reviews={this.state.reviews} scrollIntoView={this.scrollIntoView}/>
-            <div ref={this.reviewsBottom}>
-              {this.areUnloadedReviews() ? (
-                <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>
-              ) : null}
-              <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
+            <div style={{ flex: 2 }}>
+              <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
+              <ReviewsList reviews={this.state.reviews} scrollIntoView={this.scrollIntoView} />
+              <div ref={this.reviewsBottom}>
+                {this.areUnloadedReviews() ? (
+                  <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>
+                ) : null}
+                <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
+              </div>
             </div>
-          </div>
-        </FlexRow>
+          </FlexRow>
+        ) : null}
         <WriteNewReview
           onClose={() => this.openWriteNewReview(false)}
           show={this.state.writingNewReview}
