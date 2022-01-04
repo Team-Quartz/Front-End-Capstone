@@ -48,13 +48,14 @@ module.exports.fetchReviews = (productId, page, count, sort) => {
 };
 
 module.exports.markReviewHelpful = (reviewId) => {
-  return axios.put(`/API/reviews/${productId}/helpful`, {
+  console.log(`marking review number ${reviewId} helpful`)
+  return axios.put(`/API/reviews/${reviewId}/helpful`, {
     params: { review_id: reviewId },
   });
 };
 
 module.exports.markReviewReported = (reviewId) => {
-  return axios.put(`/API/reviews/${productId}/report`, {
+  return axios.put(`/API/reviews/${reviewId}/report`, {
     params: { review_id: reviewId },
   });
 };

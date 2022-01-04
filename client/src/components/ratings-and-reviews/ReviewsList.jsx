@@ -87,33 +87,61 @@ function ReviewBody(props) {
   );
 }
 
-function Review({ review, setShowImage, reviewRef }) {
-  return (
-    <div>
-      <FlexRow style={{ justifyContent: 'space-between' }}>
-        <Stars reviewsMeta={{ averageRating: review.rating }} />
-        <div>
-          {`${review.reviewer_name}, `}
-          {dayjs(review.date).format('MMMM DD, YYYY')}
-        </div>
-      </FlexRow>
-      <h3>{review.summary}</h3>
-      <ReviewBody body={review.body} />
-      <PhotoGallery
-        photos={review.photos}
-        onDoneLoading={() => utils.scrollIntoView(reviewRef)}
-        onClickThumbnail={setShowImage}
-      />
-      {review.recommend ? '✓ I recommend this product' : undefined}
-      <Response response={review.response} />
-      <FlexRow>
-        Helpful?&nbsp;
-        <TextButton>Yes</TextButton>
-        &nbsp;({review.helpfulness})&nbsp;|&nbsp;
-        <TextButton>Report</TextButton>
-      </FlexRow>
-    </div>
-  );
+class Review extends React.Component {
+  //() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      helpful: 0,
+      reported: false,
+    };
+
+    this.markHelpful = this.markHelpful.bind(this);
+    this.reportReview = this.reportReview.bind(this);
+  }
+
+  markHelpful() {
+    this.setState({ helpful: 1 });
+    utils.markReviewHelpful(this.props.review.review_id);
+  }
+
+  reportReview() {
+    this.setState({ reported: true });
+    utils.markReviewReported(this.props.review.review_id);
+  }
+
+  render() {
+    const { review, setShowImage, reviewRef } = this.props;
+    return (
+      <div>
+        <FlexRow style={{ justifyContent: 'space-between' }}>
+          <Stars reviewsMeta={{ averageRating: review.rating }} />
+          <div>
+            {`${review.reviewer_name}, `}
+            {dayjs(review.date).format('MMMM DD, YYYY')}
+          </div>
+        </FlexRow>
+        <h3>{review.summary}</h3>
+        <ReviewBody body={review.body} />
+        <PhotoGallery
+          photos={review.photos}
+          onDoneLoading={() => utils.scrollIntoView(reviewRef)}
+          onClickThumbnail={setShowImage}
+        />
+        {review.recommend ? '✓ I recommend this product' : undefined}
+        <Response response={review.response} />
+        <FlexRow>
+          Helpful?&nbsp;
+          <TextButton disabled={this.state.helpful} onClick={this.markHelpful}>
+            Yes
+          </TextButton>
+          &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
+          {/* TODO: confirm report popup */}
+          <TextButton disabled={this.state.reported} onClick={this.reportReview}>Report</TextButton>
+        </FlexRow>
+      </div>
+    );
+  }
 }
 
 function ReviewsList({ reviews }) {
