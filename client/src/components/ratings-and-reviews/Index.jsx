@@ -11,8 +11,9 @@ import utils from '../../Utils.js';
 const blankState = {
   loadedReviews: [],
   filters: [],
-  reviewPage: 1,
+  reviewPage: 0,
   writingNewReview: false,
+  reviewsRemaining: true,
 };
 class RatingsAndReviews extends react.Component {
   constructor(props) {
@@ -33,12 +34,17 @@ class RatingsAndReviews extends react.Component {
 
   loadReviews() {
     utils
-      .fetchReviews(this.props.reviewsMeta.product_id, this.state.reviewPage, 2, 'relevance')
+      .fetchReviews(this.props.reviewsMeta.product_id, this.state.reviewPage + 1, 2, 'relevance')
       .then((loadedReviews) => {
-        this.setState((state) => ({
-          loadedReviews: state.loadedReviews.concat(loadedReviews),
-          reviewPage: ++state.reviewPage,
-        }));
+        if (loadedReviews.length === 0) {
+          //TODO: remove button as soon as last review is loaded
+          this.setState({ reviewsRemaining: 0 });
+        } else {
+          this.setState((state) => ({
+            loadedReviews: state.loadedReviews.concat(loadedReviews),
+            reviewPage: ++state.reviewPage,
+          }));
+        }
       })
       .catch((err) => console.error(err));
   }
@@ -51,6 +57,7 @@ class RatingsAndReviews extends react.Component {
 
   areUnloadedReviews() {
     return (
+      this.state.reviewsRemaining &&
       this.state.loadedReviews.length < this.props.reviewsMeta.totalRatings
     );
   }

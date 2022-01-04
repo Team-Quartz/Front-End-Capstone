@@ -18,9 +18,6 @@ class App extends react.Component {
     this.state = {
       reviewsMeta: {averageRating:0},
       currentProduct: null,
-      reviewsList: [],
-      reviewSort: 'newest',
-      reviewPage: 0,
     };
   }
 
