@@ -2,9 +2,6 @@ import react, { useState } from 'react';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-<<<<<<< Updated upstream
-import { FlexRow } from '../sharedComponents.jsx';
-=======
 
 const FlexRow = styled.div`
   display: flex;
@@ -15,7 +12,6 @@ const SpreadRow = styled.div`
   justify-content: space-between;
   display: grid;
 `;
->>>>>>> Stashed changes
 
 const TextButton = styled.button`
   border: none;

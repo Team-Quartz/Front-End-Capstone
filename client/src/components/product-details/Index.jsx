@@ -9,41 +9,10 @@ class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       stylesData: [null],
       productData: {data: null},
       selectedStyle: {data: null},
-=======
-      stylesData: [],
-      productData: {},
-      selectedStyle: {},
->>>>>>> parent of f2f806b (Added conditional rendering for placeholder data.)
       highlightStyle: '0',
-=======
-=======
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-      stylesData,
-      productData,
-      selectedStyle: null,
-      highlightStyle: null,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
     }
     this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
@@ -64,27 +33,7 @@ class ProductDetail extends React.Component {
     <div>
         <ImageGallery data={this.state.selectedStyle}/>
         <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} />
-=======
-        <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
-        <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
-        <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
-        <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
->>>>>>> parent of 45c9220 (Adjusting code to account for lack of preloaded data.)
-=======
-        <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler}/>
->>>>>>> parent of f2f806b (Added conditional rendering for placeholder data.)
         <AddToCart />
     </div>
     );
