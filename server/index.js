@@ -17,14 +17,14 @@ app.use('/API', (req, res) => {
     data: req.body,
     headers: {
       Authorization: GITHUB_API_KEY,
-    }
+    },
   })
-    .then(response => {
+    .then((response) => {
       res.send(response.data);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
-      res.status(500).send(err);
+      res.status(500).send();
     });
 });
 
