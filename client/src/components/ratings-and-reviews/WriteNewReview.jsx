@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
+import utils from '../../Utils.js'
 
 const narrow = { margin: 0, padding: '4px' };
 
@@ -67,8 +68,8 @@ const blankState = {
   recommend: null,
   characteristics: {},
   summary: '',
-  body: ['', '4em'],
-  photos: '',
+  body: '',
+  photos: [],
   nickname: '',
   email: '',
   errors: [],
@@ -96,7 +97,6 @@ export default class WriteNewReview extends React.Component {
   }
 
   closeForm() {
-    this.clearState();
     this.props.onClose();
   }
 
@@ -107,7 +107,7 @@ export default class WriteNewReview extends React.Component {
   }
 
   handleBodyChange(e) {
-    const newState = { body: [e.target.value.substring(0, 1000), e.target.scrollHeight] };
+    const newState = { body: e.target.value.substring(0, 1000) };
     this.setState(newState);
   }
 
@@ -119,8 +119,19 @@ export default class WriteNewReview extends React.Component {
     e.preventDefault();
     const errors = this.checkFormCompleteness();
     if (errors.length > 0) return;
-    console.log('NOTHING WAS SUBMITTED');
-    this.props.onClose();
+    utils.submitReview(
+      this.props.currentProduct.id,
+      this.state.summary,
+      this.state.rating,
+      this.state.recommend,
+      this.state.body,
+      this.state.email,
+      this.state.nickname,
+      this.state.characteristics,
+      this.state.photos,
+    )
+    this.clearState();
+    this.closeForm();
   }
 
   updateCharacteristic(characteristic, value) {
@@ -142,7 +153,7 @@ export default class WriteNewReview extends React.Component {
       ['Select a product rating', this.state.rating === 0],
       ...characteristicErrors,
       ['Select a product recommendation', this.state.recommend === null],
-      ['The review body must be 50 characters or more', this.state.body[0].length < 50],
+      ['The review body must be 50 characters or more', this.state.body.length < 50],
       ['Add your nickname', this.state.nickname === ''],
       ['Add your email', this.state.email === ''],
       ['the email address provided is not in the correct email format', this.checkEmailFormat()],
@@ -223,7 +234,7 @@ export default class WriteNewReview extends React.Component {
               }}
               id='body'
               type='text'
-              value={this.state.body[0]}
+              value={this.state.body}
               onChange={this.handleBodyChange.bind(this)}
               placeholder='Why did you like the product or not?'
             />
