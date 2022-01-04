@@ -17,15 +17,23 @@ const ImageThumbnail = styled.img`
   width: 5em;
   height: auto;
   max-height: 10em;
+  &:hover{
+    transform: scale(110%);
+  }
+`;
+
+const ResponseBox = styled.div`
+  background: #ddd;
+  padding: 4px;
 `;
 
 function Response({ response }) {
   if (response) {
     return (
-      <div>
+      <ResponseBox>
         Response:
         <div>{response}</div>
-      </div>
+      </ResponseBox>
     );
   }
   return '';
