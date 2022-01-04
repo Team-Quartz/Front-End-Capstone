@@ -25,13 +25,13 @@ function Response({ response }) {
   return '';
 }
 
-function PhotoGallery({ photos }) {
+function PhotoGallery({ photos, onDoneLoading }) {
   if (photos) {
     return (
       <div>
         {photos.map((photo) => (
           //TODO: on click, open photo in window
-          <img src={photo.url} key={photo.id} />
+          <img src={photo.url} key={photo.id} onLoad={onDoneLoading} onError={onDoneLoading}/>
         ))}
       </div>
     );
@@ -65,15 +65,18 @@ function ReviewBody(props) {
   );
 }
 
+function scrollIntoView(ref) {
+  //TODO: smooth scroll, delay until content loads
+  //TODO: maybe better to just set ref to the scrollable element, and scroll that to the bottom every time
+  ref.current.scrollIntoView();
+}
+
 function ReviewsList({ reviews }) {
   const reviewRef = React.useRef();
 
   React.useEffect(() => {
     if (reviewRef.current) {
-      //TODO: smooth scroll, delay until content loads
-      //TODO: maybe possible to wait until ref is done rendering?
-      //TODO: maybe better to just set ref to the scrollable element, and scroll that to the bottom every time
-      reviewRef.current.scrollIntoView();
+      scrollIntoView(reviewRef);
     }
   }, [reviews])
 
@@ -95,7 +98,7 @@ function ReviewsList({ reviews }) {
             </FlexRow>
             <h3>{review.summary}</h3>
             <ReviewBody body={review.body} />
-            <PhotoGallery photos={review.photos} />
+            <PhotoGallery photos={review.photos} onDoneLoading={() => scrollIntoView(reviewRef)} />
             {review.recommend ? '✓ I recommend this product' : undefined}
             <Response response={review.response} />
             <FlexRow>
