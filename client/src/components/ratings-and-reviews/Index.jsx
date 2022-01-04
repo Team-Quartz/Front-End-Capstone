@@ -8,7 +8,7 @@ import WriteNewReview from './WriteNewReview.jsx';
 import utils from '../../Utils.js';
 
 const blankState = {
-  loadedReviews: [],
+  reviews: null,
   filters: [],
   reviewPage: 0,
   writingNewReview: false,
@@ -25,7 +25,10 @@ class RatingsAndReviews extends React.Component {
     if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
       this.loadReviews();
     }
-    if (prevState.loadedReviews.length < this.state.loadedReviews.length) {
+    if (
+      this.state.reviews &&
+      (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
+    ) {
       //TODO: smooth scrolling
       //TODO: might be redundant with reviewList internal scrollIntoView
       this.reviewsBottom.current.scrollIntoView();
@@ -46,7 +49,7 @@ class RatingsAndReviews extends React.Component {
           this.setState({ reviewsRemaining: 0 });
         } else {
           this.setState((state) => ({
-            loadedReviews: state.loadedReviews.concat(loadedReviews),
+            reviews: state.reviews ? state.reviews.concat(loadedReviews) : loadedReviews,
             reviewPage: ++state.reviewPage,
           }));
         }
@@ -62,8 +65,9 @@ class RatingsAndReviews extends React.Component {
 
   areUnloadedReviews() {
     return (
+      this.state.reviews &&
       this.state.reviewsRemaining &&
-      this.state.loadedReviews.length < this.props.reviewsMeta.totalRatings
+      this.state.reviews.length < this.props.reviewsMeta.totalRatings
     );
   }
 
@@ -99,7 +103,7 @@ class RatingsAndReviews extends React.Component {
           </div>
           <div style={{ flex: 2 }}>
             <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
-            <ReviewsList reviews={this.state.loadedReviews} />
+            <ReviewsList reviews={this.state.reviews} />
             <div ref={this.reviewsBottom}>
               {this.areUnloadedReviews() ? (
                 <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>

@@ -76,6 +76,11 @@ function ReviewsList({ reviews }) {
       reviewRef.current.scrollIntoView();
     }
   }, [reviews])
+
+  if (reviews === null) {
+    return <div>LOADING</div>
+  }
+
   return (
     <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
       {reviews.map((review, i) => {
