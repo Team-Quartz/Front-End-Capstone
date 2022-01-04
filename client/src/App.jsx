@@ -24,7 +24,9 @@ class App extends react.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.changeProduct(38323);
+  }
 
   changeProduct(productId) {
     utils

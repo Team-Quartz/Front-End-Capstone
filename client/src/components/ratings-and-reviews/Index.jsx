@@ -33,7 +33,7 @@ class RatingsAndReviews extends react.Component {
 
   loadReviews() {
     utils
-      .fetchReviews(productId, 0, 2, 'newest')
+      .fetchReviews(this.props.reviewsMeta.product_id, 0, 2, 'newest')
       .then((loadedReviews) => {
         console.log(loadedReviews);
         this.setState((state) => ({
