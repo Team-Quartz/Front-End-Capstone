@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import placeholder from './placeholderData.js';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
@@ -15,15 +15,20 @@ const blankState = {
   writingNewReview: false,
   reviewsRemaining: true,
 };
-class RatingsAndReviews extends react.Component {
+class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = blankState;
+    this.reviewsBottom = React.createRef();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
       this.loadReviews();
+    }
+    if (prevState.loadedReviews.length < this.state.loadedReviews.length) {
+      //TODO: smooth scrolling
+      this.reviewsBottom.current.scrollIntoView();
     }
   }
 
@@ -92,7 +97,7 @@ class RatingsAndReviews extends react.Component {
           <div style={{ flex: 2 }}>
             <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
             <ReviewsList reviews={this.state.loadedReviews} />
-            <div>
+            <div ref={this.reviewsBottom}>
               {this.areUnloadedReviews() ? (
                 <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>
               ) : null}
