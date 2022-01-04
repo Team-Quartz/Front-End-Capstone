@@ -52,6 +52,10 @@ class AnswerModal extends React.Component {
   //   if
   // }
   validatePhoto(photoUrl) {
+    let regex = /([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i;
+    if (!photoUrl.match(regex)) {
+      return false;
+    }
     const http = new XMLHttpRequest();
     http.open('HEAD', photoUrl, false);
     http.send();
@@ -129,6 +133,7 @@ class AnswerModal extends React.Component {
         <p>For authentication reasons, you will not be emailed</p>
         <input onChange={this.handlePhotoUrlChange}  value={this.state.photoUrlToAdd}/>
         <button onClick={this.uploadPhoto}>Upload your photos</button>
+        <p>Photos must include the following file extensions: .jpg, .jpeg, .png, .gif</p>
         <button onClick={this.checkAnswersInputValidity}>
           Submit Answer
         </button>
