@@ -5,7 +5,6 @@ class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //TODO create state for each input
       productName: this.props.productName,
       questionBody: this.props.questionBody,
       questionEntry: '',
@@ -44,6 +43,7 @@ class AnswerModal extends React.Component {
   // checkInputValiditiy() {
   //   if
   // }
+
   uploadPhoto() {
     let updatedPhotosList = this.state.photosList.push(this.state.photoUrlToAdd);
     this.setState({ photosList: updatedPhotosList });
