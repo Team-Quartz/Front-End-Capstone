@@ -6,6 +6,7 @@ import { Stars, FlexRow } from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
+import utils from '../../Utils.js';
 
 const blankState = {
   loadedReviews: [],
@@ -13,15 +14,16 @@ const blankState = {
   reviewPage: 0,
   writingNewReview: false,
 };
-
 class RatingsAndReviews extends react.Component {
   constructor(props) {
     super(props);
     this.state = blankState;
   }
 
-  componentDidMount() {
-    this.loadNewProduct();
+  componentDidUpdate(prevProps) {
+    if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
+      this.loadReviews();
+    }
   }
 
   loadNewProduct() {
@@ -30,11 +32,16 @@ class RatingsAndReviews extends react.Component {
   }
 
   loadReviews() {
-    this.setState((state, props) => {
-      const reviewPage = ++state.reviewPage;
-      const loadedReviews = state.loadedReviews.concat(placeholder.reviews.results);
-      return { loadedReviews, reviewPage };
-    });
+    utils
+      .fetchReviews(productId, 0, 2, 'newest')
+      .then((loadedReviews) => {
+        console.log(loadedReviews);
+        this.setState((state) => ({
+          loadedReviews: state.loadedReviews.concat(loadedReviews),
+          reviewPage: ++state.reviewPage,
+        }));
+      })
+      .catch((err) => console.error(err));
   }
 
   openWriteNewReview(open) {
@@ -55,14 +62,18 @@ class RatingsAndReviews extends react.Component {
             </FlexRow>
             <div>100% of reviews recommend this product</div>
             <div>
-              {[1, 2, 3, 4, 5].map((rating) => (
-                <RatingBreakdown
-                  rating={rating}
-                  count={this.props.reviewsMeta.ratings[rating]}
-                  total={this.props.reviewsMeta.totalRatings}
-                  key={rating}
-                />
-              ))}
+              {[1, 2, 3, 4, 5].map((rating) =>
+                this.props.reviewsMeta.ratings ? (
+                  <RatingBreakdown
+                    rating={rating}
+                    count={this.props.reviewsMeta.ratings[rating]}
+                    total={this.props.reviewsMeta.totalRatings}
+                    key={rating}
+                  />
+                ) : (
+                  <RatingBreakdown rating={rating} count={0} total={0} key={rating} />
+                )
+              )}
             </div>
             <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
           </div>

@@ -16,18 +16,23 @@ class App extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewsMeta: reviewsMeta,
+      reviewsMeta: {averageRating:0},
       currentProduct: null,
+      reviewsList: [],
+      reviewSort: 'newest',
+      reviewPage: 0,
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+
+  changeProduct(productId) {
     utils
-      .fetchProduct(38323)
+      .fetchProduct(productId)
       .then((currentProduct) => this.setState({ currentProduct }))
       .catch((err) => console.error(err));
     utils
-      .fetchReviewsMeta(38323)
+      .fetchReviewsMeta(productId)
       .then((reviewsMeta) => this.setState({ reviewsMeta }))
       .catch((err) => console.error(err));
   }

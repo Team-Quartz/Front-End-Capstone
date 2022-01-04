@@ -87,9 +87,11 @@ export default class WriteNewReview extends React.Component {
   clearState() {
     const newState = Object.assign({}, blankState);
     newState.characteristics = {};
-    Object.keys(this.props.reviewsMeta.characteristics).forEach(
-      (key) => (newState.characteristics[key] = 0)
-    );
+    if (this.props.reviewsMeta.characteristics) {
+      Object.keys(this.props.reviewsMeta.characteristics).forEach(
+        (key) => (newState.characteristics[key] = 0)
+      );
+    }
     this.setState(newState);
   }
 

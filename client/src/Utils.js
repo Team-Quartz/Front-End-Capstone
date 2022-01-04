@@ -20,17 +20,29 @@ parseReviewsMeta = (reviewsMeta) => {
 
 module.exports.parseReviewsMeta = parseReviewsMeta;
 
-module.exports.fetchReviewsMeta = (productId) => {
-  return axios.get('API/reviews/meta/', {
-    params: {
-      product_id: productId,
-    },
-  })
-    .then(response => {
-      return parseReviewsMeta(response.data);
-    });
-};
-
 module.exports.fetchProduct = (productId) => {
   return axios.get(`/API/products/${productId}`).then((response) => response.data);
+};
+
+module.exports.fetchReviewsMeta = (productId) => {
+  return axios
+    .get('API/reviews/meta/', {
+      params: {
+        product_id: productId,
+      },
+    })
+    .then((response) => parseReviewsMeta(response.data));
+};
+
+module.exports.fetchReviews = (productId, page, count, sort) => {
+  return axios
+    .get('/API/reviews/', {
+      params: {
+        product_id: productId,
+        page,
+        count,
+        sort,
+      },
+    })
+    .then((response) => response.data);
 };
