@@ -81,7 +81,7 @@ class RatingsAndReviews extends react.Component {
             <div>248 reviews, sorted by relevance</div>
             <ReviewsList reviews={this.state.loadedReviews} />
             <div>
-              <button>MORE REVIEWS</button>
+              {this.state.loadedReviews.length > 0 ? <button>MORE REVIEWS</button> : null}
               <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
             </div>
           </div>
