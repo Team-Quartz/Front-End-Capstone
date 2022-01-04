@@ -6,15 +6,19 @@ class AnswerModal extends React.Component {
     super(props);
     this.state = {
       //TODO create state for each input
-      productName: 'test product',
-      questionBody: 'question?',
+      productName: this.props.productName,
+      questionBody: this.props.questionBody,
       questionEntry: '',
       nicknameEntry: '',
+      photoUrlToAdd: '',
+      photosList: [],
       emailEntry: ''
     }
     this.handleQuestionChange = this.handleQuestionChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhotoUrlChange = this.handlePhotoUrlChange.bind(this);
+    this.uploadPhoto= this.uploadPhoto.bind(this);
   }
 
   handleQuestionChange(e) {
@@ -31,11 +35,19 @@ class AnswerModal extends React.Component {
     e.preventDefault();
     this.setState({emailEntry: e.target.value});
   }
+
+  handlePhotoUrlChange(e) {
+    e.preventDefault();
+    this.setState({photoUrlToAdd: e.target.value});
+  }
   //TODO: functions to check validity of inputs
   // checkInputValiditiy() {
   //   if
   // }
-
+  uploadPhoto() {
+    let updatedPhotosList = this.state.photosList.push(this.state.photoUrlToAdd);
+    this.setState({ photosList: updatedPhotosList });
+  }
   //TODO: create POST request to add question
 
   render() {
@@ -45,10 +57,15 @@ class AnswerModal extends React.Component {
         <h3>{this.state.productName}: {this.state.questionBody}</h3>
         <p>Your Answer</p>
         <input onChange={this.handleQuestionChange} />
+        <p>For privacy reasons, do not use your full name or email address</p>
         <p>What is your nickname?</p>
         <input onChange={this.handleNicknameChange} />
+        <p>For privacy reasons, do not use your full name or email address</p>
         <p>Your email</p>
         <input onChange={this.handleEmailChange} />
+        <p>For authentication reasons, you will not be emailed</p>
+        <input onChange={this.handlePhotoUrlChange} />
+        <button onClick={this.uploadPhoto}>Upload your photos</button>
         <button>
           Submit Answer
         </button>
