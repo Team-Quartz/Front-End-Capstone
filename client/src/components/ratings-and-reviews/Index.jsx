@@ -28,6 +28,7 @@ class RatingsAndReviews extends React.Component {
     }
     if (prevState.loadedReviews.length < this.state.loadedReviews.length) {
       //TODO: smooth scrolling
+      //TODO: might be redundant with reviewList internal scrollIntoView
       this.reviewsBottom.current.scrollIntoView();
     }
   }

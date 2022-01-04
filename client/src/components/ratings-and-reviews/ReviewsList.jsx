@@ -66,11 +66,21 @@ function ReviewBody(props) {
 }
 
 function ReviewsList({ reviews }) {
+  const reviewRef = React.useRef();
+
+  React.useEffect(() => {
+    if (reviewRef.current) {
+      //TODO: smooth scroll, delay until content loads
+      //TODO: maybe possible to wait until ref is done rendering?
+      //TODO: maybe better to just set ref to the scrollable element, and scroll that to the bottom every time
+      reviewRef.current.scrollIntoView();
+    }
+  }, [reviews])
   return (
     <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
-      {reviews.map((review) => {
+      {reviews.map((review, i) => {
         return (
-          <div key={review.review_id}>
+          <div key={review.review_id} ref={i = reviews.length - 1 ? reviewRef : undefined}>
             <FlexRow style={{ justifyContent: 'space-between' }}>
               <Stars reviewsMeta={{ averageRating: review.rating }} />
               <div>
