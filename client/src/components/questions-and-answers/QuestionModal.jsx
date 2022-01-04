@@ -45,11 +45,6 @@ class QuestionModal extends React.Component {
     return isValid;
   }
 
-  closeUponSuccess() {
-    this.props.success();
-    this.props.onClose();
-  }
-
   checkQuestionsInputValidity() {
     if (!this.state.questionInput || !this.state.nicknameInput || !this.state.emailInput) {
       this.openErrorModal(true);
@@ -58,6 +53,11 @@ class QuestionModal extends React.Component {
     } else {
       //TODO: invoke POST request
       this.closeUponSuccess();
+      this.setState({
+        questionInput: '',
+        nicknameInput: '',
+        emailInput: '',
+      })
     }
   }
 
@@ -67,6 +67,10 @@ class QuestionModal extends React.Component {
     });
   }
 
+  closeUponSuccess() {
+    this.props.success();
+    this.props.onClose();
+  }
   //TODO: create POST request to add question
 
   render() {
