@@ -7,7 +7,6 @@ class SearchBar extends React.Component {
       searchFilter: '',
       placeholder: 'Have a question? Search for answers...'
     }
-    //function bindings
     this.handleChange =this.handleChange.bind(this);
   }
 
