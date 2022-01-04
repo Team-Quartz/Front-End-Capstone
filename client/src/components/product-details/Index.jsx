@@ -1,24 +1,39 @@
 import React from 'react';
-import data from './sample.js';
+import {stylesData, productData} from './sample.js';
 import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
+import {Stars} from '../sharedComponents.jsx';
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...data
+      stylesData,
+      productData,
+      selectedStyle: null,
+      highlightStyle: null,
     }
+    this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
-
+  StyleSelectorHandler (targetKey) {
+    targetKey = targetKey.substring(0, targetKey.length - 1);
+    const matchedStyle = this.state.stylesData.results.find((styleObject) => {
+      return styleObject.style_id + '' === targetKey
+    })
+    this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
+  }
+  componentDidMount () {
+    this.setState({selectedStyle: stylesData.results[0]});
+  }
   render() {
+    const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
 
     return (
     <div>
-        <ImageGallery data={{}}/>
-        <ProductInformation productData={this.state.productData} starsData={{}}/>
-        <StyleSelector stylesData={this.state.stylesData.results}/>
+        <ImageGallery data={this.state.selectedStyle}/>
+        <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
+        <StyleSelector stylesData={this.state.stylesData.results} handler={this.StyleSelectorHandler}/>
         <AddToCart />
     </div>
     );

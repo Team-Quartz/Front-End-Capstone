@@ -47,11 +47,7 @@ const StarImg = styled.img`
 
 function WrapStarBounds({ clickStar, i, children }) {
   if (clickStar) {
-    return (
-      <StarBoundsButton onClick={() => clickStar(i)}>
-        {children}
-      </StarBoundsButton>
-    );
+    return <StarBoundsButton onClick={() => clickStar(i)}>{children}</StarBoundsButton>;
   }
   return <StarBounds>{children}</StarBounds>;
 }
@@ -70,10 +66,7 @@ export const Stars = ({ reviewsMeta, clickStar }) => {
   for (let i = 0; i < 5; i++) {
     stars.push(
       <WrapStarBounds key={i} i={i} clickStar={clickStar}>
-        <StarImg
-          src="./img/stars.png"
-          amount={Math.max(0, Math.min(4, ratingClipped - i * 4))}
-        />
+        <StarImg src='./img/stars.png' amount={Math.max(0, Math.min(4, ratingClipped - i * 4))} />
       </WrapStarBounds>
     );
   }
@@ -87,6 +80,7 @@ const ModalBackground = styled.div`
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
 `;
 
 const ModalBody = styled.div`
@@ -123,6 +117,7 @@ export function Modal({ show, onClose, children }) {
   });
   if (show) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
+    //TODO: test returns for different values of show, test that onClose is properly working
     return (
       <ModalBackground onClick={onClose}>
         <ModalBody onClick={(e) => e.stopPropagation()}>
