@@ -6,7 +6,6 @@ const axios = require('axios');
  * @returns mutated reviewsMeta object
  */
 parseReviewsMeta = (reviewsMeta) => {
-  console.log(reviewsMeta);
   reviewsMeta.totalRatings = 0;
   let ratingSum = 0;
   Object.entries(reviewsMeta.ratings).forEach((rating) => {
