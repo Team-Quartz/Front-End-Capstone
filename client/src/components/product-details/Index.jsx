@@ -5,6 +5,12 @@ import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import {Stars} from '../sharedComponents.jsx';
+import styled from 'styled-components';
+
+const StyledPlaceHolder = styled.img`
+width: 400px;
+height: 400px
+`
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -18,24 +24,30 @@ class ProductDetail extends React.Component {
   }
   StyleSelectorHandler (targetKey) {
     targetKey = targetKey.substring(0, targetKey.length - 1);
-    const matchedStyle = this.state.stylesData.results.find((styleObject) => {
+    const matchedStyle = this.state.stylesData.find((styleObject) => {
       return styleObject.style_id + '' === targetKey
     })
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
   componentDidMount () {
-    this.setState({selectedStyle: stylesData.results[0]});
+    this.setState({selectedStyle: stylesData.results[0], stylesData: stylesData.results, productData: productData});
   }
   render() {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
-
+    const isRendered = this.state.stylesData[0];
     return (
-    <div>
-        <ImageGallery data={this.state.selectedStyle}/>
-        <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
-        <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} />
-        <AddToCart />
-    </div>
+      <div>
+        { isRendered === null ?
+          <StyledPlaceHolder src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif"/>
+          :
+          <div>
+            <ImageGallery data={this.state.selectedStyle}/>
+            <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
+            <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} />
+            <AddToCart />
+          </div>
+      }
+      </div>
     );
   }
 }
