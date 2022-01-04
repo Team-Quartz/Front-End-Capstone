@@ -11,7 +11,7 @@ import utils from '../../Utils.js';
 const blankState = {
   loadedReviews: [],
   filters: [],
-  reviewPage: 0,
+  reviewPage: 1,
   writingNewReview: false,
 };
 class RatingsAndReviews extends react.Component {
@@ -33,9 +33,8 @@ class RatingsAndReviews extends react.Component {
 
   loadReviews() {
     utils
-      .fetchReviews(this.props.reviewsMeta.product_id, 0, 2, 'newest')
+      .fetchReviews(this.props.reviewsMeta.product_id, this.state.reviewPage, 2, 'relevance')
       .then((loadedReviews) => {
-        console.log(loadedReviews);
         this.setState((state) => ({
           loadedReviews: state.loadedReviews.concat(loadedReviews),
           reviewPage: ++state.reviewPage,
@@ -48,6 +47,12 @@ class RatingsAndReviews extends react.Component {
     this.setState({
       writingNewReview: open,
     });
+  }
+
+  areUnloadedReviews() {
+    return (
+      this.state.loadedReviews.length < this.props.reviewsMeta.totalRatings
+    );
   }
 
   render() {
@@ -78,10 +83,12 @@ class RatingsAndReviews extends react.Component {
             <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
           </div>
           <div style={{ flex: 2 }}>
-            <div>248 reviews, sorted by relevance</div>
+            <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
             <ReviewsList reviews={this.state.loadedReviews} />
             <div>
-              {this.state.loadedReviews.length > 0 ? <button>MORE REVIEWS</button> : null}
+              {this.areUnloadedReviews() ? (
+                <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>
+              ) : null}
               <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
             </div>
           </div>

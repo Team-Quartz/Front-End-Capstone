@@ -44,5 +44,5 @@ module.exports.fetchReviews = (productId, page, count, sort) => {
         sort,
       },
     })
-    .then((response) => response.data);
+    .then((response) => response.data.results);
 };
