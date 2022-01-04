@@ -3,6 +3,8 @@ import { Stars, Modal } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
+import utils from '../../Utils.js';
+import {ScrollIntoView} from './Index.jsx'
 
 const TextButton = styled.button`
   border: none;
@@ -17,7 +19,7 @@ const ImageThumbnail = styled.img`
   width: 5em;
   height: auto;
   max-height: 10em;
-  &:hover{
+  &:hover {
     transform: scale(110%);
   }
 `;
@@ -85,13 +87,42 @@ function ReviewBody(props) {
   );
 }
 
-function ReviewsList({ reviews, scrollIntoView }) {
+function Review({ review, setShowImage, reviewRef }) {
+  return (
+    <div>
+      <FlexRow style={{ justifyContent: 'space-between' }}>
+        <Stars reviewsMeta={{ averageRating: review.rating }} />
+        <div>
+          {`${review.reviewer_name}, `}
+          {dayjs(review.date).format('MMMM DD, YYYY')}
+        </div>
+      </FlexRow>
+      <h3>{review.summary}</h3>
+      <ReviewBody body={review.body} />
+      <PhotoGallery
+        photos={review.photos}
+        onDoneLoading={() => utils.scrollIntoView(reviewRef)}
+        onClickThumbnail={setShowImage}
+      />
+      {review.recommend ? '✓ I recommend this product' : undefined}
+      <Response response={review.response} />
+      <FlexRow>
+        Helpful?&nbsp;
+        <TextButton>Yes</TextButton>
+        &nbsp;({review.helpfulness})&nbsp;|&nbsp;
+        <TextButton>Report</TextButton>
+      </FlexRow>
+    </div>
+  );
+}
+
+function ReviewsList({ reviews }) {
   const [showImage, setShowImage] = useState(null);
   const reviewRef = React.useRef();
 
   React.useEffect(() => {
     if (reviewRef.current) {
-      scrollIntoView(reviewRef);
+      utils.scrollIntoView(reviewRef);
     }
   }, [reviews]);
 
@@ -103,29 +134,8 @@ function ReviewsList({ reviews, scrollIntoView }) {
     <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
       {reviews.map((review, i) => {
         return (
-          <div key={review.review_id} ref={(i = reviews.length - 1 ? reviewRef : undefined)}>
-            <FlexRow style={{ justifyContent: 'space-between' }}>
-              <Stars reviewsMeta={{ averageRating: review.rating }} />
-              <div>
-                {`${review.reviewer_name}, `}
-                {dayjs(review.date).format('MMMM DD, YYYY')}
-              </div>
-            </FlexRow>
-            <h3>{review.summary}</h3>
-            <ReviewBody body={review.body} />
-            <PhotoGallery
-              photos={review.photos}
-              onDoneLoading={() => scrollIntoView(reviewRef)}
-              onClickThumbnail={setShowImage}
-            />
-            {review.recommend ? '✓ I recommend this product' : undefined}
-            <Response response={review.response} />
-            <FlexRow>
-              Helpful?&nbsp;
-              <TextButton>Yes</TextButton>
-              &nbsp;({review.helpfulness})&nbsp;|&nbsp;
-              <TextButton>Report</TextButton>
-            </FlexRow>
+          <div ref={(i = reviews.length - 1 ? reviewRef : undefined)} key={review.review_id}>
+            <Review setShowImage={setShowImage} review={review} reviewRef={reviewRef}/>
           </div>
         );
       })}

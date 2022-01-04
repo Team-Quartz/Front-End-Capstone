@@ -29,7 +29,7 @@ class RatingsAndReviews extends React.Component {
       this.state.reviews &&
       (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
     ) {
-      this.scrollIntoView(this.reviewsBottom);
+      utils.scrollIntoView(this.reviewsBottom);
     }
   }
 
@@ -67,10 +67,6 @@ class RatingsAndReviews extends React.Component {
       this.state.reviewsRemaining &&
       this.state.reviews.length < this.props.reviewsMeta.totalRatings
     );
-  }
-
-  scrollIntoView(ref) {
-    ref.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   render() {
@@ -112,7 +108,7 @@ class RatingsAndReviews extends React.Component {
             </div>
             <div style={{ flex: 2 }}>
               <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
-              <ReviewsList reviews={this.state.reviews} scrollIntoView={this.scrollIntoView} />
+              <ReviewsList reviews={this.state.reviews} />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (
                   <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>

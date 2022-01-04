@@ -46,3 +46,19 @@ module.exports.fetchReviews = (productId, page, count, sort) => {
     })
     .then((response) => response.data.results);
 };
+
+module.exports.markReviewHelpful = (reviewId) => {
+  return axios.put(`/API/reviews/${productId}/helpful`, {
+    params: { review_id: reviewId },
+  });
+};
+
+module.exports.markReviewReported = (reviewId) => {
+  return axios.put(`/API/reviews/${productId}/report`, {
+    params: { review_id: reviewId },
+  });
+};
+
+module.exports.scrollIntoView = (ref) => {
+  ref.current.scrollIntoView({ behavior: 'smooth' });
+}
