@@ -65,13 +65,7 @@ function ReviewBody(props) {
   );
 }
 
-function scrollIntoView(ref) {
-  //TODO: smooth scroll, delay until content loads
-  //TODO: maybe better to just set ref to the scrollable element, and scroll that to the bottom every time
-  ref.current.scrollIntoView();
-}
-
-function ReviewsList({ reviews }) {
+function ReviewsList({ reviews, scrollIntoView }) {
   const reviewRef = React.useRef();
 
   React.useEffect(() => {

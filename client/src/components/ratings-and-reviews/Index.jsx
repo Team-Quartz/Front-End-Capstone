@@ -31,7 +31,7 @@ class RatingsAndReviews extends React.Component {
     ) {
       //TODO: smooth scrolling
       //TODO: might be redundant with reviewList internal scrollIntoView
-      this.reviewsBottom.current.scrollIntoView();
+      this.scrollIntoView(this.reviewsBottom);
     }
   }
 
@@ -71,6 +71,10 @@ class RatingsAndReviews extends React.Component {
     );
   }
 
+  scrollIntoView(ref) {
+    ref.current.scrollIntoView({behavior: 'smooth'});
+  }
+
   render() {
     if (!this.props.currentProduct) {
       return null;
@@ -103,7 +107,7 @@ class RatingsAndReviews extends React.Component {
           </div>
           <div style={{ flex: 2 }}>
             <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
-            <ReviewsList reviews={this.state.reviews} />
+            <ReviewsList reviews={this.state.reviews} scrollIntoView={this.scrollIntoView}/>
             <div ref={this.reviewsBottom}>
               {this.areUnloadedReviews() ? (
                 <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>
