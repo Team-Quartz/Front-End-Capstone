@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
 import utils from '../../Utils.js';
-import {ScrollIntoView} from './Index.jsx'
+import { ScrollIntoView } from './Index.jsx';
 
 const TextButton = styled.button`
   border: none;
@@ -135,7 +135,7 @@ function ReviewsList({ reviews }) {
       {reviews.map((review, i) => {
         return (
           <div ref={(i = reviews.length - 1 ? reviewRef : undefined)} key={review.review_id}>
-            <Review setShowImage={setShowImage} review={review} reviewRef={reviewRef}/>
+            <Review setShowImage={setShowImage} review={review} reviewRef={reviewRef} />
           </div>
         );
       })}

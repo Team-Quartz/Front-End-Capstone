@@ -8,8 +8,10 @@ import WriteNewReview from './WriteNewReview.jsx';
 import utils from '../../Utils.js';
 
 const blankState = {
-  reviews: null,
+  //TODO: should we persist reviewSorting and filters when product changes?
+  reviewSorting: 'relevant',
   filters: [],
+  reviews: null,
   reviewPage: 0,
   writingNewReview: false,
   reviewsRemaining: true,
@@ -33,14 +35,28 @@ class RatingsAndReviews extends React.Component {
     }
   }
 
-  loadNewProduct() {
-    this.setState(blankState);
-    this.loadReviews();
+  updateReviewSorting(reviewSorting) {
+    this.setState((state) => {
+      if (reviewSorting != state.reviewSorting) {
+        this.loadReviews(0);
+        return { reviewSorting, reviews: null, reviewsRemaining: true};
+      }
+    });
   }
 
-  loadReviews() {
+  loadNewProduct() {
+    this.setState(blankState);
+    this.loadReviews(0);
+  }
+
+  loadReviews(reviewPage = this.state.reviewPage) {
     utils
-      .fetchReviews(this.props.reviewsMeta.product_id, this.state.reviewPage + 1, 2, 'relevance')
+      .fetchReviews(
+        this.props.reviewsMeta.product_id,
+        reviewPage+ 1,
+        2,
+        this.state.reviewSorting
+      )
       .then((loadedReviews) => {
         if (loadedReviews.length === 0) {
           //TODO: remove button as soon as last review is loaded
@@ -48,7 +64,7 @@ class RatingsAndReviews extends React.Component {
         } else {
           this.setState((state) => ({
             reviews: state.reviews ? state.reviews.concat(loadedReviews) : loadedReviews,
-            reviewPage: ++state.reviewPage,
+            reviewPage: reviewPage + 1,
           }));
         }
       })
@@ -107,11 +123,24 @@ class RatingsAndReviews extends React.Component {
               <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
             </div>
             <div style={{ flex: 2 }}>
-              <div>{this.props.reviewsMeta.totalRatings} reviews, sorted by relevance</div>
+              <div>
+                {this.props.reviewsMeta.totalRatings}{' '}
+                <label htmlFor='sortReviews'>reviews, sorted by </label>
+                <select
+                  id='sortReviews'
+                  name='sort reviews'
+                  value={this.state.reviewSorting}
+                  onChange={(e) => this.updateReviewSorting(e.target.value)}
+                >
+                  <option value={'relevant'}>relevance</option>
+                  <option value={'newest'}>date</option>
+                  <option value={'helpful'}>helpfulness</option>
+                </select>
+              </div>
               <ReviewsList reviews={this.state.reviews} />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (
-                  <button onClick={this.loadReviews.bind(this)}>MORE REVIEWS</button>
+                  <button onClick={() => this.loadReviews()}>MORE REVIEWS</button>
                 ) : null}
                 <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
               </div>
