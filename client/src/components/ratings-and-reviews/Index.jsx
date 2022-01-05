@@ -128,6 +128,7 @@ class RatingsAndReviews extends React.Component {
                       total={this.props.reviewsMeta.totalRatings}
                       key={rating}
                       toggleFilter={this.toggleRatingFilter.bind(this)}
+                      filter={this.state.filters[rating]}
                     />
                   ) : (
                     <RatingBreakdown rating={rating} count={0} total={0} key={rating} />

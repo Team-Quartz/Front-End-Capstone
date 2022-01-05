@@ -4,6 +4,10 @@ import { FlexRow } from '../sharedComponents.jsx';
 
 const FlexCenter = styled(FlexRow)`
   align-items: center;
+  &:hover .hover {
+    box-shadow: 0 0 8px 0 rgb(0, 0, 0, .2);
+  }
+  background-color: ${(props) => props.filtered? 'LightBlue' : 'white'}
 `;
 
 const BarBackground = styled(FlexRow)`
@@ -20,7 +24,7 @@ const Bar = styled.div`
   background-color: MediumAquaMarine;
 `;
 
-function RatingBreakdown({ rating, count, total, toggleFilter }) {
+function RatingBreakdown({ rating, count, total, toggleFilter, filter }) {
   let proportion;
   if (!total) {
     proportion = 0;
@@ -28,9 +32,9 @@ function RatingBreakdown({ rating, count, total, toggleFilter }) {
     proportion = (count / total) * 100;
   }
   return (
-    <FlexCenter onClick={() => toggleFilter(rating)}>
+    <FlexCenter onClick={() => toggleFilter(rating)} filtered={filter}>
       <div>{rating} stars</div>
-      <BarBackground>
+      <BarBackground className='hover'>
         <Bar proportion={proportion}/>
       </BarBackground>
     </FlexCenter>
