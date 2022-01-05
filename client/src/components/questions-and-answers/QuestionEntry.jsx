@@ -58,6 +58,7 @@ class QuestionEntry extends React.Component {
         <AnswerModal
           onClose={() => this.openAnswerModal(false)}
           show={this.state.writeNewAnswer}
+          success={this.props.success}
           productName={this.state.productName}
           questionBody={this.props.question.question_body}
         />
