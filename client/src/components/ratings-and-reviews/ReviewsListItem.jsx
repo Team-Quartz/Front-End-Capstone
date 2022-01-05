@@ -94,6 +94,7 @@ class ReviewsListItem extends React.Component {
     this.state = {
       helpful: 0,
       reported: false,
+      reportConfirmation: false,
     };
 
     this.markHelpful = this.markHelpful.bind(this);
@@ -106,8 +107,12 @@ class ReviewsListItem extends React.Component {
   }
 
   reportReview() {
-    this.setState({ reported: true });
     utils.markReviewReported(this.props.review.review_id);
+    this.setState({ reported: true, reportConfirmation:false});
+  }
+
+  openReportModal(open) {
+    this.setState({reportConfirmation: open});
   }
 
   render() {
@@ -137,7 +142,11 @@ class ReviewsListItem extends React.Component {
           </TextButton>
           &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
           {/* TODO: confirm report popup */}
-          <TextButton disabled={this.state.reported} onClick={this.reportReview}>
+          <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
+            Are you sure you want to report this review?
+            <button onClick={this.reportReview.bind(this)}>Yes</button> &nbsp; <button onClick={() => this.openReportModal(false)}>Cancel</button>
+          </Modal>
+          <TextButton disabled={this.state.reported} onClick={() => this.setState({reportConfirmation: true})}>
             {this.state.reported ? 'Reported' : 'Report'}
           </TextButton>
         </FlexRow>
