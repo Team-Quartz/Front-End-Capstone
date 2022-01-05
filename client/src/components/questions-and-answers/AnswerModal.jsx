@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
 import ErrorModal from './ErrorModal.jsx';
+import axios from 'axios';
 
 class AnswerModal extends React.Component {
   constructor(props) {
@@ -56,11 +57,14 @@ class AnswerModal extends React.Component {
     if (!photoUrl.match(regex)) {
       return false;
     }
-    const http = new XMLHttpRequest();
-    http.open('HEAD', photoUrl, false);
-    http.send();
-    console.log('HTTP Status', http.status)
-    return http.status !== 404;
+    //TODO: use axios HEAD request to validate photo
+
+    // const http = new XMLHttpRequest();
+    // http.open('HEAD', 'https://cors-anywhere.herokuapp.com/' + photoUrl);
+    // http.send();
+    // console.log('HTTP Status', http.status)
+    // return http.status !== 404;
+    return true;
   }
 
   uploadPhoto() {
@@ -72,6 +76,7 @@ class AnswerModal extends React.Component {
       let updatedPhotosList = this.state.photosList.slice();
       updatedPhotosList.push(this.state.photoUrlToAdd);
       console.log('photos list: ', updatedPhotosList);
+      //TODO: render image thumbnail
       this.setState({
         photoUrlToAdd: '',
         photosList: updatedPhotosList
