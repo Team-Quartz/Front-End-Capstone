@@ -76,7 +76,7 @@ const Input = styled.input`
 `;
 
 const Results = styled.div`
-  margin-top: 5px;
+  margin-top: 35px;
   margin-right: 9px;
   width: 298px;
   height: 300px;
@@ -89,6 +89,7 @@ const Results = styled.div`
   }
 `;
 const Item = styled.div`
+  margin-top: 5px;
   width: 100%;
   height: 25px;
   display: flex;
