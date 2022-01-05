@@ -6,8 +6,6 @@ const ProductInfoDiv = styled.div`
 `;
 
 const Descriptors = styled.div`
-  font-family: "Arial", "Helvetica Neue", sans-serif;
-  font-size: 1em;
 `
 const CategoryStyle = styled(Descriptors)`
   font-size: 2em;

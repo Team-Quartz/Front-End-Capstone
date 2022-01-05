@@ -10,6 +10,9 @@ width: 300;
 const StyledButton = styled.button`
 
 `
+const StyledNext = styled(StyledButton)`
+
+`
 const StyledContainer = styled.div`
 `
 
@@ -28,7 +31,9 @@ class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
     const {photos} = props;
-    const photoArray = photos.map(({url}) => url);
+    const photoArray = photos.map(({url}, index) => {
+      return {url, index}
+    });
     this.state = {
       photos: photoArray,
       userFocus: photoArray[0],
@@ -37,6 +42,8 @@ class ImageGallery extends React.Component {
 
     this.handleShow = this.handleShow.bind(this);
     this.handleHide = this.handleHide.bind(this);
+    this.handlePrevious = this.handlePrevious.bind(this);
+    this.handleNext = this.handleNext.bind(this);
   }
 
   handleShow() {
@@ -46,20 +53,30 @@ class ImageGallery extends React.Component {
   handleHide() {
     this.setState({showModal: false});
   }
+  handlePrevious() {
+    const focusedIndex  = this.state.userFocus.index;
+    const minimalZero = Math.max(focusedIndex - 1, 0);
+    this.setState({userFocus: this.state.photos[minimalZero]});
+  }
+  handleNext() {
+    const focusedIndex = this.state.userFocus.index;
+    const maxLimit = Math.min(focusedIndex + 1, this.state.photos.length -1);
+    this.setState({userFocus: this.state.photos[maxLimit]});
+  }
+
   render () {
-   // Show a Modal on click.
-    // (In a real app, don't forget to use ARIA attributes
-    // for accessibility!)
     const modal = this.state.showModal ? (
       <GalleryModal>
-        <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus}`}/>
+        <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus.url}`}/>
       </GalleryModal>
     ) : null;
 
     return (
       <div>
-        <StyledImage onClick={this.handleShow} src={`${this.state.userFocus}`}/>
+        <StyledButton onClick={this.handlePrevious}/>
+        <StyledImage onClick={this.handleShow} src={`${this.state.userFocus.url}`}/>
         {modal}
+        <StyledNext onClick={this.handleNext}/>
       </div>
     );
     }
