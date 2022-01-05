@@ -7,7 +7,6 @@ class QuestionEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: 'product name placeholder',
       answers: this.props.question.answers,
       answerCount: 2,
       writeNewAnswer: false,
@@ -62,7 +61,7 @@ class QuestionEntry extends React.Component {
           onClose={() => this.openAnswerModal(false)}
           show={this.state.writeNewAnswer}
           success={this.props.success}
-          productName={this.state.productName}
+          productName={this.props.productName}
           questionBody={this.props.question.question_body}
         />
         {/* TODO: optimize using Object.entries */}
