@@ -85,6 +85,12 @@ export default class WriteNewReview extends React.Component {
     this.clearState();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
+      this.clearState();
+    }
+  }
+
   clearState() {
     const newState = Object.assign({}, blankState);
     newState.characteristics = {};
