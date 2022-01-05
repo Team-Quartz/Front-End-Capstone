@@ -19,6 +19,7 @@ class QuestionModal extends React.Component {
     this.validateEmail = this.validateEmail.bind(this);
     this.openErrorModal = this.openErrorModal.bind(this);
     this.closeUponSuccess = this.closeUponSuccess.bind(this);
+    this.cancelQuestionModal = this.cancelQuestionModal.bind(this);
   }
 
   handleQuestionChange(e) {
@@ -71,11 +72,20 @@ class QuestionModal extends React.Component {
     this.props.success();
     this.props.onClose();
   }
+
+  cancelQuestionModal() {
+    this.props.onClose();
+    this.setState({
+      questionInput: '',
+      nicknameInput: '',
+      emailInput: '',
+    })
+  }
   //TODO: create POST request to add question
 
   render() {
     return (
-      <Modal onClose={this.props.onClose} show={this.props.show}>
+      <Modal onClose={this.cancelQuestionModal} show={this.props.show}>
         <h2>Ask Your Question</h2>
         <h3>About the {this.props.productName}</h3>
         <p>Your Question</p>
