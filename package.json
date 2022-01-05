@@ -6,9 +6,9 @@
   "scripts": {
     "test": "jest",
     "webp": "webpack --watch",
-    "web-aws": "webpack",
+    "webp-aws": "webpack",
     "start": "node server",
-    "start-aws": "pm2 start server",
+    "start-aws": "pm2 start server --watch",
     "stop-aws": "pm2 stop server"
   },
   "repository": {
