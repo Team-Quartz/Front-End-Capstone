@@ -1,5 +1,5 @@
 import React from 'react';
-import {stylesData, productData} from './sample.js';
+// import {stylesData, productData} from './sample.js';
 import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
@@ -44,8 +44,18 @@ class ProductDetail extends React.Component {
     })
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
-  componentDidMount () {
-    this.setState({selectedStyle: stylesData.results[0], stylesData: stylesData.results, productData: productData});
+  componentDidUpdate (prevProps) {
+    if (prevProps !== this.props && this.props.productData !== undefined && this.props.stylesData.length !== 0) {
+      const {stylesData, productData, reviewsMeta} = this.props;
+      const defaultStyle = stylesData.find((styleObject) => styleObject["default?"] );
+      this.setState({
+        selectedStyle: defaultStyle || stylesData[0],
+        stylesData,
+        productData,
+        highlightStyle: defaultStyle.style_id,
+        reviewsMeta,
+      });
+    }
   }
   render() {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
