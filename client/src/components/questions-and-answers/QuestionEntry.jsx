@@ -16,6 +16,7 @@ class QuestionEntry extends React.Component {
     }
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
+    //TODO: find out if this function is needed
     // this.reportQuestion = this.reportQuestion.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
   }
