@@ -14,11 +14,12 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 0.5px solid lightgrey;
+  border: 1px solid #DCDCDC;
   display: flex;
-  width: 310px;
-  height: 400px;
+  width: 320px;
+  height: 300px;
   margin: 10px;
+  padding: 0;
   flex-direction: column;
   position: relative;
   &:hover {
@@ -28,7 +29,7 @@ const Card = styled.div`
 `;
 
 const Uppercard = styled.div`
-  height: 300px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,11 +60,12 @@ const ActionButton = styled.button`
 `;
 
 const Lowercard = styled.div`
-  flex: 100px;
+  height: 80px;
   background: lightgrey;
   display: flex;
   flex-direction: column;
-  padding: 5px 5px 0px;
+  justify-content: center;
+  padding-left: 5px;
 `;
 
 const Catergory = styled.div`
@@ -94,7 +96,7 @@ const Image = styled.img`
 `;
 
 const ReviewWrapper = styled.div`
-  padding-top: 10px;
+
 `;
 
 const RelatedItem = ({

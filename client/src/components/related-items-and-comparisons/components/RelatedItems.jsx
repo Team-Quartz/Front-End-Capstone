@@ -21,8 +21,8 @@ const ArrowWrapper = styled.div`
   justify-content: center;
   z-index: 2;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "5px"};
-  right: ${(props) => props.direction === "right" && "5px"};
+  left: ${(props) => props.direction === "left" && "7.5px"};
+  right: ${(props) => props.direction === "right" && "7.5px"};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 1s ease;
-  transform: translateX(${(props) => props.slideIndex * -16}vw);
+  transform: translateX(${(props) => props.slideIndex * -25}vw);
 `;
 
 const Arrow = styled.div`
