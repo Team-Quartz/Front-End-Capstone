@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 1.5s ease;
-  transform: translateX(${(props) => props.slideIndex * -19.1}vw);
+  transform: translateX(${(props) => props.slideIndex * -343}px);
 `;
 
 const Arrow = styled.div`
@@ -84,6 +84,7 @@ const RelatedItems = ({
                 setRelatedItems={setRelatedItems}
                 key={index}
                 currentProduct={currentProduct}
+                setSlideIndex={setSlideIndex}
               />
             );
           })}

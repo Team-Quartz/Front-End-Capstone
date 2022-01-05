@@ -104,6 +104,7 @@ const RelatedItem = ({
   currentProductId,
   relatedItemId,
   currentProduct,
+  setSlideIndex
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     cardLoader.results[0]
@@ -166,6 +167,7 @@ const RelatedItem = ({
 
   const changeCurrentItem = (itemId) => {
     changeCurrentProduct(itemId);
+    setSlideIndex(0);
   };
 
   const onModalClick = () => {
