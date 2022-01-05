@@ -68,6 +68,22 @@ module.exports.dummyData = {
             "answerer_name": "iluvdogz",
             "helpfulness": 31,
             "photos": [],
+          },
+          82: {
+            "id": 82,
+            "body": "Some of the seams started splitting the first time I wore it!",
+            "date": "2019-11-28T00:00:00.000Z",
+            "answerer_name": "sillyguy",
+            "helpfulness": 6,
+            "photos": [],
+          },
+          83: {
+            "id": 83,
+            "body": "9 lives",
+            "date": "2019-11-12T00:00:00.000Z",
+            "answerer_name": "iluvdogz",
+            "helpfulness": 31,
+            "photos": [],
           }
         }
       },
