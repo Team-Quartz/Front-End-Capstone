@@ -15,6 +15,7 @@ const blankState = {
   reviewPage: 0,
   writingNewReview: false,
   reviewsRemaining: true,
+  canScroll: false,
 };
 class RatingsAndReviews extends React.Component {
   constructor(props) {
@@ -26,8 +27,8 @@ class RatingsAndReviews extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
       this.loadNewProduct();
-    }
-    if (
+    } else if (
+      this.state.canScroll &&
       this.state.reviews &&
       (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
     ) {
@@ -38,31 +39,27 @@ class RatingsAndReviews extends React.Component {
   updateReviewSorting(reviewSorting) {
     this.setState((state) => {
       if (reviewSorting != state.reviewSorting) {
-        this.loadReviews(0);
-        return { reviewSorting, reviews: null, reviewsRemaining: true};
+        this.loadReviews(false, 0);
+        return { reviewSorting, reviews: null, reviewsRemaining: true };
       }
     });
   }
 
   loadNewProduct() {
     this.setState(blankState);
-    this.loadReviews(0);
+    this.loadReviews(false, 0);
   }
 
-  loadReviews(reviewPage = this.state.reviewPage) {
+  loadReviews(canScroll, reviewPage = this.state.reviewPage) {
     utils
-      .fetchReviews(
-        this.props.reviewsMeta.product_id,
-        reviewPage+ 1,
-        2,
-        this.state.reviewSorting
-      )
+      .fetchReviews(this.props.reviewsMeta.product_id, reviewPage + 1, 2, this.state.reviewSorting)
       .then((loadedReviews) => {
         if (loadedReviews.length === 0) {
           //TODO: remove button as soon as last review is loaded
-          this.setState({ reviewsRemaining: 0 });
+          this.setState({ reviewsRemaining: 0, reviews: [] });
         } else {
           this.setState((state) => ({
+            canScroll,
             reviews: state.reviews ? state.reviews.concat(loadedReviews) : loadedReviews,
             reviewPage: reviewPage + 1,
           }));
@@ -86,29 +83,34 @@ class RatingsAndReviews extends React.Component {
   }
 
   render() {
+    const isLoading = this.props.reviewsMeta.totalRatings === undefined;
+    const noReviews = this.props.reviewsMeta.totalRatings === 0;
     if (!this.props.currentProduct) {
       return null;
     }
     return (
       <div>
         <h2>Ratings &amp; Reviews</h2>
-        {this.props.reviewsMeta.averageRating ? (
+        {!isLoading ? (
           <FlexRow>
             <div style={{ flex: 1 }}>
               <FlexRow>
-                <div>{Math.round(this.props.reviewsMeta.averageRating * 4) / 4}</div>
+                <div>{noReviews? '' : Math.round(this.props.reviewsMeta.averageRating * 4) / 4}</div>
                 <Stars reviewsMeta={this.props.reviewsMeta} />
               </FlexRow>
-              <div>
-                {Math.round(
-                  (this.props.reviewsMeta.recommended.true / this.props.reviewsMeta.totalRatings) *
-                    100
-                )}
-                % of reviews recommend this product
-              </div>
+              {noReviews ? null : (
+                <div>
+                  {Math.round(
+                    (this.props.reviewsMeta.recommended.true /
+                      this.props.reviewsMeta.totalRatings) *
+                      100
+                  )}
+                  % of reviews recommend this product
+                </div>
+              )}
               <div>
                 {[1, 2, 3, 4, 5].map((rating) =>
-                  this.props.reviewsMeta.ratings ? (
+                  !noReviews ? (
                     <RatingBreakdown
                       rating={rating}
                       count={this.props.reviewsMeta.ratings[rating]}
@@ -137,10 +139,10 @@ class RatingsAndReviews extends React.Component {
                   <option value={'helpful'}>helpfulness</option>
                 </select>
               </div>
-              <ReviewsList reviews={this.state.reviews} />
+              <ReviewsList reviews={this.state.reviews} canScroll={this.state.canScroll} />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (
-                  <button onClick={() => this.loadReviews()}>MORE REVIEWS</button>
+                  <button onClick={() => this.loadReviews(true)}>MORE REVIEWS</button>
                 ) : null}
                 <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
               </div>
