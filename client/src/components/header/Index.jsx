@@ -6,7 +6,7 @@ import axios from "axios";
 const Container = styled.div`
   background-color: lightgrey;
   height: 70px;
-  margin: 0px;
+  margin: 0 -4px;
 `;
 
 const Announcement = styled.div`
@@ -18,6 +18,8 @@ const Announcement = styled.div`
   justify-content: center;
   font-weight: 800;
   color: white;
+  margin: 0 -4px;
+
 `;
 
 const Wrapper = styled.div`
@@ -30,6 +32,7 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   font-size: 30px;
+  margin-left: 2px;
 `;
 
 const Left = styled.div`
@@ -103,8 +106,9 @@ const Item = styled.div`
   }
 `;
 const Logo = styled.img`
-  width: 75px;
-  height: 75px;
+  width: 60px;
+  height: 60px;
+  margin: 7px;
 `;
 
 const Index = ({ changeCurrentProduct }) => {
