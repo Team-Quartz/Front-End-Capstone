@@ -9,6 +9,7 @@ import ProductDetails from "./components/product-details/Index.jsx";
 import QuestionsAndAnswers from "./components/questions-and-answers/Index.jsx";
 import RatingsAndReviews from "./components/ratings-and-reviews/Index.jsx";
 import RelatedItemsAndComparisons from "./components/related-items-and-comparisons/Index.jsx";
+import Header from "./components/header/Index.jsx"
 import utils from "./Utils.js";
 import { reviewsMeta } from "./placeholderData.js";
 
@@ -34,6 +35,9 @@ class App extends react.Component {
     return (
       <AppContainer>
         <AppStyle>
+          <Header
+            changeCurrentProduct={this.changeCurrentProduct}
+          />
           <ProductDetails reviewsMeta={this.state.reviewsMeta} />
         </AppStyle>
         <RelatedItemsAndComparisons
