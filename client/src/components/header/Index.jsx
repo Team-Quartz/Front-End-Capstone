@@ -109,7 +109,7 @@ const Logo = styled.img`
 const Index = ({ changeCurrentProduct }) => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
 
   // API FETCH
   const fetchAllProducts = () => {
@@ -129,6 +129,7 @@ const Index = ({ changeCurrentProduct }) => {
 
   const handleFilter = (e) => {
     const searchTerm = e.target.value;
+    setValue(searchTerm)
     const newProductList = products.filter((product) => {
       return Object.values(product)
         .join(" ")
@@ -146,7 +147,7 @@ const Index = ({ changeCurrentProduct }) => {
   const changeCurrentItem = (itemId) => {
     changeCurrentProduct(itemId);
     setSearchResults([]);
-
+    setValue("");
   };
 
   return (
@@ -175,10 +176,7 @@ const Index = ({ changeCurrentProduct }) => {
                   return (
                     <Item
                       key={key}
-                      onClick={() => {
-                        changeCurrentItem(product.id)
-                        setValue("")
-                      }}
+                      onClick={() => changeCurrentItem(product.id)}
                     >
                       {product.name}
                     </Item>
