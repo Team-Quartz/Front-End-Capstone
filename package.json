@@ -6,7 +6,10 @@
   "scripts": {
     "test": "jest",
     "webp": "webpack --watch",
-    "start": "node server"
+    "web-aws": "webpack",
+    "start": "node server",
+    "start-aws": "pm2 start server",
+    "stop-aws": "pm2 stop server"
   },
   "repository": {
     "type": "git",
