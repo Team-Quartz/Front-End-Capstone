@@ -137,7 +137,9 @@ class ReviewsListItem extends React.Component {
           </TextButton>
           &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
           {/* TODO: confirm report popup */}
-          <TextButton disabled={this.state.reported} onClick={this.reportReview}>Report</TextButton>
+          <TextButton disabled={this.state.reported} onClick={this.reportReview}>
+            {this.state.reported ? 'Reported' : 'Report'}
+          </TextButton>
         </FlexRow>
       </div>
     );
