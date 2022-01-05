@@ -92,3 +92,7 @@ module.exports.submitReview = (
   I don't even have the glasses, but they look neat. Anyways burritos are pretty cool, I'd like to recommend them.
   */
 };
+
+module.exports.fetchQuestions = () => {
+
+}

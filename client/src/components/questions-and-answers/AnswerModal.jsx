@@ -7,7 +7,7 @@ class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: this.props.productName,
+      productName: 'Loading Product Name...',
       questionBody: this.props.questionBody,
       answerInput: '',
       nicknameInput: '',
@@ -28,6 +28,13 @@ class AnswerModal extends React.Component {
     this.closeUponSuccess = this.closeUponSuccess.bind(this);
     this.validatePhoto = this.validatePhoto.bind(this);
     this.cancelAnswerModal = this.cancelAnswerModal.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.productName !== this.props.productName) {
+      console.log('PRODUCT: ', this.props.productName.name);
+      this.setState({productName: this.props.productName.name})
+    }
   }
 
   handleAnswerChange(e) {

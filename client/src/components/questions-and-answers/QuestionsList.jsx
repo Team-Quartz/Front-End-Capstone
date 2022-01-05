@@ -8,7 +8,7 @@ class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: 'test product',
+      productName: this.props.productName,
       questions: dummyData.results,
       questionCount: 2,
       searchFilter: this.props.searchFilter,
@@ -54,6 +54,7 @@ class QuestionsList extends React.Component {
         {this.state.questions.slice(0, this.state.questionCount).map((question, idx) => {
           return <QuestionEntry
           key={idx}
+          productName={this.props.productName}
           question={question}
           success={() => this.openSuccessModal(true)}
           />
