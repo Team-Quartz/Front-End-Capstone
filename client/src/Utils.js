@@ -34,6 +34,10 @@ module.exports.fetchReviewsMeta = (productId) => {
     .then((response) => parseReviewsMeta(response.data));
 };
 
+module.exports.fetchStyles = (productId) => {
+  return axios
+    .get(`/API/products/${productId}/styles`);
+}
 module.exports.fetchReviews = (productId, page, count, sort) => {
   return axios
     .get('/API/reviews/', {
