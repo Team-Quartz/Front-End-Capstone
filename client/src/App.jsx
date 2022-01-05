@@ -19,6 +19,7 @@ class App extends react.Component {
     this.state = {
       currentProductId: 38322,
       reviewsMeta: {averageRating:0},
+      currentProduct: null,
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }

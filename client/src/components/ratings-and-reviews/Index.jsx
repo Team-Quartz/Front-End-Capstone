@@ -10,7 +10,7 @@ import utils from '../../Utils.js';
 const blankState = {
   //TODO: should we persist reviewSorting and filters when product changes?
   reviewSorting: 'relevant',
-  filters: [],
+  filters: [true, false, false, false, false, false],
   reviews: null,
   reviewPage: 0,
   writingNewReview: false,
@@ -146,6 +146,7 @@ class RatingsAndReviews extends React.Component {
               <ReviewsList
                 reviews={this.state.reviews}
                 reviewPage={this.state.reviewPage}
+                filters={this.state.filters}
               />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (

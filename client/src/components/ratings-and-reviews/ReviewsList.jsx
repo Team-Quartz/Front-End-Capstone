@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import ReviewsListItem from './ReviewsListItem.jsx';
 import utils from '../../Utils.js';
 
-function ReviewsList({ reviews, reviewPage }) {
+
+function ReviewsList({ reviews, reviewPage, filters }) {
   const [showImage, setShowImage] = useState(null);
   const reviewRef = React.useRef();
 
@@ -13,13 +14,17 @@ function ReviewsList({ reviews, reviewPage }) {
     }
   }, [reviews]);
 
+  function filterReviews(review) {
+    return filters[0] || filters[review.rating];
+  }
+
   if (reviews === null) {
     return <div>LOADING</div>;
   }
 
   return (
     <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
-      {reviews.map((review, i) => {
+      {reviews.filter(filterReviews).map((review, i) => {
         return (
           <div ref={(i = reviews.length - 1 ? reviewRef : undefined)} key={review.review_id}>
             <ReviewsListItem setShowImage={setShowImage} review={review} reviewRef={reviewRef} />
