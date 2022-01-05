@@ -144,12 +144,12 @@ class Review extends React.Component {
   }
 }
 
-function ReviewsList({ reviews, canScroll }) {
+function ReviewsList({ reviews, reviewPage }) {
   const [showImage, setShowImage] = useState(null);
   const reviewRef = React.useRef();
 
   React.useEffect(() => {
-    if (canScroll && reviewRef.current) {
+    if (reviewPage > 1 && reviewRef.current) {
       utils.scrollIntoView(reviewRef);
     }
   }, [reviews]);

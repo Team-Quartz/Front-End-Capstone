@@ -15,7 +15,6 @@ const blankState = {
   reviewPage: 0,
   writingNewReview: false,
   reviewsRemaining: true,
-  canScroll: false,
 };
 class RatingsAndReviews extends React.Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class RatingsAndReviews extends React.Component {
     if (prevProps.reviewsMeta !== this.props.reviewsMeta) {
       this.loadNewProduct();
     } else if (
-      this.state.canScroll &&
+      this.state.reviewPage > 1 &&
       this.state.reviews &&
       (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
     ) {
@@ -39,7 +38,7 @@ class RatingsAndReviews extends React.Component {
   updateReviewSorting(reviewSorting) {
     this.setState((state) => {
       if (reviewSorting != state.reviewSorting) {
-        this.loadReviews(false, 0);
+        this.loadReviews(0);
         return { reviewSorting, reviews: null, reviewsRemaining: true };
       }
     });
@@ -47,19 +46,22 @@ class RatingsAndReviews extends React.Component {
 
   loadNewProduct() {
     this.setState(blankState);
-    this.loadReviews(false, 0);
+    this.loadReviews(0);
   }
 
-  loadReviews(canScroll, reviewPage = this.state.reviewPage) {
+  loadReviews(reviewPage = this.state.reviewPage) {
     utils
       .fetchReviews(this.props.reviewsMeta.product_id, reviewPage + 1, 2, this.state.reviewSorting)
       .then((loadedReviews) => {
         if (loadedReviews.length === 0) {
           //TODO: remove button as soon as last review is loaded
-          this.setState({ reviewsRemaining: 0, reviews: [] });
+          const newState = { reviewsRemaining: 0 };
+          if (reviewPage === 0) {
+            newState.reviews = [];
+          }
+          this.setState(newState);
         } else {
           this.setState((state) => ({
-            canScroll,
             reviews: state.reviews ? state.reviews.concat(loadedReviews) : loadedReviews,
             reviewPage: reviewPage + 1,
           }));
@@ -95,7 +97,9 @@ class RatingsAndReviews extends React.Component {
           <FlexRow>
             <div style={{ flex: 1 }}>
               <FlexRow>
-                <div>{noReviews? '' : Math.round(this.props.reviewsMeta.averageRating * 4) / 4}</div>
+                <div>
+                  {noReviews ? '' : Math.round(this.props.reviewsMeta.averageRating * 4) / 4}
+                </div>
                 <Stars reviewsMeta={this.props.reviewsMeta} />
               </FlexRow>
               {noReviews ? null : (
@@ -139,10 +143,13 @@ class RatingsAndReviews extends React.Component {
                   <option value={'helpful'}>helpfulness</option>
                 </select>
               </div>
-              <ReviewsList reviews={this.state.reviews} canScroll={this.state.canScroll} />
+              <ReviewsList
+                reviews={this.state.reviews}
+                reviewPage={this.state.reviewPage}
+              />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (
-                  <button onClick={() => this.loadReviews(true)}>MORE REVIEWS</button>
+                  <button onClick={() => this.loadReviews()}>MORE REVIEWS</button>
                 ) : null}
                 <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
               </div>
