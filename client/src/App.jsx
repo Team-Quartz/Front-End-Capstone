@@ -35,7 +35,9 @@ class App extends react.Component {
     return (
       <AppContainer>
         <AppStyle>
-          <Header/>
+          <Header
+            changeCurrentProduct={this.changeCurrentProduct}
+          />
           <ProductDetails reviewsMeta={this.state.reviewsMeta} />
         </AppStyle>
         <RelatedItemsAndComparisons
