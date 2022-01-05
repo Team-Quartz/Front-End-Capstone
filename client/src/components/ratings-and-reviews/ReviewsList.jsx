@@ -1,8 +1,10 @@
-import react, { useState } from 'react';
-import { Stars } from '../sharedComponents.jsx';
+import React, { useState } from 'react';
+import { Stars, Modal } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
+import utils from '../../Utils.js';
+import { ScrollIntoView } from './Index.jsx';
 
 const TextButton = styled.button`
   border: none;
@@ -13,25 +15,45 @@ const TextButton = styled.button`
   margin: 0;
 `;
 
+const ImageThumbnail = styled.img`
+  width: 5em;
+  height: auto;
+  max-height: 10em;
+  &:hover {
+    transform: scale(110%);
+  }
+`;
+
+const ResponseBox = styled.div`
+  background: #ddd;
+  padding: 4px;
+`;
+
 function Response({ response }) {
   if (response) {
     return (
-      <div>
+      <ResponseBox>
         Response:
         <div>{response}</div>
-      </div>
+      </ResponseBox>
     );
   }
   return '';
 }
 
-function PhotoGallery({ photos }) {
+function PhotoGallery({ photos, onDoneLoading, onClickThumbnail }) {
   if (photos) {
     return (
       <div>
         {photos.map((photo) => (
           //TODO: on click, open photo in window
-          <img src={photo.url} key={photo.id} />
+          <ImageThumbnail
+            src={photo.url}
+            key={photo.id}
+            onLoad={onDoneLoading}
+            onError={onDoneLoading}
+            onClick={() => onClickThumbnail(photo.url)}
+          />
         ))}
       </div>
     );
@@ -58,40 +80,96 @@ function ReviewBody(props) {
     }
   }
   return (
-    <div style={{ maxWidth: '600px'}}>
+    <div style={{ maxWidth: '600px' }}>
       {body}
       <TextButton onClick={() => setExpanded(!expanded)}>{buttonText}</TextButton>
     </div>
   );
 }
 
-function ReviewsList({ reviews }) {
+class Review extends React.Component {
+  //() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      helpful: 0,
+      reported: false,
+    };
+
+    this.markHelpful = this.markHelpful.bind(this);
+    this.reportReview = this.reportReview.bind(this);
+  }
+
+  markHelpful() {
+    this.setState({ helpful: 1 });
+    utils.markReviewHelpful(this.props.review.review_id);
+  }
+
+  reportReview() {
+    this.setState({ reported: true });
+    utils.markReviewReported(this.props.review.review_id);
+  }
+
+  render() {
+    const { review, setShowImage, reviewRef } = this.props;
+    return (
+      <div>
+        <FlexRow style={{ justifyContent: 'space-between' }}>
+          <Stars reviewsMeta={{ averageRating: review.rating }} />
+          <div>
+            {`${review.reviewer_name}, `}
+            {dayjs(review.date).format('MMMM DD, YYYY')}
+          </div>
+        </FlexRow>
+        <h3>{review.summary}</h3>
+        <ReviewBody body={review.body} />
+        <PhotoGallery
+          photos={review.photos}
+          onDoneLoading={() => utils.scrollIntoView(reviewRef)}
+          onClickThumbnail={setShowImage}
+        />
+        {review.recommend ? '✓ I recommend this product' : undefined}
+        <Response response={review.response} />
+        <FlexRow>
+          Helpful?&nbsp;
+          <TextButton disabled={this.state.helpful} onClick={this.markHelpful}>
+            Yes
+          </TextButton>
+          &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
+          {/* TODO: confirm report popup */}
+          <TextButton disabled={this.state.reported} onClick={this.reportReview}>Report</TextButton>
+        </FlexRow>
+      </div>
+    );
+  }
+}
+
+function ReviewsList({ reviews, reviewPage }) {
+  const [showImage, setShowImage] = useState(null);
+  const reviewRef = React.useRef();
+
+  React.useEffect(() => {
+    if (reviewPage > 1 && reviewRef.current) {
+      utils.scrollIntoView(reviewRef);
+    }
+  }, [reviews]);
+
+  if (reviews === null) {
+    return <div>LOADING</div>;
+  }
+
   return (
-    <div>
-      {reviews.map((review) => {
+    <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
+      {reviews.map((review, i) => {
         return (
-          <div key={review.review_id}>
-            <FlexRow style={{ justifyContent: 'space-between' }}>
-              <Stars reviewsMeta={{ averageRating: review.rating }} />
-              <div>
-                {`${review.reviewer_name}, `}
-                {dayjs(review.date).format('MMMM DD, YYYY')}
-              </div>
-            </FlexRow>
-            <h3>{review.summary}</h3>
-            <ReviewBody body={review.body} />
-            <PhotoGallery photos={review.photos} />
-            {review.recommend ? '✓ I recommend this product' : undefined}
-            <Response response={review.response} />
-            <FlexRow>
-              Helpful?&nbsp;
-              <TextButton>Yes</TextButton>
-              &nbsp;({review.helpfulness})&nbsp;|&nbsp;
-              <TextButton>Report</TextButton>
-            </FlexRow>
+          <div ref={(i = reviews.length - 1 ? reviewRef : undefined)} key={review.review_id}>
+            <Review setShowImage={setShowImage} review={review} reviewRef={reviewRef} />
           </div>
         );
       })}
+      <Modal show={showImage} onClose={() => setShowImage(null)}>
+        <img src={showImage} />
+      </Modal>
     </div>
   );
 }

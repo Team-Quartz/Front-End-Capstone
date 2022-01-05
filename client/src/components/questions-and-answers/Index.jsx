@@ -13,10 +13,6 @@ class QuestionsAndAnswers extends React.Component {
     this.updateSearchFilter = this.updateSearchFilter.bind(this);
   }
 
-  componentDidMount() {
-    //TODO: load current product
-  }
-
   updateSearchFilter(query) {
     this.setState({ searchFilter: query });
     //TODO: make sure new filter is passed to QuestionsList - might be done after automatic re-render

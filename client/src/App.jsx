@@ -18,7 +18,7 @@ class App extends react.Component {
     super(props);
     this.state = {
       currentProductId: 38322,
-      reviewsMeta: reviewsMeta,
+      reviewsMeta: {averageRating:0},
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
@@ -27,8 +27,16 @@ class App extends react.Component {
     this.changeCurrentProduct();
   }
 
-  changeCurrentProduct(productId) {
-    this.setState({ currentProductId: productId || 38322 });
+  changeCurrentProduct(productId = 38322 ) {
+    this.setState({ currentProductId: productId });
+    utils
+      .fetchProduct(productId)
+      .then((currentProduct) => this.setState({ currentProduct }))
+      .catch((err) => console.error(err));
+    utils
+      .fetchReviewsMeta(productId)
+      .then((reviewsMeta) => this.setState({ reviewsMeta }))
+      .catch((err) => console.error(err));
   }
 
   render() {
@@ -47,7 +55,7 @@ class App extends react.Component {
         />
         <AppStyle>
           <QuestionsAndAnswers />
-          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
+          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} currentProduct={this.state.currentProduct}/>
         </AppStyle>
       </AppContainer>
     );
