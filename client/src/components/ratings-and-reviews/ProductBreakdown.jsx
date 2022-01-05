@@ -27,19 +27,21 @@ const LabelsFrame = styled.div`
 function ProductBreakdown({ characteristics }) {
   return (
     <div>
-      {Object.entries(characteristics).map(([characteristic, { id, value }]) => {
-        return (
-          <Characteristic key={id}>
-            {characteristic}
-            <BarFrame position={(value - 1) / 4} />
-            <LabelsFrame>
-              {characteristicsMap[characteristic].barLabels.map((label, i) => (
-                <div key={i}>{label}</div>
-              ))}
-            </LabelsFrame>
-          </Characteristic>
-        );
-      })}
+      {characteristics
+        ? Object.entries(characteristics).map(([characteristic, { id, value }]) => {
+            return (
+              <Characteristic key={id}>
+                {characteristic}
+                <BarFrame position={(value - 1) / 4} />
+                <LabelsFrame>
+                  {characteristicsMap[characteristic].barLabels.map((label, i) => (
+                    <div key={i}>{label}</div>
+                  ))}
+                </LabelsFrame>
+              </Characteristic>
+            );
+          })
+        : null}
     </div>
   );
 }
