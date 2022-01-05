@@ -16,24 +16,14 @@ const StyledContainer = styled.div`
 const StyledZoomedImage = styled(StyledImage) `
 height: 750;
 width: 750;
-position: fixed;
-top: 50%;
-left: 50%;
+position: absolute;
+top: 25%;
+left: 25%;
 display: flex;
 align-items: center;
 justify-content: center;
 `
-const StyledTest = styled.div`
-  background-color: rgba(0,0,0,0.5);
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
+
 class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +32,7 @@ class ImageGallery extends React.Component {
     this.state = {
       photos: photoArray,
       userFocus: photoArray[0],
+      showModal: false,
     }
 
     this.handleShow = this.handleShow.bind(this);
@@ -61,21 +52,13 @@ class ImageGallery extends React.Component {
     // for accessibility!)
     const modal = this.state.showModal ? (
       <GalleryModal>
-        <StyledTest>
-          <div>
-            With a portal, we can render content into a different
-            part of the DOM, as if it were any other React child.
-          </div>
-          This is being rendered inside the #modal-container div.
-          <button onClick={this.handleHide}>Hide modal</button>
-        </StyledTest>
+        <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus}`}/>
       </GalleryModal>
     ) : null;
 
     return (
-      <div className="app">
-        This div has overflow: hidden.
-        <button onClick={this.handleShow}>Show modal</button>
+      <div>
+        <StyledImage onClick={this.handleShow} src={`${this.state.userFocus}`}/>
         {modal}
       </div>
     );

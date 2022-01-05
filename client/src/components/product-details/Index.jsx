@@ -11,6 +11,22 @@ const StyledPlaceHolder = styled.img`
 width: 400px;
 height: 400px
 `
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: "Arial", "Helvetica Neue", sans-serif;
+  font-size: 1em;
+`;
+const TextButton = styled.button`
+  border: none;
+  text-decoration: underline;
+  background: none;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+`;
+
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +51,7 @@ class ProductDetail extends React.Component {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
     const isRendered = this.state.stylesData[0];
     return (
-      <div>
+      <StyledDiv>
         { isRendered === null ?
           <StyledPlaceHolder src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif"/>
           :
@@ -46,13 +62,9 @@ class ProductDetail extends React.Component {
             <AddToCart />
           </div>
       }
-      </div>
+      </StyledDiv>
     );
   }
 }
 
-//<ImageGallery data={{}/* current style selection data */}/>
-//<ProductInformation productData={this.productData} starsData={{}}/> {/* need to pass in data for markdown price and number of stars data*/}
-//<StyleSelector stylesData={this.stylesData}/> {/* need to pass in event handler */}
-//<AddToCart /> {/* need to pass in event handler and current styles data */}
 export default ProductDetail;

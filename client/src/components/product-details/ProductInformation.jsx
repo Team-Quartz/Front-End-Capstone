@@ -2,16 +2,15 @@ import styled from 'styled-components';
 
 
 const ProductInfoDiv = styled.div`
-  display: flex;
   flex-direction: column;
 `;
 
 const Descriptors = styled.div`
   font-family: "Arial", "Helvetica Neue", sans-serif;
-  font-size: 12px;
+  font-size: 1em;
 `
 const CategoryStyle = styled(Descriptors)`
-  font-size: 24px;
+  font-size: 2em;
 `;
 const OriginalPriceStyled = styled(Descriptors)`
 text-decoration-line: line-through;

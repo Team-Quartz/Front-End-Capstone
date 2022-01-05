@@ -3,27 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-const StyledImage = styled.img`
-height: 300;
-width: 300;
-`
-const StyledButton = styled.button`
-
-`
-const StyledContainer = styled.div`
-`
-
-const StyledZoomedImage = styled(StyledImage) `
-height: 750;
-width: 750;
-position: fixed;
-top: 50%;
-left: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-`
-
 // These two containers are siblings in the DOM
 const appRoot = document.getElementById('app');
 const modalRoot = document.getElementById('portal');
