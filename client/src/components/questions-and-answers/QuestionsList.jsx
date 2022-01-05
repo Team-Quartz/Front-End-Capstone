@@ -52,7 +52,11 @@ class QuestionsList extends React.Component {
     return (
       <div>
         {this.state.questions.slice(0, this.state.questionCount).map((question, idx) => {
-          return <QuestionEntry key={idx} question={question} />
+          return <QuestionEntry
+          key={idx}
+          question={question}
+          success={() => this.openSuccessModal(true)}
+          />
         })}
         {this.state.questions.length > this.state.questionCount
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
