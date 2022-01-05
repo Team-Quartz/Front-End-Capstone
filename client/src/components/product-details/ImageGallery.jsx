@@ -23,6 +23,17 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
+const StyledTest = styled.div`
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
@@ -33,26 +44,41 @@ class ImageGallery extends React.Component {
       userFocus: photoArray[0],
     }
 
-    this.el = document.getElementById('portal');
-    this.pictureModal = this.pictureModal.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleHide = this.handleHide.bind(this);
   }
-  pictureModal () {
-    console.log('Weee.', <StyledZoomedImage src={`${this.state.userFocus}`}/>);
-    return (
-      <div>
-        <GalleryModal photo={this.state.userFocus}/>
 
-      </div>
-    )
+  handleShow() {
+    this.setState({showModal: true});
+  }
+
+  handleHide() {
+    this.setState({showModal: false});
   }
   render () {
+   // Show a Modal on click.
+    // (In a real app, don't forget to use ARIA attributes
+    // for accessibility!)
+    const modal = this.state.showModal ? (
+      <GalleryModal>
+        <StyledTest>
+          <div>
+            With a portal, we can render content into a different
+            part of the DOM, as if it were any other React child.
+          </div>
+          This is being rendered inside the #modal-container div.
+          <button onClick={this.handleHide}>Hide modal</button>
+        </StyledTest>
+      </GalleryModal>
+    ) : null;
+
     return (
-      <StyledContainer id="apples">
-        <StyledButton onClick={this.previousImage}/>
-        <StyledImage src={`${this.state.userFocus}`}/>
-        <StyledButton onClick={this.nextImage}/>
-      </StyledContainer>
-    )
-  }
+      <div className="app">
+        This div has overflow: hidden.
+        <button onClick={this.handleShow}>Show modal</button>
+        {modal}
+      </div>
+    );
+    }
 }
 export default ImageGallery;
