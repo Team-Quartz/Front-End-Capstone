@@ -13,8 +13,20 @@ module.exports.stylesData = {
                     "url": "https://static.wixstatic.com/media/747083_b400ff589ebf474083386cff48221e9d~mv2.jpg/v1/fill/w_880,h_964,al_c,q_90/747083_b400ff589ebf474083386cff48221e9d~mv2.jpg"
                 },
   			{
-                    "thumbnail_url": "http://placekitten.com/75/75",
-                    "url": "urlplaceholder/style_1_photo_number.jpg"
+                    "thumbnail_url": "https://imgix.ranker.com/user_node_img/50103/1002058935/original/1002058935-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375",
+                    "url": "https://imgix.ranker.com/user_node_img/50103/1002058935/original/1002058935-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375"
+                },
+  			{
+                    "thumbnail_url": "https://imgix.ranker.com/user_node_img/50103/1002058930/original/1002058930-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375",
+                    "url": "https://imgix.ranker.com/user_node_img/50103/1002058930/original/1002058930-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375"
+                },
+  			{
+                    "thumbnail_url": "https://imgix.ranker.com/user_node_img/50103/1002058959/original/1002058959-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375",
+                    "url": "https://imgix.ranker.com/user_node_img/50103/1002058959/original/1002058959-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375"
+                },
+  			{
+                    "thumbnail_url": "https://imgix.ranker.com/user_node_img/50103/1002058957/original/1002058957-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375",
+                    "url": "https://imgix.ranker.com/user_node_img/50103/1002058957/original/1002058957-photo-u1?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&w=375"
                 }
   			// ...
             ],
