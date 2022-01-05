@@ -6,7 +6,7 @@ height: 75px;
 `
 const StyleSelectorMaker = (styleObject, handler) => {
   return (
-    <StyledImage src={styleObject.photos[0].thumbnail_url} key={styleObject.style_id + ''} id={styleObject.style_id + '#'} onClick={(e) => {handler(e.target.getAttribute('id'))}} />
+    <StyledImage src={styleObject.photos[0].thumbnail_url} key={styleObject.style_id + ''} data-styleid={styleObject.style_id + ''} onClick={(e) => {handler(e.target.dataset.styleid)}} />
   )
 }
 
