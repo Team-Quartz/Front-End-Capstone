@@ -1,5 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import AnswerEntry from './AnswerEntry.jsx';
 import AnswerModal from './AnswerModal.jsx';
 
 class QuestionEntry extends React.Component {
@@ -9,13 +10,14 @@ class QuestionEntry extends React.Component {
       productName: 'product name placeholder',
       answers: this.props.question.answers,
       answerCount: 2,
-      writeNewAnswer: false
+      writeNewAnswer: false,
+      isHelpful: false,
+      isReported: false
     }
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
-    this.updateAnswerHelpfulCount = this.updateAnswerHelpfulCount.bind(this);
+    //TODO: find out if this function is needed
     // this.reportQuestion = this.reportQuestion.bind(this);
-    this.reportAnswer = this.reportAnswer.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
   }
 
@@ -25,18 +27,16 @@ class QuestionEntry extends React.Component {
 
   updateQuestionHelpfulCount() {
     //TODO: create PUT request to increment helpful count
-  }
-
-  updateAnswerHelpfulCount() {
-    //TODO: create PUT request to increment helpful count
+    this.setState({
+      isHelpful: true
+    })
   }
 
   reportQuestion() {
     //TODO: create PUT request to report question
-  }
-
-  reportAnswer() {
-    //TODO: create PUT request to report question
+    this.setState({
+      isReported: true
+    })
   }
 
   openAnswerModal(open) {
@@ -51,7 +51,10 @@ class QuestionEntry extends React.Component {
         <div>Q: {this.props.question.question_body}</div>
         <div>
           Helpful?
-          <u onClick={this.updateQuestionHelpfulCount}>Yes</u>
+          {this.state.isHelpful
+          ? <u>Yes</u>
+          : <u onClick={this.updateQuestionHelpfulCount}>Yes</u>
+          }
           ({this.props.question.question_helpfulness})
            | <u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
         </div>
@@ -63,23 +66,13 @@ class QuestionEntry extends React.Component {
           questionBody={this.props.question.question_body}
         />
         {/* TODO: optimize using Object.entries */}
-        {Object.keys(this.state.answers).map((answerKey, idx) => {
-          return (
-            <div key={idx}>
-              <p>A: {this.state.answers[answerKey].body}</p>
-              <p>
-                by {this.state.answers[answerKey].answerer_name === 'Seller'
-                ? <b> Seller</b>
-                : this.state.answers[answerKey].answerer_name},
-                {' ' + dayjs(this.state.answers[answerKey].date).format('MMMM DD, YYYY')} |
-                 Helpful?
-                <u onClick={this.updateAnswerHelpfulCount}>Yes</u>
-                ({this.state.answers[answerKey].helpfulness}) |
-                <u onClick={this.reportAnswer}>Report</u>
-              </p>
-            </div>
-          )
+        {Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {
+          return <AnswerEntry key={idx} answer={this.state.answers[answerKey]}/>
         })}
+        {Object.keys(this.state.answers).length > this.state.answerCount
+        ? <p onClick={this.showMoreAnswers}>SHOW MORE ANSWERS</p>
+        : null
+        }
       </div>
     )
   }
