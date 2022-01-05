@@ -20,7 +20,7 @@ const Bar = styled.div`
   background-color: MediumAquaMarine;
 `;
 
-function RatingBreakdown({ rating, count, total }) {
+function RatingBreakdown({ rating, count, total, toggleFilter }) {
   let proportion;
   if (!total) {
     proportion = 0;
@@ -28,7 +28,7 @@ function RatingBreakdown({ rating, count, total }) {
     proportion = (count / total) * 100;
   }
   return (
-    <FlexCenter>
+    <FlexCenter onClick={() => toggleFilter(rating)}>
       <div>{rating} stars</div>
       <BarBackground>
         <Bar proportion={proportion}/>

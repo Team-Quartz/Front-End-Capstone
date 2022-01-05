@@ -84,6 +84,13 @@ class RatingsAndReviews extends React.Component {
     );
   }
 
+  toggleRatingFilter(rating) {
+    const filters = this.state.filters.slice();
+    filters[rating] = !filters[rating];
+    filters[0] = filters.slice(1).every((filter) => !filter)
+    this.setState({ filters });
+  }
+
   render() {
     const isLoading = this.props.reviewsMeta.totalRatings === undefined;
     const noReviews = this.props.reviewsMeta.totalRatings === 0;
@@ -120,6 +127,7 @@ class RatingsAndReviews extends React.Component {
                       count={this.props.reviewsMeta.ratings[rating]}
                       total={this.props.reviewsMeta.totalRatings}
                       key={rating}
+                      toggleFilter={this.toggleRatingFilter.bind(this)}
                     />
                   ) : (
                     <RatingBreakdown rating={rating} count={0} total={0} key={rating} />
