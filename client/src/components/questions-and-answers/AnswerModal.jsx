@@ -9,7 +9,7 @@ class AnswerModal extends React.Component {
     this.state = {
       productName: this.props.productName,
       questionBody: this.props.questionBody,
-      questionInput: '',
+      answerInput: '',
       nicknameInput: '',
       emailInput: '',
       photoUrlToAdd: '',
@@ -17,7 +17,7 @@ class AnswerModal extends React.Component {
       showErrorModal: false,
       errorMessage: 'inputs must not be blank, and email address and photo URLs must be valid'
     }
-    this.handleQuestionChange = this.handleQuestionChange.bind(this);
+    this.handleAnswerChange = this.handleAnswerChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePhotoUrlChange = this.handlePhotoUrlChange.bind(this);
@@ -27,11 +27,12 @@ class AnswerModal extends React.Component {
     this.openErrorModal = this.openErrorModal.bind(this);
     this.closeUponSuccess = this.closeUponSuccess.bind(this);
     this.validatePhoto = this.validatePhoto.bind(this);
+    this.cancelAnswerModal = this.cancelAnswerModal.bind(this);
   }
 
-  handleQuestionChange(e) {
+  handleAnswerChange(e) {
     e.preventDefault();
-    this.setState({questionInput: e.target.value});
+    this.setState({answerInput: e.target.value});
   }
 
   handleNicknameChange(e) {
@@ -94,7 +95,7 @@ class AnswerModal extends React.Component {
   }
 
   checkAnswersInputValidity() {
-    if (!this.state.questionInput || !this.state.nicknameInput || !this.state.emailInput) {
+    if (!this.state.answerInput || !this.state.nicknameInput || !this.state.emailInput) {
       this.openErrorModal(true);
     } else if (!this.validateEmail(this.state.emailInput)) {
       this.openErrorModal(true);
@@ -102,7 +103,7 @@ class AnswerModal extends React.Component {
       //TODO: invoke POST request
       this.closeUponSuccess();
       this.setState({
-        questionInput: '',
+        answerInput: '',
         nicknameInput: '',
         emailInput: '',
         photoUrlToAdd: '',
@@ -121,15 +122,26 @@ class AnswerModal extends React.Component {
     this.props.success();
     this.props.onClose();
   }
+
+  cancelAnswerModal() {
+    this.props.onClose();
+    this.setState({
+      answerInput: '',
+      nicknameInput: '',
+      emailInput: '',
+      photoUrlToAdd: '',
+      photosList: [],
+    })
+  }
   //TODO: create POST request to add question
 
   render() {
     return (
-      <Modal onClose={this.props.onClose} show={this.props.show}>
+      <Modal onClose={this.cancelAnswerModal} show={this.props.show}>
         <h2>Submit Your Answer</h2>
         <h3>{this.state.productName}: {this.state.questionBody}</h3>
         <p>Your Answer</p>
-        <input onChange={this.handleQuestionChange} />
+        <input onChange={this.handleAnswerChange} />
         <p>What is your nickname?</p>
         <input onChange={this.handleNicknameChange} />
         <p>For privacy reasons, do not use your full name or email address</p>
