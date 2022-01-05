@@ -8,7 +8,7 @@ class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: 'test product',
+      productName: this.props.productName,
       questions: dummyData.results,
       questionCount: 2,
       searchFilter: this.props.searchFilter,
@@ -23,8 +23,13 @@ class QuestionsList extends React.Component {
 
   componentDidMount() {
     //TODO: create function to GET array of questions
-    //TODO: sort array by question_helpfulness
-    //TODO: setState for questions
+    let questionsByHelpfulness = [];
+    dummyData.results.sort((firstQuestion, secondQuestion) => {
+      return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+    })
+    this.setState({
+      questions: dummyData.results,
+    })
   }
 
   showMoreQuestions() {
@@ -51,9 +56,14 @@ class QuestionsList extends React.Component {
   render() {
     return (
       <div>
-        {this.state.questions.slice(0, this.state.questionCount).map((question, idx) => {
+        {this.state.questions.filter(question =>
+          question.question_body.toLowerCase()
+          .includes(this.props.searchFilter.toLowerCase())
+        ).slice(0, this.state.questionCount)
+        .map((question, idx) => {
           return <QuestionEntry
           key={idx}
+          productName={this.props.productName}
           question={question}
           success={() => this.openSuccessModal(true)}
           />

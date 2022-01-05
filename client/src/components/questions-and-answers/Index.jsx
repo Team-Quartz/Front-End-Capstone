@@ -1,6 +1,7 @@
 import React from 'react';
 import QuestionsList from './QuestionsList.jsx';
 import SearchBar from './SearchBar.jsx';
+import utils from '../../Utils.js';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -9,13 +10,11 @@ class QuestionsAndAnswers extends React.Component {
       productId: this.props.productId,
       searchFilter: ''
     }
-    //function bindings
     this.updateSearchFilter = this.updateSearchFilter.bind(this);
   }
 
   updateSearchFilter(query) {
     this.setState({ searchFilter: query });
-    //TODO: make sure new filter is passed to QuestionsList - might be done after automatic re-render
   }
 
   render() {
@@ -23,7 +22,10 @@ class QuestionsAndAnswers extends React.Component {
       <div>
         <h2>Questions &amp; Answers</h2>
         <SearchBar updateSearchFilter={this.updateSearchFilter} />
-        <QuestionsList productId={this.state.productId} searchFilter={this.state.searchFilter}/>
+        <QuestionsList
+        productId={this.state.productId}
+        productName={this.props.productName}
+        searchFilter={this.state.searchFilter}/>
       </div>
     )
   }

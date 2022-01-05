@@ -55,7 +55,7 @@ class App extends react.Component {
           currentStyleId={this.state.currentStyleId}
         />
         <AppStyle>
-          <QuestionsAndAnswers />
+          <QuestionsAndAnswers productId={this.state.currentProductId} productName={this.state.currentProduct}/>
           <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} currentProduct={this.state.currentProduct}/>
         </AppStyle>
       </AppContainer>
