@@ -65,7 +65,32 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
 }
 
 function AddPhotosModal({ onAddPhoto, show, onClose }) {
-  return <Modal show={show} onClose={onClose}></Modal>;
+  const [url, setUrl] = React.useState('');
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
+  function onChangeUrl(e) {
+    setImageLoaded(false);
+    setUrl(e.target.value);
+  }
+
+  function onSubmitImage() {
+    onAddPhoto(url);
+    setUrl('');
+    setImageLoaded(false);
+    onClose();
+  }
+
+  return (
+    <Modal show={show} onClose={onClose}>
+      <img
+        src={url}
+        onLoad={() => setImageLoaded(true)}
+        style={{ maxHeight: '50vh', maxWidth: '50vw' }}
+      />
+      <input type='text' value={url} onChange={onChangeUrl} />
+      {imageLoaded ? <button onClick={onSubmitImage}>Add</button> : null}
+    </Modal>
+  );
 }
 
 const blankState = {
@@ -132,8 +157,9 @@ export default class WriteNewReview extends React.Component {
     this.setState({ showAddPhoto: true });
   }
   addPhoto(url) {
-    //TODO: fill this ot
-    //store URL in photos array
+    const photos = this.state.photos.slice();
+    photos.push(url);
+    this.setState({ photos });
   }
 
   submitForm(e) {
@@ -191,7 +217,6 @@ export default class WriteNewReview extends React.Component {
   render() {
     return (
       <div>
-
         <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
           <form onSubmit={this.submitForm.bind(this)}>
             <h2>Write Your Review</h2>
