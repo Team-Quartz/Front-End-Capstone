@@ -20,21 +20,24 @@ function get(url, config) {
   if (cache[urlString]) {
     return new Promise((resolve, reject) => {
       //hacky stringify-parse to deep copy the object
-      resolve(JSON.parse(JSON.stringify(cache[urlString])));
+      //Promise.resolve is because the cache contents can be a promise, if we're still waiting for axios to get back to us
+      resolve(JSON.parse(JSON.stringify(Promise.resolve(cache[urlString]))));
     });
   }
 
-  const getRequest = axios.get(url, config).then((response) => {
-    //once the promise resolves, replace the cache contents with the data, rather than the promise itself
-    const responseOb = { data: response.data };
-    cache[urlString] = responseOb;
-    return responseOb;
-  })
-  .catch(err => {
-    //if the promise rejects, throw out the cache entry
-    cache[urlString] = undefined;
-    throw(err)
-  })
+  const getRequest = axios
+    .get(url, config)
+    .then((response) => {
+      //once the promise resolves, replace the cache contents with the data, rather than the promise itself
+      const responseOb = { data: response.data };
+      cache[urlString] = responseOb;
+      return responseOb;
+    })
+    .catch((err) => {
+      //if the promise rejects, throw out the cache entry
+      cache[urlString] = undefined;
+      throw err;
+    });
 
   //store the promise in the cache, until it's resolved
   cache[urlString] = getRequest;
