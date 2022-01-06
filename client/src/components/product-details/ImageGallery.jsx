@@ -8,7 +8,7 @@ height: 300;
 width: 300;
 `
 const StyledButton = styled.button`
-
+font-size: 1.5em;
 `
 const StyledNext = styled(StyledButton)`
 
@@ -81,10 +81,10 @@ class ImageGallery extends React.Component {
 
     return (
       <div>
-        <StyledButton onClick={this.handlePrevious}/>
+        <StyledButton onClick={this.handlePrevious}>{"<"}</StyledButton>
         <StyledImage onClick={this.handleShow} src={`${this.state.userFocus.url}`}/>
         {modal}
-        <StyledNext onClick={this.handleNext}/>
+        <StyledNext onClick={this.handleNext}>{">"}</StyledNext>
       </div>
     );
     }
