@@ -5,16 +5,25 @@ import axios from 'axios';
 let totalCalls = 0;
 let callsLog = {};
 
+
 axios.interceptors.request.use((config) => {
   totalCalls++;
   if (callsLog[config.url]) config.ip += 1;
   else callsLog[config.url] = 1;
   return config;
-})
+});
 
 export default function AxiosMetrics() {
   const [show, setShow] = React.useState(false);
   const [sortBy, setSortBy] = React.useState('count');
+  const [forceRedraw, setForceRedraw] = React.useState(0);
+
+  function resetCount() {
+    totalCalls = 0;
+    callsLog = {};
+    //totalCalls and callsLog are outside the component function, so changing a state variable triggers a redraw
+    setForceRedraw(forceRedraw + 1)
+  }
 
   function sort(a, b) {
     if (sortBy === 'count') {
@@ -27,17 +36,18 @@ export default function AxiosMetrics() {
     console.error(new Error('MAKE SURE TO REMOVE THIS COMPONENT BEFORE SHIPPING!'));
   }, []);
 
-  function resetCount() {
-    totalCalls=0;
-    callsLog={};
-  }
   return (
     <div>
       <button onClick={() => setShow(true)}>Show Axios Metrics</button>
       <Modal show={show} onClose={() => setShow(false)}>
         <button onClick={resetCount}>Reset calls count</button>
         <label htmlFor='sortBy'>Sort by</label>
-        <select id='sortBy' name='sortBy' value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+        <select
+          id='sortBy'
+          name='sortBy'
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
           <option value='count'>count</option>
           <option value='endpoint'>endpoint</option>
         </select>
