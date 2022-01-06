@@ -82,7 +82,7 @@ const RelatedItems = ({
                 changeCurrentProduct={changeCurrentProduct}
                 relatedItemId={itemId}
                 setRelatedItems={setRelatedItems}
-                key={index}
+                key={itemId}
                 currentProduct={currentProduct}
                 setSlideIndex={setSlideIndex}
               />
