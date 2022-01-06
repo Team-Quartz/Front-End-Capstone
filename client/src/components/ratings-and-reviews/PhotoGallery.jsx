@@ -10,19 +10,24 @@ const ImageThumbnail = styled.img`
   }
 `;
 
-function PhotoGallery({ photos, onDoneLoading, onClickThumbnail }) {
+function PhotoGallery({ photos, onDoneLoading = () => {}, onClickThumbnail = () => {} }) {
   if (photos) {
     return (
       <div>
-        {photos.map((photo) => (
-          <ImageThumbnail
-            src={photo.url}
-            key={photo.id}
-            onLoad={onDoneLoading}
-            onError={onDoneLoading}
-            onClick={() => onClickThumbnail(photo.url)}
-          />
-        ))}
+        {photos.map((photo, i) => {
+          if (typeof photo === 'string') {
+            photo = { url: photo, key: i };
+          }
+          return (
+            <ImageThumbnail
+              src={photo.url}
+              key={photo.id}
+              onLoad={onDoneLoading}
+              onError={onDoneLoading}
+              onClick={() => onClickThumbnail(photo.url)}
+            />
+          );
+        })}
       </div>
     );
   }
