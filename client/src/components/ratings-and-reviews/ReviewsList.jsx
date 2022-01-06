@@ -111,7 +111,7 @@ class Review extends React.Component {
   }
 
   render() {
-    const { review, setShowImage, reviewRef } = this.props;
+    const { review, setShowImage, forceScroll } = this.props;
     return (
       <div>
         <FlexRow style={{ justifyContent: 'space-between' }}>
@@ -125,7 +125,7 @@ class Review extends React.Component {
         <ReviewBody body={review.body} />
         <PhotoGallery
           photos={review.photos}
-          onDoneLoading={() => utils.scrollIntoView(reviewRef)}
+          onDoneLoading={forceScroll}
           onClickThumbnail={setShowImage}
         />
         {review.recommend ? '✓ I recommend this product' : undefined}
@@ -149,8 +149,8 @@ function ReviewsList({ reviews, reviewPage }) {
   const reviewRef = React.useRef();
 
   React.useEffect(() => {
-    if (reviewPage > 1 && reviewRef.current) {
-      utils.scrollIntoView(reviewRef);
+    if (reviewRef.current) {
+      forceScroll()
     }
   }, [reviews]);
 
@@ -158,12 +158,18 @@ function ReviewsList({ reviews, reviewPage }) {
     return <div>LOADING</div>;
   }
 
+  function forceScroll() {
+    if (reviewPage > 1) {
+      utils.scrollIntoView(reviewRef);
+    }
+  }
+
   return (
     <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
       {reviews.map((review, i) => {
         return (
           <div ref={(i = reviews.length - 1 ? reviewRef : undefined)} key={review.review_id}>
-            <Review setShowImage={setShowImage} review={review} reviewRef={reviewRef} />
+            <Review setShowImage={setShowImage} review={review} forceScroll={forceScroll} />
           </div>
         );
       })}
