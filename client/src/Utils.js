@@ -34,6 +34,10 @@ module.exports.fetchReviewsMeta = (productId) => {
     .then((response) => parseReviewsMeta(response.data));
 };
 
+module.exports.fetchStyles = (productId) => {
+  return axios
+    .get(`/API/products/${productId}/styles`);
+}
 module.exports.fetchReviews = (productId, page, count, sort) => {
   return axios
     .get('/API/reviews/', {
@@ -86,11 +90,46 @@ module.exports.submitReview = (
     characteristics,
   };
   return axios.post('/API/reviews', requestBody);
-  /*
-  I don't even have the glasses, but they look neat. Anyways burritos are pretty cool, I'd like to recommend them.
-  */
 };
 
-module.exports.fetchQuestions = () => {
+/*
+   QQQ   U   U  EEEEE   SSS  TTTTT  IIIII   OOO   N   N   SSS
+  Q   Q  U   U  E      S       T      I    O   O  NN  N  S
+  Q Q Q  U   U  EEE     SSS    T      I    O   O  N N N   SSS
+  Q  QQ  U   U  E          S   T      I    O   O  N  NN      S
+   QQQQ   UUU   EEEEE   SSS    T    IIIII   OOO   N   N   SSS
+       Q
+ */
 
+// module.exports.parseQuestions
+
+module.exports.fetchQuestions = (productId) => {
+  return axios
+    .get('/API/qa/questions/', {
+      params: {
+        product_id: productId,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+module.exports.markQuestionHelpful = (questionId) => {
+  return axios.put(`/API/qa/questions/${questionId}/helpful`, {
+    params: { question_id: questionId },
+  });
+}
+
+module.exports.markAnswerHelpful = (answerId) => {
+  console.log('ANSWER ID: ', answerId)
+  return axios.put(`/API/qa/answers/${answerId}/helpful`, {
+    params: { id: answerId },
+  });
+}
+
+module.exports.reportAnswer = (answerId) => {
+  return axios.put(`/API/qa/answers/${answerId}/report`, {
+    params: { id: answerId },
+  });
 }

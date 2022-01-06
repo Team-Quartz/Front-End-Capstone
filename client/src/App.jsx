@@ -32,11 +32,18 @@ class App extends react.Component {
     this.setState({ currentProductId: productId });
     utils
       .fetchProduct(productId)
-      .then((currentProduct) => this.setState({ currentProduct }))
+      .then((currentProduct) =>
+      this.setState({ currentProduct }))
       .catch((err) => console.error(err));
     utils
       .fetchReviewsMeta(productId)
       .then((reviewsMeta) => this.setState({ reviewsMeta }))
+      .catch((err) => console.error(err));
+    utils
+      .fetchStyles(productId)
+      .then(({data : {results}}) => {
+        this.setState({currentStylesArray: results});
+      })
       .catch((err) => console.error(err));
   }
 
@@ -47,7 +54,7 @@ class App extends react.Component {
           <Header
             changeCurrentProduct={this.changeCurrentProduct}
           />
-          <ProductDetails reviewsMeta={this.state.reviewsMeta} />
+          <ProductDetails reviewsMeta={this.state.reviewsMeta} stylesData={this.state.currentStylesArray} productData={this.state.currentProduct}/>
         </AppStyle>
         <RelatedItemsAndComparisons
           currentProductId={this.state.currentProductId}

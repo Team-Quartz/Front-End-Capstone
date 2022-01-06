@@ -2,6 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import AnswerEntry from './AnswerEntry.jsx';
 import AnswerModal from './AnswerModal.jsx';
+import utils from '../../Utils.js';
 
 class QuestionEntry extends React.Component {
   constructor(props) {
@@ -15,8 +16,6 @@ class QuestionEntry extends React.Component {
     }
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
-    //TODO: find out if this function is needed
-    // this.reportQuestion = this.reportQuestion.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
   }
 
@@ -25,17 +24,12 @@ class QuestionEntry extends React.Component {
   }
 
   updateQuestionHelpfulCount() {
-    //TODO: create PUT request to increment helpful count
-    this.setState({
-      isHelpful: true
-    })
-  }
-
-  reportQuestion() {
-    //TODO: create PUT request to report question
-    this.setState({
-      isReported: true
-    })
+    utils.markQuestionHelpful(this.props.question.question_id)
+      .then(() => {
+        this.setState({
+          isHelpful: true
+        })
+      })
   }
 
   openAnswerModal(open) {
