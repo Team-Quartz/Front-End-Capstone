@@ -10,9 +10,15 @@ function ReviewsList({ reviews, reviewPage, filters }) {
   const reviewRef = React.useRef();
 
 
-  React.useEffect(() => {
-    if (reviewPage > 1 && reviewRef.current) {
+  function forceScroll() {
+    if (reviewPage > 1) {
       utils.scrollIntoView(reviewRef);
+    }
+  }
+
+  React.useEffect(() => {
+    if (reviewRef.current) {
+      forceScroll();
     }
   }, [reviews]);
 
@@ -29,7 +35,7 @@ function ReviewsList({ reviews, reviewPage, filters }) {
       {reviews.filter(filterReviews).map((review, i) => {
         return (
           <div ref={(i = reviews.length - 1 ? reviewRef : undefined)} key={review.review_id}>
-            <ReviewsListItem setShowImage={setShowImage} review={review} reviewRef={reviewRef} />
+            <ReviewsListItem setShowImage={setShowImage} review={review} forceScroll={forceScroll} />
           </div>
         );
       })}

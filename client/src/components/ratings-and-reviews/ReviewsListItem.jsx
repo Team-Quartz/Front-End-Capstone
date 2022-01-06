@@ -88,7 +88,7 @@ class ReviewsListItem extends React.Component {
   }
 
   render() {
-    const { review, setShowImage, reviewRef } = this.props;
+    const { review, setShowImage, forceScroll } = this.props;
     return (
       <div>
         <FlexRow style={{ justifyContent: 'space-between' }}>
@@ -102,7 +102,7 @@ class ReviewsListItem extends React.Component {
         <ReviewBody body={review.body} />
         <PhotoGallery
           photos={review.photos}
-          onDoneLoading={() => utils.scrollIntoView(reviewRef)}
+          onDoneLoading={forceScroll}
           onClickThumbnail={setShowImage}
         />
         {review.recommend ? '✓ I recommend this product' : undefined}
