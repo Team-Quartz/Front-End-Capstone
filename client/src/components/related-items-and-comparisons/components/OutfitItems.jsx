@@ -40,9 +40,10 @@ const Wrapper = styled.div`
 const AddToOutfitCard = styled.div`
   border: 1px solid lightgrey;
   display: flex;
-  width: 310px;
-  height: 400px;
+  width: 320px;
+  height: 300px;
   margin: 10px;
+  padding: 0;
   flex-direction: column;
   position: relative;
   justify-content:center;
