@@ -8,6 +8,10 @@ export default function ServerMetrics() {
   const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
+    console.error(new Error('MAKE SURE TO REMOVE THIS COMPONENT BEFORE SHIPPING!'));
+  }, [])
+
+  React.useEffect(() => {
     if (show) {
       axios
         .get('/report')
