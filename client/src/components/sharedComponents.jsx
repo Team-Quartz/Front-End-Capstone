@@ -77,8 +77,8 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vw;
-  width: 100vh;
+  height: 100vh;
+  width: 100vw;
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
   margin: 0;
