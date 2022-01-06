@@ -10,7 +10,7 @@ const ImageThumbnail = styled.img`
   }
 `;
 
-function PhotoGallery({ photos, onDoneLoading = () => {}, onClickThumbnail = () => {} }) {
+export function PhotoGallery({ photos, onDoneLoading = () => {}, onClickThumbnail = () => {} }) {
   if (photos) {
     return (
       <div>
@@ -34,4 +34,7 @@ function PhotoGallery({ photos, onDoneLoading = () => {}, onClickThumbnail = () 
   return '';
 }
 
-export default PhotoGallery;
+export const ConstrainedImg = styled.img`
+  max-height: 50vh;
+  max-width: 50vw;
+`;

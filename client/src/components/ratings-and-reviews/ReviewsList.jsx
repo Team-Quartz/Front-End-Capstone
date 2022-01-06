@@ -2,6 +2,7 @@ import { Modal } from '../sharedComponents.jsx';
 import React, { useState } from 'react';
 import ReviewsListItem from './ReviewsListItem.jsx';
 import utils from '../../Utils.js';
+import {ConstrainedImg} from './PhotoGallery.jsx'
 
 
 function ReviewsList({ reviews, reviewPage, filters }) {
@@ -33,7 +34,7 @@ function ReviewsList({ reviews, reviewPage, filters }) {
         );
       })}
       <Modal show={showImage} onClose={() => setShowImage(null)}>
-        <img src={showImage} />
+        <ConstrainedImg src={showImage} />
       </Modal>
     </div>
   );

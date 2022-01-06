@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
 import utils from '../../Utils.js';
 import { ScrollIntoView } from './Index.jsx';
-import PhotoGallery from './PhotoGallery.jsx';
+import { PhotoGallery } from './PhotoGallery.jsx';
 
 const TextButton = styled.button`
   border: none;
@@ -80,11 +80,11 @@ class ReviewsListItem extends React.Component {
 
   reportReview() {
     utils.markReviewReported(this.props.review.review_id);
-    this.setState({ reported: true, reportConfirmation:false});
+    this.setState({ reported: true, reportConfirmation: false });
   }
 
   openReportModal(open) {
-    this.setState({reportConfirmation: open});
+    this.setState({ reportConfirmation: open });
   }
 
   render() {
@@ -116,9 +116,13 @@ class ReviewsListItem extends React.Component {
           {/* TODO: confirm report popup */}
           <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
             Are you sure you want to report this review?
-            <button onClick={this.reportReview.bind(this)}>Yes</button> &nbsp; <button onClick={() => this.openReportModal(false)}>Cancel</button>
+            <button onClick={this.reportReview.bind(this)}>Yes</button> &nbsp;{' '}
+            <button onClick={() => this.openReportModal(false)}>Cancel</button>
           </Modal>
-          <TextButton disabled={this.state.reported} onClick={() => this.setState({reportConfirmation: true})}>
+          <TextButton
+            disabled={this.state.reported}
+            onClick={() => this.setState({ reportConfirmation: true })}
+          >
             {this.state.reported ? 'Reported' : 'Report'}
           </TextButton>
         </FlexRow>

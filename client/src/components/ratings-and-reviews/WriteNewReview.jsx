@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
-import PhotoGallery from './PhotoGallery';
+import { PhotoGallery, ConstrainedImg } from './PhotoGallery';
 
 const narrow = { margin: 0, padding: '4px' };
 
@@ -82,11 +82,7 @@ function AddPhotosModal({ onAddPhoto, show, onClose }) {
 
   return (
     <Modal show={show} onClose={onClose}>
-      <img
-        src={url}
-        onLoad={() => setImageLoaded(true)}
-        style={{ maxHeight: '50vh', maxWidth: '50vw' }}
-      />
+      <ConstrainedImg src={url} onLoad={() => setImageLoaded(true)} />
       <input type='text' value={url} onChange={onChangeUrl} />
       {imageLoaded ? <button onClick={onSubmitImage}>Add</button> : null}
     </Modal>
@@ -162,8 +158,8 @@ export default class WriteNewReview extends React.Component {
     this.setState({ photos });
   }
   removePhoto(url, i) {
-    const photos = this.state.photos.slice().splice(i+1, 1);
-    this.setState({photos});
+    const photos = this.state.photos.slice().splice(i + 1, 1);
+    this.setState({ photos });
   }
 
   submitForm(e) {
@@ -295,7 +291,10 @@ export default class WriteNewReview extends React.Component {
               />
             </div>
             <br />
-            <PhotoGallery photos={this.state.photos} onClickThumbnail={this.removePhoto.bind(this)} />
+            <PhotoGallery
+              photos={this.state.photos}
+              onClickThumbnail={this.removePhoto.bind(this)}
+            />
             {this.state.photos.length < 5 ? (
               <button onClick={this.onOpenAddPhoto.bind(this)}>Add photo</button>
             ) : null}
