@@ -52,7 +52,6 @@ module.exports.fetchReviews = (productId, page, count, sort) => {
 };
 
 module.exports.markReviewHelpful = (reviewId) => {
-  console.log(`marking review number ${reviewId} helpful`);
   return axios.put(`/API/reviews/${reviewId}/helpful`, {
     params: { review_id: reviewId },
   });
@@ -90,9 +89,12 @@ module.exports.submitReview = (
     photos,
     characteristics,
   };
-  console.log(requestBody);
   return axios.post('/API/reviews', requestBody);
   /*
   I don't even have the glasses, but they look neat. Anyways burritos are pretty cool, I'd like to recommend them.
   */
 };
+
+module.exports.fetchQuestions = () => {
+
+}

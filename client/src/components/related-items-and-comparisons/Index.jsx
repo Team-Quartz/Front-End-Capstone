@@ -10,9 +10,9 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center
   flex-direction: column;
-  height: 920px;
+  height: 750px;
   width: 100%;
-  padding: 0px 10px;
+  padding: 0px;
   margin: auto;
   position: relative;
 `;

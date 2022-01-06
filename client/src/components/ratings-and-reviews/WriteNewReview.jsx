@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
+import { PhotoGallery, ConstrainedImg } from './PhotoGallery';
 
 const narrow = { margin: 0, padding: '4px' };
 
@@ -11,6 +12,12 @@ const ErrorDialog = styled.div`
   display: flex;
   align-items: flex-end;
   flex-direction: column;
+`;
+
+const PlaceholderImage = styled.div`
+  width: 20vmin;
+  height: 20vmin;
+  border: 1px solid LightGrey;
 `;
 
 function printReviewScore(rating) {
@@ -63,6 +70,35 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
   );
 }
 
+function AddPhotosModal({ onAddPhoto, show, onClose }) {
+  const [url, setUrl] = React.useState('');
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
+  function onChangeUrl(e) {
+    setImageLoaded(false);
+    setUrl(e.target.value);
+  }
+
+  function onSubmitImage() {
+    onAddPhoto(url);
+    setUrl('');
+    setImageLoaded(false);
+    onClose();
+  }
+
+  return (
+    <Modal show={show} onClose={onClose}>
+      {url.length == 0 ? (
+        <PlaceholderImage />
+      ) : (
+        <ConstrainedImg src={url} onLoad={() => setImageLoaded(true)} />
+      )}
+      <input type='text' value={url} placeholder='Paste URL here' onChange={onChangeUrl} />
+      {imageLoaded ? <button onClick={onSubmitImage}>Add</button> : null}
+    </Modal>
+  );
+}
+
 const blankState = {
   rating: 0,
   recommend: null,
@@ -73,6 +109,7 @@ const blankState = {
   nickname: '',
   email: '',
   errors: [],
+  showAddPhoto: false,
 };
 
 export default class WriteNewReview extends React.Component {
@@ -121,6 +158,20 @@ export default class WriteNewReview extends React.Component {
     this.setState({ rating: index + 1 });
   }
 
+  onOpenAddPhoto(e) {
+    e.preventDefault();
+    this.setState({ showAddPhoto: true });
+  }
+  addPhoto(url) {
+    const photos = this.state.photos.slice();
+    photos.push(url);
+    this.setState({ photos });
+  }
+  removePhoto(url, i) {
+    const photos = this.state.photos.slice().splice(i + 1, 1);
+    this.setState({ photos });
+  }
+
   submitForm(e) {
     e.preventDefault();
     const errors = this.checkFormCompleteness();
@@ -137,8 +188,8 @@ export default class WriteNewReview extends React.Component {
       this.state.recommend,
       this.state.nickname,
       this.state.email,
-      this.state.photos.length ? this.state.photos : undefined,
-      characteristics,
+      this.state.photos,
+      characteristics
     );
     this.clearState();
     this.closeForm();
@@ -175,115 +226,129 @@ export default class WriteNewReview extends React.Component {
 
   render() {
     return (
-      <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
-        <form onSubmit={this.submitForm.bind(this)}>
-          <h2>Write Your Review</h2>
-          <h3>About the {this.props.currentProduct.name}</h3>
-          <br />
-          <h4>Overall Rating*</h4>
-          <FlexRow>
-            <Stars
-              reviewsMeta={{ averageRating: this.state.rating }}
-              clickStar={this.starsClick.bind(this)}
-            />
-            {printReviewScore(this.state.rating)}
-          </FlexRow>
-          <br />
-          <h4>Do you recommend this product?*</h4>
-          <div>
-            <input
-              type='radio'
-              id='yes'
-              name='recommend'
-              checked={this.state.recommend === true}
-              onChange={() => this.setState({ recommend: true })}
-            />
-            <label htmlFor='yes'>Yes</label>
-            <input
-              type='radio'
-              id='no'
-              name='recommend'
-              checked={this.state.recommend === false}
-              onChange={() => this.setState({ recommend: false })}
-            />
-            <label htmlFor='no'>No</label>
-          </div>
-          <br />
-          <h4>Characteristics*</h4>
-          <div>
-            {Object.entries(this.state.characteristics).map((characteristic) => (
-              <Characteristic
-                characteristic={characteristic}
-                key={characteristic}
-                updateCharacteristic={this.updateCharacteristic.bind(this)}
+      <div>
+        <Modal onClose={this.closeForm.bind(this)} show={this.props.show}>
+          <form onSubmit={this.submitForm.bind(this)}>
+            <h2>Write Your Review</h2>
+            <h3>About the {this.props.currentProduct.name}</h3>
+            <br />
+            <h4>Overall Rating*</h4>
+            <FlexRow>
+              <Stars
+                reviewsMeta={{ averageRating: this.state.rating }}
+                clickStar={this.starsClick.bind(this)}
               />
-            ))}
-          </div>
-          <br />
-          <label htmlFor={'summary'}>
-            <h4>{'Review Summary'}</h4>
-          </label>
-          <Input
-            placeholder='Example: Best purchase ever!'
-            value={this.state.summary}
-            id={'summary'}
-            context={this}
-          />
-          <br />
-          <label htmlFor={'body'}>
-            <h4>Review Body*</h4>
-          </label>
-          <div>
-            <textarea
-              style={{
-                width: '90%',
-                height: this.state.body[1],
-                minHeight: '4em',
-                maxHeight: '20em',
-              }}
-              id='body'
-              type='text'
-              value={this.state.body}
-              onChange={this.handleBodyChange.bind(this)}
-              placeholder='Why did you like the product or not?'
-            />
-          </div>
-          <br />
-          {/*<div>Upload your Photos</div>*/}
-          <label htmlFor={'nickname'}>
-            <h4>{'Your nickname*'}</h4>
-          </label>
-          <Input
-            placeholder='Example: jackson11!'
-            value={this.state.nickname}
-            id={'nickname'}
-            context={this}
-          />
-          For privacy reasons, do not use your full name or email address
-          <br />
-          <br />
-          <label htmlFor={'email'}>
-            <h4>{'Your email*'}</h4>
-          </label>
-          <Input
-            placeholder='Example: jackson11@email.com'
-            value={this.state.email}
-            id={'email'}
-            context={this}
-          />
-          For authentication reasons, you will be emailed
-          <FlexRow style={{ justifyContent: 'flex-end' }}>
-            <ErrorDialog>
-              {this.state.errors.map((error, i) => (
-                <div key={i}>{error[0]}</div>
-              ))}
-            </ErrorDialog>
+              {printReviewScore(this.state.rating)}
+            </FlexRow>
+            <br />
+            <h4>Do you recommend this product?*</h4>
             <div>
-              <button>Submit</button>
+              <input
+                type='radio'
+                id='yes'
+                name='recommend'
+                checked={this.state.recommend === true}
+                onChange={() => this.setState({ recommend: true })}
+              />
+              <label htmlFor='yes'>Yes</label>
+              <input
+                type='radio'
+                id='no'
+                name='recommend'
+                checked={this.state.recommend === false}
+                onChange={() => this.setState({ recommend: false })}
+              />
+              <label htmlFor='no'>No</label>
             </div>
-          </FlexRow>
-        </form>
-      </Modal>
+            <br />
+            <h4>Characteristics*</h4>
+            <div>
+              {Object.entries(this.state.characteristics).map((characteristic) => (
+                <Characteristic
+                  characteristic={characteristic}
+                  key={characteristic}
+                  updateCharacteristic={this.updateCharacteristic.bind(this)}
+                />
+              ))}
+            </div>
+            <br />
+            <label htmlFor={'summary'}>
+              <h4>{'Review Summary'}</h4>
+            </label>
+            <Input
+              placeholder='Example: Best purchase ever!'
+              value={this.state.summary}
+              id={'summary'}
+              context={this}
+            />
+            <br />
+            <label htmlFor={'body'}>
+              <h4>Review Body*</h4>
+            </label>
+            <div>
+              <textarea
+                style={{
+                  width: '90%',
+                  height: this.state.body[1],
+                  minHeight: '4em',
+                  maxHeight: '20em',
+                }}
+                id='body'
+                type='text'
+                value={this.state.body}
+                onChange={this.handleBodyChange.bind(this)}
+                placeholder='Why did you like the product or not?'
+              />
+            </div>
+            <br />
+            <PhotoGallery
+              photos={this.state.photos}
+              onClickThumbnail={this.removePhoto.bind(this)}
+            />
+            {this.state.photos.length < 5 ? (
+              <button onClick={this.onOpenAddPhoto.bind(this)}>Add photo</button>
+            ) : null}
+            <br />
+            <label htmlFor={'nickname'}>
+              <h4>{'Your nickname*'}</h4>
+            </label>
+            <Input
+              placeholder='Example: jackson11!'
+              value={this.state.nickname}
+              id={'nickname'}
+              context={this}
+            />
+            For privacy reasons, do not use your full name or email address
+            <br />
+            <br />
+            <label htmlFor={'email'}>
+              <h4>{'Your email*'}</h4>
+            </label>
+            <Input
+              placeholder='Example: jackson11@email.com'
+              value={this.state.email}
+              id={'email'}
+              context={this}
+            />
+            For authentication reasons, you will be emailed
+            <FlexRow style={{ justifyContent: 'flex-end' }}>
+              <ErrorDialog>
+                {this.state.errors.map((error, i) => (
+                  <div key={i}>{error[0]}</div>
+                ))}
+              </ErrorDialog>
+              <div>
+                <button>Submit</button>
+              </div>
+            </FlexRow>
+          </form>
+        </Modal>
+        <AddPhotosModal
+          onAddPhoto={this.addPhoto.bind(this)}
+          onClose={() => this.setState({ showAddPhoto: false })}
+          show={this.state.showAddPhoto}
+        />
+      </div>
     );
   }
 }

@@ -13,11 +13,12 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid lightgrey;
+  border: 1px solid #DCDCDC;
   display: flex;
-  width: 310px;
-  height: 400px;
+  width: 320px;
+  height: 300px;
   margin: 10px;
+  padding: 0;
   flex-direction: column;
   position: relative;
   &:hover {
@@ -25,8 +26,10 @@ const Card = styled.div`
     bottom-border: 0px;
     cursor: pointer;
 `;
+
+
 const Uppercard = styled.div`
-  height: 300px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,15 +51,16 @@ const ActionButton = styled.button`
 `;
 
 const Lowercard = styled.div`
-  height: 100px;
+  height: 80px;
   background: lightgrey;
   display: flex;
   flex-direction: column;
-  padding: 5px 5px 0px;
+  justify-content: center;
+  padding-left: 5px;
 `;
 
 const Catergory = styled.div`
-  font-size: 18px;
+  font-size: 14px;
 `;
 
 const Product = styled.div`
@@ -64,7 +68,7 @@ const Product = styled.div`
 `;
 
 const Price = styled.div`
-  font-size: 18px;
+  font-size: 13px;
   bottom-padding: 10px;
 `;
 
@@ -83,7 +87,7 @@ const Image = styled.img`
 `;
 
 const ReviewWrapper = styled.div`
-  padding-top: 10px;
+  padding-top: 0px;
 `;
 
 const Outfit = ({
