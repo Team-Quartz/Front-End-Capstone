@@ -16,18 +16,29 @@ function get(url, config) {
 
   const urlString = url + paramString;
 
+  //if it's cached, return it (in a promise, since that's the expected output)
   if (cache[urlString]) {
     return new Promise((resolve, reject) => {
-      console.log('using cache for ', urlString)
       //hacky stringify-parse to deep copy the object
       resolve(JSON.parse(JSON.stringify(cache[urlString])));
     });
   }
-  return axios.get(url, config).then((response) => {
-    const cacheData = { data: response.data };
-    cache[urlString] = cacheData;
-    return cacheData;
-  });
+
+  const getRequest = axios.get(url, config).then((response) => {
+    //once the promise resolves, replace the cache contents with the data, rather than the promise itself
+    const responseOb = { data: response.data };
+    cache[urlString] = responseOb;
+    return responseOb;
+  })
+  .catch(err => {
+    //if the promise rejects, throw out the cache entry
+    cache[urlString] = undefined;
+    throw(err)
+  })
+
+  //store the promise in the cache, until it's resolved
+  cache[urlString] = getRequest;
+  return getRequest;
 }
 
 function post(...args) {
