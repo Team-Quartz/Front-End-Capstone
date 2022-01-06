@@ -64,8 +64,8 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
   );
 }
 
-function AddPhotosModal({onAddPhoto}) {
-  return null;
+function AddPhotosModal({ onAddPhoto, show, onClose }) {
+  return <Modal show={show} onClose={onClose}></Modal>;
 }
 
 const blankState = {
@@ -78,6 +78,7 @@ const blankState = {
   nickname: '',
   email: '',
   errors: [],
+  showAddPhoto: false,
 };
 
 export default class WriteNewReview extends React.Component {
@@ -126,6 +127,10 @@ export default class WriteNewReview extends React.Component {
     this.setState({ rating: index + 1 });
   }
 
+  onOpenAddPhoto(e) {
+    e.preventDefault();
+    this.setState({ showAddPhoto: true });
+  }
   addPhoto(url) {
     //TODO: fill this ot
     //store URL in photos array
@@ -148,7 +153,7 @@ export default class WriteNewReview extends React.Component {
       this.state.nickname,
       this.state.email,
       this.state.photos,
-      characteristics,
+      characteristics
     );
     this.clearState();
     this.closeForm();
@@ -259,9 +264,16 @@ export default class WriteNewReview extends React.Component {
             />
           </div>
           <br />
-          <PhotoGallery photos={this.state.photos}/>
-          {this.state.photos.length < 5 ? <button>Add photo</button> : null}
-          <AddPhotosModal onAddPhoto={this.addPhoto.bind(this)} />
+          <PhotoGallery photos={this.state.photos} />
+          {this.state.photos.length < 5 ? (
+            <button onClick={this.onOpenAddPhoto.bind(this)}>Add photo</button>
+          ) : null}
+          <AddPhotosModal
+            onAddPhoto={this.addPhoto.bind(this)}
+            onClose={() => this.setState({ showAddPhoto: false })}
+            show={this.state.showAddPhoto}
+          />
+          <br />
           <label htmlFor={'nickname'}>
             <h4>{'Your nickname*'}</h4>
           </label>
