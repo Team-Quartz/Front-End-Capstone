@@ -14,6 +14,12 @@ const ErrorDialog = styled.div`
   flex-direction: column;
 `;
 
+const PlaceholderImage = styled.div`
+  width: 20vmin;
+  height: 20vmin;
+  border: 1px solid LightGrey;
+`;
+
 function printReviewScore(rating) {
   return ['Select a rating', 'Poor', 'Fair', 'Average', 'Good', 'Great'][rating];
 }
@@ -82,8 +88,12 @@ function AddPhotosModal({ onAddPhoto, show, onClose }) {
 
   return (
     <Modal show={show} onClose={onClose}>
-      <ConstrainedImg src={url} onLoad={() => setImageLoaded(true)} />
-      <input type='text' value={url} onChange={onChangeUrl} />
+      {url.length == 0 ? (
+        <PlaceholderImage />
+      ) : (
+        <ConstrainedImg src={url} onLoad={() => setImageLoaded(true)} />
+      )}
+      <input type='text' value={url} placeholder='Paste URL here' onChange={onChangeUrl} />
       {imageLoaded ? <button onClick={onSubmitImage}>Add</button> : null}
     </Modal>
   );
