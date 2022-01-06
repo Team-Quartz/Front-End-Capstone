@@ -60,7 +60,7 @@ const AddToOutfitButton = styled.button`
   cursor: pointer;
   height: 100%;
   width: 100%;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
 `;
 

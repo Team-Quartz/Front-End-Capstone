@@ -94,7 +94,7 @@ const Image = styled.img`
 `;
 
 const ReviewWrapper = styled.div`
-
+  padding-top: 1px;
 `;
 
 const RelatedItem = ({
