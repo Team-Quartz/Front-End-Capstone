@@ -9,7 +9,32 @@ app.use(express.json());
 
 const API_URL = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx`;
 
+let APICalls;
+
+function resetCallsTracker() {
+  APICalls = {
+    total: 0,
+    callsCount: {},
+  };
+}
+
+resetCallsTracker();
+
+app.delete('/report', (req, res) => {
+  resetCallsTracker();
+});
+
+app.get('/report', (req, res) => {
+  res.send(APICalls);
+});
+
 app.use('/API', (req, res) => {
+  APICalls.total += 1;
+  if (APICalls.callsCount[req.url]) {
+    APICalls.callsCount[req.url] += 1;
+  } else {
+    APICalls.callsCount[req.url] = 1;
+  }
   req.headers.Authorization = GITHUB_API_KEY;
   axios({
     method: req.method,
