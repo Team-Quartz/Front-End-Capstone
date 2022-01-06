@@ -9,7 +9,6 @@ export default function ServerMetrics() {
 
   React.useEffect(() => {
     if (show) {
-      console.log('hi');
       axios
         .get('/report')
         .then((response) => {
