@@ -41,7 +41,7 @@ export default function ServerMetrics() {
       <button onClick={() => setShow(true)}>Show Server Metrics</button>
       <Modal show={show} onClose={() => setShow(false)}>
         <button onClick={resetCount}>Reset calls count</button>
-        <label for='sortBy'>Sort by</label>
+        <label htmlFor='sortBy'>Sort by</label>
         <select id='sortBy' name='sortBy' value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value='count'>count</option>
           <option value='endpoint'>endpoint</option>
