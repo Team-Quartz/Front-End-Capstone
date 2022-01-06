@@ -41,7 +41,6 @@ class RatingsAndReviews extends React.Component {
     if (this.reviewsFrame.current) {
       const clientHeight = this.reviewsFrame.current.clientHeight;
       if (clientHeight > this.state.minReviewsHeight) {
-        console.log(clientHeight);
         this.setState({ minReviewsHeight: clientHeight });
       }
     }
