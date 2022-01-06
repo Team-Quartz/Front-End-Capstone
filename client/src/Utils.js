@@ -88,11 +88,27 @@ module.exports.submitReview = (
   };
   console.log(requestBody);
   return axios.post('/API/reviews', requestBody);
-  /*
-  I don't even have the glasses, but they look neat. Anyways burritos are pretty cool, I'd like to recommend them.
-  */
 };
 
-module.exports.fetchQuestions = () => {
+/*
+   QQQ   U   U  EEEEE   SSS  TTTTT  IIIII   OOO   N   N   SSS
+  Q   Q  U   U  E      S       T      I    O   O  NN  N  S
+  Q Q Q  U   U  EEE     SSS    T      I    O   O  N N N   SSS
+  Q  QQ  U   U  E          S   T      I    O   O  N  NN      S
+   QQQQ   UUU   EEEEE   SSS    T    IIIII   OOO   N   N   SSS
+       Q
+ */
 
+// module.exports.parseQuestions
+
+module.exports.fetchQuestions = (productId) => {
+  return axios
+    .get('/API/qa/questions/', {
+      params: {
+        product_id: productId,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
 }
