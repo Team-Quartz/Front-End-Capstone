@@ -8,6 +8,7 @@ function ReviewsList({ reviews, reviewPage, filters }) {
   const [showImage, setShowImage] = useState(null);
   const reviewRef = React.useRef();
 
+
   React.useEffect(() => {
     if (reviewPage > 1 && reviewRef.current) {
       utils.scrollIntoView(reviewRef);

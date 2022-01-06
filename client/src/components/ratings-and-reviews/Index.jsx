@@ -17,12 +17,14 @@ const blankState = {
   reviewPage: 0,
   writingNewReview: false,
   reviewsRemaining: true,
+  minReviewsHeight: 0,
 };
 class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = blankState;
     this.reviewsBottom = React.createRef();
+    this.reviewsFrame = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -34,6 +36,14 @@ class RatingsAndReviews extends React.Component {
       (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
     ) {
       utils.scrollIntoView(this.reviewsBottom);
+    }
+
+    if (this.reviewsFrame.current) {
+      const clientHeight = this.reviewsFrame.current.clientHeight;
+      if (clientHeight > this.state.minReviewsHeight) {
+        console.log(clientHeight);
+        this.setState({ minReviewsHeight: clientHeight });
+      }
     }
   }
 
@@ -104,7 +114,7 @@ class RatingsAndReviews extends React.Component {
       return null;
     }
     return (
-      <div>
+      <div ref={this.reviewsFrame} style={{ minHeight: this.state.minReviewsHeight }}>
         <h2>Ratings &amp; Reviews</h2>
         {!isLoading ? (
           <FlexRow>
