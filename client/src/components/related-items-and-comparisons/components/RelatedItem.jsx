@@ -6,6 +6,7 @@ import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx";
 import utils from "../../../Utils.js";
+import PopupRelated from "./PopupRelated";
 
 const Container = styled.div`
   display: flex;
@@ -22,10 +23,7 @@ const Card = styled.div`
   padding: 0;
   flex-direction: column;
   position: relative;
-  &:hover {
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    bottom-border: 0px;
-    cursor: pointer;
+  cursor: pointer;
 `;
 
 const Uppercard = styled.div`
@@ -96,7 +94,7 @@ const Image = styled.img`
 `;
 
 const ReviewWrapper = styled.div`
-
+  padding-top: 1px;
 `;
 
 const RelatedItem = ({
@@ -107,14 +105,16 @@ const RelatedItem = ({
   setSlideIndex
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.results[0]
+    cardLoader.photos
   );
   const [defaultProduct, setDefaultProduct] = useState(
     currentProductId || 38328
   );
   const [defaultProductFeatures] = useState([]);
   const [compareToProductFeatures] = useState([]);
+  const [previewImage, setPreviewImage] = useState(cardLoader.photos)
 
+  const [hovered, setHovered] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
   const [combinedFeatures, setCombinedFeatures] = useState({});
   const [metadata, setMetadata] = useState({});
@@ -139,7 +139,8 @@ const RelatedItem = ({
         `/API/products/${relatedItemId}/styles`
       )
       .then((relatedItemStyles) => {
-        setDefaultProductStyle(relatedItemStyles.data.results[0]);
+        setDefaultProductStyle(relatedItemStyles.data.results[0].photos);
+        setPreviewImage(relatedItemStyles.data.results[0].photos[0].thumbnail_url)
       })
       .catch((err) => {
         console.log(err);
@@ -164,11 +165,6 @@ const RelatedItem = ({
     fetchRelatedProductStyles();
     fetchMetadata();
   }, []);
-
-  const changeCurrentItem = (itemId) => {
-    changeCurrentProduct(itemId);
-    setSlideIndex(0);
-  };
 
   const onModalClick = () => {
     setShowCompare((prev) => !prev);
@@ -219,6 +215,18 @@ const RelatedItem = ({
     setCombinedFeatures(comparisonObject);
   };
 
+  const handleHover = () => {
+    setHovered(true);
+  }
+
+  const handleHoverOut = () => {
+    setHovered(false);
+  }
+
+  const changePreviewItem = (index) => {
+    setPreviewImage(defaultProductStyle[index].thumbnail_url)
+  }
+
   return (
     <>
       <Container>
@@ -229,11 +237,23 @@ const RelatedItem = ({
                 <FaRegStar size={40} />
               </ActionButton>
             </ButtonWrapper>
-            <ImgWrapper onClick={() => changeCurrentItem(defaultProduct.id)}>
-              {defaultProductStyle.photos[0].thumbnail_url === null ? (
+            <ImgWrapper
+              onMouseEnter={handleHover}
+              onMouseLeave={handleHoverOut}
+              >
+              {hovered ? (
+                <PopupRelated
+                  productStyles={defaultProductStyle}
+                  changeCurrentProduct={changeCurrentProduct}
+                  defaultProduct={defaultProduct}
+                  changePreviewItem={changePreviewItem}
+                  previewImage={previewImage}
+                />
+              ): null}
+              {defaultProductStyle[0].thumbnail_url === null ? (
                 <Image src="./img/imageNotAvailable.png" />
               ) : (
-                <Image src={defaultProductStyle.photos[0].thumbnail_url} />
+                <Image src={previewImage} />
               )}
             </ImgWrapper>
           </Uppercard>

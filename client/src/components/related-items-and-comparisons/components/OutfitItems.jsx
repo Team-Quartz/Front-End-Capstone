@@ -42,6 +42,7 @@ const AddToOutfitCard = styled.div`
   width: 320px;
   height: 300px;
   margin: 10px;
+  padding: 0;
   flex-direction: column;
   position: relative;
   justify-content:center;
@@ -59,7 +60,7 @@ const AddToOutfitButton = styled.button`
   cursor: pointer;
   height: 100%;
   width: 100%;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
 `;
 

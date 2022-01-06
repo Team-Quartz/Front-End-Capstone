@@ -104,8 +104,7 @@ module.exports.submitReview = (
 // module.exports.parseQuestions
 
 module.exports.fetchQuestions = (productId) => {
-  return axios
-    .get('/API/qa/questions/', {
+  return axios.get('/API/qa/questions/', {
       params: {
         product_id: productId,
       },
@@ -113,6 +112,15 @@ module.exports.fetchQuestions = (productId) => {
     .then((response) => {
       return response.data;
     });
+}
+
+module.exports.fetchAnswers = (questionId) => {
+  return axios.get(`/API/qa/questions/${questionId}/answers`)
+    .then((response) => {
+      console.log('RESPONSE: ', response)
+      return response.data.results;
+    });
+    // .catch(() => {console.log('SERVER: THERE WAS AN ERROR RETRIEVING THE ANSWERS')})
 }
 
 module.exports.markQuestionHelpful = (questionId) => {
@@ -133,3 +141,24 @@ module.exports.reportAnswer = (answerId) => {
     params: { id: answerId },
   });
 }
+
+module.exports.submitQuestion = (body, name, email, productId) => {
+  const params = {
+    body,
+    name,
+    email,
+    product_id: productId,
+  }
+  return axios.post('/API/qa/questions/', params);
+}
+
+module.exports.submitAnswer = (body, name, email, photos, questionId) => {
+  const params = {
+    body,
+    name,
+    email,
+    photos
+  }
+  return axios.post(`/API/qa/questions/${questionId}/answers`, params);
+}
+

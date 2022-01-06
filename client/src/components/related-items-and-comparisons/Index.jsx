@@ -15,6 +15,7 @@ const Container = styled.div`
   padding: 0px;
   margin: auto;
   position: relative;
+  font-family: Arial;
 `;
 
 const Wrapper = styled.div`

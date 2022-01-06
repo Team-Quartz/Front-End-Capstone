@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid #DCDCDC;
+  border: 1px solid #dcdcdc;
   display: flex;
   width: 320px;
   height: 300px;
@@ -21,12 +21,8 @@ const Card = styled.div`
   padding: 0;
   flex-direction: column;
   position: relative;
-  &:hover {
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    bottom-border: 0px;
-    cursor: pointer;
+  cursor: pointer;
 `;
-
 
 const Uppercard = styled.div`
   height: 220px;
@@ -97,7 +93,7 @@ const Outfit = ({
   currentStyleId,
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.results[0]
+    cardLoader.photos
   );
   const [outfitProduct, setOutfitProduct] = useState([]);
   const [metadata, setMetadata] = useState({});
@@ -106,9 +102,7 @@ const Outfit = ({
 
   const fetchCurrentProduct = () => {
     axios
-      .get(
-        `/API/products/${outfitProductId}/`
-      )
+      .get(`/API/products/${outfitProductId}/`)
       .then((currentItemInfo) => {
         setOutfitProduct(currentItemInfo.data);
       })
@@ -119,11 +113,9 @@ const Outfit = ({
 
   const fetchOutfitProductStyles = () => {
     axios
-      .get(
-        `/API/products/${outfitProductId}/styles`
-      )
+      .get(`/API/products/${outfitProductId}/styles`)
       .then((outfitStyles) => {
-        setDefaultProductStyle(outfitStyles.data.results[0]);
+        setDefaultProductStyle(outfitStyles.data.results[0].photos);
       })
       .catch((err) => {
         console.log(err);
@@ -132,9 +124,7 @@ const Outfit = ({
 
   const fetchMetadata = () => {
     axios
-      .get(
-        `/API/reviews/meta?product_id=${outfitProductId}`
-      )
+      .get(`/API/reviews/meta?product_id=${outfitProductId}`)
       .then((metadataInfo) => {
         setMetadata(utils.parseReviewsMeta(metadataInfo.data));
       })
@@ -162,10 +152,10 @@ const Outfit = ({
               <FaRegTimesCircle size={45} />
             </ActionButton>
             <ImgWrapper>
-              {defaultProductStyle.photos[0].thumbnail_url === null ? (
+              {defaultProductStyle[0].thumbnail_url === null ? (
                 <Image src="./img/imageNotAvailable.png" />
               ) : (
-                <Image src={defaultProductStyle.photos[0].thumbnail_url} />
+                <Image src={defaultProductStyle[0].thumbnail_url} />
               )}
             </ImgWrapper>
           </Uppercard>
