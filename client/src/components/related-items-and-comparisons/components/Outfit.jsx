@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import cardLoader from "../card-loader/cardLoader";
 import { FaRegTimesCircle } from "react-icons/fa";
-import axios from "axios";
+import axios from "../../../haxios";
 import { Stars } from "../../sharedComponents.jsx";
 import utils from "../../../Utils.js";
 
