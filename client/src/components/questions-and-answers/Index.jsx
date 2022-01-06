@@ -13,6 +13,21 @@ class QuestionsAndAnswers extends React.Component {
     this.updateSearchFilter = this.updateSearchFilter.bind(this);
   }
 
+  componentDidMount() {
+    // console.log('app mounted!');
+    // utils
+    //   .fetchQuestions(this.state.productId)
+    //   .then(questions => {
+    //     questions.results.sort((firstQuestion, secondQuestion) => {
+    //       return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+    //     })
+    //     this.setState({
+    //       questions: questions.results,
+    //     })
+    //   })
+    //   .catch(err => {err});
+  }
+
   updateSearchFilter(query) {
     this.setState({ searchFilter: query });
   }
@@ -25,6 +40,7 @@ class QuestionsAndAnswers extends React.Component {
         <QuestionsList
         productId={this.state.productId}
         productName={this.props.productName}
+        questions={this.state.questions}
         searchFilter={this.state.searchFilter}/>
       </div>
     )
