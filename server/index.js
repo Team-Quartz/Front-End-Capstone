@@ -14,7 +14,7 @@ let APICalls;
 function resetCallsTracker() {
   APICalls = {
     total: 0,
-    callsCount: {},
+    calls: {},
   };
 }
 
@@ -30,10 +30,10 @@ app.get('/report', (req, res) => {
 
 app.use('/API', (req, res) => {
   APICalls.total += 1;
-  if (APICalls.callsCount[req.url]) {
-    APICalls.callsCount[req.url] += 1;
+  if (APICalls.calls[req.url]) {
+    APICalls.calls[req.url] += 1;
   } else {
-    APICalls.callsCount[req.url] = 1;
+    APICalls.calls[req.url] = 1;
   }
   req.headers.Authorization = GITHUB_API_KEY;
   axios({
