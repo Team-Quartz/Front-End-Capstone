@@ -24,7 +24,6 @@ class QuestionsList extends React.Component {
   }
 
   componentDidMount() {
-    let questionsByHelpfulness = [];
     utils
       .fetchQuestions(this.props.productId)
       .then(questions => {
@@ -38,9 +37,9 @@ class QuestionsList extends React.Component {
       .catch(err => {err});
   }
 
+  //TODO: make this function update productId when it changes and also get the new questions
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productId !== this.props.productId) {
-      this.setState({productId: this.props.productId})
       utils
       .fetchQuestions(this.props.productId)
       .then(questions => {
@@ -49,6 +48,7 @@ class QuestionsList extends React.Component {
         })
         this.setState({
           questions: questions.results,
+          productId: this.props.productId
         })
       })
       .catch(err => {err});

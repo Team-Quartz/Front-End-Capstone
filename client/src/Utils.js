@@ -112,3 +112,22 @@ module.exports.fetchQuestions = (productId) => {
       return response.data;
     });
 }
+
+module.exports.markQuestionHelpful = (questionId) => {
+  return axios.put(`/API/qa/questions/${questionId}/helpful`, {
+    params: { question_id: questionId },
+  });
+}
+
+module.exports.markAnswerHelpful = (answerId) => {
+  console.log('ANSWER ID: ', answerId)
+  return axios.put(`/API/qa/answers/${answerId}/helpful`, {
+    params: { id: answerId },
+  });
+}
+
+module.exports.reportAnswer = (answerId) => {
+  return axios.put(`/API/qa/answers/${answerId}/report`, {
+    params: { id: answerId },
+  });
+}
