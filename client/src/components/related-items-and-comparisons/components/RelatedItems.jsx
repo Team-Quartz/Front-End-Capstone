@@ -9,10 +9,10 @@ const Container = styled.div`
   height: 90%;
   overflow: hidden;
   position: relative;
+  margin: 2px;
 `;
 
-// change top position on final product
-const Arrow = styled.div`
+const ArrowWrapper = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -21,8 +21,8 @@ const Arrow = styled.div`
   justify-content: center;
   z-index: 2;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "2px"};
-  right: ${(props) => props.direction === "right" && "2px"};
+  left: ${(props) => props.direction === "left" && "17px"};
+  right: ${(props) => props.direction === "right" && "7.5px"};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -33,22 +33,14 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
-  transition: all 1s ease;
-  transform: translateX(${(props) => props.slideIndex * -16}vw);
+  transition: all 1.5s ease;
+  transform: translateX(${(props) => props.slideIndex * -343}px);
 `;
-const LeftArrow = styled.div`
+
+const Arrow = styled.div`
   width: 100%;
   height: 100%;
-  display: ${(props) => (props.position === "none" ? "none" : "flex")};
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(218, 223, 225, 0.8);
-  border-radius: 50%;
-`;
-const RightArrow = styled.div`
-  width: 100%;
-  height: 100%;
-  display: ${(props) => (props.position === "none" ? "none" : "flex")};
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(218, 223, 225, 0.8);
@@ -75,11 +67,13 @@ const RelatedItems = ({
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <LeftArrow position={slideIndex <= 0 ? "none" : "unset"}>
-          <FaAngleLeft size={30} />
-        </LeftArrow>
-      </Arrow>
+      {slideIndex <= 0 ? null : (
+        <ArrowWrapper direction="left" onClick={() => handleClick("left")}>
+          <Arrow>
+            <FaAngleLeft size={30} />
+          </Arrow>
+        </ArrowWrapper>
+      )}
       {relatedItems.length > 0 ? (
         <Wrapper slideIndex={slideIndex}>
           {relatedItems.map((itemId, index) => {
@@ -90,16 +84,19 @@ const RelatedItems = ({
                 setRelatedItems={setRelatedItems}
                 key={index}
                 currentProduct={currentProduct}
+                setSlideIndex={setSlideIndex}
               />
             );
           })}
         </Wrapper>
       ) : null}
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <RightArrow position={slideIndex >= index ? "none" : "unset"}>
-          <FaAngleRight size={30} />
-        </RightArrow>
-      </Arrow>
+      {slideIndex >= index ? null : (
+        <ArrowWrapper direction="right" onClick={() => handleClick("right")}>
+          <Arrow>
+            <FaAngleRight size={30} />
+          </Arrow>
+        </ArrowWrapper>
+      )}
     </Container>
   );
 };

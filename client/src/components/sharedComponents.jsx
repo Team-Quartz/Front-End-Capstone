@@ -94,6 +94,7 @@ const ModalBody = styled.div`
   padding: 2em;
 `;
 
+
 /**
  *
  * @param {{ show: boolean, onClose: function }} props react props.
@@ -102,11 +103,17 @@ const ModalBody = styled.div`
  * @returns
  */
 export function Modal({ show, onClose, children }) {
+  const [lastTarget, setLastTarget] = React.useState(null);
   function escListener(e) {
     if (show) {
       if (e.key === "Escape") {
         onClose();
       }
+    }
+  }
+  function onClickBackground(e) {
+    if (e.target === lastTarget) {
+      onClose();
     }
   }
   React.useEffect(() => {
@@ -119,7 +126,7 @@ export function Modal({ show, onClose, children }) {
     //TODO: block scrolling of main app, block non-mouse input switching (EG tab) from focusing inputs outside the modal window
     //TODO: test returns for different values of show, test that onClose is properly working
     return (
-      <ModalBackground onClick={onClose}>
+      <ModalBackground onMouseDown={(e) => setLastTarget(e.target)} onClick={onClickBackground}>
         <ModalBody onClick={(e) => e.stopPropagation()}>
           <button onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
             X
@@ -131,3 +138,4 @@ export function Modal({ show, onClose, children }) {
   }
   return "";
 }
+

@@ -9,6 +9,7 @@ import ProductDetails from "./components/product-details/Index.jsx";
 import QuestionsAndAnswers from "./components/questions-and-answers/Index.jsx";
 import RatingsAndReviews from "./components/ratings-and-reviews/Index.jsx";
 import RelatedItemsAndComparisons from "./components/related-items-and-comparisons/Index.jsx";
+import Header from "./components/header/Index.jsx"
 import utils from "./Utils.js";
 import { reviewsMeta } from "./placeholderData.js";
 
@@ -17,8 +18,7 @@ class App extends react.Component {
     super(props);
     this.state = {
       currentProductId: 38322,
-      currentStyleId: 227500,
-      reviewsMeta: reviewsMeta,
+      reviewsMeta: {averageRating:0},
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
@@ -27,29 +27,35 @@ class App extends react.Component {
     this.changeCurrentProduct();
   }
 
-  changeCurrentProduct(productId) {
-    this.setState({ currentProductId: productId || 38322 });
-  }
-
-  // placeholder
-  changeCurrentStyleId(styleId) {
-    this.setState({ currentStyleId: styleId})
+  changeCurrentProduct(productId = 38322 ) {
+    this.setState({ currentProductId: productId });
+    utils
+      .fetchProduct(productId)
+      .then((currentProduct) => this.setState({ currentProduct }))
+      .catch((err) => console.error(err));
+    utils
+      .fetchReviewsMeta(productId)
+      .then((reviewsMeta) => this.setState({ reviewsMeta }))
+      .catch((err) => console.error(err));
   }
 
   render() {
     return (
       <AppContainer>
         <AppStyle>
+          <Header
+            changeCurrentProduct={this.changeCurrentProduct}
+          />
           <ProductDetails reviewsMeta={this.state.reviewsMeta} />
         </AppStyle>
-          <RelatedItemsAndComparisons
-            currentProductId={this.state.currentProductId}
-            changeCurrentProduct={this.changeCurrentProduct}
-            currentStyleId={this.state.currentStyleId}
-          />
+        <RelatedItemsAndComparisons
+          currentProductId={this.state.currentProductId}
+          changeCurrentProduct={this.changeCurrentProduct}
+          currentStyleId={this.state.currentStyleId}
+        />
         <AppStyle>
-          <QuestionsAndAnswers />
-          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} />
+          <QuestionsAndAnswers productId={this.state.currentProductId} productName={this.state.currentProduct}/>
+          <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} currentProduct={this.state.currentProduct}/>
         </AppStyle>
       </AppContainer>
     );

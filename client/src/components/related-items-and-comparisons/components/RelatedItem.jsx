@@ -93,16 +93,9 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
-const Invis = styled.div`
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  position: absolute;
-  background: black;
-  z-index: 5;
-`;
+const ReviewWrapper = styled.div`
 
-const ReviewWrapper =styled.div``
+`;
 
 const RelatedItem = ({
   changeCurrentProduct,

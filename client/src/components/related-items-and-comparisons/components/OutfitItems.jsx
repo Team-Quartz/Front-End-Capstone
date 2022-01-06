@@ -11,8 +11,7 @@ const Container = styled.div`
   position: relative;
 `;
 
-// change top position on final product
-const Arrow = styled.div`
+const ArrowWrapper = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -21,8 +20,8 @@ const Arrow = styled.div`
   justify-content: center;
   z-index: 2;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "2px"};
-  right: ${(props) => props.direction === "right" && "2px"};
+  left: ${(props) => props.direction === "left" && "17px"};
+  right: ${(props) => props.direction === "right" && "7.5px"};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -33,8 +32,8 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
-  transition: all 1s ease;
-  transform: translateX(${(props) => props.slideIndex * -14}vw);
+  transition: all 1.5s ease;
+  transform: translateX(${(props) => props.slideIndex * -343}px);
 `;
 
 const AddToOutfitCard = styled.div`
@@ -68,8 +67,8 @@ const AddToOutfitButton = styled.button`
 const InnerWrapper = styled.div`
   display: flex;
 `;
-//fix
-const LeftArrow = styled.div`
+
+const Arrow = styled.div`
   width: 100%;
   height: 100%;
   display: ${(props) => (props.position === "none" ? "none" : "flex")};
@@ -79,17 +78,12 @@ const LeftArrow = styled.div`
   border-radius: 50%;
 `;
 
-const RightArrow = styled.div`
-  width: 100%;
-  height: 100%;
-  display: ${(props) => (props.position === "none" ? "none" : "flex")};
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(218, 223, 225, 0.8);
-  border-radius: 50%;
-`;
-
-const OutfitItems = ({ currentItem, defaultStyle, currentProductId, currentStyleId }) => {
+const OutfitItems = ({
+  currentItem,
+  defaultStyle,
+  currentProductId,
+  currentStyleId,
+}) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [outfits, setOutfits] = useState([]);
 
@@ -131,11 +125,13 @@ const OutfitItems = ({ currentItem, defaultStyle, currentProductId, currentStyle
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <LeftArrow position={slideIndex <= 0 ? "none" : ""}>
-          <FaAngleLeft size={30} />
-        </LeftArrow>
-      </Arrow>
+      {slideIndex <= 0 ? null : (
+        <ArrowWrapper direction="left" onClick={() => handleClick("left")}>
+          <Arrow>
+            <FaAngleLeft size={30} />
+          </Arrow>
+        </ArrowWrapper>
+      )}
       <Wrapper slideIndex={slideIndex}>
         <AddToOutfitCard>
           <AddToOutfitButton onClick={() => addToOutfit(currentProductId)}>
@@ -158,11 +154,13 @@ const OutfitItems = ({ currentItem, defaultStyle, currentProductId, currentStyle
           </InnerWrapper>
         ) : null}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <RightArrow position={slideIndex >= index ? "none" : ""}>
-          <FaAngleRight size={30} />
-        </RightArrow>
-      </Arrow>
+      {slideIndex >= index ? null : (
+        <ArrowWrapper direction="right" onClick={() => handleClick("right")}>
+          <Arrow position={slideIndex >= index ? "none" : ""}>
+            <FaAngleRight size={30} />
+          </Arrow>
+        </ArrowWrapper>
+      )}
     </Container>
   );
 };

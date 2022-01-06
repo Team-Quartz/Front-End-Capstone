@@ -13,16 +13,17 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-border: 1px solid #DCDCDC;
-display: flex;
-width: 320px;
-height: 300px;
-margin: 10px;
-padding: 0;
-flex-direction: column;
-position: relative;
-cursor: pointer;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  width: 320px;
+  height: 300px;
+  margin: 10px;
+  padding: 0;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
 `;
+
 const Uppercard = styled.div`
   height: 220px;
   display: flex;
@@ -57,13 +58,16 @@ const Lowercard = styled.div`
 const Catergory = styled.div`
   font-size: 14px;
 `;
+
 const Product = styled.div`
   font-weight: 900;
 `;
+
 const Price = styled.div`
   font-size: 13px;
   bottom-padding: 10px;
 `;
+
 const ImgWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -77,13 +81,20 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
 `;
-//temp
+
 const ReviewWrapper = styled.div`
-  padding-top: 10px;
+  padding-top: 0px;
 `;
 
-const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) => {
-  const [defaultProductStyle, setDefaultProductStyle] = useState(cardLoader.photos);
+const Outfit = ({
+  outfits,
+  outfitProductId,
+  removeFromOutfit,
+  currentStyleId,
+}) => {
+  const [defaultProductStyle, setDefaultProductStyle] = useState(
+    cardLoader.photos
+  );
   const [outfitProduct, setOutfitProduct] = useState([]);
   const [metadata, setMetadata] = useState({});
 
@@ -91,14 +102,7 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) 
 
   const fetchCurrentProduct = () => {
     axios
-      .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/`,
-        {
-          headers: {
-            Authorization: "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",
-          },
-        }
-      )
+      .get(`/API/products/${outfitProductId}/`)
       .then((currentItemInfo) => {
         setOutfitProduct(currentItemInfo.data);
       })
@@ -109,14 +113,7 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) 
 
   const fetchOutfitProductStyles = () => {
     axios
-      .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${outfitProductId}/styles`,
-        {
-          headers: {
-            Authorization: "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",
-          },
-        }
-      )
+      .get(`/API/products/${outfitProductId}/styles`)
       .then((outfitStyles) => {
         setDefaultProductStyle(outfitStyles.data.results[0].photos);
       })
@@ -127,14 +124,7 @@ const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) 
 
   const fetchMetadata = () => {
     axios
-      .get(
-        `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta?product_id=${outfitProductId}`,
-        {
-          headers: {
-            Authorization: "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",
-          },
-        }
-      )
+      .get(`/API/reviews/meta?product_id=${outfitProductId}`)
       .then((metadataInfo) => {
         setMetadata(utils.parseReviewsMeta(metadataInfo.data));
       })
