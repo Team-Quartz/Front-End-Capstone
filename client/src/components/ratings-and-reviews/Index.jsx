@@ -7,20 +7,24 @@ import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
 import utils from '../../Utils.js';
 
+const defaultFilters = [true, false, false, false, false, false];
+
 const blankState = {
   //TODO: should we persist reviewSorting and filters when product changes?
   reviewSorting: 'relevant',
-  filters: [],
+  filters: defaultFilters,
   reviews: null,
   reviewPage: 0,
   writingNewReview: false,
   reviewsRemaining: true,
+  minReviewsHeight: 0,
 };
 class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = blankState;
     this.reviewsBottom = React.createRef();
+    this.reviewsFrame = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,6 +36,13 @@ class RatingsAndReviews extends React.Component {
       (!prevState.reviews || prevState.reviews.length < this.state.reviews.length)
     ) {
       utils.scrollIntoView(this.reviewsBottom);
+    }
+
+    if (this.reviewsFrame.current) {
+      const clientHeight = this.reviewsFrame.current.clientHeight;
+      if (clientHeight > this.state.minReviewsHeight) {
+        this.setState({ minReviewsHeight: clientHeight });
+      }
     }
   }
 
@@ -84,6 +95,17 @@ class RatingsAndReviews extends React.Component {
     );
   }
 
+  toggleRatingFilter(rating) {
+    const filters = this.state.filters.slice();
+    filters[rating] = !filters[rating];
+    filters[0] = filters.slice(1).every((filter) => !filter);
+    this.setState({ filters });
+  }
+
+  clearRatingFilters() {
+    this.setState({ filters: defaultFilters });
+  }
+
   render() {
     const isLoading = this.props.reviewsMeta.totalRatings === undefined;
     const noReviews = this.props.reviewsMeta.totalRatings === 0;
@@ -91,7 +113,7 @@ class RatingsAndReviews extends React.Component {
       return null;
     }
     return (
-      <div>
+      <div ref={this.reviewsFrame} style={{ minHeight: this.state.minReviewsHeight }}>
         <h2>Ratings &amp; Reviews</h2>
         {!isLoading ? (
           <FlexRow>
@@ -120,10 +142,21 @@ class RatingsAndReviews extends React.Component {
                       count={this.props.reviewsMeta.ratings[rating]}
                       total={this.props.reviewsMeta.totalRatings}
                       key={rating}
+                      toggleFilter={this.toggleRatingFilter.bind(this)}
+                      filter={this.state.filters[rating]}
                     />
                   ) : (
                     <RatingBreakdown rating={rating} count={0} total={0} key={rating} />
                   )
+                )}
+              </div>
+              <div>
+                {this.state.filters[0] ? null : (
+                  <div>
+                    Filtering on {[1, 2, 3, 4, 5].filter((i) => this.state.filters[i]).join(', ')}{' '}
+                    stars
+                    <button onClick={this.clearRatingFilters.bind(this)}>Clear all filters</button>
+                  </div>
                 )}
               </div>
               <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
@@ -146,6 +179,7 @@ class RatingsAndReviews extends React.Component {
               <ReviewsList
                 reviews={this.state.reviews}
                 reviewPage={this.state.reviewPage}
+                filters={this.state.filters}
               />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (
