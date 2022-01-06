@@ -54,11 +54,7 @@ class App extends react.Component {
       <AppContainer>
         <AppStyle>
           <Header changeCurrentProduct={this.changeCurrentProduct} />
-          <button onClick={() => this.setState({ debugDisplay: true })}>Show Server Metrics</button>
-          <ServerMetrics
-            show={this.state.debugDisplay}
-            onClose={() => this.setState({ debugDisplay: false })}
-          />
+          <ServerMetrics/>
           <ProductDetails
             reviewsMeta={this.state.reviewsMeta}
             stylesData={this.state.currentStylesArray}
