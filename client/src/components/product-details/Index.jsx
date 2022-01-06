@@ -1,5 +1,5 @@
 import React from 'react';
-// import {stylesData, productData} from './sample.js';
+import {stylesData, productData} from './sample.js';
 import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
@@ -31,9 +31,9 @@ class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stylesData: [null],
-      productData: {data: null},
-      selectedStyle: {data: null},
+      stylesData: stylesData.results,
+      productData: productData,
+      selectedStyle: stylesData.results[0],
       highlightStyle: '0',
     }
     this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
@@ -45,7 +45,10 @@ class ProductDetail extends React.Component {
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
   componentDidUpdate (prevProps) {
-    if (prevProps !== this.props && this.props.productData !== undefined && this.props.stylesData.length !== 0) {
+    console.log(this.props)
+    const isStylesData = this.props.stylesData !== undefined;
+    const isProductData = this.props.productData !== undefined && this.props.productData !== null;
+    if (prevProps !== this.props && isProductData && isStylesData && this.props.stylesData.length !== 0) {
       const {stylesData, productData, reviewsMeta} = this.props;
       const defaultStyle = stylesData.find((styleObject) => styleObject["default?"] );
       this.setState({
@@ -57,6 +60,7 @@ class ProductDetail extends React.Component {
       });
     }
   }
+
   render() {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
     const isRendered = this.state.stylesData[0];

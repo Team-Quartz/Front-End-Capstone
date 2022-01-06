@@ -19,7 +19,7 @@ class App extends react.Component {
     this.state = {
       currentProductId: 38322,
       reviewsMeta: {averageRating:0},
-      currentStylesArray: [],
+      currentProduct: null,
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
@@ -62,7 +62,7 @@ class App extends react.Component {
           currentStyleId={this.state.currentStyleId}
         />
         <AppStyle>
-          <QuestionsAndAnswers />
+          <QuestionsAndAnswers productId={this.state.currentProductId} productName={this.state.currentProduct}/>
           <RatingsAndReviews reviewsMeta={this.state.reviewsMeta} currentProduct={this.state.currentProduct}/>
         </AppStyle>
       </AppContainer>

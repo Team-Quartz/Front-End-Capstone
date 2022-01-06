@@ -3,12 +3,14 @@ import { dummyData } from './dummyData.js';
 import QuestionEntry from './QuestionEntry.jsx';
 import QuestionModal from './QuestionModal.jsx';
 import SuccessModal from './SuccessModal.jsx';
+import utils from '../../Utils.js';
 
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: 'test product',
+      productId: this.props.productId,
+      productName: this.props.productName,
       questions: dummyData.results,
       questionCount: 2,
       searchFilter: this.props.searchFilter,
@@ -22,9 +24,35 @@ class QuestionsList extends React.Component {
   }
 
   componentDidMount() {
-    //TODO: create function to GET array of questions
-    //TODO: sort array by question_helpfulness
-    //TODO: setState for questions
+    utils
+      .fetchQuestions(this.props.productId)
+      .then(questions => {
+        questions.results.sort((firstQuestion, secondQuestion) => {
+          return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+        })
+        this.setState({
+          questions: questions.results,
+        })
+      })
+      .catch(err => {err});
+  }
+
+  //TODO: make this function update productId when it changes and also get the new questions
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.productId !== this.props.productId) {
+      utils
+      .fetchQuestions(this.props.productId)
+      .then(questions => {
+        questions.results.sort((firstQuestion, secondQuestion) => {
+          return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+        })
+        this.setState({
+          questions: questions.results,
+          productId: this.props.productId
+        })
+      })
+      .catch(err => {err});
+    }
   }
 
   showMoreQuestions() {
@@ -51,9 +79,14 @@ class QuestionsList extends React.Component {
   render() {
     return (
       <div>
-        {this.state.questions.slice(0, this.state.questionCount).map((question, idx) => {
+        {this.state.questions.filter(question =>
+          question.question_body.toLowerCase()
+          .includes(this.props.searchFilter.toLowerCase())
+        ).slice(0, this.state.questionCount)
+        .map((question, idx) => {
           return <QuestionEntry
           key={idx}
+          productName={this.props.productName}
           question={question}
           success={() => this.openSuccessModal(true)}
           />
