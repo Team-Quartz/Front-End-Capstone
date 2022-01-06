@@ -24,7 +24,7 @@ function PhotoGallery({ photos, onDoneLoading = () => {}, onClickThumbnail = () 
               key={photo.id}
               onLoad={onDoneLoading}
               onError={onDoneLoading}
-              onClick={() => onClickThumbnail(photo.url)}
+              onClick={() => onClickThumbnail(photo.url, i)}
             />
           );
         })}

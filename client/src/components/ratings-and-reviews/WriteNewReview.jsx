@@ -161,6 +161,10 @@ export default class WriteNewReview extends React.Component {
     photos.push(url);
     this.setState({ photos });
   }
+  removePhoto(url, i) {
+    const photos = this.state.photos.slice().splice(i+1, 1);
+    this.setState({photos});
+  }
 
   submitForm(e) {
     e.preventDefault();
@@ -291,7 +295,7 @@ export default class WriteNewReview extends React.Component {
               />
             </div>
             <br />
-            <PhotoGallery photos={this.state.photos} />
+            <PhotoGallery photos={this.state.photos} onClickThumbnail={this.removePhoto.bind(this)} />
             {this.state.photos.length < 5 ? (
               <button onClick={this.onOpenAddPhoto.bind(this)}>Add photo</button>
             ) : null}
