@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import AnswerModal from './AnswerModal.jsx';
+import utils from '../../Utils.js';
 
 class AnswerEntry extends React.Component {
   constructor(props) {
@@ -14,17 +15,13 @@ class AnswerEntry extends React.Component {
   }
 
   updateAnswerHelpfulCount() {
-    //TODO: create PUT request to increment helpful count
-    this.setState({
-      isHelpful: true
-    })
+    this.setState({ isHelpful: true });
+    utils.markAnswerHelpful(this.props.answer.id)
   }
 
   reportAnswer() {
-    //TODO: create PUT request to report question
-    this.setState({
-      isReported: true
-    })
+    this.setState({ isReported: true })
+    utils.reportAnswer(this.props.answer.id)
   }
 
   render() {

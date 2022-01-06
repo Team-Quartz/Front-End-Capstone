@@ -21,8 +21,8 @@ const ArrowWrapper = styled.div`
   justify-content: center;
   z-index: 2;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "2px"};
-  right: ${(props) => props.direction === "right" && "2px"};
+  left: ${(props) => props.direction === "left" && "17px"};
+  right: ${(props) => props.direction === "right" && "7.5px"};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -33,8 +33,8 @@ const ArrowWrapper = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
-  transition: all 1s ease;
-  transform: translateX(${(props) => props.slideIndex * -16}vw);
+  transition: all 1.5s ease;
+  transform: translateX(${(props) => props.slideIndex * -343}px);
 `;
 
 const Arrow = styled.div`
@@ -84,6 +84,7 @@ const RelatedItems = ({
                 setRelatedItems={setRelatedItems}
                 key={index}
                 currentProduct={currentProduct}
+                setSlideIndex={setSlideIndex}
               />
             );
           })}

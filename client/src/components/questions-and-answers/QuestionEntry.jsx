@@ -2,12 +2,12 @@ import React from 'react';
 import dayjs from 'dayjs';
 import AnswerEntry from './AnswerEntry.jsx';
 import AnswerModal from './AnswerModal.jsx';
+import utils from '../../Utils.js';
 
 class QuestionEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productName: 'product name placeholder',
       answers: this.props.question.answers,
       answerCount: 2,
       writeNewAnswer: false,
@@ -16,8 +16,6 @@ class QuestionEntry extends React.Component {
     }
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
-    //TODO: find out if this function is needed
-    // this.reportQuestion = this.reportQuestion.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
   }
 
@@ -26,17 +24,12 @@ class QuestionEntry extends React.Component {
   }
 
   updateQuestionHelpfulCount() {
-    //TODO: create PUT request to increment helpful count
-    this.setState({
-      isHelpful: true
-    })
-  }
-
-  reportQuestion() {
-    //TODO: create PUT request to report question
-    this.setState({
-      isReported: true
-    })
+    utils.markQuestionHelpful(this.props.question.question_id)
+      .then(() => {
+        this.setState({
+          isHelpful: true
+        })
+      })
   }
 
   openAnswerModal(open) {
@@ -62,7 +55,7 @@ class QuestionEntry extends React.Component {
           onClose={() => this.openAnswerModal(false)}
           show={this.state.writeNewAnswer}
           success={this.props.success}
-          productName={this.state.productName}
+          productName={this.props.productName}
           questionBody={this.props.question.question_body}
         />
         {/* TODO: optimize using Object.entries */}
