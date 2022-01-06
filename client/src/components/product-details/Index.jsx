@@ -45,6 +45,7 @@ class ProductDetail extends React.Component {
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
   componentDidUpdate (prevProps) {
+    console.log(this.props)
     const isStylesData = this.props.stylesData !== undefined;
     const isProductData = this.props.productData !== undefined && this.props.productData !== null;
     if (prevProps !== this.props && isProductData && isStylesData && this.props.stylesData.length !== 0) {
@@ -54,7 +55,7 @@ class ProductDetail extends React.Component {
         selectedStyle: defaultStyle || stylesData[0],
         stylesData,
         productData,
-        highlightStyle: defaultStyle.style_id,
+        highlightStyle: defaultStyle ? defaultStyle.style_id : stylesData[0],
         reviewsMeta,
       });
     }
