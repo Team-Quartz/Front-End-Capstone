@@ -77,10 +77,11 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vw;
+  width: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
+  margin: 0;
 `;
 
 const ModalBody = styled.div`
@@ -92,6 +93,7 @@ const ModalBody = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 2em;
+  margin: 4px;
 `;
 
 
