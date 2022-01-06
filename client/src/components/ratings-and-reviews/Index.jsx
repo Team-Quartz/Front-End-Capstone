@@ -7,10 +7,12 @@ import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
 import utils from '../../Utils.js';
 
+const defaultFilters = [true, false, false, false, false, false];
+
 const blankState = {
   //TODO: should we persist reviewSorting and filters when product changes?
   reviewSorting: 'relevant',
-  filters: [true, false, false, false, false, false],
+  filters: defaultFilters,
   reviews: null,
   reviewPage: 0,
   writingNewReview: false,
@@ -87,8 +89,12 @@ class RatingsAndReviews extends React.Component {
   toggleRatingFilter(rating) {
     const filters = this.state.filters.slice();
     filters[rating] = !filters[rating];
-    filters[0] = filters.slice(1).every((filter) => !filter)
+    filters[0] = filters.slice(1).every((filter) => !filter);
     this.setState({ filters });
+  }
+
+  clearRatingFilters() {
+    this.setState({ filters: defaultFilters });
   }
 
   render() {
@@ -133,6 +139,15 @@ class RatingsAndReviews extends React.Component {
                   ) : (
                     <RatingBreakdown rating={rating} count={0} total={0} key={rating} />
                   )
+                )}
+              </div>
+              <div>
+                {this.state.filters[0] ? null : (
+                  <div>
+                    Filtering on {[1, 2, 3, 4, 5].filter((i) => this.state.filters[i]).join(', ')}{' '}
+                    stars
+                    <button onClick={this.clearRatingFilters.bind(this)}>Clear all filters</button>
+                  </div>
                 )}
               </div>
               <ProductBreakdown characteristics={this.props.reviewsMeta.characteristics} />
