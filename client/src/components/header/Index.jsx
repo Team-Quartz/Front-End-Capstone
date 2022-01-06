@@ -59,8 +59,8 @@ const SearchBar = styled.div`
   align-items: center;
   height: 40px;
   width: 300px;
-  margin-right: 2px;
-  padding-right: 5px;
+  margin-right: 5px;
+  padding-right: 7px;
   position: absolute;
   top: 0;
 `;
@@ -80,8 +80,8 @@ const Input = styled.input`
 
 const Results = styled.div`
   margin-top: 35px;
-  margin-right: 9px;
-  width: 298px;
+  margin-right: 16.5px;
+  width: 300px;
   height: 300px;
   background-color: gray;
   overflow: hidden;
@@ -177,7 +177,7 @@ const Index = ({ changeCurrentProduct }) => {
             </SearchBar>
             {searchResults.length !== 0 && (
               <Results>
-                {searchResults.slice(0, 10).map((product, key) => {
+                {searchResults.slice(0, 20).map((product, key) => {
                   return (
                     <Item
                       key={key}

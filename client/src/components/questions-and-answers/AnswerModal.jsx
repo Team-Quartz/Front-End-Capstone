@@ -32,7 +32,6 @@ class AnswerModal extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productName !== this.props.productName) {
-      console.log('PRODUCT: ', this.props.productName.name);
       this.setState({productName: this.props.productName.name})
     }
   }

@@ -20,7 +20,6 @@ class App extends react.Component {
       currentProductId: 38322,
       reviewsMeta: {averageRating:0},
       currentProduct: null,
-      currentStylesArray: [],
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
   }
