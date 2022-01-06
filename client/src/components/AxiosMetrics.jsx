@@ -8,7 +8,7 @@ let callsLog = {};
 
 axios.interceptors.request.use((config) => {
   totalCalls++;
-  if (callsLog[config.url]) config.ip += 1;
+  if (callsLog[config.url]) callsLog[config.url] += 1;
   else callsLog[config.url] = 1;
   return config;
 });
