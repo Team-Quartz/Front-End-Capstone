@@ -49,7 +49,6 @@ class ProductDetail extends React.Component {
     const isStylesData = this.props.stylesData !== undefined;
     const isProductData = this.props.productData !== undefined && this.props.productData !== null;
     if (prevProps !== this.props && isProductData && isStylesData && this.props.stylesData.length !== 0) {
-      console.log(this.props, prevProps, 'PROOOOOPPPPPSSS!');
       const {stylesData, productData, reviewsMeta} = this.props;
       const defaultStyle = stylesData.find((styleObject) => styleObject["default?"] );
       this.setState({

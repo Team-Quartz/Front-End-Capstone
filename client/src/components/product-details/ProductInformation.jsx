@@ -26,7 +26,6 @@ const ProductInformation = ({productData, starsData, selectedStyle}) => {
   */
 
  if (selectedStyle !== null && selectedStyle["sale_price"] !== null) {
-   console.log(selectedStyle)
     const {sale_price, original_price} = selectedStyle;
     SalePriceStyle = <Descriptors><OriginalPriceStyled>${original_price}</OriginalPriceStyled><DiscountedPriceStyled> ${sale_price}</DiscountedPriceStyled></Descriptors>;
   }

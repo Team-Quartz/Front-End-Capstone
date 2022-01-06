@@ -72,7 +72,6 @@ class ImageGallery extends React.Component {
     }
   }
   render () {
-    console.log(this.state)
     const modal = this.state.showModal ? (
       <GalleryModal>
         <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus.url}`}/>
