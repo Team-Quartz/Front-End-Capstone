@@ -19,9 +19,11 @@ function get(url, config) {
   //if it's cached, return it (in a promise, since that's the expected output)
   if (cache[urlString]) {
     return new Promise((resolve, reject) => {
-      //hacky stringify-parse to deep copy the object
-      //Promise.resolve is because the cache contents can be a promise, if we're still waiting for axios to get back to us
-      resolve(JSON.parse(JSON.stringify(Promise.resolve(cache[urlString]))));
+      //the cache might still be a promise, so we have to resolve it just in case
+      Promise.resolve(cache[urlString]).then((ob) => {
+        //hacky stringify-parse to deep copy the object (it's okay, it came to us as a string originally anyways)
+        resolve(JSON.parse(JSON.stringify(ob)));
+      });
     });
   }
 
