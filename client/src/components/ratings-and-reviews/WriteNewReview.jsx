@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
+import PhotoGallery from './PhotoGallery';
 
 const narrow = { margin: 0, padding: '4px' };
 
@@ -63,6 +64,10 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
   );
 }
 
+function AddPhotosModal({onAddPhoto}) {
+  return null;
+}
+
 const blankState = {
   rating: 0,
   recommend: null,
@@ -121,6 +126,11 @@ export default class WriteNewReview extends React.Component {
     this.setState({ rating: index + 1 });
   }
 
+  addPhoto(url) {
+    //TODO: fill this ot
+    //store URL in photos array
+  }
+
   submitForm(e) {
     e.preventDefault();
     const errors = this.checkFormCompleteness();
@@ -137,7 +147,7 @@ export default class WriteNewReview extends React.Component {
       this.state.recommend,
       this.state.nickname,
       this.state.email,
-      this.state.photos.length ? this.state.photos : undefined,
+      this.state.photos,
       characteristics,
     );
     this.clearState();
@@ -249,7 +259,9 @@ export default class WriteNewReview extends React.Component {
             />
           </div>
           <br />
-          {/*<div>Upload your Photos</div>*/}
+          <PhotoGallery photos={this.state.photos}/>
+          {this.state.photos.length < 5 ? <button>Add photo</button> : null}
+          <AddPhotosModal onAddPhoto={this.addPhoto.bind(this)} />
           <label htmlFor={'nickname'}>
             <h4>{'Your nickname*'}</h4>
           </label>

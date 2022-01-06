@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
 import utils from '../../Utils.js';
 import { ScrollIntoView } from './Index.jsx';
+import PhotoGallery from './PhotoGallery.jsx';
 
 const TextButton = styled.button`
   border: none;
@@ -13,15 +14,6 @@ const TextButton = styled.button`
   font-size: 1em;
   padding: 0;
   margin: 0;
-`;
-
-const ImageThumbnail = styled.img`
-  width: 5em;
-  height: auto;
-  max-height: 10em;
-  &:hover {
-    transform: scale(110%);
-  }
 `;
 
 const ResponseBox = styled.div`
@@ -36,26 +28,6 @@ function Response({ response }) {
         Response:
         <div>{response}</div>
       </ResponseBox>
-    );
-  }
-  return '';
-}
-
-function PhotoGallery({ photos, onDoneLoading, onClickThumbnail }) {
-  if (photos) {
-    return (
-      <div>
-        {photos.map((photo) => (
-          //TODO: on click, open photo in window
-          <ImageThumbnail
-            src={photo.url}
-            key={photo.id}
-            onLoad={onDoneLoading}
-            onError={onDoneLoading}
-            onClick={() => onClickThumbnail(photo.url)}
-          />
-        ))}
-      </div>
     );
   }
   return '';
