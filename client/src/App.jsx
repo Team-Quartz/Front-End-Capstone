@@ -4,6 +4,7 @@ import reactDOM from 'react-dom';
 //  note: it's important that sharedComponents be imported early in App,
 //  so its styles get added before any other modules (for consistent overriding behavior)
 import { AppContainer, AppStyle } from './components/sharedComponents.jsx';
+import AxiosMetrics from './components/AxiosMetrics.jsx';
 
 import ProductDetails from './components/product-details/Index.jsx';
 import QuestionsAndAnswers from './components/questions-and-answers/Index.jsx';
@@ -13,7 +14,6 @@ import Header from './components/header/Index.jsx';
 import utils from './Utils.js';
 import { reviewsMeta } from './placeholderData.js';
 
-import ServerMetrics from './components/ServerMetrics.jsx';
 
 class App extends react.Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class App extends react.Component {
       <AppContainer>
         <AppStyle>
           <Header changeCurrentProduct={this.changeCurrentProduct} />
-          <ServerMetrics/>
+          <AxiosMetrics/>
           <ProductDetails
             reviewsMeta={this.state.reviewsMeta}
             stylesData={this.state.currentStylesArray}

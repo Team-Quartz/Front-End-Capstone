@@ -2,9 +2,17 @@ import React from 'react';
 import { Modal } from './sharedComponents.jsx';
 import axios from 'axios';
 
-export default function ServerMetrics() {
-  const [total, setTotal] = React.useState(0);
-  const [calls, setCalls] = React.useState({});
+let totalCalls = 0;
+let callsLog = {};
+
+axios.interceptors.request.use((config) => {
+  totalCalls++;
+  if (callsLog[config.url]) config.ip += 1;
+  else callsLog[config.url] = 1;
+  return config;
+})
+
+export default function AxiosMetrics() {
   const [show, setShow] = React.useState(false);
   const [sortBy, setSortBy] = React.useState('count');
 
@@ -19,26 +27,13 @@ export default function ServerMetrics() {
     console.error(new Error('MAKE SURE TO REMOVE THIS COMPONENT BEFORE SHIPPING!'));
   }, []);
 
-  React.useEffect(() => {
-    if (show) {
-      axios
-        .get('/report')
-        .then((response) => {
-          setTotal(response.data.total);
-          setCalls(response.data.calls);
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [show]);
-
   function resetCount() {
-    axios.delete('/report').catch((err) => console.error(err));
-    setTotal(0);
-    setCalls({});
+    totalCalls=0;
+    callsLog={};
   }
   return (
     <div>
-      <button onClick={() => setShow(true)}>Show Server Metrics</button>
+      <button onClick={() => setShow(true)}>Show Axios Metrics</button>
       <Modal show={show} onClose={() => setShow(false)}>
         <button onClick={resetCount}>Reset calls count</button>
         <label htmlFor='sortBy'>Sort by</label>
@@ -46,9 +41,9 @@ export default function ServerMetrics() {
           <option value='count'>count</option>
           <option value='endpoint'>endpoint</option>
         </select>
-        Total: {total}
+        Total: {totalCalls}
         <div>
-          {Object.entries(calls)
+          {Object.entries(callsLog)
             .sort(sort)
             .map(([endpoint, count]) => (
               <div key={endpoint}>
