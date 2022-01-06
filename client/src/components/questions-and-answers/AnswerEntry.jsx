@@ -15,7 +15,7 @@ class AnswerEntry extends React.Component {
   }
 
   updateAnswerHelpfulCount() {
-    this.setState({ isHelpful: true });
+    this.setState({ isHelpful: 1 });
     utils.markAnswerHelpful(this.props.answer.id)
   }
 
@@ -31,14 +31,14 @@ class AnswerEntry extends React.Component {
         <p>
           by {this.props.answer.answerer_name === 'Seller'
           ? <b> Seller</b>
-          : this.props.answer.answerer_name},
-          {' ' + dayjs(this.props.answer.date).format('MMMM DD, YYYY')} |
-           Helpful?
+          : this.props.answer.answerer_name},&nbsp;
+          {' ' + dayjs(this.props.answer.date).format('MMMM DD, YYYY')}&nbsp;|&nbsp;
+           Helpful?&nbsp;
           {this.state.isHelpful
-          ? <u>Yes</u>
+          ? <u>Yes!</u>
           : <u onClick={this.updateAnswerHelpfulCount}>Yes</u>
           }
-          ({this.props.answer.helpfulness}) |
+          ({this.props.answer.helpfulness + this.state.isHelpful})&nbsp;|&nbsp;
           {this.state.isReported
           ? <u>Reported!</u>
           : <u onClick={this.reportAnswer}>Report</u>
