@@ -132,13 +132,13 @@ module.exports.markQuestionHelpful = (questionId) => {
 
 module.exports.markAnswerHelpful = (answerId) => {
   return axios.put(`/API/qa/answers/${answerId}/helpful`, {
-    params: { id: answerId },
+    params: { answer_id: answerId },
   });
 }
 
 module.exports.reportAnswer = (answerId) => {
   return axios.put(`/API/qa/answers/${answerId}/report`, {
-    params: { id: answerId },
+    params: { answer_id: answerId },
   });
 }
 
