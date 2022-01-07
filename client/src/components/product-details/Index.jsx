@@ -72,7 +72,7 @@ class ProductDetail extends React.Component {
           <StyledPlaceHolder src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif"/>
           :
           <div>
-            <ImageGallery photos={this.state.selectedStyle} highlightStyle={this.state.highlightStyle}/>
+            <ImageGallery photos={this.props.selectedStyle} highlightStyle={this.state.highlightStyle}/>
             <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
             <StyleSelector stylesData={this.state.stylesData} handler={this.props.handler} selectedStyle={this.state.selectedStyle}/>
             <AddToCart selectedStyle={this.state.selectedStyle}/>

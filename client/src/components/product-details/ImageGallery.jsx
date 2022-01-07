@@ -61,6 +61,7 @@ class ImageGallery extends React.Component {
   }
   handleNext() {
     const focusedIndex = this.state.userIndex;
+    console.log(this.state, '--')
     const maxLimit = Math.min(focusedIndex + 1, this.state.photos.length -1);
     this.setState({userFocus: this.state.photos[maxLimit], userIndex: maxLimit});
   }
@@ -72,11 +73,11 @@ class ImageGallery extends React.Component {
         userFocus: this.state.photos[0]
       });
     }
-    if (prevProps !== this.props) {
+    if (prevProps.photos.photos !== this.props.photos.photos) {
       const {photos: {photos}} = this.props;
       this.setState({
-        photos,
-        userFocus: photos[0]
+        photos: photos,
+        userFocus: photos[0],
       })
     }
   }
