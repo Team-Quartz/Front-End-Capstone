@@ -31,6 +31,7 @@ class QuestionsList extends React.Component {
     //     questions: {results: ['LOADING'] }
     //   })
     // }
+
     this.setState({
       questions: [],
     })
