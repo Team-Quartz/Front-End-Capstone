@@ -1,6 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 
+export const commonStyle = `
+  border-radius: 8px;
+  box-shadow: 0 0 8px 0 #00000066;
+`;
+
+export const ButtonStyled = styled.button`
+  transition-duration: .2s;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #fefefe;
+  box-shadow: -2px -3px 6px 0 inset #00000015;
+  border: 1px solid DarkGrey;
+  &:hover {
+    transition-duration: .1s;
+    box-shadow: -3px -5px 12px 0 inset #6e6eff5d,
+                1px 2px 8px 0 #00000040;
+    background-color: #f6f8ff;
+  }
+  &:active {
+    transition-duration: .05s;
+    box-shadow: 2px 3px 12px 0 inset #34348e7d;
+
+  }
+`;
+
 export const AppContainer = styled.div`
   max-width: 1200px;
   margin: auto;
@@ -15,7 +40,6 @@ export const AppStyle = styled.div`
   ${rootStyle}
   * {
     margin: inherit;
-
   }
 `;
 
@@ -96,6 +120,14 @@ const ModalBody = styled.div`
   margin: 4px;
 `;
 
+const ButtonCloseModal = styled(ButtonStyled)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 2em;
+  width: 2em;
+`
+
 
 /**
  *
@@ -130,9 +162,8 @@ export function Modal({ show, onClose, children }) {
     return (
       <ModalBackground onMouseDown={(e) => setLastTarget(e.target)} onClick={onClickBackground}>
         <ModalBody onClick={(e) => e.stopPropagation()}>
-          <button onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
-            X
-          </button>
+          <ButtonCloseModal onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
+          </ButtonCloseModal>
           {children}
         </ModalBody>
       </ModalBackground>

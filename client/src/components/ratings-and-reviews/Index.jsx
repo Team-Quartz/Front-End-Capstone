@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars, FlexRow } from '../sharedComponents.jsx';
+import { Stars, FlexRow, ButtonStyled } from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
@@ -155,7 +155,7 @@ class RatingsAndReviews extends React.Component {
                   <div>
                     Filtering on {[1, 2, 3, 4, 5].filter((i) => this.state.filters[i]).join(', ')}{' '}
                     stars
-                    <button onClick={this.clearRatingFilters.bind(this)}>Clear all filters</button>
+                    <ButtonStyled onClick={this.clearRatingFilters.bind(this)}>Clear all filters</ButtonStyled>
                   </div>
                 )}
               </div>
@@ -183,9 +183,9 @@ class RatingsAndReviews extends React.Component {
               />
               <div ref={this.reviewsBottom}>
                 {this.areUnloadedReviews() ? (
-                  <button onClick={() => this.loadReviews()}>MORE REVIEWS</button>
+                  <ButtonStyled onClick={() => this.loadReviews()}>MORE REVIEWS</ButtonStyled>
                 ) : null}
-                <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
+                <ButtonStyled onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</ButtonStyled>
               </div>
             </div>
           </FlexRow>

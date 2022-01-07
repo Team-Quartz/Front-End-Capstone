@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
+import { Stars, Modal, FlexRow, ButtonStyled } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
 import { PhotoGallery, ConstrainedImg } from './PhotoGallery';
@@ -94,7 +94,7 @@ function AddPhotosModal({ onAddPhoto, show, onClose }) {
         <ConstrainedImg src={url} onLoad={() => setImageLoaded(true)} />
       )}
       <input type='text' value={url} placeholder='Paste URL here' onChange={onChangeUrl} />
-      {imageLoaded ? <button onClick={onSubmitImage}>Add</button> : null}
+      {imageLoaded ? <ButtonStyled onClick={onSubmitImage}>Add</ButtonStyled> : null}
     </Modal>
   );
 }
@@ -306,7 +306,7 @@ export default class WriteNewReview extends React.Component {
               onClickThumbnail={this.removePhoto.bind(this)}
             />
             {this.state.photos.length < 5 ? (
-              <button onClick={this.onOpenAddPhoto.bind(this)}>Add photo</button>
+              <ButtonStyled onClick={this.onOpenAddPhoto.bind(this)}>Add photo</ButtonStyled>
             ) : null}
             <br />
             <label htmlFor={'nickname'}>
@@ -338,7 +338,7 @@ export default class WriteNewReview extends React.Component {
                 ))}
               </ErrorDialog>
               <div>
-                <button>Submit</button>
+                <ButtonStyled>Submit</ButtonStyled>
               </div>
             </FlexRow>
           </form>

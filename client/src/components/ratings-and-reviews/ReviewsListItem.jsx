@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stars, Modal } from '../sharedComponents.jsx';
+import { Stars, Modal, ButtonStyled } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
@@ -116,8 +116,8 @@ class ReviewsListItem extends React.Component {
           {/* TODO: confirm report popup */}
           <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
             Are you sure you want to report this review?
-            <button onClick={this.reportReview.bind(this)}>Yes</button> &nbsp;{' '}
-            <button onClick={() => this.openReportModal(false)}>Cancel</button>
+            <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
+            <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
           </Modal>
           <TextButton
             disabled={this.state.reported}
