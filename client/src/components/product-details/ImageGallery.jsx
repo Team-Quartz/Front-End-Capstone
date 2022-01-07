@@ -30,13 +30,13 @@ justify-content: center;
 class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
-    const {photos: {photos}} = props;
+    const {photos:{photos}} = props;
     // const photoArray = photos.map(({url}, index) => {
     //   return {url, index}
     // });
     this.state = {
       photos: photos,
-      userFocus: photos[0],
+      userFocus: {url:null},
       showModal: false,
       userIndex: 0,
     }
@@ -65,6 +65,8 @@ class ImageGallery extends React.Component {
     this.setState({userFocus: this.state.photos[maxLimit], userIndex: maxLimit});
   }
   componentDidUpdate(prevProps, prevState) {
+    console.log(this.state)
+
     if (prevState.photos !== this.state.photos) {
       this.setState({
         userFocus: this.state.photos[0]
@@ -73,11 +75,13 @@ class ImageGallery extends React.Component {
     if (prevProps !== this.props) {
       const {photos: {photos}} = this.props;
       this.setState({
-        photos
+        photos,
+        userFocus: photos[0]
       })
     }
   }
   render () {
+    {console.log(this.state)}
     const modal = this.state.showModal ? (
       <GalleryModal>
         <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus.url}`}/>

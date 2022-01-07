@@ -1,5 +1,5 @@
 import React from 'react';
-import {stylesData, productData} from './sample.js';
+// import {stylesData, productData} from './sample.js';
 import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
@@ -31,31 +31,32 @@ class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stylesData: stylesData.results,
-      productData: productData,
-      selectedStyle: stylesData.results[0],
+      stylesData: [null],
+      productData: {},
+      selectedStyle: {},
       highlightStyle: '0',
     }
-    this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
+    // this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
-  StyleSelectorHandler (targetKey) {
-    const matchedStyle = this.state.stylesData.find((styleObject) => {
-      return styleObject.style_id + '' === targetKey
-    })
-    this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
-    console.log(matchedStyle, targetKey)
-  }
+  // StyleSelectorHandler (targetKey) {
+  //   const matchedStyle = this.state.stylesData.find((styleObject) => {
+  //     return styleObject.style_id + '' === targetKey
+  //   })
+  //   this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
+  //   console.log(matchedStyle, targetKey)
+  // }
   componentDidUpdate (prevProps) {
     const isStylesData = this.props.stylesData !== undefined;
     const isProductData = this.props.productData !== undefined && this.props.productData !== null;
     if (prevProps !== this.props && isProductData && isStylesData && this.props.stylesData.length !== 0) {
-      const {stylesData, productData, reviewsMeta} = this.props;
+      const {stylesData, productData, reviewsMeta, selectedStyle} = this.props;
+      console.log(this.props, '........', stylesData)
       const defaultStyle = stylesData.find((styleObject) => styleObject["default?"] );
       this.setState({
-        selectedStyle: defaultStyle || stylesData[0],
+        selectedStyle,
         stylesData,
         productData,
-        highlightStyle: defaultStyle ? defaultStyle.style_id : stylesData[0],
+        // highlightStyle: defaultStyle ? defaultStyle.style_id : stylesData[0],
         reviewsMeta,
       });
     }
@@ -65,7 +66,6 @@ class ProductDetail extends React.Component {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
     const isStylesInProps = !this.state.stylesData[0];
     const isProductInProps = !this.state.productData.data
-
     return (
       <StyledDiv>
         { isStylesInProps && isProductInProps ?
@@ -74,7 +74,7 @@ class ProductDetail extends React.Component {
           <div>
             <ImageGallery photos={this.state.selectedStyle} highlightStyle={this.state.highlightStyle}/>
             <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
-            <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} selectedStyle={this.state.selectedStyle}/>
+            <StyleSelector stylesData={this.state.stylesData} handler={this.props.handler} selectedStyle={this.state.selectedStyle}/>
             <AddToCart selectedStyle={this.state.selectedStyle}/>
           </div>
       }
