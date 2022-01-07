@@ -203,15 +203,14 @@ const ModalBody = styled.div`
   position: fixed;
   width: auto;
   height: auto;
-  max-height: 90vh;
-  max-width: 90vh;
+  max-height: 85vh;
+  max-width: 85vh;
   overflow: auto;
   background: white;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 2em;
-  margin: 4px;
 `;
 
 const ButtonCloseModal = styled(ButtonStyled)`
@@ -254,13 +253,15 @@ export function Modal({ show, onClose, children }) {
     //TODO: test returns for different values of show, test that onClose is properly working
     return (
       <ModalBackground onMouseDown={(e) => setLastTarget(e.target)} onClick={onClickBackground}>
-        <ModalBody onClick={(e) => e.stopPropagation()}>
-          <ButtonCloseModal
-            onClick={onClose}
-            onKeyDown={(e) => onEsc(e, onClose)}
-          ></ButtonCloseModal>
-          {children}
-        </ModalBody>
+        <div style={{ margin: '4px' }}>
+          <ModalBody onClick={(e) => e.stopPropagation()}>
+            <ButtonCloseModal
+              onClick={onClose}
+              onKeyDown={(e) => onEsc(e, onClose)}
+            ></ButtonCloseModal>
+            {children}
+          </ModalBody>
+        </div>
       </ModalBackground>
     );
   }
