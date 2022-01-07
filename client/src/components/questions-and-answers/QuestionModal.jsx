@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
 import ErrorModal from './ErrorModal.jsx';
+import utils from '../../Utils.js';
 
 class QuestionModal extends React.Component {
   constructor(props) {
@@ -39,8 +40,7 @@ class QuestionModal extends React.Component {
 
   validateEmail(email) {
     let isValid = true;
-    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g;
-    if (!email.match(regex)) {
+    if (!email.match(/\w+@\w+\.\w\w+/)) {
       isValid = false;
     }
     return isValid;
@@ -52,13 +52,16 @@ class QuestionModal extends React.Component {
     } else if (!this.validateEmail(this.state.emailInput)) {
       this.openErrorModal(true);
     } else {
-      //TODO: invoke POST request
-      this.closeUponSuccess();
-      this.setState({
-        questionInput: '',
-        nicknameInput: '',
-        emailInput: '',
-      })
+      utils.submitQuestion(this.state.questionInput, this.state.nicknameInput, this.state.emailInput, this.props.productId)
+        .then(() => {
+          this.closeUponSuccess()
+          this.setState({
+            questionInput: '',
+            nicknameInput: '',
+            emailInput: '',
+          })
+        })
+        .catch(() => {this.openErrorModal(true)})
     }
   }
 
@@ -81,7 +84,6 @@ class QuestionModal extends React.Component {
       emailInput: '',
     })
   }
-  //TODO: create POST request to add question
 
   render() {
     return (

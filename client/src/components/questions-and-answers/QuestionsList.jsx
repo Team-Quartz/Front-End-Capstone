@@ -11,8 +11,9 @@ class QuestionsList extends React.Component {
     this.state = {
       productId: this.props.productId,
       productName: this.props.productName,
-      questions: dummyData.results,
-      questionCount: 2,
+      questions: [],
+      questionPage: 1,
+      areMoreQuestions: true,
       searchFilter: this.props.searchFilter,
       writeNewQuestion: false,
       showSuccess: false
@@ -20,12 +21,18 @@ class QuestionsList extends React.Component {
     this.showMoreQuestions = this.showMoreQuestions.bind(this);
     this.openQuestionModal = this.openQuestionModal.bind(this);
     this.openSuccessModal = this.openSuccessModal.bind(this);
-    this.closeQuestionModal = this.closeQuestionModal.bind(this);
+    this.closeSuccessModal = this.closeSuccessModal.bind(this);
+    this.renderQuestions = this.renderQuestions.bind(this);
   }
 
   componentDidMount() {
+    // if (this.props.questions === undefined) {
+    //   this.setState({
+    //     questions: {results: ['LOADING'] }
+    //   })
+    // }
     utils
-      .fetchQuestions(this.props.productId)
+      .fetchQuestions(this.props.productId, this.state.questionPage, 2)
       .then(questions => {
         questions.results.sort((firstQuestion, secondQuestion) => {
           return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
@@ -40,23 +47,58 @@ class QuestionsList extends React.Component {
   //TODO: make this function update productId when it changes and also get the new questions
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productId !== this.props.productId) {
-      utils
-      .fetchQuestions(this.props.productId)
-      .then(questions => {
-        questions.results.sort((firstQuestion, secondQuestion) => {
-          return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
-        })
-        this.setState({
-          questions: questions.results,
-          productId: this.props.productId
-        })
-      })
-      .catch(err => {err});
+      // console.log('NEW QUESTIONS: ', this.props.questions);
+      // this.setState({
+      //   questions: this.props.questions.results,
+      //   productId: this.props.productId
+      // })
+      // utils.fetchQuestions(this.props.productId, this.state.questionPage, 2)
+      //   .then(questions => {
+      //     if (questions.length < 2) {
+      //       this.setState({
+      //         areMoreQuestions: false
+      //       })
+      //     }
+      //     let newQuestions = this.state.questions.concat(questions.results);
+      //     newQuestions.sort((firstQuestion, secondQuestion) => {
+      //       return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+      //     })
+      //     this.setState({
+      //       questions: newQuestions,
+      //       productId: this.props.productId
+      //     })
+      //   })
+      //   .catch(err => {err});
+    } else if (prevState.questionPage !== this.state.questionPage) {
+      this.renderQuestions()
     }
+    // else if (prevState.questions !== this.state.questions) {
+    //   this.setState({
+    //     questions: questions.results,
+    //   })
+    // }
   }
 
   showMoreQuestions() {
-    this.setState((prevState, props) => ({ questionCount: prevState.questionCount + 2 }));
+    utils.fetchQuestions(this.props.productId, this.state.questionPage + 1, 2)
+        .then(questions => {
+          if (questions.results.length < 2) {
+            this.setState({
+              areMoreQuestions: false
+            })
+          }
+          let newQuestions = this.state.questions.concat(questions.results);
+          newQuestions.sort((firstQuestion, secondQuestion) => {
+            return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+          })
+          this.setState({
+            questions: newQuestions,
+            productId: this.props.productId
+          })
+        })
+        .catch(err => {err});
+    this.setState((prevState, props) => ({ questionPage: prevState.questionPage + 1 }));
+    this.renderQuestions();
   }
 
   openQuestionModal(open) {
@@ -71,27 +113,36 @@ class QuestionsList extends React.Component {
     });
   }
 
-  closeQuestionModal() {
+  renderQuestions() {
+    return this.state.questions.filter(question =>
+      question.question_body.toLowerCase()
+      .includes(this.props.searchFilter.toLowerCase())
+    ).slice(0, this.state.questionPage * 2)
+    .map((question, idx) => {
+      return <QuestionEntry
+      key={idx}
+      productName={this.props.productName}
+      question={question}
+      success={() => this.openSuccessModal(true)}
+      />
+    })
+  }
+
+  closeSuccessModal() {
     this.openQuestionModal(false);
-    this.openSuccessModal(true);
+    this.openSuccessModal(false);
+    this.renderQuestions();
   }
 
   render() {
     return (
       <div>
-        {this.state.questions.filter(question =>
-          question.question_body.toLowerCase()
-          .includes(this.props.searchFilter.toLowerCase())
-        ).slice(0, this.state.questionCount)
-        .map((question, idx) => {
-          return <QuestionEntry
-          key={idx}
-          productName={this.props.productName}
-          question={question}
-          success={() => this.openSuccessModal(true)}
-          />
-        })}
-        {this.state.questions.length > this.state.questionCount
+        { !this.state.questions
+        ? <p>LOADING...</p>
+        : this.renderQuestions()}
+        {!this.state.questions ? null
+        // : this.state.questions.length > this.state.questionPage * 2
+        : this.state.areMoreQuestions
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
         : null}
         <QuestionModal
@@ -99,6 +150,7 @@ class QuestionsList extends React.Component {
           success={() => this.openSuccessModal(true)}
           show={this.state.writeNewQuestion}
           productName={this.state.productName}
+          productId={this.props.productId}
         />
         <SuccessModal
           onClose={() => this.openSuccessModal(false)}

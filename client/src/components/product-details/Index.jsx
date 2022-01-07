@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 const StyledPlaceHolder = styled.img`
 width: 400px;
-height: 400px
+height: 400px;
 `
 const StyledDiv = styled.div`
   display: flex;
@@ -43,6 +43,7 @@ class ProductDetail extends React.Component {
       return styleObject.style_id + '' === targetKey
     })
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
+    console.log(matchedStyle, targetKey)
   }
   componentDidUpdate (prevProps) {
     const isStylesData = this.props.stylesData !== undefined;
@@ -62,17 +63,19 @@ class ProductDetail extends React.Component {
 
   render() {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
-    const isRendered = this.state.stylesData[0];
+    const isStylesInProps = !this.state.stylesData[0];
+    const isProductInProps = !this.state.productData.data
+
     return (
       <StyledDiv>
-        { isRendered === null ?
+        { isStylesInProps && isProductInProps ?
           <StyledPlaceHolder src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif"/>
           :
           <div>
-            <ImageGallery photos={this.state.selectedStyle.photos}/>
+            <ImageGallery photos={this.state.selectedStyle.photos} highlightStyle={this.state.highlightStyle}/>
             <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
-            <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} />
-            <AddToCart />
+            <StyleSelector stylesData={this.state.stylesData} handler={this.StyleSelectorHandler} selectedStyle={this.state.selectedStyle}/>
+            <AddToCart selectedStyle={this.state.selectedStyle}/>
           </div>
       }
       </StyledDiv>

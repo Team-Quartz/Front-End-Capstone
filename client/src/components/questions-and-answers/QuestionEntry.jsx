@@ -19,6 +19,16 @@ class QuestionEntry extends React.Component {
     this.openAnswerModal = this.openAnswerModal.bind(this);
   }
 
+  componentDidMount() {
+    utils.fetchAnswers(this.props.question.question_id)
+      .then((answers) => {
+        this.setState({
+          answers: answers,
+        })
+      })
+      .catch(() => {console.log('APP: THERE WAS AN ERROR RETRIEVING THE ANSWERS')})
+  }
+
   showMoreAnswers() {
     this.setState((prevState, props) => ({ answerCount: prevState.answerCount + 2 }));
   }
@@ -27,7 +37,7 @@ class QuestionEntry extends React.Component {
     utils.markQuestionHelpful(this.props.question.question_id)
       .then(() => {
         this.setState({
-          isHelpful: true
+          isHelpful: 1
         })
       })
   }
@@ -43,13 +53,13 @@ class QuestionEntry extends React.Component {
       <div>
         <div>Q: {this.props.question.question_body}</div>
         <div>
-          Helpful?
+          Helpful?&nbsp;
           {this.state.isHelpful
-          ? <u>Yes</u>
+          ? <u>Yes!</u>
           : <u onClick={this.updateQuestionHelpfulCount}>Yes</u>
           }
-          ({this.props.question.question_helpfulness})
-           | <u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
+          ({this.props.question.question_helpfulness + this.state.isHelpful})&nbsp;
+          &nbsp;|&nbsp;<u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
         </div>
         <AnswerModal
           onClose={() => this.openAnswerModal(false)}
@@ -57,6 +67,7 @@ class QuestionEntry extends React.Component {
           success={this.props.success}
           productName={this.props.productName}
           questionBody={this.props.question.question_body}
+          questionId={this.props.question.question_id}
         />
         {/* TODO: optimize using Object.entries */}
         {Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {
