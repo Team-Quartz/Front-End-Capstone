@@ -31,6 +31,10 @@ class QuestionsList extends React.Component {
     //     questions: {results: ['LOADING'] }
     //   })
     // }
+    this.setState({
+      questions: [],
+    })
+    this.renderQuestions();
     utils
       .fetchQuestions(this.props.productId, this.state.questionPage, 2)
       .then(questions => {
@@ -47,6 +51,7 @@ class QuestionsList extends React.Component {
   //TODO: make this function update productId when it changes and also get the new questions
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productId !== this.props.productId) {
+      this.renderQuestions();
       // console.log('NEW QUESTIONS: ', this.props.questions);
       // this.setState({
       //   questions: this.props.questions.results,

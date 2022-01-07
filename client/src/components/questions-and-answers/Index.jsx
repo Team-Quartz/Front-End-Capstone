@@ -10,9 +10,18 @@ class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchFilter: ''
+      productId: this.props.productId,
+      searchFilter: '',
     }
     this.updateSearchFilter = this.updateSearchFilter.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.productId !== this.props.productId) {
+      this.setState({
+        productId: this.props.productId,
+      })
+    }
   }
 
   componentDidMount() {
@@ -40,7 +49,7 @@ class QuestionsAndAnswers extends React.Component {
         <Title>QUESTIONS &amp; ANSWERS</Title>
         <SearchBar updateSearchFilter={this.updateSearchFilter} />
         <QuestionsList
-        productId={this.props.productId}
+        productId={this.state.productId}
         productName={this.props.productName}
         searchFilter={this.state.searchFilter}/>
       </div>

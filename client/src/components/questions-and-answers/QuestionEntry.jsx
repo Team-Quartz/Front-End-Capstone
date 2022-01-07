@@ -29,6 +29,14 @@ class QuestionEntry extends React.Component {
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
+    this.fetchAnswersAfterSubmit = this.fetchAnswersAfterSubmit.bind(this);
+    this.renderAnswers = this.renderAnswers.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.answers !== this.state.answers) {
+
+    }
   }
 
   componentDidMount() {
@@ -60,6 +68,24 @@ class QuestionEntry extends React.Component {
     });
   }
 
+  fetchAnswersAfterSubmit() {
+    this.openAnswerModal(false)
+    utils.fetchAnswers(this.props.question.question_id)
+      .then((answers) => {
+        this.setState({
+          answers: answers,
+        })
+        this.renderAnswers();
+      })
+  }
+
+  renderAnswers() {
+    return Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {
+      return idx === 0 ? <AnswerEntry key={answerKey} a={'A:'} color={{ color: '424242' }} answer={this.state.answers[answerKey]}/>
+      : <AnswerEntry key={idx} a={'A:'} color={{ color: 'white' }} answer={this.state.answers[answerKey]}/>
+    })
+  }
+
   render() {
     return (
       <div>
@@ -76,7 +102,7 @@ class QuestionEntry extends React.Component {
           </Feedback>
         </FlexRow>
         <AnswerModal
-          onClose={() => this.openAnswerModal(false)}
+          onClose={this.fetchAnswersAfterSubmit}
           show={this.state.writeNewAnswer}
           success={this.props.success}
           productName={this.props.productName}
@@ -84,10 +110,7 @@ class QuestionEntry extends React.Component {
           questionId={this.props.question.question_id}
         />
         {/* TODO: optimize using Object.entries */}
-        {Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {
-          return idx === 0 ? <AnswerEntry key={idx} a={'A:'} color={{ color: '424242' }} answer={this.state.answers[answerKey]}/>
-          : <AnswerEntry key={idx} a={'A:'} color={{ color: 'white' }} answer={this.state.answers[answerKey]}/>
-        })}
+        {this.renderAnswers()}
         {Object.keys(this.state.answers).length > this.state.answerCount
         ? <MoreAnswers onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</MoreAnswers>
         : null
