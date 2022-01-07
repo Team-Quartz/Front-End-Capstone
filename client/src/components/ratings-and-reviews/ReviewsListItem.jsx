@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { Stars, Modal } from '../sharedComponents.jsx';
+import {
+  Stars,
+  Modal,
+  ButtonStyled,
+  BodyText,
+  ResponseText,
+  Clickable,
+  Feedback,
+  Details,
+} from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
 import utils from '../../Utils.js';
 import { ScrollIntoView } from './Index.jsx';
 import { PhotoGallery } from './PhotoGallery.jsx';
-
-const TextButton = styled.button`
-  border: none;
-  text-decoration: underline;
-  background: none;
-  font-size: 1em;
-  padding: 0;
-  margin: 0;
-`;
 
 const ResponseBox = styled.div`
   background: #ddd;
@@ -25,8 +25,8 @@ function Response({ response }) {
   if (response) {
     return (
       <ResponseBox>
-        Response:
-        <div>{response}</div>
+        <BodyText>Response:</BodyText>
+        <ResponseText>{response}</ResponseText>
       </ResponseBox>
     );
   }
@@ -38,7 +38,7 @@ function ReviewBody(props) {
 
   let body = props.body;
   if (body.length < 250) {
-    return <div>{body}</div>;
+    return <ResponseText>{body}</ResponseText>;
   }
 
   let buttonText = 'hide';
@@ -52,10 +52,10 @@ function ReviewBody(props) {
     }
   }
   return (
-    <div style={{ maxWidth: '600px' }}>
+    <ResponseText style={{ maxWidth: '600px' }}>
       {body}
-      <TextButton onClick={() => setExpanded(!expanded)}>{buttonText}</TextButton>
-    </div>
+      <Clickable onClick={() => setExpanded(!expanded)}>{buttonText}</Clickable>
+    </ResponseText>
   );
 }
 
@@ -91,41 +91,41 @@ class ReviewsListItem extends React.Component {
     const { review, setShowImage, forceScroll } = this.props;
     return (
       <div>
-        <FlexRow style={{ justifyContent: 'space-between' }}>
+        <FlexRow style={{ justifyContent: 'space-between', alignItems: 'flex-end' }}>
           <Stars reviewsMeta={{ averageRating: review.rating }} />
-          <div>
-            {`${review.reviewer_name}, `}
-            {dayjs(review.date).format('MMMM DD, YYYY')}
-          </div>
+          <Feedback style={{ display: 'flex', flexDirection: 'row' }}>
+            <b>Helpful?</b>
+            <Clickable disabled={!!this.state.helpful} onClick={this.markHelpful}>
+              Yes
+            </Clickable>
+            <b>({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;</b>
+            <Clickable
+              disabled={!!this.state.reported}
+              onClick={() => this.setState({ reportConfirmation: true })}
+            >
+              {this.state.reported ? 'Reported' : 'Report'}
+            </Clickable>
+            <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
+              Are you sure you want to report this review?
+              <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
+              <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
+            </Modal>
+          </Feedback>
         </FlexRow>
-        <h3>{review.summary}</h3>
+        <BodyText>{review.summary}</BodyText>
         <ReviewBody body={review.body} />
         <PhotoGallery
           photos={review.photos}
           onDoneLoading={forceScroll}
           onClickThumbnail={setShowImage}
         />
-        {review.recommend ? '✓ I recommend this product' : undefined}
+
+        <Details>
+          by {`${review.reviewer_name}, `}
+          {dayjs(review.date).format('MMMM DD, YYYY')}
+        </Details>
+        <ResponseText>{review.recommend ? '✓ I recommend this product' : undefined}</ResponseText>
         <Response response={review.response} />
-        <FlexRow>
-          Helpful?&nbsp;
-          <TextButton disabled={this.state.helpful} onClick={this.markHelpful}>
-            Yes
-          </TextButton>
-          &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
-          {/* TODO: confirm report popup */}
-          <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
-            Are you sure you want to report this review?
-            <button onClick={this.reportReview.bind(this)}>Yes</button> &nbsp;{' '}
-            <button onClick={() => this.openReportModal(false)}>Cancel</button>
-          </Modal>
-          <TextButton
-            disabled={this.state.reported}
-            onClick={() => this.setState({ reportConfirmation: true })}
-          >
-            {this.state.reported ? 'Reported' : 'Report'}
-          </TextButton>
-        </FlexRow>
       </div>
     );
   }

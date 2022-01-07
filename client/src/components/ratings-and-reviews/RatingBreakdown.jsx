@@ -1,6 +1,6 @@
 import react from 'react';
 import styled from 'styled-components';
-import { FlexRow } from '../sharedComponents.jsx';
+import { FlexRow, BodyText, ResponseText } from '../sharedComponents.jsx';
 
 const FlexCenter = styled(FlexRow)`
   align-items: center;
@@ -33,7 +33,7 @@ function RatingBreakdown({ rating, count, total, toggleFilter, filter }) {
   }
   return (
     <FlexCenter onClick={() => toggleFilter(rating)} filtered={filter}>
-      <div>{rating} stars</div>
+      <ResponseText>{rating} stars</ResponseText>
       <BarBackground className='hover'>
         <Bar proportion={proportion}/>
       </BarBackground>

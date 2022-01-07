@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars, FlexRow } from '../sharedComponents.jsx';
+import { Stars, FlexRow, TextButton, SelectStyled , BodyText, Title, BodyLabel} from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
@@ -114,7 +114,7 @@ class RatingsAndReviews extends React.Component {
     }
     return (
       <div ref={this.reviewsFrame} style={{ minHeight: this.state.minReviewsHeight }}>
-        <h2>Ratings &amp; Reviews</h2>
+        <Title>RATINGS &amp; REVIEWS</Title>
         {!isLoading ? (
           <FlexRow>
             <div style={{ flex: 1 }}>
@@ -125,14 +125,14 @@ class RatingsAndReviews extends React.Component {
                 <Stars reviewsMeta={this.props.reviewsMeta} />
               </FlexRow>
               {noReviews ? null : (
-                <div>
+                <BodyText>
                   {Math.round(
                     (this.props.reviewsMeta.recommended.true /
                       this.props.reviewsMeta.totalRatings) *
                       100
                   )}
                   % of reviews recommend this product
-                </div>
+                </BodyText>
               )}
               <div>
                 {[1, 2, 3, 4, 5].map((rating) =>
@@ -155,7 +155,9 @@ class RatingsAndReviews extends React.Component {
                   <div>
                     Filtering on {[1, 2, 3, 4, 5].filter((i) => this.state.filters[i]).join(', ')}{' '}
                     stars
-                    <button onClick={this.clearRatingFilters.bind(this)}>Clear all filters</button>
+                    <TextButton onClick={this.clearRatingFilters.bind(this)}>
+                      Clear all filters
+                    </TextButton>
                   </div>
                 )}
               </div>
@@ -163,9 +165,8 @@ class RatingsAndReviews extends React.Component {
             </div>
             <div style={{ flex: 2 }}>
               <div>
-                {this.props.reviewsMeta.totalRatings}{' '}
-                <label htmlFor='sortReviews'>reviews, sorted by </label>
-                <select
+                <BodyLabel htmlFor='sortReviews'>{this.props.reviewsMeta.totalRatings} reviews, sorted by </BodyLabel>
+                <SelectStyled
                   id='sortReviews'
                   name='sort reviews'
                   value={this.state.reviewSorting}
@@ -174,18 +175,29 @@ class RatingsAndReviews extends React.Component {
                   <option value={'relevant'}>relevance</option>
                   <option value={'newest'}>date</option>
                   <option value={'helpful'}>helpfulness</option>
-                </select>
+                </SelectStyled>
               </div>
               <ReviewsList
                 reviews={this.state.reviews}
                 reviewPage={this.state.reviewPage}
                 filters={this.state.filters}
               />
-              <div ref={this.reviewsBottom}>
+              <div style={{ position: 'relative' }} ref={this.reviewsBottom}>
+                <TextButton onClick={() => this.openWriteNewReview(true)}>
+                  ADD A REVIEW +
+                </TextButton>
                 {this.areUnloadedReviews() ? (
-                  <button onClick={() => this.loadReviews()}>MORE REVIEWS</button>
+                  <TextButton
+                    style={{
+                      position: 'absolute',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                    onClick={() => this.loadReviews()}
+                  >
+                    MORE REVIEWS
+                  </TextButton>
                 ) : null}
-                <button onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</button>
               </div>
             </div>
           </FlexRow>

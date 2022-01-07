@@ -3,14 +3,8 @@ import styled from "styled-components";
 import QuestionsList from './QuestionsList.jsx';
 import SearchBar from './SearchBar.jsx';
 import utils from '../../Utils.js';
+import {Title} from '../sharedComponents.jsx';
 
-const Title = styled.div`
-  padding-bottom: 10px;
-  font-size: 16px;
-  font-weight: light;
-  color: grey;
-  margin-left: 2px;
-`;
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {

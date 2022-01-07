@@ -1,4 +1,4 @@
-import { Modal } from '../sharedComponents.jsx';
+import { Modal, BodyText } from '../sharedComponents.jsx';
 import React, { useState } from 'react';
 import ReviewsListItem from './ReviewsListItem.jsx';
 import utils from '../../Utils.js';
@@ -27,7 +27,7 @@ function ReviewsList({ reviews, reviewPage, filters }) {
   }
 
   if (reviews === null) {
-    return <div>LOADING</div>;
+    return <BodyText>LOADING</BodyText>;
   }
 
   return (
