@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
 import ErrorModal from './ErrorModal.jsx';
-import axios from 'axios';
+import axios from '../../haxios';
 import utils from '../../Utils.js';
 
 class AnswerModal extends React.Component {

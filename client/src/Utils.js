@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require('./haxios');
 
 /**
  * modifies the reviews meta data to include total reviews count and average score

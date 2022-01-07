@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import axios from "../../haxios";
 import RelatedItems from "./components/RelatedItems.jsx";
 import OutfitItems from "./components/OutfitItems.jsx";
 import cardLoader from "./card-loader/cardLoader";
