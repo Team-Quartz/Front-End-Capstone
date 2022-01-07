@@ -155,7 +155,9 @@ class RatingsAndReviews extends React.Component {
                   <div>
                     Filtering on {[1, 2, 3, 4, 5].filter((i) => this.state.filters[i]).join(', ')}{' '}
                     stars
-                    <ButtonStyled onClick={this.clearRatingFilters.bind(this)}>Clear all filters</ButtonStyled>
+                    <ButtonStyled onClick={this.clearRatingFilters.bind(this)}>
+                      Clear all filters
+                    </ButtonStyled>
                   </div>
                 )}
               </div>
@@ -181,11 +183,22 @@ class RatingsAndReviews extends React.Component {
                 reviewPage={this.state.reviewPage}
                 filters={this.state.filters}
               />
-              <div ref={this.reviewsBottom}>
+              <div style={{ position: 'relative' }} ref={this.reviewsBottom}>
+                <ButtonStyled onClick={() => this.openWriteNewReview(true)}>
+                  ADD A REVIEW +
+                </ButtonStyled>
                 {this.areUnloadedReviews() ? (
-                  <ButtonStyled onClick={() => this.loadReviews()}>MORE REVIEWS</ButtonStyled>
+                  <ButtonStyled
+                    style={{
+                      position: 'absolute',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                    onClick={() => this.loadReviews()}
+                  >
+                    MORE REVIEWS
+                  </ButtonStyled>
                 ) : null}
-                <ButtonStyled onClick={() => this.openWriteNewReview(true)}>ADD A REVIEW +</ButtonStyled>
               </div>
             </div>
           </FlexRow>
