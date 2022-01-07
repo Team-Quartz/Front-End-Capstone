@@ -39,7 +39,6 @@ class QuestionsAndAnswers extends React.Component {
         <QuestionsList
         productId={this.props.productId}
         productName={this.props.productName}
-        questions={this.state.questions}
         searchFilter={this.state.searchFilter}/>
       </div>
     )
