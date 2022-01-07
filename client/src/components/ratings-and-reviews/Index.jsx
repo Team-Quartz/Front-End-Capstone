@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars, FlexRow, ButtonStyled, SelectStyled } from '../sharedComponents.jsx';
+import { Stars, FlexRow, ButtonStyled, SelectStyled , BodyText, Title} from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
@@ -114,7 +114,7 @@ class RatingsAndReviews extends React.Component {
     }
     return (
       <div ref={this.reviewsFrame} style={{ minHeight: this.state.minReviewsHeight }}>
-        <h2>Ratings &amp; Reviews</h2>
+        <Title>Ratings &amp; Reviews</Title>
         {!isLoading ? (
           <FlexRow>
             <div style={{ flex: 1 }}>

@@ -59,6 +59,14 @@ export const FlexRow = styled.div`
   flex-direction: row;
 `;
 
+export const Title = styled.div`
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: light;
+  color: grey;
+  margin-left: 2px;
+`;
+
 export const TextButton = styled.button`
 border: 0.5px solid 303030;
 background: white;
@@ -71,12 +79,15 @@ color: 424242;
 cursor: pointer;
 `;
 
-export const BodyText = styled.div`
+export const styleBody = `
 margin-left: -7px;
 font-size: 17px;
 font-weight: bold;
 color: 424242;
-`;
+`
+
+
+export const BodyText = styled.div(styleBody);
 
 export const Feedback = styled.span`
   font-size: 12px;
