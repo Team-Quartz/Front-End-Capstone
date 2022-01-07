@@ -114,7 +114,7 @@ class RatingsAndReviews extends React.Component {
     }
     return (
       <div ref={this.reviewsFrame} style={{ minHeight: this.state.minReviewsHeight }}>
-        <Title>Ratings &amp; Reviews</Title>
+        <Title>RATINGS &amp; REVIEWS</Title>
         {!isLoading ? (
           <FlexRow>
             <div style={{ flex: 1 }}>
