@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import styled from "styled-components";
 import cardLoader from "../card-loader/cardLoader";
