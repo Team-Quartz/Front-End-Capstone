@@ -33,7 +33,7 @@ export const CommonThumbnail = styled.img`
 `;
 
 export const SelectStyled = styled.select`
-${styleInteractable}
+  ${styleInteractable}
 `;
 
 export const AppContainer = styled.div`
@@ -84,11 +84,14 @@ margin-left: -7px;
 font-size: 17px;
 font-weight: bold;
 color: 424242;
-`
+`;
 
-export const BodyText = styled.div`${styleBody}`;
+export const BodyText = styled.div`
+  ${styleBody}
+`;
 
-export const BodyLabel = styled.label`${styleBody}
+export const BodyLabel = styled.label`
+  ${styleBody}
   margin-left: 8px;
 `;
 
@@ -128,14 +131,14 @@ export const InputField = styled.div`
 export const Clickable = styled.span`
   font-weight: bold;
   text-decoration: underline;
-  ${({disabled}) => disabled? '' : `
+  ${({ disabled }) =>
+    disabled
+      ? ''
+      : `
     cursor: pointer;
     &:hover:not(:disabled) {
       color: red;
       transform: translateY(-1px);
-    }
-    &:active {
-      transform: translateY(2px);
     }
   `}
 `;
