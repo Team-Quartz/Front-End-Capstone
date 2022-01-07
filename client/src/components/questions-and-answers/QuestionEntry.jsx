@@ -1,29 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexRow } from '../sharedComponents.jsx';
+import { FlexRow, BodyText, Feedback, Clickable } from '../sharedComponents.jsx';
 import dayjs from 'dayjs';
 import AnswerEntry from './AnswerEntry.jsx';
 import AnswerModal from './AnswerModal.jsx';
 import utils from '../../Utils.js';
-
-const QuestionBody = styled.div`
-  margin-left: -7px;
-  font-size: 17px;
-  font-weight: bold;
-  color: 424242;
-`;
-
-const Feedback = styled.span`
-  font-size: 12px;
-  font-weight: lighter;
-  color: BDBDBD;
-`;
-
-const Clickable = styled.span`
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-`;
 
 const MoreAnswers = styled.div`
   padding-top: 10px;
@@ -83,7 +64,7 @@ class QuestionEntry extends React.Component {
     return (
       <div>
         <FlexRow style={{ justifyContent: 'space-between' }}>
-          <QuestionBody>Q: {this.props.question.question_body}</QuestionBody>
+          <BodyText>Q: {this.props.question.question_body}</BodyText>
           <Feedback>
             <b>Helpful?</b>
             {this.state.isHelpful
@@ -99,7 +80,7 @@ class QuestionEntry extends React.Component {
           show={this.state.writeNewAnswer}
           success={this.props.success}
           productName={this.props.productName}
-          questionBody={this.props.question.question_body}
+          BodyText={this.props.question.question_body}
           questionId={this.props.question.question_id}
         />
         {/* TODO: optimize using Object.entries */}

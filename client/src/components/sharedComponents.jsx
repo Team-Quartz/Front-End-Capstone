@@ -24,6 +24,54 @@ export const FlexRow = styled.div`
   flex-direction: row;
 `;
 
+export const TextButton = styled.button`
+border: 0.5px solid 303030;
+background: white;
+margin: 10px;
+padding: 10px;
+height: 50px;
+font-size: 14px;
+font-weight: bold;
+color: 424242;
+cursor: pointer;
+`;
+
+export const BodyText = styled.div`
+margin-left: -7px;
+font-size: 17px;
+font-weight: bold;
+color: 424242;
+`;
+
+export const Feedback = styled.span`
+  font-size: 12px;
+  font-weight: lighter;
+  color: BDBDBD;
+`;
+
+export const ResponseText = styled.div`
+  text-align: left;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-top: 5px;
+  color: 696969;
+`;
+
+export const Details = styled.span`
+  margin-left: 22px;
+  padding-top: 5px;
+  padding-left: -5px;
+  font-size: 11px;
+  font-weight: lighter;
+  color: 909090;
+`;
+
+export const Clickable = styled.span`
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
 const StarBounds = styled.div`
   width: 1em;
   height: 1em;
