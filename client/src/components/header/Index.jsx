@@ -161,7 +161,7 @@ const Index = ({ changeCurrentProduct }) => {
         <Wrapper>
           <Left>
             <Logo src="./img/logo.png" />
-            <Title>NAME OF OUR SITE</Title>
+            <Title>Cats & Quartz Kiosk</Title>
           </Left>
           <Right>
             <SearchBar>

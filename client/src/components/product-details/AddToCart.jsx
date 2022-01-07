@@ -1,6 +1,7 @@
 import MakeSizesEntry from './MakeSizesEntry.jsx';
 import MakeQuantityEntry from './MakeQuantityEntry.jsx';
 import React from 'react';
+import {TextButton, SelectStyled} from '../sharedComponents.jsx'
 
 class AddToCart extends React.Component{
   constructor (props) {
@@ -54,22 +55,22 @@ class AddToCart extends React.Component{
         <label htmlFor="size-selector">{'Size: '}</label>
         {
           sizeList.length > 0 ?
-        <select name="size"  onChange={(e) => this.handleSkuSelection(e.target.value)} id='size-selector'>
+        <SelectStyled name="size"  onChange={(e) => this.handleSkuSelection(e.target.value)} id='size-selector'>
           <option value="default" key="0">{"--Select size---"}</option>
           {sizeList}
-        </select>
+        </SelectStyled>
           :
-          <select name="size" id='size-selector' disabled={true}>
+          <SelectStyled name="size" id='size-selector' disabled={true}>
             <option value="default" key="0">{"OUT OF STOCK"}</option>
-          </select>
+          </SelectStyled>
         }
         <label htmlFor="quantity-selector">{'Quantity: '}</label>
-        <select name="quantity"  onChange={(e) => this.handleQuantitySelection(e.target.value)} id='quantity-selector'>
+        <SelectStyled name="quantity"  onChange={(e) => this.handleQuantitySelection(e.target.value)} id='quantity-selector'>
           <option value="default" key="0">{"-"}</option>
           {quantityList}
-        </select>
+        </SelectStyled>
 
-        <button id="add-to-cart" type='submit' form='shopping-cart'>Add To Cart</button>
+        <TextButton id="add-to-cart" type='submit' form='shopping-cart'>Add To Cart</TextButton>
       </form>
     )
   }
