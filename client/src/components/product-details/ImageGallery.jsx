@@ -36,7 +36,7 @@ class ImageGallery extends React.Component {
     // });
     this.state = {
       photos: photos,
-      userFocus: {},
+      userFocus: photos[0],
       showModal: false,
       userIndex: 0,
     }
@@ -82,7 +82,7 @@ class ImageGallery extends React.Component {
     if (prevProps.photos !== this.props.photos) {
       this.setState({
         photos: this.props.photos.photos,
-        userFocus: this.photos.photos[0]
+        userFocus: this.props.photos.photos[0]
       })
     }
     // if (prevProps.photos.photos !== this.props.photos.photos) {
