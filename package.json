@@ -24,6 +24,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "axios": "^0.24.0",
+    "compression": "^1.7.4",
     "dayjs": "^1.10.7",
     "express": "^4.17.2",
     "react": "^17.0.2",

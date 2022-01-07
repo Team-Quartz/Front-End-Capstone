@@ -1,9 +1,12 @@
 const express = require('express');
 const { GITHUB_API_KEY } = require('./config.js');
 const axios = require('axios');
+const compression = require('compression');
 
 const port = 3000;
 const app = express();
+
+app.use(compression());
 
 app.use(express.json());
 
