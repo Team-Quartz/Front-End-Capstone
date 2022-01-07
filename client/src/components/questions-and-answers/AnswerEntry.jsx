@@ -24,15 +24,17 @@ const AnswerBody = styled.div`
   color: 696969;
 `;
 
-const Details = styled.div`
+const Details = styled.span`
   margin-left: 22px;
   padding-top: 5px;
+  padding-left: -5px;
   font-size: 11px;
   font-weight: lighter;
   color: 909090;
 `;
 
-const Clickable = styled.div`
+const Clickable = styled.span`
+  margin-left: 1px;
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
@@ -68,14 +70,15 @@ class AnswerEntry extends React.Component {
         <Details>
           by {this.props.answer.answerer_name === 'Seller'
           ? <b> Seller</b>
-          : this.props.answer.answerer_name},&nbsp;
-          {' ' + dayjs(this.props.answer.date).format('MMMM DD, YYYY')}&nbsp;|&nbsp;
-           Helpful?&nbsp;
+          : this.props.answer.answerer_name}
+          {' ' + dayjs(this.props.answer.date).format('MMMM DD, YYYY')}
+          &nbsp;|&nbsp;Helpful?&nbsp;
           {this.state.isHelpful
           ? <u>Yes!</u>
           : <Clickable onClick={this.updateAnswerHelpfulCount}>Yes</Clickable>
           }
-          ({this.props.answer.helpfulness + this.state.isHelpful})&nbsp;|&nbsp;
+          ({this.props.answer.helpfulness + this.state.isHelpful})
+          &nbsp;|&nbsp;&nbsp;
           {this.state.isReported
           ? <u>Reported!</u>
           : <Clickable onClick={this.reportAnswer}>Report</Clickable>

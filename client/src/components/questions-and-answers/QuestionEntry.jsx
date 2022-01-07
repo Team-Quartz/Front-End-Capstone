@@ -13,13 +13,13 @@ const QuestionBody = styled.div`
   color: 424242;
 `;
 
-const Feedback = styled.div`
+const Feedback = styled.span`
   font-size: 12px;
   font-weight: lighter;
   color: BDBDBD;
 `;
 
-const Clickable = styled.div`
+const Clickable = styled.span`
   font-weight: bold;
   text-decoration: underline;
   cursor: pointer;
