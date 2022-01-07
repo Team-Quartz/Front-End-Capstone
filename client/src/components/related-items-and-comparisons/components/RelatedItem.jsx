@@ -105,14 +105,14 @@ const RelatedItem = ({
   setSlideIndex
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.photos
+    cardLoader.photos[0].thumbnail_url
   );
   const [defaultProduct, setDefaultProduct] = useState(
     currentProductId || 38328
   );
   const [defaultProductFeatures] = useState([]);
   const [compareToProductFeatures] = useState([]);
-  const [previewImage, setPreviewImage] = useState(cardLoader.photos)
+  const [previewImage, setPreviewImage] = useState(cardLoader.photos[0].thumbnail_url)
 
   const [hovered, setHovered] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
