@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import axios from "../../../haxios";
 import cardLoader from "../card-loader/cardLoader";
 import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
