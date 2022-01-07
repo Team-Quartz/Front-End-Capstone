@@ -108,7 +108,7 @@ const PopupRelated = ({ productStyles, changeCurrentProduct, defaultProduct, cha
 
   const changeCurrentItem = (itemId) => {
     changeCurrentProduct(itemId);
-    setSlideIndex(0);
+    window.scrollTo({ top: 0, behavior: 'smooth'})
   };
 
   const changePreviewImage = (index) => {
