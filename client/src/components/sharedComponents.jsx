@@ -1,29 +1,36 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-export const commonStyle = `
-  border-radius: 8px;
+export const commonBorder = 'border-radius: 3px;';
+
+export const styleInteractable = `
+  transition-duration: .2s;
+  padding: 8px;
+  ${commonBorder}
+  background-color: #fefefe;
+  border: 1px solid LightGrey;
+  &:hover {
+    transition-duration: .1s;
+    box-shadow: -2px -3px 10px 0 inset #00000020,
+                1px 2px 8px 0 #00000030;
+  }
+  &:active {
+    transition-duration: .05s;
+    box-shadow: 2px 3px 12px 0 inset #00000080;
+  }
+`;
+
+export const CommonStyle = `
+  ${commonBorder}
   box-shadow: 0 0 8px 0 #00000066;
 `;
 
 export const ButtonStyled = styled.button`
-  transition-duration: .2s;
-  padding: 8px;
-  border-radius: 5px;
-  background-color: #fefefe;
-  box-shadow: -2px -3px 6px 0 inset #00000015;
-  border: 1px solid DarkGrey;
-  &:hover {
-    transition-duration: .1s;
-    box-shadow: -3px -5px 12px 0 inset #6e6eff5d,
-                1px 2px 8px 0 #00000040;
-    background-color: #f6f8ff;
-  }
-  &:active {
-    transition-duration: .05s;
-    box-shadow: 2px 3px 12px 0 inset #34348e7d;
+  ${styleInteractable}
+`;
 
-  }
+export const CommonThumbnail = styled.img`
+  ${styleInteractable}
 `;
 
 export const AppContainer = styled.div`
@@ -126,8 +133,7 @@ const ButtonCloseModal = styled(ButtonStyled)`
   top: 10px;
   height: 2em;
   width: 2em;
-`
-
+`;
 
 /**
  *
@@ -140,7 +146,7 @@ export function Modal({ show, onClose, children }) {
   const [lastTarget, setLastTarget] = React.useState(null);
   function escListener(e) {
     if (show) {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onClose();
       }
     }
@@ -151,9 +157,9 @@ export function Modal({ show, onClose, children }) {
     }
   }
   React.useEffect(() => {
-    window.addEventListener("keydown", escListener);
+    window.addEventListener('keydown', escListener);
     return () => {
-      window.removeEventListener("keydown", escListener);
+      window.removeEventListener('keydown', escListener);
     };
   });
   if (show) {
@@ -162,13 +168,14 @@ export function Modal({ show, onClose, children }) {
     return (
       <ModalBackground onMouseDown={(e) => setLastTarget(e.target)} onClick={onClickBackground}>
         <ModalBody onClick={(e) => e.stopPropagation()}>
-          <ButtonCloseModal onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
-          </ButtonCloseModal>
+          <ButtonCloseModal
+            onClick={onClose}
+            onKeyDown={(e) => onEsc(e, onClose)}
+          ></ButtonCloseModal>
           {children}
         </ModalBody>
       </ModalBackground>
     );
   }
-  return "";
+  return '';
 }
-
