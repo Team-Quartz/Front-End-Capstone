@@ -1,7 +1,16 @@
 import React from 'react';
+import styled from "styled-components";
 import QuestionsList from './QuestionsList.jsx';
 import SearchBar from './SearchBar.jsx';
 import utils from '../../Utils.js';
+
+const Title = styled.div`
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: light;
+  color: grey;
+  margin-left: 2px;
+`;
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -34,7 +43,7 @@ class QuestionsAndAnswers extends React.Component {
   render() {
     return (
       <div>
-        <h2>Questions &amp; Answers</h2>
+        <Title>QUESTIONS &amp; ANSWERS</Title>
         <SearchBar updateSearchFilter={this.updateSearchFilter} />
         <QuestionsList
         productId={this.props.productId}

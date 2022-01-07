@@ -1,8 +1,39 @@
 import React from 'react';
+import styled from 'styled-components';
+import { FlexRow } from '../sharedComponents.jsx';
 import dayjs from 'dayjs';
 import AnswerEntry from './AnswerEntry.jsx';
 import AnswerModal from './AnswerModal.jsx';
 import utils from '../../Utils.js';
+
+const QuestionBody = styled.div`
+  margin-left: -7px;
+  font-size: 17px;
+  font-weight: bold;
+  color: 424242;
+`;
+
+const Feedback = styled.span`
+  font-size: 12px;
+  font-weight: lighter;
+  color: BDBDBD;
+`;
+
+const Clickable = styled.span`
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const MoreAnswers = styled.div`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 25px;
+  font-size: 12px;
+  font-weight: bold;
+  color: 424242;
+  cursor: pointer;
+`;
 
 class QuestionEntry extends React.Component {
   constructor(props) {
@@ -51,16 +82,18 @@ class QuestionEntry extends React.Component {
   render() {
     return (
       <div>
-        <div>Q: {this.props.question.question_body}</div>
-        <div>
-          Helpful?&nbsp;
-          {this.state.isHelpful
-          ? <u>Yes!</u>
-          : <u onClick={this.updateQuestionHelpfulCount}>Yes</u>
-          }
-          ({this.props.question.question_helpfulness + this.state.isHelpful})&nbsp;
-          &nbsp;|&nbsp;<u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
-        </div>
+        <FlexRow style={{ justifyContent: 'space-between' }}>
+          <QuestionBody>Q: {this.props.question.question_body}</QuestionBody>
+          <Feedback>
+            <b>Helpful?</b>
+            {this.state.isHelpful
+            ? <u><b>Yes!</b></u>
+            : <Clickable onClick={this.updateQuestionHelpfulCount}>Yes</Clickable>
+            }
+            ({this.props.question.question_helpfulness + this.state.isHelpful})&nbsp;
+            &nbsp;|&nbsp;<Clickable onClick={() => this.openAnswerModal(true)}>Add Answer</Clickable>
+          </Feedback>
+        </FlexRow>
         <AnswerModal
           onClose={() => this.openAnswerModal(false)}
           show={this.state.writeNewAnswer}
@@ -71,10 +104,11 @@ class QuestionEntry extends React.Component {
         />
         {/* TODO: optimize using Object.entries */}
         {Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {
-          return <AnswerEntry key={idx} answer={this.state.answers[answerKey]}/>
+          return idx === 0 ? <AnswerEntry key={idx} a={'A:'} color={{ color: '424242' }} answer={this.state.answers[answerKey]}/>
+          : <AnswerEntry key={idx} a={'A:'} color={{ color: 'white' }} answer={this.state.answers[answerKey]}/>
         })}
         {Object.keys(this.state.answers).length > this.state.answerCount
-        ? <p onClick={this.showMoreAnswers}>SHOW MORE ANSWERS</p>
+        ? <MoreAnswers onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</MoreAnswers>
         : null
         }
       </div>
