@@ -1,9 +1,26 @@
 import React from 'react';
-import { dummyData } from './dummyData.js';
+import styled from 'styled-components';
+import { FlexRow } from '../sharedComponents.jsx';
 import QuestionEntry from './QuestionEntry.jsx';
 import QuestionModal from './QuestionModal.jsx';
 import SuccessModal from './SuccessModal.jsx';
 import utils from '../../Utils.js';
+
+const TestButton = styled.button`
+  border: 0.5px solid 303030;
+  background: white;
+  margin: 10px;
+  padding: 10px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: 424242;
+  cursor: pointer;
+`;
+
+const BigPlus = styled.div`
+  font-size: 20px;
+`;
 
 class QuestionsList extends React.Component {
   constructor(props) {
@@ -87,7 +104,7 @@ class QuestionsList extends React.Component {
               areMoreQuestions: false
             })
           }
-          let newQuestions = this.state.questions.concat(questions.results);
+          const newQuestions = this.state.questions.concat(questions.results);
           newQuestions.sort((firstQuestion, secondQuestion) => {
             return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
           })
@@ -136,14 +153,14 @@ class QuestionsList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ overflow: 'auto', maxHeight: '80vh' }}>
         { !this.state.questions
         ? <p>LOADING...</p>
         : this.renderQuestions()}
         {!this.state.questions ? null
         // : this.state.questions.length > this.state.questionPage * 2
         : this.state.areMoreQuestions
-        ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
+        ? <TestButton onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</TestButton>
         : null}
         <QuestionModal
           onClose={() => this.openQuestionModal(false)}
@@ -156,7 +173,9 @@ class QuestionsList extends React.Component {
           onClose={() => this.openSuccessModal(false)}
           show={this.state.showSuccess}
         />
-        <button onClick={() => this.openQuestionModal(true)}>ADD A QUESTION +</button>
+        <TestButton onClick={() => this.openQuestionModal(true)}>
+          ADD A QUESTION ＋
+        </TestButton>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
-import axios from "axios";
+import axios from "../../haxios";
 
 const Container = styled.div`
   background-color: lightgrey;
