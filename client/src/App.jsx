@@ -23,8 +23,11 @@ class App extends react.Component {
       reviewsMeta: { averageRating: 0 },
       currentProduct: null,
       debugDisplay: false,
+      selectedStyle: {},
+      currentStylesArray: [],
     };
     this.changeCurrentProduct = this.changeCurrentProduct.bind(this);
+    this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
 
   componentDidMount() {
@@ -44,9 +47,15 @@ class App extends react.Component {
     utils
       .fetchStyles(productId)
       .then(({ data: { results } }) => {
-        this.setState({ currentStylesArray: results });
+        this.setState({ currentStylesArray: results , selectedStyle: results[0]});
       })
       .catch((err) => console.error(err));
+  }
+  StyleSelectorHandler (targetKey) {
+    const matchedStyle = this.state.currentStylesArray.find((styleObject) => {
+      return styleObject.style_id + '' === targetKey
+    })
+    this.setState({selectedStyle: matchedStyle});
   }
 
   render() {
@@ -59,6 +68,8 @@ class App extends react.Component {
             reviewsMeta={this.state.reviewsMeta}
             stylesData={this.state.currentStylesArray}
             productData={this.state.currentProduct}
+            selectedStyle={this.state.selectedStyle}
+            handler={this.StyleSelectorHandler}
           />
         </AppStyle>
         <RelatedItemsAndComparisons

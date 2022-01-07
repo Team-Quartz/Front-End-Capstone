@@ -18,8 +18,6 @@ class AddToCart extends React.Component{
   }
 
   handleSkuSelection (targetSku) {
-    // const skuEntries = Object.values(this.state.selectedStyle.skus);
-    // const newSku = skuEntries.find((skuObject) => skuObject.size === targetSize);
     const currentSku = this.state.selectedStyle.skus[targetSku];
     this.setState({size: currentSku.size, sku: targetSku, quantity: currentSku.quantity});
   }
@@ -32,8 +30,6 @@ class AddToCart extends React.Component{
     }
   }
   render() {
-   //todo: handle form submission
-   //note: this is placeholder text and elements for styling later
    const sizeList = [];
     if(this.state.selectedStyle !== null) {
       const skuList = this.state.selectedStyle.skus;
@@ -53,7 +49,7 @@ class AddToCart extends React.Component{
     return (
       <form className="style-selctor" onSubmit={(e) => {
         e.preventDefault();
-        console.log(`Size: ${this.state.size}, Quantity: ${this.state.selectedQuantity}`)}}
+      }}
         id='shopping-cart'>
         <label htmlFor="size-selector">{'Size: '}</label>
         {
@@ -67,7 +63,6 @@ class AddToCart extends React.Component{
             <option value="default" key="0">{"OUT OF STOCK"}</option>
           </select>
         }
-
         <label htmlFor="quantity-selector">{'Quantity: '}</label>
         <select name="quantity"  onChange={(e) => this.handleQuantitySelection(e.target.value)} id='quantity-selector'>
           <option value="default" key="0">{"-"}</option>
