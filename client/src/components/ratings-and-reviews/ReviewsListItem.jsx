@@ -16,15 +16,6 @@ import utils from '../../Utils.js';
 import { ScrollIntoView } from './Index.jsx';
 import { PhotoGallery } from './PhotoGallery.jsx';
 
-// const TextButton = styled.button`
-//   border: none;
-//   text-decoration: underline;
-//   background: none;
-//   font-size: 1em;
-//   padding: 0;
-//   margin: 0;
-// `;
-
 const ResponseBox = styled.div`
   background: #ddd;
   padding: 4px;
