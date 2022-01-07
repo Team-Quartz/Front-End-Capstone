@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
-import { InputField } from '../sharedComponents.jsx'
 
 const Container = styled.div`
   background-color: white;
@@ -17,6 +16,16 @@ const Wrapper = styled.div`
   justify-content: space-between;
   padding-top: 15px;
   position: relative;
+`;
+
+const SearchField = styled.div`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  margin-right: -50px;
+  position: absolute;
+  top: 0;
 `;
 
 const Icon = styled.div`
@@ -59,7 +68,7 @@ class SearchBar extends React.Component {
     return (
       <Container>
         <Wrapper>
-          <InputField>
+          <SearchField>
             <Input
               type="text"
               value={this.state.value}
@@ -69,7 +78,7 @@ class SearchBar extends React.Component {
             <Icon>
               <FaSearch />
             </Icon>
-          </InputField>
+          </SearchField>
         </Wrapper>
       </Container>
     )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Stars, Modal, FlexRow, TextButton, BodyText, ResponseText, BodyLabel} from '../sharedComponents.jsx';
+import { Stars, Modal, FlexRow, TextButton, BodyText, ResponseText, BodyLabel } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
 import { PhotoGallery, ConstrainedImg } from './PhotoGallery';
@@ -26,7 +26,7 @@ function printReviewScore(rating) {
 
 function Input({ label, placeholder, value, id, context, max = 60, type = 'text' }) {
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <input
         style={{ width: '50%' }}
         id={id}
@@ -285,7 +285,7 @@ export default class WriteNewReview extends React.Component {
             <BodyLabel htmlFor={'body'}>
               <h4>Review Body*</h4>
             </BodyLabel>
-            <div>
+            <div style={{position: 'relative'}}>
               <textarea
                 style={{
                   width: '90%',

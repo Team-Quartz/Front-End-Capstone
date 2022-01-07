@@ -118,16 +118,6 @@ export const Details = styled.span`
   color: 909090;
 `;
 
-export const InputField = styled.div`
-  display: flex;
-  align-items: center;
-  height: 40px;
-  width: 100%;
-  margin-right: -50px;
-  position: absolute;
-  top: 0;
-`;
-
 export const Clickable = styled.span`
   font-weight: bold;
   text-decoration: underline;
