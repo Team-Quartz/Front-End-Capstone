@@ -8,7 +8,6 @@ function get(url, config) {
 
   let paramString = '';
   if (config && config.params) {
-    console.log(config.params);
     paramString = `?${Object.entries(config.params)
       .map(([key, val]) => `${key}=${val}`)
       .join('&')}`;

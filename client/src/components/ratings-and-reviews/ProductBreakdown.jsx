@@ -1,6 +1,7 @@
 import react from 'react';
 import styled from 'styled-components';
 import characteristicsMap from './characteristicsMap';
+import { ResponseText, BodyText} from '../sharedComponents.jsx'
 
 const Characteristic = styled.div`
   position: relative;
@@ -31,11 +32,11 @@ function ProductBreakdown({ characteristics }) {
         ? Object.entries(characteristics).map(([characteristic, { id, value }]) => {
             return (
               <Characteristic key={id}>
-                {characteristic}
+                <BodyText>{characteristic}</BodyText>
                 <BarFrame position={(value - 1) / 4} />
                 <LabelsFrame>
                   {characteristicsMap[characteristic].barLabels.map((label, i) => (
-                    <div key={i}>{label}</div>
+                    <ResponseText key={i}>{label}</ResponseText>
                   ))}
                 </LabelsFrame>
               </Characteristic>

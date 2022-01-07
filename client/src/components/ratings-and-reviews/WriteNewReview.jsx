@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Stars, Modal, FlexRow } from '../sharedComponents.jsx';
+import { Stars, Modal, FlexRow, TextButton, BodyText, ResponseText, BodyLabel } from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
 import { PhotoGallery, ConstrainedImg } from './PhotoGallery';
@@ -26,7 +26,7 @@ function printReviewScore(rating) {
 
 function Input({ label, placeholder, value, id, context, max = 60, type = 'text' }) {
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <input
         style={{ width: '50%' }}
         id={id}
@@ -47,9 +47,9 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
   }
   return (
     <FlexRow style={narrow}>
-      {characteristic}:&nbsp;
+      <BodyText>{characteristic}:&nbsp;</BodyText>&nbsp;&nbsp;
       <div style={{ flex: 1 }}>
-        {characteristicDisplay}
+        <BodyText>{characteristicDisplay}</BodyText>
         <FlexRow style={{ justifyContent: 'space-around' }}>
           {[1, 2, 3, 4, 5].map((i) => (
             <input
@@ -62,8 +62,8 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
           ))}
         </FlexRow>
         <FlexRow style={{ justifyContent: 'space-between' }}>
-          <div>{characteristicsMap[characteristic].labels[0]}</div>
-          <div>{characteristicsMap[characteristic].labels[4]}</div>
+          <ResponseText>{characteristicsMap[characteristic].labels[0]}</ResponseText>
+          <ResponseText>{characteristicsMap[characteristic].labels[4]}</ResponseText>
         </FlexRow>
       </div>
     </FlexRow>
@@ -94,7 +94,7 @@ function AddPhotosModal({ onAddPhoto, show, onClose }) {
         <ConstrainedImg src={url} onLoad={() => setImageLoaded(true)} />
       )}
       <input type='text' value={url} placeholder='Paste URL here' onChange={onChangeUrl} />
-      {imageLoaded ? <button onClick={onSubmitImage}>Add</button> : null}
+      {imageLoaded ? <TextButton onClick={onSubmitImage}>Add</TextButton> : null}
     </Modal>
   );
 }
@@ -250,7 +250,7 @@ export default class WriteNewReview extends React.Component {
                 checked={this.state.recommend === true}
                 onChange={() => this.setState({ recommend: true })}
               />
-              <label htmlFor='yes'>Yes</label>
+              <BodyLabel htmlFor='yes'>Yes</BodyLabel>
               <input
                 type='radio'
                 id='no'
@@ -258,7 +258,7 @@ export default class WriteNewReview extends React.Component {
                 checked={this.state.recommend === false}
                 onChange={() => this.setState({ recommend: false })}
               />
-              <label htmlFor='no'>No</label>
+              <BodyLabel htmlFor='no'>No</BodyLabel>
             </div>
             <br />
             <h4>Characteristics*</h4>
@@ -272,9 +272,9 @@ export default class WriteNewReview extends React.Component {
               ))}
             </div>
             <br />
-            <label htmlFor={'summary'}>
+            <BodyLabel htmlFor={'summary'}>
               <h4>{'Review Summary'}</h4>
-            </label>
+            </BodyLabel>
             <Input
               placeholder='Example: Best purchase ever!'
               value={this.state.summary}
@@ -282,10 +282,10 @@ export default class WriteNewReview extends React.Component {
               context={this}
             />
             <br />
-            <label htmlFor={'body'}>
+            <BodyLabel htmlFor={'body'}>
               <h4>Review Body*</h4>
-            </label>
-            <div>
+            </BodyLabel>
+            <div style={{position: 'relative'}}>
               <textarea
                 style={{
                   width: '90%',
@@ -306,12 +306,12 @@ export default class WriteNewReview extends React.Component {
               onClickThumbnail={this.removePhoto.bind(this)}
             />
             {this.state.photos.length < 5 ? (
-              <button onClick={this.onOpenAddPhoto.bind(this)}>Add photo</button>
+              <TextButton onClick={this.onOpenAddPhoto.bind(this)}>Add photo</TextButton>
             ) : null}
             <br />
-            <label htmlFor={'nickname'}>
+            <BodyLabel htmlFor={'nickname'}>
               <h4>{'Your nickname*'}</h4>
-            </label>
+            </BodyLabel>
             <Input
               placeholder='Example: jackson11!'
               value={this.state.nickname}
@@ -321,9 +321,9 @@ export default class WriteNewReview extends React.Component {
             For privacy reasons, do not use your full name or email address
             <br />
             <br />
-            <label htmlFor={'email'}>
+            <BodyLabel htmlFor={'email'}>
               <h4>{'Your email*'}</h4>
-            </label>
+            </BodyLabel>
             <Input
               placeholder='Example: jackson11@email.com'
               value={this.state.email}
@@ -338,7 +338,7 @@ export default class WriteNewReview extends React.Component {
                 ))}
               </ErrorDialog>
               <div>
-                <button>Submit</button>
+                <TextButton>Submit</TextButton>
               </div>
             </FlexRow>
           </form>
