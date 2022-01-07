@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import {rootStyle} from '../sharedComponents.jsx'
 
 const StyledImage = styled.img`
 width: 75px;
 height: 75px;
 `
-const StyledBorder = styled.div`
+const StyledBorder = styled(rootStyle)`
 border: solid;
 border-color: green;
 `

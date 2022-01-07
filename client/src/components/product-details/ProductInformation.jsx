@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import {AppStyle} from '../sharedComponents.jsx'
 
 
-const ProductInfoDiv = styled.div`
+const ProductInfoDiv = styled(AppStyle)`
   flex-direction: column;
 `;
 
-const Descriptors = styled.div`
+const Descriptors = styled(AppStyle)`
 `
 const CategoryStyle = styled(Descriptors)`
   font-size: 2em;

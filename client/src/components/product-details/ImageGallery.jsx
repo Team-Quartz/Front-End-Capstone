@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GalleryModal from './GalleryModal.jsx';
+import {TextButton} from '../sharedComponents.jsx'
 
 const StyledImage = styled.img`
 height: 300;
 width: 300;
 `
-const StyledButton = styled.button`
+const StyledButton = styled(TextButton)`
 font-size: 1.5em;
 `
 const StyledNext = styled(StyledButton)`

@@ -1,6 +1,7 @@
 import MakeSizesEntry from './MakeSizesEntry.jsx';
 import MakeQuantityEntry from './MakeQuantityEntry.jsx';
 import React from 'react';
+import {TextButton} from '../sharedComponents.jsx'
 
 class AddToCart extends React.Component{
   constructor (props) {
@@ -69,7 +70,7 @@ class AddToCart extends React.Component{
           {quantityList}
         </select>
 
-        <button id="add-to-cart" type='submit' form='shopping-cart'>Add To Cart</button>
+        <TextButton id="add-to-cart" type='submit' form='shopping-cart'>Add To Cart</TextButton>
       </form>
     )
   }

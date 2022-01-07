@@ -5,26 +5,15 @@ import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import {Stars} from '../sharedComponents.jsx';
 import styled from 'styled-components';
+import {AppContainer, TextButton, rootStyle} from '../sharedComponents.jsx'
 
 const StyledPlaceHolder = styled.img`
 width: 400px;
 height: 400px;
 `
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-family: "Arial", "Helvetica Neue", sans-serif;
-  font-size: 1em;
+const StyledDiv = styled(rootStyle)`
 `;
-const TextButton = styled.button`
-  border: none;
-  text-decoration: underline;
-  background: none;
-  font-size: 1em;
-  padding: 0;
-  margin: 0;
-`;
+
 
 class ProductDetail extends React.Component {
   constructor(props) {

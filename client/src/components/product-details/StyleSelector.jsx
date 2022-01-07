@@ -1,13 +1,14 @@
 import StyleSelectorMaker from './StyleSelectorMaker.jsx';
 import styled from 'styled-components';
+import {AppStyle} from '../sharedComponents.jsx'
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(AppStyle)`
 display:flex;
 flex-wrap: wrap;
 flex-basis: 25%;
 width: 350px;
 `
-const StyledNameDiv = styled.div`
+const StyledNameDiv = styled(AppStyle)`
 font-size: 1.5em;
 `
 const StyleSelector = ({stylesData, handler, selectedStyle}) => {
