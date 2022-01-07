@@ -3,8 +3,7 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: "./client/src/App.jsx",
-  mode: "development",
-  devtool: "source-map",
+  mode: "production",
   module: {
     rules: [
       {
