@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import {AppStyle} from '../sharedComponents.jsx'
+import {AppStyle, BodyText, Feedback, ResponseText} from '../sharedComponents.jsx'
 
 
 const ProductInfoDiv = styled(AppStyle)`
   flex-direction: column;
 `;
 
-const Descriptors = styled(AppStyle)`
+const Descriptors = styled(ResponseText)`
 `
-const CategoryStyle = styled(Descriptors)`
+const CategoryStyle = styled(BodyText)`
   font-size: 2em;
 `;
-const OriginalPriceStyled = styled(Descriptors)`
+const OriginalPriceStyled = styled(Feedback)`
 text-decoration-line: line-through;
 `
 const DiscountedPriceStyled = styled(Descriptors)`

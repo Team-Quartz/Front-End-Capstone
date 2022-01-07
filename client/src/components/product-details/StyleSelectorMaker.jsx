@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import {rootStyle} from '../sharedComponents.jsx'
+import {AppStyle, ImageThumbnail} from '../sharedComponents.jsx'
 
-const StyledImage = styled.img`
-width: 75px;
-height: 75px;
+const StyledImage = styled(ImageThumbnail)`
+
 `
-const StyledBorder = styled(rootStyle)`
+const StyledBorder = styled(AppStyle)`
 border: solid;
 border-color: green;
 `
