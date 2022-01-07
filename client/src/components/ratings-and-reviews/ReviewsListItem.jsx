@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stars, Modal, ButtonStyled, BodyText, ResponseText, Clickable } from '../sharedComponents.jsx';
+import { Stars, Modal, ButtonStyled, BodyText, ResponseText, Clickable, Feedback } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
@@ -38,7 +38,7 @@ function ReviewBody(props) {
 
   let body = props.body;
   if (body.length < 250) {
-    return <div>{body}</div>;
+    return <ResponseText>{body}</ResponseText>;
   }
 
   let buttonText = 'hide';
@@ -52,10 +52,10 @@ function ReviewBody(props) {
     }
   }
   return (
-    <BodyText style={{ maxWidth: '600px' }}>
+    <ResponseText style={{ maxWidth: '600px' }}>
       {body}
       <Clickable onClick={() => setExpanded(!expanded)}>{buttonText}</Clickable>
-    </BodyText>
+    </ResponseText>
   );
 }
 
@@ -105,29 +105,33 @@ class ReviewsListItem extends React.Component {
           onDoneLoading={forceScroll}
           onClickThumbnail={setShowImage}
         />
-        {review.recommend ? '✓ I recommend this product' : undefined}
+        <ResponseText>
+          {review.recommend ? '✓ I recommend this product' : undefined}
+        </ResponseText>
         <Response response={review.response} />
-        <FlexRow>
-          <BodyText>
-            Helpful?&nbsp;
-            <Clickable disabled={this.state.helpful} onClick={this.markHelpful}>
-              Yes
+        <Feedback>
+          <FlexRow>
+            <b>
+              Helpful?&nbsp;
+              <Clickable disabled={this.state.helpful} onClick={this.markHelpful}>
+                Yes
+              </Clickable>
+            </b>
+            &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
+            {/* TODO: confirm report popup */}
+            <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
+              Are you sure you want to report this review?
+              <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
+              <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
+            </Modal>
+            <Clickable
+              disabled={this.state.reported}
+              onClick={() => this.setState({ reportConfirmation: true })}
+            >
+              {this.state.reported ? 'Reported' : 'Report'}
             </Clickable>
-          </BodyText>
-          &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
-          {/* TODO: confirm report popup */}
-          <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
-            Are you sure you want to report this review?
-            <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
-            <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
-          </Modal>
-          <Clickable
-            disabled={this.state.reported}
-            onClick={() => this.setState({ reportConfirmation: true })}
-          >
-            {this.state.reported ? 'Reported' : 'Report'}
-          </Clickable>
-        </FlexRow>
+          </FlexRow>
+        </Feedback>
       </div>
     );
   }

@@ -5,10 +5,6 @@ export const commonBorder = 'border-radius: 3px;';
 
 export const styleInteractable = `
   transition-duration: .2s;
-  padding: 8px;
-  ${commonBorder}
-  background-color: #fefefe;
-  border: 1px solid LightGrey;
   &:hover {
     transition-duration: .1s;
     box-shadow: -2px -3px 10px 0 inset #00000020,
@@ -26,6 +22,9 @@ export const CommonStyle = `
 `;
 
 export const ButtonStyled = styled.button`
+  ${commonBorder}
+  background-color: #fefefe;
+  border: 1px solid LightGrey;
   ${styleInteractable}
 `;
 
@@ -68,15 +67,16 @@ export const Title = styled.div`
 `;
 
 export const TextButton = styled.button`
-border: 0.5px solid 303030;
-background: white;
-margin: 10px;
-padding: 10px;
-height: 50px;
-font-size: 14px;
-font-weight: bold;
-color: 424242;
-cursor: pointer;
+  border: 0.5px solid 303030;
+  background: white;
+  margin: 10px;
+  padding: 10px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: 424242;
+  cursor: pointer;
+  ${styleInteractable}
 `;
 
 export const styleBody = `
@@ -86,9 +86,11 @@ font-weight: bold;
 color: 424242;
 `
 
-export const BodyText = styled.div(styleBody);
+export const BodyText = styled.div`${styleBody}`;
 
-export const BodyLabel = styled.label`${styleBody}`;
+export const BodyLabel = styled.label`${styleBody}
+  margin-left: 8px;
+`;
 
 export const Feedback = styled.span`
   font-size: 12px;
@@ -111,6 +113,16 @@ export const Details = styled.span`
   font-size: 11px;
   font-weight: lighter;
   color: 909090;
+`;
+
+export const InputField = styled.div`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  margin-right: -50px;
+  position: absolute;
+  top: 0;
 `;
 
 export const Clickable = styled.span`

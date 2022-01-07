@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars, FlexRow, ButtonStyled, SelectStyled , BodyText, Title, BodyLabel} from '../sharedComponents.jsx';
+import { Stars, FlexRow, TextButton, SelectStyled , BodyText, Title, BodyLabel} from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
@@ -155,9 +155,9 @@ class RatingsAndReviews extends React.Component {
                   <div>
                     Filtering on {[1, 2, 3, 4, 5].filter((i) => this.state.filters[i]).join(', ')}{' '}
                     stars
-                    <ButtonStyled onClick={this.clearRatingFilters.bind(this)}>
+                    <TextButton onClick={this.clearRatingFilters.bind(this)}>
                       Clear all filters
-                    </ButtonStyled>
+                    </TextButton>
                   </div>
                 )}
               </div>
@@ -183,11 +183,11 @@ class RatingsAndReviews extends React.Component {
                 filters={this.state.filters}
               />
               <div style={{ position: 'relative' }} ref={this.reviewsBottom}>
-                <ButtonStyled onClick={() => this.openWriteNewReview(true)}>
+                <TextButton onClick={() => this.openWriteNewReview(true)}>
                   ADD A REVIEW +
-                </ButtonStyled>
+                </TextButton>
                 {this.areUnloadedReviews() ? (
-                  <ButtonStyled
+                  <TextButton
                     style={{
                       position: 'absolute',
                       left: '50%',
@@ -196,7 +196,7 @@ class RatingsAndReviews extends React.Component {
                     onClick={() => this.loadReviews()}
                   >
                     MORE REVIEWS
-                  </ButtonStyled>
+                  </TextButton>
                 ) : null}
               </div>
             </div>
