@@ -103,10 +103,12 @@ module.exports.submitReview = (
 
 // module.exports.parseQuestions
 
-module.exports.fetchQuestions = (productId) => {
+module.exports.fetchQuestions = (productId, page, count) => {
   return axios.get('/API/qa/questions/', {
       params: {
         product_id: productId,
+        page,
+        count,
       },
     })
     .then((response) => {
@@ -117,7 +119,6 @@ module.exports.fetchQuestions = (productId) => {
 module.exports.fetchAnswers = (questionId) => {
   return axios.get(`/API/qa/questions/${questionId}/answers`)
     .then((response) => {
-      console.log('RESPONSE: ', response)
       return response.data.results;
     });
     // .catch(() => {console.log('SERVER: THERE WAS AN ERROR RETRIEVING THE ANSWERS')})
@@ -130,7 +131,6 @@ module.exports.markQuestionHelpful = (questionId) => {
 }
 
 module.exports.markAnswerHelpful = (answerId) => {
-  console.log('ANSWER ID: ', answerId)
   return axios.put(`/API/qa/answers/${answerId}/helpful`, {
     params: { id: answerId },
   });

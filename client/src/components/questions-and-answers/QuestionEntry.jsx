@@ -20,7 +20,6 @@ class QuestionEntry extends React.Component {
   }
 
   componentDidMount() {
-    console.log('question ID: ', this.props.question.question_id);
     utils.fetchAnswers(this.props.question.question_id)
       .then((answers) => {
         this.setState({
