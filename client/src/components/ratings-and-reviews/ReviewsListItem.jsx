@@ -93,30 +93,23 @@ class ReviewsListItem extends React.Component {
       <div>
         <FlexRow style={{ justifyContent: 'space-between', alignItems: 'flex-end' }}>
           <Stars reviewsMeta={{ averageRating: review.rating }} />
-          <Feedback>
-            <FlexRow>
-              <b>
-                Helpful?&nbsp;
-                <Clickable disabled={!!this.state.helpful} onClick={this.markHelpful}>
-                  Yes
-                </Clickable>
-              </b>
-              &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
-              <Modal
-                show={this.state.reportConfirmation}
-                onClose={() => this.openReportModal(true)}
-              >
-                Are you sure you want to report this review?
-                <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
-                <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
-              </Modal>
-              <Clickable
-                disabled={!!this.state.reported}
-                onClick={() => this.setState({ reportConfirmation: true })}
-              >
-                {this.state.reported ? 'Reported' : 'Report'}
-              </Clickable>
-            </FlexRow>
+          <Feedback style={{ display: 'flex', flexDirection: 'row' }}>
+            <b>Helpful?</b>
+            <Clickable disabled={!!this.state.helpful} onClick={this.markHelpful}>
+              Yes
+            </Clickable>
+            <b>({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;</b>
+            <Clickable
+              disabled={!!this.state.reported}
+              onClick={() => this.setState({ reportConfirmation: true })}
+            >
+              {this.state.reported ? 'Reported' : 'Report'}
+            </Clickable>
+            <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
+              Are you sure you want to report this review?
+              <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
+              <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
+            </Modal>
           </Feedback>
         </FlexRow>
         <BodyText>{review.summary}</BodyText>
