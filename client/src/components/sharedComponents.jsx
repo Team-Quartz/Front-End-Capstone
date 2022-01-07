@@ -74,8 +74,8 @@ export const Clickable = styled.span`
 
 export const ImageThumbnail = styled.img`
   width: auto;
-  height: 5rem;
-  max-width: 10rem;
+  height: 3.5rem;
+  max-width: 6rem;
   &:hover {
     transform: scale(110%);
   }

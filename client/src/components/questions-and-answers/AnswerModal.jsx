@@ -6,8 +6,6 @@ import axios from '../../haxios';
 import utils from '../../Utils.js';
 
 const PlaceholderImage = styled(ImageThumbnail)`
-  height: 3rem;
-  max-width: 6rem;
   border: 1px solid LightGrey;
 `;
 
