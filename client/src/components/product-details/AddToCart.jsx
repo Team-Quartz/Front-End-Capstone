@@ -18,8 +18,6 @@ class AddToCart extends React.Component{
   }
 
   handleSkuSelection (targetSku) {
-    // const skuEntries = Object.values(this.state.selectedStyle.skus);
-    // const newSku = skuEntries.find((skuObject) => skuObject.size === targetSize);
     const currentSku = this.state.selectedStyle.skus[targetSku];
     this.setState({size: currentSku.size, sku: targetSku, quantity: currentSku.quantity});
   }
@@ -32,8 +30,6 @@ class AddToCart extends React.Component{
     }
   }
   render() {
-   //todo: handle form submission
-   //note: this is placeholder text and elements for styling later
    const sizeList = [];
     if(this.state.selectedStyle !== null) {
       const skuList = this.state.selectedStyle.skus;

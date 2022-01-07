@@ -1,5 +1,4 @@
 import React from 'react';
-// import {stylesData, productData} from './sample.js';
 import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
@@ -36,27 +35,17 @@ class ProductDetail extends React.Component {
       selectedStyle: {},
       highlightStyle: '0',
     }
-    // this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
   }
-  // StyleSelectorHandler (targetKey) {
-  //   const matchedStyle = this.state.stylesData.find((styleObject) => {
-  //     return styleObject.style_id + '' === targetKey
-  //   })
-  //   this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
-  //   console.log(matchedStyle, targetKey)
-  // }
   componentDidUpdate (prevProps) {
     const isStylesData = this.props.stylesData !== undefined;
     const isProductData = this.props.productData !== undefined && this.props.productData !== null;
     if (prevProps !== this.props && isProductData && isStylesData && this.props.stylesData.length !== 0) {
       const {stylesData, productData, reviewsMeta, selectedStyle} = this.props;
-      console.log(this.props, '........', stylesData)
       const defaultStyle = stylesData.find((styleObject) => styleObject["default?"] );
       this.setState({
         selectedStyle,
         stylesData,
         productData,
-        // highlightStyle: defaultStyle ? defaultStyle.style_id : stylesData[0],
         reviewsMeta,
       });
     }
