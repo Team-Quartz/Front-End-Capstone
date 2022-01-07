@@ -49,7 +49,6 @@ class AddToCart extends React.Component{
     return (
       <form className="style-selctor" onSubmit={(e) => {
         e.preventDefault();
-        console.log(`Size: ${this.state.size}, Quantity: ${this.state.selectedQuantity}`)}}
         id='shopping-cart'>
         <label htmlFor="size-selector">{'Size: '}</label>
         {
