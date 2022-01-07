@@ -203,6 +203,9 @@ const ModalBody = styled.div`
   position: fixed;
   width: auto;
   height: auto;
+  max-height: 90vh;
+  max-width: 90vh;
+  overflow: auto;
   background: white;
   left: 50%;
   top: 50%;

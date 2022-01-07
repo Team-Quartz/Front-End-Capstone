@@ -47,7 +47,7 @@ function Characteristic({ characteristic: [characteristic, value], updateCharact
   }
   return (
     <FlexRow style={narrow}>
-      <BodyText>{characteristic}:&nbsp;</BodyText>
+      <BodyText>{characteristic}:&nbsp;</BodyText>&nbsp;&nbsp;
       <div style={{ flex: 1 }}>
         <BodyText>{characteristicDisplay}</BodyText>
         <FlexRow style={{ justifyContent: 'space-around' }}>
