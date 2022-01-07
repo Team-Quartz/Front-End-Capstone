@@ -55,9 +55,7 @@ class App extends react.Component {
     const matchedStyle = this.state.currentStylesArray.find((styleObject) => {
       return styleObject.style_id + '' === targetKey
     })
-    // this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
     this.setState({selectedStyle: matchedStyle});
-    console.log(matchedStyle, targetKey)
   }
 
   render() {

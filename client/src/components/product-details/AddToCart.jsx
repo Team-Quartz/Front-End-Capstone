@@ -49,6 +49,7 @@ class AddToCart extends React.Component{
     return (
       <form className="style-selctor" onSubmit={(e) => {
         e.preventDefault();
+      }}
         id='shopping-cart'>
         <label htmlFor="size-selector">{'Size: '}</label>
         {
@@ -62,7 +63,6 @@ class AddToCart extends React.Component{
             <option value="default" key="0">{"OUT OF STOCK"}</option>
           </select>
         }
-
         <label htmlFor="quantity-selector">{'Quantity: '}</label>
         <select name="quantity"  onChange={(e) => this.handleQuantitySelection(e.target.value)} id='quantity-selector'>
           <option value="default" key="0">{"-"}</option>
