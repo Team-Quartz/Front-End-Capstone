@@ -1,27 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexRow } from '../sharedComponents.jsx';
+import { FlexRow, TextButton } from '../sharedComponents.jsx';
 import QuestionEntry from './QuestionEntry.jsx';
 import QuestionModal from './QuestionModal.jsx';
 import SuccessModal from './SuccessModal.jsx';
 import utils from '../../Utils.js';
-
-const TestButton = styled.button`
-  border: 0.5px solid 303030;
-  background: white;
-  margin: 10px;
-  padding: 10px;
-  height: 50px;
-  font-size: 14px;
-  font-weight: bold;
-  color: 424242;
-  cursor: pointer;
-`;
-
-const BigPlus = styled.div`
-  font-size: 20px;
-`;
-
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
@@ -160,7 +143,7 @@ class QuestionsList extends React.Component {
         {!this.state.questions ? null
         // : this.state.questions.length > this.state.questionPage * 2
         : this.state.areMoreQuestions
-        ? <TestButton onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</TestButton>
+        ? <TextButton onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</TextButton>
         : null}
         <QuestionModal
           onClose={() => this.openQuestionModal(false)}
@@ -173,9 +156,9 @@ class QuestionsList extends React.Component {
           onClose={() => this.openSuccessModal(false)}
           show={this.state.showSuccess}
         />
-        <TestButton onClick={() => this.openQuestionModal(true)}>
+        <TextButton onClick={() => this.openQuestionModal(true)}>
           ADD A QUESTION ＋
-        </TestButton>
+        </TextButton>
       </div>
     )
   }
