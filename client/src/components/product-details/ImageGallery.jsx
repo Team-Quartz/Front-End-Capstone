@@ -36,7 +36,7 @@ class ImageGallery extends React.Component {
     // });
     this.state = {
       photos: photos,
-      userFocus: {url:null},
+      userFocus: {},
       showModal: false,
       userIndex: 0,
     }
@@ -68,18 +68,30 @@ class ImageGallery extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     console.log(this.state)
 
-    if (prevState.photos !== this.state.photos) {
+    // if (prevState.photos !== this.state.photos) {
+    //   this.setState({
+    //     userFocus: this.props.photos.photos[0]
+    //   });
+    // }
+    if (this.state.photos !== this.props.photos.photos){
       this.setState({
-        userFocus: this.state.photos[0]
-      });
-    }
-    if (prevProps.photos.photos !== this.props.photos.photos) {
-      const {photos: {photos}} = this.props;
-      this.setState({
-        photos: photos,
-        userFocus: photos[0],
+        photos: this.props.photos.photos,
+        userFocus: this.props.photos.photos[0],
       })
     }
+    if (prevProps.photos !== this.props.photos) {
+      this.setState({
+        photos: this.props.photos.photos,
+        userFocus: this.photos.photos[0]
+      })
+    }
+    // if (prevProps.photos.photos !== this.props.photos.photos) {
+    //   const {photos: {photos}} = this.props;
+    //   this.setState({
+    //     photos: photos,
+    //     userFocus: photos[0],
+    //   })
+    // }
   }
   render () {
     {console.log(this.state)}

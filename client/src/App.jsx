@@ -47,7 +47,7 @@ class App extends react.Component {
     utils
       .fetchStyles(productId)
       .then(({ data: { results } }) => {
-        this.setState({ currentStylesArray: results });
+        this.setState({ currentStylesArray: results , selectedStyle: results[0]});
       })
       .catch((err) => console.error(err));
   }

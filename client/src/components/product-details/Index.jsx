@@ -69,7 +69,7 @@ class ProductDetail extends React.Component {
     return (
       <StyledDiv>
         { isStylesInProps && isProductInProps ?
-          <StyledPlaceHolder src="https://media.giphy.com/media/xitrfnahXHFZi5giQs/giphy.gif"/>
+          <StyledPlaceHolder src="https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp"/>
           :
           <div>
             <ImageGallery photos={this.props.selectedStyle} highlightStyle={this.state.highlightStyle}/>
