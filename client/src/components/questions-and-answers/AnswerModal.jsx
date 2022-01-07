@@ -1,8 +1,15 @@
 import React from 'react';
-import { Modal } from '../sharedComponents.jsx';
+import styled from 'styled-components';
+import { Modal, ImageThumbnail, Details, TextButton } from '../sharedComponents.jsx';
 import ErrorModal from './ErrorModal.jsx';
 import axios from '../../haxios';
 import utils from '../../Utils.js';
+
+const PlaceholderImage = styled.img`
+  width: 60px;
+  height: 60px;
+  border: 1px solid LightGrey;
+`;
 
 class AnswerModal extends React.Component {
   constructor(props) {
@@ -29,6 +36,7 @@ class AnswerModal extends React.Component {
     this.closeUponSuccess = this.closeUponSuccess.bind(this);
     this.validatePhoto = this.validatePhoto.bind(this);
     this.cancelAnswerModal = this.cancelAnswerModal.bind(this);
+    this.renderImages = this.renderImages.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -72,6 +80,12 @@ class AnswerModal extends React.Component {
     return true;
   }
 
+  renderImages(photos = this.state.photosList) {
+    return photos.map((photo, idx) => {
+      return <PlaceholderImage key={idx} src={photo} />
+    })
+  }
+
   uploadPhoto() {
     if (this.state.photoUrlToAdd === '' ||
     !this.validatePhoto(this.state.photoUrlToAdd) ||
@@ -80,8 +94,7 @@ class AnswerModal extends React.Component {
     } else {
       let updatedPhotosList = this.state.photosList.slice();
       updatedPhotosList.push(this.state.photoUrlToAdd);
-      console.log('photos list: ', updatedPhotosList);
-      //TODO: render image thumbnail
+      this.renderImages(updatedPhotosList)
       this.setState({
         photoUrlToAdd: '',
         photosList: updatedPhotosList
@@ -104,7 +117,6 @@ class AnswerModal extends React.Component {
     } else if (!this.validateEmail(this.state.emailInput)) {
       this.openErrorModal(true);
     } else {
-      //TODO: invoke POST request
       utils.submitAnswer(this.state.answerInput,this.state.nicknameInput, this.state.emailInput, this.state.photosList, this.props.questionId)
         .then(() => {
           this.closeUponSuccess();
@@ -143,7 +155,6 @@ class AnswerModal extends React.Component {
       photosList: [],
     })
   }
-  //TODO: create POST request to add question
 
   render() {
     return (
@@ -154,16 +165,22 @@ class AnswerModal extends React.Component {
         <input onChange={this.handleAnswerChange} />
         <p>What is your nickname?</p>
         <input onChange={this.handleNicknameChange} />
-        <p>For privacy reasons, do not use your full name or email address</p>
+        <br/>
+        <Details>For privacy reasons, do not use your full name or email address</Details>
         <p>Your email</p>
         <input onChange={this.handleEmailChange} />
-        <p>For authentication reasons, you will not be emailed</p>
+        <Details>For authentication reasons, you will not be emailed</Details>
+        <br/>
         <input onChange={this.handlePhotoUrlChange}  value={this.state.photoUrlToAdd}/>
         <button onClick={this.uploadPhoto}>Upload your photos</button>
-        <p>Photos must include the following file extensions: .jpg, .jpeg, .png, .gif</p>
-        <button onClick={this.checkAnswersInputValidity}>
+        <br/>
+        <Details>Photos must include the following file extensions: .jpg, .jpeg, .png, .gif</Details>
+        <br/>
+        {this.renderImages()}
+        <br/>
+        <TextButton onClick={this.checkAnswersInputValidity}>
           Submit Answer
-        </button>
+        </TextButton>
         <ErrorModal
           onClose={() => this.openErrorModal(false)}
           show={this.state.showErrorModal}

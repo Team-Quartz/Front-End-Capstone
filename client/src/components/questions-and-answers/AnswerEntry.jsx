@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexRow, ResponseText, Details, Clickable } from '../sharedComponents.jsx';
+import { FlexRow, ResponseText, Details, Clickable, Modal } from '../sharedComponents.jsx';
 import dayjs from 'dayjs';
 import AnswerModal from './AnswerModal.jsx';
+import PopupImage from './PopupImage.jsx';
 import utils from '../../Utils.js';
 
 const AnswerStart = styled.div`
@@ -14,15 +15,31 @@ const AnswerStart = styled.div`
   color: 424242;
 `;
 
+const AnswerImage = styled.img`
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+  border: 1px solid LightGrey;
+`;
+
+const PopupImageStyles = styled.img`
+  width: 200px;
+  height: 200px;
+`;
 class AnswerEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isHelpful: false,
-      isReported: false
+      isReported: false,
+      showImagePopup: false,
+      popupImage: null,
     }
     this.updateAnswerHelpfulCount = this.updateAnswerHelpfulCount.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+    this.renderAnswerImages = this.renderAnswerImages.bind(this);
+    this.toggleShowImagePopup = this.toggleShowImagePopup.bind(this);
+    this.renderImagePopup = this.renderImagePopup.bind(this);
   }
 
   updateAnswerHelpfulCount() {
@@ -35,12 +52,42 @@ class AnswerEntry extends React.Component {
     utils.reportAnswer(this.props.answer.answer_id)
   }
 
+  renderAnswerImages() {
+    return this.props.answer.photos.map(photo => {
+      return <AnswerImage
+               key={photo.id}
+               src={photo.url}
+               onClick={() => this.renderImagePopup(photo.url)}
+              />
+    })
+  }
+
+  toggleShowImagePopup(open) {
+    this.setState({
+      showImagePopup: open,
+    })
+  }
+
+  renderImagePopup(image) {
+    this.toggleShowImagePopup(true);
+    this.setState({
+      popupImage: image,
+    })
+  }
+
   render() {
     return (
       <div>
         <FlexRow>
           <AnswerStart style={this.props.color}>{this.props.a}</AnswerStart><ResponseText>{this.props.answer.body}</ResponseText>
         </FlexRow>
+        {this.renderAnswerImages()}
+        <br/>
+        <PopupImage
+          show={this.state.showImagePopup}
+          onClose={() => this.toggleShowImagePopup(false)}
+          image={[this.state.popupImage]}
+        />
         <Details>
           by {this.props.answer.answerer_name === 'Seller'
           ? <b> Seller</b>

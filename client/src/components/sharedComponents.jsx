@@ -72,6 +72,15 @@ export const Clickable = styled.span`
   cursor: pointer;
 `;
 
+export const ImageThumbnail = styled.img`
+  width: 5em;
+  height: auto;
+  max-height: 10em;
+  &:hover {
+    transform: scale(110%);
+  }
+`;
+
 const StarBounds = styled.div`
   width: 1em;
   height: 1em;
