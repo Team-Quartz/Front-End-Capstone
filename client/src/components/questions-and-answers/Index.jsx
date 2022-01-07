@@ -7,10 +7,24 @@ class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: this.props.productId,
       searchFilter: ''
     }
     this.updateSearchFilter = this.updateSearchFilter.bind(this);
+  }
+
+  componentDidMount() {
+    // console.log('app mounted!');
+    // utils
+    //   .fetchQuestions(this.state.productId)
+    //   .then(questions => {
+    //     questions.results.sort((firstQuestion, secondQuestion) => {
+    //       return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+    //     })
+    //     this.setState({
+    //       questions: questions.results,
+    //     })
+    //   })
+    //   .catch(err => {err});
   }
 
   updateSearchFilter(query) {
@@ -23,8 +37,9 @@ class QuestionsAndAnswers extends React.Component {
         <h2>Questions &amp; Answers</h2>
         <SearchBar updateSearchFilter={this.updateSearchFilter} />
         <QuestionsList
-        productId={this.state.productId}
+        productId={this.props.productId}
         productName={this.props.productName}
+        questions={this.state.questions}
         searchFilter={this.state.searchFilter}/>
       </div>
     )

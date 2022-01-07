@@ -2,6 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import AnswerEntry from './AnswerEntry.jsx';
 import AnswerModal from './AnswerModal.jsx';
+import utils from '../../Utils.js';
 
 class QuestionEntry extends React.Component {
   constructor(props) {
@@ -15,9 +16,18 @@ class QuestionEntry extends React.Component {
     }
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
-    //TODO: find out if this function is needed
-    // this.reportQuestion = this.reportQuestion.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('question ID: ', this.props.question.question_id);
+    utils.fetchAnswers(this.props.question.question_id)
+      .then((answers) => {
+        this.setState({
+          answers: answers,
+        })
+      })
+      .catch(() => {console.log('APP: THERE WAS AN ERROR RETRIEVING THE ANSWERS')})
   }
 
   showMoreAnswers() {
@@ -25,17 +35,12 @@ class QuestionEntry extends React.Component {
   }
 
   updateQuestionHelpfulCount() {
-    //TODO: create PUT request to increment helpful count
-    this.setState({
-      isHelpful: true
-    })
-  }
-
-  reportQuestion() {
-    //TODO: create PUT request to report question
-    this.setState({
-      isReported: true
-    })
+    utils.markQuestionHelpful(this.props.question.question_id)
+      .then(() => {
+        this.setState({
+          isHelpful: 1
+        })
+      })
   }
 
   openAnswerModal(open) {
@@ -49,13 +54,13 @@ class QuestionEntry extends React.Component {
       <div>
         <div>Q: {this.props.question.question_body}</div>
         <div>
-          Helpful?
+          Helpful?&nbsp;
           {this.state.isHelpful
-          ? <u>Yes</u>
+          ? <u>Yes!</u>
           : <u onClick={this.updateQuestionHelpfulCount}>Yes</u>
           }
-          ({this.props.question.question_helpfulness})
-           | <u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
+          ({this.props.question.question_helpfulness + this.state.isHelpful})&nbsp;
+          &nbsp;|&nbsp;<u onClick={() => this.openAnswerModal(true)}>Add Answer</u>
         </div>
         <AnswerModal
           onClose={() => this.openAnswerModal(false)}
@@ -63,6 +68,7 @@ class QuestionEntry extends React.Component {
           success={this.props.success}
           productName={this.props.productName}
           questionBody={this.props.question.question_body}
+          questionId={this.props.question.question_id}
         />
         {/* TODO: optimize using Object.entries */}
         {Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {

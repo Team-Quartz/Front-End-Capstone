@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from '../sharedComponents.jsx';
 import ErrorModal from './ErrorModal.jsx';
 import axios from 'axios';
+import utils from '../../Utils.js';
 
 class AnswerModal extends React.Component {
   constructor(props) {
@@ -32,7 +33,6 @@ class AnswerModal extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.productName !== this.props.productName) {
-      console.log('PRODUCT: ', this.props.productName.name);
       this.setState({productName: this.props.productName.name})
     }
   }
@@ -56,10 +56,7 @@ class AnswerModal extends React.Component {
     e.preventDefault();
     this.setState({photoUrlToAdd: e.target.value});
   }
-  //TODO: functions to check validity of inputs
-  // checkInputValiditiy() {
-  //   if
-  // }
+
   validatePhoto(photoUrl) {
     let regex = /([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i;
     if (!photoUrl.match(regex)) {
@@ -108,14 +105,20 @@ class AnswerModal extends React.Component {
       this.openErrorModal(true);
     } else {
       //TODO: invoke POST request
-      this.closeUponSuccess();
-      this.setState({
-        answerInput: '',
-        nicknameInput: '',
-        emailInput: '',
-        photoUrlToAdd: '',
-        photosList: [],
-      })
+      utils.submitAnswer(this.state.answerInput,this.state.nicknameInput, this.state.emailInput, this.state.photosList, this.props.questionId)
+        .then(() => {
+          this.closeUponSuccess();
+          this.setState({
+            answerInput: '',
+            nicknameInput: '',
+            emailInput: '',
+            photoUrlToAdd: '',
+            photosList: [],
+          })
+        })
+        .catch(() => {
+          this.openErrorModal(true)
+        })
     }
   }
 

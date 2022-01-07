@@ -3,13 +3,15 @@ import { dummyData } from './dummyData.js';
 import QuestionEntry from './QuestionEntry.jsx';
 import QuestionModal from './QuestionModal.jsx';
 import SuccessModal from './SuccessModal.jsx';
+import utils from '../../Utils.js';
 
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      productId: this.props.productId,
       productName: this.props.productName,
-      questions: dummyData.results,
+      questions: this.props.questions,
       questionCount: 2,
       searchFilter: this.props.searchFilter,
       writeNewQuestion: false,
@@ -22,14 +24,49 @@ class QuestionsList extends React.Component {
   }
 
   componentDidMount() {
-    //TODO: create function to GET array of questions
-    let questionsByHelpfulness = [];
-    dummyData.results.sort((firstQuestion, secondQuestion) => {
-      return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
-    })
-    this.setState({
-      questions: dummyData.results,
-    })
+    // if (this.props.questions === undefined) {
+    //   this.setState({
+    //     questions: {results: ['LOADING'] }
+    //   })
+    // }
+    utils
+      .fetchQuestions(this.props.productId)
+      .then(questions => {
+        questions.results.sort((firstQuestion, secondQuestion) => {
+          return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+        })
+        this.setState({
+          questions: questions.results,
+        })
+      })
+      .catch(err => {err});
+  }
+
+  //TODO: make this function update productId when it changes and also get the new questions
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.productId !== this.props.productId) {
+      // console.log('NEW QUESTIONS: ', this.props.questions);
+      // this.setState({
+      //   questions: this.props.questions.results,
+      //   productId: this.props.productId
+      // })
+      utils.fetchQuestions(this.props.productId)
+        .then(questions => {
+          questions.results.sort((firstQuestion, secondQuestion) => {
+            return secondQuestion.question_helpfulness - firstQuestion.question_helpfulness;
+          })
+          this.setState({
+            questions: questions.results,
+            productId: this.props.productId
+          })
+        })
+        .catch(err => {err});
+    }
+    // else if (prevState.questions !== this.state.questions) {
+    //   this.setState({
+    //     questions: questions.results,
+    //   })
+    // }
   }
 
   showMoreQuestions() {
@@ -56,7 +93,9 @@ class QuestionsList extends React.Component {
   render() {
     return (
       <div>
-        {this.state.questions.filter(question =>
+        { !this.state.questions
+        ? <p>LOADING...</p>
+        : this.state.questions.filter(question =>
           question.question_body.toLowerCase()
           .includes(this.props.searchFilter.toLowerCase())
         ).slice(0, this.state.questionCount)
@@ -68,7 +107,8 @@ class QuestionsList extends React.Component {
           success={() => this.openSuccessModal(true)}
           />
         })}
-        {this.state.questions.length > this.state.questionCount
+        {!this.state.questions ? null
+        : this.state.questions.length > this.state.questionCount
         ? <button onClick={this.showMoreQuestions}>MORE ANSWERED QUESTIONS</button>
         : null}
         <QuestionModal
@@ -76,6 +116,7 @@ class QuestionsList extends React.Component {
           success={() => this.openSuccessModal(true)}
           show={this.state.writeNewQuestion}
           productName={this.state.productName}
+          productId={this.props.productId}
         />
         <SuccessModal
           onClose={() => this.openSuccessModal(false)}

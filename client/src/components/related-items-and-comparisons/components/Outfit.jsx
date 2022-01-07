@@ -13,20 +13,19 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid lightgrey;
+  border: 1px solid #dcdcdc;
   display: flex;
-  width: 310px;
-  height: 400px;
+  width: 320px;
+  height: 300px;
   margin: 10px;
+  padding: 0;
   flex-direction: column;
   position: relative;
-  &:hover {
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    bottom-border: 0px;
-    cursor: pointer;
+  cursor: pointer;
 `;
+
 const Uppercard = styled.div`
-  height: 300px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,15 +47,16 @@ const ActionButton = styled.button`
 `;
 
 const Lowercard = styled.div`
-  height: 100px;
+  height: 80px;
   background: lightgrey;
   display: flex;
   flex-direction: column;
-  padding: 5px 5px 0px;
+  justify-content: center;
+  padding-left: 5px;
 `;
 
 const Catergory = styled.div`
-  font-size: 18px;
+  font-size: 14px;
 `;
 
 const Product = styled.div`
@@ -64,7 +64,7 @@ const Product = styled.div`
 `;
 
 const Price = styled.div`
-  font-size: 18px;
+  font-size: 13px;
   bottom-padding: 10px;
 `;
 
@@ -83,7 +83,7 @@ const Image = styled.img`
 `;
 
 const ReviewWrapper = styled.div`
-  padding-top: 10px;
+  padding-top: 0px;
 `;
 
 const Outfit = ({
@@ -93,7 +93,7 @@ const Outfit = ({
   currentStyleId,
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.results[0]
+    cardLoader.photos
   );
   const [outfitProduct, setOutfitProduct] = useState([]);
   const [metadata, setMetadata] = useState({});
@@ -102,9 +102,7 @@ const Outfit = ({
 
   const fetchCurrentProduct = () => {
     axios
-      .get(
-        `/API/products/${outfitProductId}/`
-      )
+      .get(`/API/products/${outfitProductId}/`)
       .then((currentItemInfo) => {
         setOutfitProduct(currentItemInfo.data);
       })
@@ -115,11 +113,9 @@ const Outfit = ({
 
   const fetchOutfitProductStyles = () => {
     axios
-      .get(
-        `/API/products/${outfitProductId}/styles`
-      )
+      .get(`/API/products/${outfitProductId}/styles`)
       .then((outfitStyles) => {
-        setDefaultProductStyle(outfitStyles.data.results[0]);
+        setDefaultProductStyle(outfitStyles.data.results[0].photos);
       })
       .catch((err) => {
         console.log(err);
@@ -128,9 +124,7 @@ const Outfit = ({
 
   const fetchMetadata = () => {
     axios
-      .get(
-        `/API/reviews/meta?product_id=${outfitProductId}`
-      )
+      .get(`/API/reviews/meta?product_id=${outfitProductId}`)
       .then((metadataInfo) => {
         setMetadata(utils.parseReviewsMeta(metadataInfo.data));
       })
@@ -158,10 +152,10 @@ const Outfit = ({
               <FaRegTimesCircle size={45} />
             </ActionButton>
             <ImgWrapper>
-              {defaultProductStyle.photos[0].thumbnail_url === null ? (
+              {defaultProductStyle[0].thumbnail_url === null ? (
                 <Image src="./img/imageNotAvailable.png" />
               ) : (
-                <Image src={defaultProductStyle.photos[0].thumbnail_url} />
+                <Image src={defaultProductStyle[0].thumbnail_url} />
               )}
             </ImgWrapper>
           </Uppercard>

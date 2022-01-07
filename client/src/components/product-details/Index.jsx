@@ -31,9 +31,9 @@ class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stylesData: [null],
-      productData: {data: null},
-      selectedStyle: {data: null},
+      stylesData: stylesData.results,
+      productData: productData,
+      selectedStyle: stylesData.results[0],
       highlightStyle: '0',
     }
     this.StyleSelectorHandler = this.StyleSelectorHandler.bind(this);
@@ -44,9 +44,22 @@ class ProductDetail extends React.Component {
     })
     this.setState({selectedStyle: matchedStyle, highlightStyle: targetKey});
   }
-  componentDidMount () {
-    this.setState({selectedStyle: stylesData.results[0], stylesData: stylesData.results, productData: productData});
+  componentDidUpdate (prevProps) {
+    const isStylesData = this.props.stylesData !== undefined;
+    const isProductData = this.props.productData !== undefined && this.props.productData !== null;
+    if (prevProps !== this.props && isProductData && isStylesData && this.props.stylesData.length !== 0) {
+      const {stylesData, productData, reviewsMeta} = this.props;
+      const defaultStyle = stylesData.find((styleObject) => styleObject["default?"] );
+      this.setState({
+        selectedStyle: defaultStyle || stylesData[0],
+        stylesData,
+        productData,
+        highlightStyle: defaultStyle ? defaultStyle.style_id : stylesData[0],
+        reviewsMeta,
+      });
+    }
   }
+
   render() {
     const starProp = <Stars reviewsMeta={this.props.reviewsMeta}/>;
     const isRendered = this.state.stylesData[0];

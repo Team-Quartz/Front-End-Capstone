@@ -6,6 +6,7 @@ import CompareModal from "./CompareModal";
 import { FaRegStar } from "react-icons/fa";
 import { Stars } from "../../sharedComponents.jsx";
 import utils from "../../../Utils.js";
+import PopupRelated from "./PopupRelated";
 
 const Container = styled.div`
   display: flex;
@@ -14,21 +15,19 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 0.5px solid lightgrey;
+  border: 1px solid #DCDCDC;
   display: flex;
-  width: 310px;
-  height: 400px;
+  width: 320px;
+  height: 300px;
   margin: 10px;
+  padding: 0;
   flex-direction: column;
   position: relative;
-  &:hover {
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    bottom-border: 0px;
-    cursor: pointer;
+  cursor: pointer;
 `;
 
 const Uppercard = styled.div`
-  height: 300px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,11 +58,12 @@ const ActionButton = styled.button`
 `;
 
 const Lowercard = styled.div`
-  flex: 100px;
+  height: 80px;
   background: lightgrey;
   display: flex;
   flex-direction: column;
-  padding: 5px 5px 0px;
+  justify-content: center;
+  padding-left: 5px;
 `;
 
 const Catergory = styled.div`
@@ -94,7 +94,7 @@ const Image = styled.img`
 `;
 
 const ReviewWrapper = styled.div`
-  padding-top: 10px;
+  padding-top: 1px;
 `;
 
 const RelatedItem = ({
@@ -102,16 +102,19 @@ const RelatedItem = ({
   currentProductId,
   relatedItemId,
   currentProduct,
+  setSlideIndex
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.results[0]
+    cardLoader.photos
   );
   const [defaultProduct, setDefaultProduct] = useState(
     currentProductId || 38328
   );
   const [defaultProductFeatures] = useState([]);
   const [compareToProductFeatures] = useState([]);
+  const [previewImage, setPreviewImage] = useState(cardLoader.photos)
 
+  const [hovered, setHovered] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
   const [combinedFeatures, setCombinedFeatures] = useState({});
   const [metadata, setMetadata] = useState({});
@@ -136,7 +139,8 @@ const RelatedItem = ({
         `/API/products/${relatedItemId}/styles`
       )
       .then((relatedItemStyles) => {
-        setDefaultProductStyle(relatedItemStyles.data.results[0]);
+        setDefaultProductStyle(relatedItemStyles.data.results[0].photos);
+        setPreviewImage(relatedItemStyles.data.results[0].photos[0].thumbnail_url)
       })
       .catch((err) => {
         console.log(err);
@@ -161,10 +165,6 @@ const RelatedItem = ({
     fetchRelatedProductStyles();
     fetchMetadata();
   }, []);
-
-  const changeCurrentItem = (itemId) => {
-    changeCurrentProduct(itemId);
-  };
 
   const onModalClick = () => {
     setShowCompare((prev) => !prev);
@@ -215,6 +215,18 @@ const RelatedItem = ({
     setCombinedFeatures(comparisonObject);
   };
 
+  const handleHover = () => {
+    setHovered(true);
+  }
+
+  const handleHoverOut = () => {
+    setHovered(false);
+  }
+
+  const changePreviewItem = (index) => {
+    setPreviewImage(defaultProductStyle[index].thumbnail_url)
+  }
+
   return (
     <>
       <Container>
@@ -225,11 +237,23 @@ const RelatedItem = ({
                 <FaRegStar size={40} />
               </ActionButton>
             </ButtonWrapper>
-            <ImgWrapper onClick={() => changeCurrentItem(defaultProduct.id)}>
-              {defaultProductStyle.photos[0].thumbnail_url === null ? (
+            <ImgWrapper
+              onMouseEnter={handleHover}
+              onMouseLeave={handleHoverOut}
+              >
+              {hovered ? (
+                <PopupRelated
+                  productStyles={defaultProductStyle}
+                  changeCurrentProduct={changeCurrentProduct}
+                  defaultProduct={defaultProduct}
+                  changePreviewItem={changePreviewItem}
+                  previewImage={previewImage}
+                />
+              ): null}
+              {defaultProductStyle[0].thumbnail_url === null ? (
                 <Image src="./img/imageNotAvailable.png" />
               ) : (
-                <Image src={defaultProductStyle.photos[0].thumbnail_url} />
+                <Image src={previewImage} />
               )}
             </ImgWrapper>
           </Uppercard>
