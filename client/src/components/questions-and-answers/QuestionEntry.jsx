@@ -80,7 +80,7 @@ class QuestionEntry extends React.Component {
           show={this.state.writeNewAnswer}
           success={this.props.success}
           productName={this.props.productName}
-          BodyText={this.props.question.question_body}
+          questionBody={this.props.question.question_body}
           questionId={this.props.question.question_id}
         />
         {/* TODO: optimize using Object.entries */}

@@ -28,10 +28,6 @@ export const ButtonStyled = styled.button`
   ${styleInteractable}
 `;
 
-export const CommonThumbnail = styled.img`
-  ${styleInteractable}
-`;
-
 export const SelectStyled = styled.select`
   ${styleInteractable}
 `;
@@ -131,6 +127,16 @@ export const Clickable = styled.span`
       transform: translateY(-1px);
     }
   `}
+`;
+
+export const ImageThumbnail = styled.img`
+  ${styleInteractable}
+  width: auto;
+  height: 3.5rem;
+  max-width: 6rem;
+  &:hover {
+    transform: scale(110%);
+  }
 `;
 
 const StarBounds = styled.div`
