@@ -53,12 +53,12 @@ class AnswerEntry extends React.Component {
 
   updateAnswerHelpfulCount() {
     this.setState({ isHelpful: 1 });
-    utils.markAnswerHelpful(this.props.answer.answer_id)
+    utils.markAnswerHelpful(this.props.answer.id)
   }
 
   reportAnswer() {
     this.setState({ isReported: true })
-    utils.reportAnswer(this.props.answer.answer_id)
+    utils.reportAnswer(this.props.answer.id)
   }
 
   render() {
