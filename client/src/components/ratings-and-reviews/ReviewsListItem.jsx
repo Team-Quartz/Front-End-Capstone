@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stars, Modal, ButtonStyled } from '../sharedComponents.jsx';
+import { Stars, Modal, ButtonStyled, BodyText, ResponseText, Clickable } from '../sharedComponents.jsx';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { FlexRow } from '../sharedComponents.jsx';
@@ -7,14 +7,14 @@ import utils from '../../Utils.js';
 import { ScrollIntoView } from './Index.jsx';
 import { PhotoGallery } from './PhotoGallery.jsx';
 
-const TextButton = styled.button`
-  border: none;
-  text-decoration: underline;
-  background: none;
-  font-size: 1em;
-  padding: 0;
-  margin: 0;
-`;
+// const TextButton = styled.button`
+//   border: none;
+//   text-decoration: underline;
+//   background: none;
+//   font-size: 1em;
+//   padding: 0;
+//   margin: 0;
+// `;
 
 const ResponseBox = styled.div`
   background: #ddd;
@@ -25,8 +25,8 @@ function Response({ response }) {
   if (response) {
     return (
       <ResponseBox>
-        Response:
-        <div>{response}</div>
+        <BodyText>Response:</BodyText>
+        <ResponseText>{response}</ResponseText>
       </ResponseBox>
     );
   }
@@ -52,10 +52,10 @@ function ReviewBody(props) {
     }
   }
   return (
-    <div style={{ maxWidth: '600px' }}>
+    <BodyText style={{ maxWidth: '600px' }}>
       {body}
-      <TextButton onClick={() => setExpanded(!expanded)}>{buttonText}</TextButton>
-    </div>
+      <Clickable onClick={() => setExpanded(!expanded)}>{buttonText}</Clickable>
+    </BodyText>
   );
 }
 
@@ -108,10 +108,12 @@ class ReviewsListItem extends React.Component {
         {review.recommend ? '✓ I recommend this product' : undefined}
         <Response response={review.response} />
         <FlexRow>
-          Helpful?&nbsp;
-          <TextButton disabled={this.state.helpful} onClick={this.markHelpful}>
-            Yes
-          </TextButton>
+          <BodyText>
+            Helpful?&nbsp;
+            <Clickable disabled={this.state.helpful} onClick={this.markHelpful}>
+              Yes
+            </Clickable>
+          </BodyText>
           &nbsp;({review.helpfulness + this.state.helpful})&nbsp;|&nbsp;
           {/* TODO: confirm report popup */}
           <Modal show={this.state.reportConfirmation} onClose={() => this.openReportModal(true)}>
@@ -119,12 +121,12 @@ class ReviewsListItem extends React.Component {
             <ButtonStyled onClick={this.reportReview.bind(this)}>Yes</ButtonStyled> &nbsp;{' '}
             <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
           </Modal>
-          <TextButton
+          <Clickable
             disabled={this.state.reported}
             onClick={() => this.setState({ reportConfirmation: true })}
           >
             {this.state.reported ? 'Reported' : 'Report'}
-          </TextButton>
+          </Clickable>
         </FlexRow>
       </div>
     );

@@ -86,8 +86,9 @@ font-weight: bold;
 color: 424242;
 `
 
-
 export const BodyText = styled.div(styleBody);
+
+export const BodyLabel = styled.label`${styleBody}`;
 
 export const Feedback = styled.span`
   font-size: 12px;

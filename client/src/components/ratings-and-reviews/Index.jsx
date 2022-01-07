@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars, FlexRow, ButtonStyled, SelectStyled , BodyText, Title} from '../sharedComponents.jsx';
+import { Stars, FlexRow, ButtonStyled, SelectStyled , BodyText, Title, BodyLabel} from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
@@ -125,14 +125,14 @@ class RatingsAndReviews extends React.Component {
                 <Stars reviewsMeta={this.props.reviewsMeta} />
               </FlexRow>
               {noReviews ? null : (
-                <div>
+                <BodyText>
                   {Math.round(
                     (this.props.reviewsMeta.recommended.true /
                       this.props.reviewsMeta.totalRatings) *
                       100
                   )}
                   % of reviews recommend this product
-                </div>
+                </BodyText>
               )}
               <div>
                 {[1, 2, 3, 4, 5].map((rating) =>
@@ -165,8 +165,7 @@ class RatingsAndReviews extends React.Component {
             </div>
             <div style={{ flex: 2 }}>
               <div>
-                {this.props.reviewsMeta.totalRatings}{' '}
-                <label htmlFor='sortReviews'>reviews, sorted by </label>
+                <BodyLabel htmlFor='sortReviews'>{this.props.reviewsMeta.totalRatings} reviews, sorted by </BodyLabel>
                 <SelectStyled
                   id='sortReviews'
                   name='sort reviews'
