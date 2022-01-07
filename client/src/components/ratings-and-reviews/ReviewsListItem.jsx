@@ -113,7 +113,7 @@ class ReviewsListItem extends React.Component {
           <FlexRow>
             <b>
               Helpful?&nbsp;
-              <Clickable disabled={this.state.helpful} onClick={this.markHelpful}>
+              <Clickable disabled={!!this.state.helpful} onClick={this.markHelpful}>
                 Yes
               </Clickable>
             </b>
@@ -125,7 +125,7 @@ class ReviewsListItem extends React.Component {
               <ButtonStyled onClick={() => this.openReportModal(false)}>Cancel</ButtonStyled>
             </Modal>
             <Clickable
-              disabled={this.state.reported}
+              disabled={!!this.state.reported}
               onClick={() => this.setState({ reportConfirmation: true })}
             >
               {this.state.reported ? 'Reported' : 'Report'}

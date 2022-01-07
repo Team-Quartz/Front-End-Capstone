@@ -128,13 +128,16 @@ export const InputField = styled.div`
 export const Clickable = styled.span`
   font-weight: bold;
   text-decoration: underline;
-  cursor: pointer;
-  &:hover{
-    transform: translateY(-1px);
-  }
-  &:active{
-    transform: translateY(2px);
-  }
+  ${({disabled}) => disabled? '' : `
+    cursor: pointer;
+    &:hover:not(:disabled) {
+      color: red;
+      transform: translateY(-1px);
+    }
+    &:active {
+      transform: translateY(2px);
+    }
+  `}
 `;
 
 const StarBounds = styled.div`
