@@ -33,6 +33,10 @@ export const CommonThumbnail = styled.img`
   ${styleInteractable}
 `;
 
+export const SelectStyled = styled.select`
+${styleInteractable}
+`;
+
 export const AppContainer = styled.div`
   max-width: 1200px;
   margin: auto;

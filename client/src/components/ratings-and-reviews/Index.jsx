@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductBreakdown from './ProductBreakdown.jsx';
 import RatingBreakdown from './RatingBreakdown.jsx';
-import { Stars, FlexRow, ButtonStyled } from '../sharedComponents.jsx';
+import { Stars, FlexRow, ButtonStyled, SelectStyled } from '../sharedComponents.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import styled from 'styled-components';
 import WriteNewReview from './WriteNewReview.jsx';
@@ -165,7 +165,7 @@ class RatingsAndReviews extends React.Component {
               <div>
                 {this.props.reviewsMeta.totalRatings}{' '}
                 <label htmlFor='sortReviews'>reviews, sorted by </label>
-                <select
+                <SelectStyled
                   id='sortReviews'
                   name='sort reviews'
                   value={this.state.reviewSorting}
@@ -174,7 +174,7 @@ class RatingsAndReviews extends React.Component {
                   <option value={'relevant'}>relevance</option>
                   <option value={'newest'}>date</option>
                   <option value={'helpful'}>helpfulness</option>
-                </select>
+                </SelectStyled>
               </div>
               <ReviewsList
                 reviews={this.state.reviews}
