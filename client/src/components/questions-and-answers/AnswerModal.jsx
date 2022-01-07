@@ -5,9 +5,9 @@ import ErrorModal from './ErrorModal.jsx';
 import axios from '../../haxios';
 import utils from '../../Utils.js';
 
-const PlaceholderImage = styled.img`
-  width: 60px;
-  height: 60px;
+const PlaceholderImage = styled(ImageThumbnail)`
+  height: 3rem;
+  max-width: 6rem;
   border: 1px solid LightGrey;
 `;
 

@@ -73,9 +73,9 @@ export const Clickable = styled.span`
 `;
 
 export const ImageThumbnail = styled.img`
-  width: 5em;
-  height: auto;
-  max-height: 10em;
+  width: auto;
+  height: 5rem;
+  max-width: 10rem;
   &:hover {
     transform: scale(110%);
   }

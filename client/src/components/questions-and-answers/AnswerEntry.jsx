@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FlexRow, ResponseText, Details, Clickable, Modal } from '../sharedComponents.jsx';
+import { FlexRow, ImageThumbnail, ResponseText, Details, Clickable, Modal } from '../sharedComponents.jsx';
 import dayjs from 'dayjs';
 import AnswerModal from './AnswerModal.jsx';
 import PopupImage from './PopupImage.jsx';
@@ -15,9 +15,7 @@ const AnswerStart = styled.div`
   color: 424242;
 `;
 
-const AnswerImage = styled.img`
-  width: 60px;
-  height: 60px;
+const AnswerImage = styled(ImageThumbnail)`
   margin-left: 20px;
   border: 1px solid LightGrey;
 `;
