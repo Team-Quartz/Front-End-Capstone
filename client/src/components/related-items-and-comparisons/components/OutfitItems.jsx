@@ -112,16 +112,16 @@ const OutfitItems = ({
 
   // LOCAL STORAGE
 
-  // useEffect(() => {
-  //   const data = localStorage.getItem("my-outfit");
-  //   if (data) {
-  //     setOutfits(JSON.parse(data))
-  //   }
-  // }, [])
+  useEffect(() => {
+    const data = localStorage.getItem("my-outfit");
+    if (data) {
+      setOutfits(JSON.parse(data))
+    }
+  }, [])
 
-  // useEffect(() => {
-  //   localStorage.setItem("my-outfit", JSON.stringify(outfits))
-  // })
+  useEffect(() => {
+    localStorage.setItem("my-outfit", JSON.stringify(outfits))
+  })
 
   return (
     <Container>
