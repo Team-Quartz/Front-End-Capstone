@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import styled from "styled-components";
 import cardLoader from "../card-loader/cardLoader";
@@ -108,7 +108,7 @@ const PopupRelated = ({ productStyles, changeCurrentProduct, defaultProduct, cha
 
   const changeCurrentItem = (itemId) => {
     changeCurrentProduct(itemId);
-    setSlideIndex(0);
+    window.scrollTo({ top: 0, behavior: 'smooth'})
   };
 
   const changePreviewImage = (index) => {
