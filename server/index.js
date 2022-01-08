@@ -31,5 +31,5 @@ app.use('/API', (req, res) => {
 app.use(express.static('client/dist'));
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port}: \n Visit localhost:${port} to view the app!`);
 });

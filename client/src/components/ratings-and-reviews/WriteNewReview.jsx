@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Stars, Modal, FlexRow, TextButton, BodyText, ResponseText, BodyLabel } from '../sharedComponents.jsx';
+import {
+  Stars,
+  Modal,
+  FlexRow,
+  TextButton,
+  BodyText,
+  ResponseText,
+  BodyLabel,
+} from '../sharedComponents.jsx';
 import characteristicsMap from './characteristicsMap';
 import utils from '../../Utils.js';
 import { PhotoGallery, ConstrainedImg } from './PhotoGallery';
@@ -26,7 +34,7 @@ function printReviewScore(rating) {
 
 function Input({ label, placeholder, value, id, context, max = 60, type = 'text' }) {
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: 'relative' }}>
       <input
         style={{ width: '50%' }}
         id={id}
@@ -34,7 +42,6 @@ function Input({ label, placeholder, value, id, context, max = 60, type = 'text'
         value={value}
         onChange={(e) => context.handleTextChange(e, id, max)}
         placeholder={placeholder}
-        //TODO: on lose focus, check if valid contents
       />
     </div>
   );
@@ -218,7 +225,7 @@ export default class WriteNewReview extends React.Component {
       ['Add your nickname', this.state.nickname === ''],
       ['Add your email', this.state.email === ''],
       ['the email address provided is not in the correct email format', this.checkEmailFormat()],
-      ['the images selected are invalid or unable to be uploaded', false], //TODO: check images
+      ['the images selected are invalid or unable to be uploaded', false],
     ].filter((entry) => entry[1]);
     this.setState({ errors });
     return errors;
@@ -285,7 +292,7 @@ export default class WriteNewReview extends React.Component {
             <BodyLabel htmlFor={'body'}>
               <h4>Review Body*</h4>
             </BodyLabel>
-            <div style={{position: 'relative'}}>
+            <div style={{ position: 'relative' }}>
               <textarea
                 style={{
                   width: '90%',

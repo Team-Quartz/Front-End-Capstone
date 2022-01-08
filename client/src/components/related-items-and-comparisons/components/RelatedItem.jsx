@@ -105,7 +105,7 @@ const RelatedItem = ({
   setSlideIndex,
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.photos[0].thumbnail_url
+    [cardLoader.photos[0].thumbnail_url]
   );
   const [defaultProduct, setDefaultProduct] = useState(currentProductId || 38328);
   const [defaultProductFeatures] = useState([]);
