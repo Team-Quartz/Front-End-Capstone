@@ -13,7 +13,6 @@ import Header from './components/header/Index.jsx';
 import utils from './Utils.js';
 import { reviewsMeta } from './placeholderData.js';
 
-
 class App extends react.Component {
   constructor(props) {
     super(props);
@@ -46,15 +45,15 @@ class App extends react.Component {
     utils
       .fetchStyles(productId)
       .then(({ data: { results } }) => {
-        this.setState({ currentStylesArray: results , selectedStyle: results[0]});
+        this.setState({ currentStylesArray: results, selectedStyle: results[0] });
       })
       .catch((err) => console.error(err));
   }
-  StyleSelectorHandler (targetKey) {
+  StyleSelectorHandler(targetKey) {
     const matchedStyle = this.state.currentStylesArray.find((styleObject) => {
-      return styleObject.style_id + '' === targetKey
-    })
-    this.setState({selectedStyle: matchedStyle});
+      return styleObject.style_id + '' === targetKey;
+    });
+    this.setState({ selectedStyle: matchedStyle });
   }
 
   render() {

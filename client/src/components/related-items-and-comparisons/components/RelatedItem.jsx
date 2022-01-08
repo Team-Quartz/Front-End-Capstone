@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import axios from "../../../haxios";
-import cardLoader from "../card-loader/cardLoader";
-import CompareModal from "./CompareModal";
-import { FaRegStar } from "react-icons/fa";
-import { Stars } from "../../sharedComponents.jsx";
-import utils from "../../../Utils.js";
-import PopupRelated from "./PopupRelated";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import axios from '../../../haxios';
+import cardLoader from '../card-loader/cardLoader';
+import CompareModal from './CompareModal';
+import { FaRegStar } from 'react-icons/fa';
+import { Stars } from '../../sharedComponents.jsx';
+import utils from '../../../Utils.js';
+import PopupRelated from './PopupRelated';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const Card = styled.div`
-  border: 1px solid #DCDCDC;
+  border: 1px solid #dcdcdc;
   display: flex;
   width: 320px;
   height: 300px;
@@ -102,17 +102,15 @@ const RelatedItem = ({
   currentProductId,
   relatedItemId,
   currentProduct,
-  setSlideIndex
+  setSlideIndex,
 }) => {
   const [defaultProductStyle, setDefaultProductStyle] = useState(
     cardLoader.photos[0].thumbnail_url
   );
-  const [defaultProduct, setDefaultProduct] = useState(
-    currentProductId || 38328
-  );
+  const [defaultProduct, setDefaultProduct] = useState(currentProductId || 38328);
   const [defaultProductFeatures] = useState([]);
   const [compareToProductFeatures] = useState([]);
-  const [previewImage, setPreviewImage] = useState(cardLoader.photos[0].thumbnail_url)
+  const [previewImage, setPreviewImage] = useState(cardLoader.photos[0].thumbnail_url);
 
   const [hovered, setHovered] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
@@ -122,9 +120,7 @@ const RelatedItem = ({
   // FETCH API
   const fetchRelatedProduct = () => {
     axios
-      .get(
-        `/API/products/${relatedItemId}/`
-      )
+      .get(`/API/products/${relatedItemId}/`)
       .then((relatedItemInfo) => {
         setDefaultProduct(relatedItemInfo.data);
       })
@@ -135,12 +131,10 @@ const RelatedItem = ({
 
   const fetchRelatedProductStyles = () => {
     axios
-      .get(
-        `/API/products/${relatedItemId}/styles`
-      )
+      .get(`/API/products/${relatedItemId}/styles`)
       .then((relatedItemStyles) => {
         setDefaultProductStyle(relatedItemStyles.data.results[0].photos);
-        setPreviewImage(relatedItemStyles.data.results[0].photos[0].thumbnail_url)
+        setPreviewImage(relatedItemStyles.data.results[0].photos[0].thumbnail_url);
       })
       .catch((err) => {
         console.log(err);
@@ -149,9 +143,7 @@ const RelatedItem = ({
 
   const fetchMetadata = () => {
     axios
-      .get(
-        `/API/reviews/meta?product_id=${relatedItemId}`
-      )
+      .get(`/API/reviews/meta?product_id=${relatedItemId}`)
       .then((metadataInfo) => {
         setMetadata(utils.parseReviewsMeta(metadataInfo.data));
       })
@@ -177,7 +169,7 @@ const RelatedItem = ({
     currentProduct.forEach((product) => {
       if (!combinedFeaturesObj[product.feature]) {
         if (product.value === null) {
-          combinedFeaturesObj[product.feature] = ["✓"];
+          combinedFeaturesObj[product.feature] = ['✓'];
         } else {
           combinedFeaturesObj[product.feature] = [product.value];
         }
@@ -187,12 +179,12 @@ const RelatedItem = ({
     defaultProduct.forEach((product) => {
       if (!combinedFeaturesObj[product.feature]) {
         if (product.value === null) {
-          combinedFeaturesObj[product.feature] = [undefined, "✓"];
+          combinedFeaturesObj[product.feature] = [undefined, '✓'];
         } else {
           combinedFeaturesObj[product.feature] = [undefined, product.value];
         }
       } else if (product.value === null) {
-        combinedFeaturesObj[product.feature][1] = ["✓"];
+        combinedFeaturesObj[product.feature][1] = ['✓'];
       } else {
         combinedFeaturesObj[product.feature][1] = [product.value];
       }
@@ -217,15 +209,15 @@ const RelatedItem = ({
 
   const handleHover = () => {
     setHovered(true);
-  }
+  };
 
   const handleHoverOut = () => {
     setHovered(false);
-  }
+  };
 
   const changePreviewItem = (index) => {
-    setPreviewImage(defaultProductStyle[index].thumbnail_url)
-  }
+    setPreviewImage(defaultProductStyle[index].thumbnail_url);
+  };
 
   return (
     <>
@@ -237,10 +229,7 @@ const RelatedItem = ({
                 <FaRegStar size={40} />
               </ActionButton>
             </ButtonWrapper>
-            <ImgWrapper
-              onMouseEnter={handleHover}
-              onMouseLeave={handleHoverOut}
-              >
+            <ImgWrapper onMouseEnter={handleHover} onMouseLeave={handleHoverOut}>
               {hovered ? (
                 <PopupRelated
                   productStyles={defaultProductStyle}
@@ -249,9 +238,9 @@ const RelatedItem = ({
                   changePreviewItem={changePreviewItem}
                   previewImage={previewImage}
                 />
-              ): null}
+              ) : null}
               {defaultProductStyle[0].thumbnail_url === null ? (
-                <Image src="./img/imageNotAvailable.png" />
+                <Image src='./img/imageNotAvailable.png' />
               ) : (
                 <Image src={previewImage} />
               )}

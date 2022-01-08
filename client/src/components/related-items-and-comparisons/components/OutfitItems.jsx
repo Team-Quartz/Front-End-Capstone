@@ -1,8 +1,8 @@
-import React from "react";
-import Outfit from "./Outfit";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import React from 'react';
+import Outfit from './Outfit';
+import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const Container = styled.div`
   display: flex;
@@ -20,8 +20,8 @@ const ArrowWrapper = styled.div`
   justify-content: center;
   z-index: 2;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "17px"};
-  right: ${(props) => props.direction === "right" && "7.5px"};
+  left: ${(props) => props.direction === 'left' && '17px'};
+  right: ${(props) => props.direction === 'right' && '7.5px'};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -71,26 +71,21 @@ const InnerWrapper = styled.div`
 const Arrow = styled.div`
   width: 100%;
   height: 100%;
-  display: ${(props) => (props.position === "none" ? "none" : "flex")};
+  display: ${(props) => (props.position === 'none' ? 'none' : 'flex')};
   align-items: center;
   justify-content: center;
   background-color: rgba(218, 223, 225, 0.8);
   border-radius: 50%;
 `;
 
-const OutfitItems = ({
-  currentItem,
-  defaultStyle,
-  currentProductId,
-  currentStyleId,
-}) => {
+const OutfitItems = ({ currentItem, defaultStyle, currentProductId, currentStyleId }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [outfits, setOutfits] = useState([]);
 
   const index = outfits.length - 2;
 
   const handleClick = (direction) => {
-    if (direction === "left") {
+    if (direction === 'left') {
       setSlideIndex(slideIndex - 1);
     } else {
       setSlideIndex(slideIndex + 1);
@@ -102,7 +97,7 @@ const OutfitItems = ({
       const newOutfit = [...outfits, currentProductId];
       setOutfits(newOutfit);
     } else {
-      alert("Item already exists in your outfits");
+      alert('Item already exists in your outfits');
     }
   };
 
@@ -112,21 +107,21 @@ const OutfitItems = ({
 
   // LOCAL STORAGE
 
-  // useEffect(() => {
-  //   const data = localStorage.getItem("my-outfit");
-  //   if (data) {
-  //     setOutfits(JSON.parse(data))
-  //   }
-  // }, [])
+  useEffect(() => {
+    const data = localStorage.getItem("my-outfit");
+    if (data) {
+      setOutfits(JSON.parse(data))
+    }
+  }, [])
 
-  // useEffect(() => {
-  //   localStorage.setItem("my-outfit", JSON.stringify(outfits))
-  // })
+  useEffect(() => {
+    localStorage.setItem("my-outfit", JSON.stringify(outfits))
+  })
 
   return (
     <Container>
       {slideIndex <= 0 ? null : (
-        <ArrowWrapper direction="left" onClick={() => handleClick("left")}>
+        <ArrowWrapper direction='left' onClick={() => handleClick('left')}>
           <Arrow>
             <FaAngleLeft size={30} />
           </Arrow>
@@ -155,8 +150,8 @@ const OutfitItems = ({
         ) : null}
       </Wrapper>
       {slideIndex >= index ? null : (
-        <ArrowWrapper direction="right" onClick={() => handleClick("right")}>
-          <Arrow position={slideIndex >= index ? "none" : ""}>
+        <ArrowWrapper direction='right' onClick={() => handleClick('right')}>
+          <Arrow position={slideIndex >= index ? 'none' : ''}>
             <FaAngleRight size={30} />
           </Arrow>
         </ArrowWrapper>

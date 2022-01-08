@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Container = styled.div`
   width: 400px;
@@ -140,16 +140,12 @@ const CompareModal = ({
               </LeftColumn>
               <MidColumn>
                 {feature.map((value, index) => {
-                  return (
-                    <InnerMiddleColumn key={index}>{value}</InnerMiddleColumn>
-                  );
+                  return <InnerMiddleColumn key={index}>{value}</InnerMiddleColumn>;
                 })}
               </MidColumn>
               <RightColumn>
                 {comparisonProduct.map((value, index) => {
-                  return (
-                    <InnerRightColumn key={index}>{value}</InnerRightColumn>
-                  );
+                  return <InnerRightColumn key={index}>{value}</InnerRightColumn>;
                 })}
               </RightColumn>
             </Body>
