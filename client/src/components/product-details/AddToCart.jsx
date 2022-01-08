@@ -1,7 +1,7 @@
 import MakeSizesEntry from './MakeSizesEntry.jsx';
 import MakeQuantityEntry from './MakeQuantityEntry.jsx';
 import React from 'react';
-import {TextButton, SelectStyled} from '../sharedComponents.jsx'
+import { TextButton, SelectStyled } from '../sharedComponents.jsx';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -54,29 +54,47 @@ class AddToCart extends React.Component {
     }
 
     return (
-      <form className="style-selctor" onSubmit={(e) => {
-        e.preventDefault();
-      }}
-        id='shopping-cart'>
-        <label htmlFor="size-selector">{'Size: '}</label>
-        {
-          sizeList.length > 0 ?
-        <SelectStyled name="size"  onChange={(e) => this.handleSkuSelection(e.target.value)} id='size-selector'>
-          <option value="default" key="0">{"--Select size---"}</option>
-          {sizeList}
-        </SelectStyled>
-          :
-          <SelectStyled name="size" id='size-selector' disabled={true}>
-            <option value="default" key="0">{"OUT OF STOCK"}</option>
+      <form
+        className='style-selctor'
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        id='shopping-cart'
+      >
+        <label htmlFor='size-selector'>{'Size: '}</label>
+        {sizeList.length > 0 ? (
+          <SelectStyled
+            name='size'
+            onChange={(e) => this.handleSkuSelection(e.target.value)}
+            id='size-selector'
+          >
+            <option value='default' key='0'>
+              {'--Select size---'}
+            </option>
+            {sizeList}
           </SelectStyled>
-        }
-        <label htmlFor="quantity-selector">{'Quantity: '}</label>
-        <SelectStyled name="quantity"  onChange={(e) => this.handleQuantitySelection(e.target.value)} id='quantity-selector'>
-          <option value="default" key="0">{"-"}</option>
+        ) : (
+          <SelectStyled name='size' id='size-selector' disabled={true}>
+            <option value='default' key='0'>
+              {'OUT OF STOCK'}
+            </option>
+          </SelectStyled>
+        )}
+        <label htmlFor='quantity-selector'>{'Quantity: '}</label>
+        <SelectStyled
+          name='quantity'
+          onChange={(e) => this.handleQuantitySelection(e.target.value)}
+          id='quantity-selector'
+        >
+          <option value='default' key='0'>
+            {'-'}
+          </option>
           {quantityList}
         </SelectStyled>
 
-        <TextButton id="add-to-cart" type='submit' form='shopping-cart'>Add To Cart</TextButton>
+        <TextButton id='add-to-cart' type='submit' form='shopping-cart'>
+          Add To Cart
+        </TextButton>
       </form>
     );
   }

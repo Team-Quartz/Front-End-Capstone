@@ -1,33 +1,17 @@
 import styled from 'styled-components';
-import {AppStyle, BodyText, Feedback, ResponseText} from '../sharedComponents.jsx'
-
-<<<<<<< HEAD
-const ProductInfoDiv = styled.div`
-  flex-direction: column;
-`;
-
-const Descriptors = styled.div``;
-const CategoryStyle = styled(Descriptors)`
-  font-size: 2em;
-`;
-const OriginalPriceStyled = styled(Descriptors)`
-  text-decoration-line: line-through;
-`;
-=======
+import { AppStyle, BodyText, Feedback, ResponseText } from '../sharedComponents.jsx';
 
 const ProductInfoDiv = styled(AppStyle)`
   flex-direction: column;
 `;
 
-const Descriptors = styled(ResponseText)`
-`
+const Descriptors = styled(ResponseText)``;
 const CategoryStyle = styled(BodyText)`
   font-size: 2em;
 `;
 const OriginalPriceStyled = styled(Feedback)`
-text-decoration-line: line-through;
-`
->>>>>>> main
+  text-decoration-line: line-through;
+`;
 const DiscountedPriceStyled = styled(Descriptors)`
   color: red;
 `;

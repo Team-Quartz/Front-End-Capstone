@@ -2,59 +2,34 @@ import styled from 'styled-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GalleryModal from './GalleryModal.jsx';
-import {TextButton, AppStyle, Modal} from '../sharedComponents.jsx'
+import { TextButton, AppStyle, Modal } from '../sharedComponents.jsx';
 
 const StyledImage = styled.img`
-<<<<<<< HEAD
-  height: 300;
-  width: 300;
+  vertical-align: middle;
+  width: auto;
+  height: 50vh;
 `;
-const StyledButton = styled.button`
+const StyledButton = styled(TextButton)`
   font-size: 1.5em;
 `;
 const StyledNext = styled(StyledButton)``;
-const StyledContainer = styled.div``;
+const StyledContainer = styled(AppStyle)`
+  margin: auto;
+  width: fit-content;
+`;
 
 const StyledZoomedImage = styled(StyledImage)`
-  height: 750;
-  width: 750;
-  position: absolute;
-  top: 25%;
-  left: 25%;
+  height: 75vh;
+  width: auto;
+  max-width: 70vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-=======
-vertical-align: middle;
-width: auto;
-height: 50vh;
-`
-const StyledButton = styled(TextButton)`
-font-size: 1.5em;
-`
-const StyledNext = styled(StyledButton)`
-
-`
-const StyledContainer = styled(AppStyle)`
-  margin: auto;
-  width: fit-content;
-`
-
-const StyledZoomedImage = styled(StyledImage) `
-height: 75vh;
-width: auto;
-max-width: 70vw;
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-display: flex;
-align-items: center;
-justify-content: center;
-
-`
->>>>>>> main
 
 class ImageGallery extends React.Component {
   constructor(props) {
@@ -108,34 +83,20 @@ class ImageGallery extends React.Component {
   }
   render() {
     const modal = this.state.showModal ? (
-<<<<<<< HEAD
-      <GalleryModal>
-        <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus.url}`} />
-      </GalleryModal>
-    ) : null;
-    return (
-      <div>
-        <StyledButton onClick={this.handlePrevious}>{'<'}</StyledButton>
-        <StyledImage onClick={this.handleShow} src={`${this.state.userFocus.url}`} />
-        {modal}
-        <StyledNext onClick={this.handleNext}>{'>'}</StyledNext>
-      </div>
-=======
       // <GalleryModal>
       //   <StyledZoomedImage onClick={this.handleHide} src={`${this.state.userFocus.url}`}/>
       // </GalleryModal>
       <Modal show={this.state.showModal} onClose={this.handleHide}>
-        <img onClick={this.handleHide} src={`${this.state.userFocus.url}`}/>
+        <img onClick={this.handleHide} src={`${this.state.userFocus.url}`} />
       </Modal>
     ) : null;
     return (
       <StyledContainer>
-        <StyledButton onClick={this.handlePrevious}>{"<"}</StyledButton>
-        <StyledImage onClick={this.handleShow} src={`${this.state.userFocus.url}`}/>
-        <StyledNext onClick={this.handleNext}>{">"}</StyledNext>
+        <StyledButton onClick={this.handlePrevious}>{'<'}</StyledButton>
+        <StyledImage onClick={this.handleShow} src={`${this.state.userFocus.url}`} />
+        <StyledNext onClick={this.handleNext}>{'>'}</StyledNext>
         {modal}
       </StyledContainer>
->>>>>>> main
     );
   }
 }

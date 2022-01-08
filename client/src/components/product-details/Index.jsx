@@ -5,33 +5,10 @@ import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import { Stars } from '../sharedComponents.jsx';
 import styled from 'styled-components';
-import {AppContainer, TextButton, AppStyle} from '../sharedComponents.jsx'
+import { AppContainer, TextButton, AppStyle } from '../sharedComponents.jsx';
 
-const StyledPlaceHolder = styled.img`
-<<<<<<< HEAD
-  width: 400px;
-  height: 400px;
-`;
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-family: 'Arial', 'Helvetica Neue', sans-serif;
-  font-size: 1em;
-`;
-const TextButton = styled.button`
-  border: none;
-  text-decoration: underline;
-  background: none;
-  font-size: 1em;
-  padding: 0;
-  margin: 0;
-=======
-`
-const StyledDiv = styled(AppStyle)`
->>>>>>> main
-`;
-
+const StyledPlaceHolder = styled.img``;
+const StyledDiv = styled(AppStyle)``;
 
 class ProductDetail extends React.Component {
   constructor(props) {
@@ -73,32 +50,25 @@ class ProductDetail extends React.Component {
           <StyledPlaceHolder src='https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp' />
         ) : (
           <div>
-<<<<<<< HEAD
-            <ImageGallery
-              photos={this.props.selectedStyle}
-              highlightStyle={this.state.highlightStyle}
-            />
-            <ProductInformation
-              productData={this.state.productData}
-              starsData={starProp}
-              selectedStyle={this.state.selectedStyle}
-            />
-            <StyleSelector
-              stylesData={this.state.stylesData}
-              handler={this.props.handler}
-              selectedStyle={this.state.selectedStyle}
-            />
-            <AddToCart selectedStyle={this.state.selectedStyle} />
-=======
             <div>
-              <ImageGallery photos={this.props.selectedStyle} highlightStyle={this.state.highlightStyle}/>
-              <StyleSelector stylesData={this.state.stylesData} handler={this.props.handler} selectedStyle={this.state.selectedStyle}/>
+              <ImageGallery
+                photos={this.props.selectedStyle}
+                highlightStyle={this.state.highlightStyle}
+              />
+              <StyleSelector
+                stylesData={this.state.stylesData}
+                handler={this.props.handler}
+                selectedStyle={this.state.selectedStyle}
+              />
             </div>
             <div>
-              <ProductInformation productData={this.state.productData} starsData={starProp} selectedStyle={this.state.selectedStyle}/>
-              <AddToCart selectedStyle={this.state.selectedStyle}/>
+              <ProductInformation
+                productData={this.state.productData}
+                starsData={starProp}
+                selectedStyle={this.state.selectedStyle}
+              />
+              <AddToCart selectedStyle={this.state.selectedStyle} />
             </div>
->>>>>>> main
           </div>
         )}
       </StyledDiv>
