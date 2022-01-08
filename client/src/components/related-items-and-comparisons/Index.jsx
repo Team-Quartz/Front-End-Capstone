@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import axios from "../../haxios";
-import RelatedItems from "./components/RelatedItems.jsx";
-import OutfitItems from "./components/OutfitItems.jsx";
-import cardLoader from "./card-loader/cardLoader";
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import axios from '../../haxios';
+import RelatedItems from './components/RelatedItems.jsx';
+import OutfitItems from './components/OutfitItems.jsx';
+import cardLoader from './card-loader/cardLoader';
 
 const Container = styled.div`
   display: flex;
@@ -48,9 +48,7 @@ const Index = ({ changeCurrentProduct, currentProductId, currentStyleId }) => {
   //API FETCH
   const fetchRelatedProductIds = () => {
     axios
-      .get(
-        `/API/products/${currentProductId}/related`
-      )
+      .get(`/API/products/${currentProductId}/related`)
       .then((relatedIds) => {
         setRelatedItems(relatedIds.data);
       })
@@ -61,9 +59,7 @@ const Index = ({ changeCurrentProduct, currentProductId, currentStyleId }) => {
 
   const fetchCurrentProduct = () => {
     axios
-      .get(
-        `/API/products/${currentProductId}/`
-      )
+      .get(`/API/products/${currentProductId}/`)
       .then((currentProductInfo) => {
         setCurrentProduct(currentProductInfo.data);
       })

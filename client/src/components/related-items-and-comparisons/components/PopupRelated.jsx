@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import styled from "styled-components";
-import cardLoader from "../card-loader/cardLoader";
+import React, { useState } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import styled from 'styled-components';
+import cardLoader from '../card-loader/cardLoader';
 
 const Container = styled.div`
   position: absolute;
@@ -41,7 +41,7 @@ const PreviewWrapper = styled.div`
   padding: 0;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 `;
 
 const SmallerImgWrapper = styled.div`
@@ -67,8 +67,8 @@ const ArrowWrapper = styled.div`
   justify-content: center;
   z-index: 5;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "2px"};
-  right: ${(props) => props.direction === "right" && "2px"};
+  left: ${(props) => props.direction === 'left' && '2px'};
+  right: ${(props) => props.direction === 'right' && '2px'};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -93,13 +93,19 @@ const Arrow = styled.div`
   border-radius: 50%;
 `;
 
-const PopupRelated = ({ productStyles, changeCurrentProduct, defaultProduct, changePreviewItem, previewImage }) => {
+const PopupRelated = ({
+  productStyles,
+  changeCurrentProduct,
+  defaultProduct,
+  changePreviewItem,
+  previewImage
+}) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const index = productStyles.length - 4;
 
   const handleClick = (direction) => {
-    if (direction === "left") {
+    if (direction === 'left') {
       setSlideIndex(slideIndex - 1);
     } else {
       setSlideIndex(slideIndex + 1);
@@ -108,19 +114,19 @@ const PopupRelated = ({ productStyles, changeCurrentProduct, defaultProduct, cha
 
   const changeCurrentItem = (itemId) => {
     changeCurrentProduct(itemId);
-    window.scrollTo({ top: 0, behavior: 'smooth'})
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const changePreviewImage = (index) => {
     changePreviewItem(index);
-  }
+  };
 
   return (
     <Container>
       <NewCard>
         <ImgWrapper onClick={() => changeCurrentItem(defaultProduct.id)}>
           {productStyles[0].thumbnail_url === null ? (
-            <Image src="./img/imageNotAvailable.png" />
+            <Image src='./img/imageNotAvailable.png' />
           ) : (
             <Image src={previewImage} />
           )}
@@ -128,10 +134,7 @@ const PopupRelated = ({ productStyles, changeCurrentProduct, defaultProduct, cha
         {productStyles.length > 1 ? (
           <PreviewWrapper>
             {slideIndex <= 0 ? null : (
-              <ArrowWrapper
-                direction="left"
-                onClick={() => handleClick("left")}
-              >
+              <ArrowWrapper direction='left' onClick={() => handleClick('left')}>
                 <Arrow>
                   <FaAngleLeft size={20} />
                 </Arrow>
@@ -141,16 +144,13 @@ const PopupRelated = ({ productStyles, changeCurrentProduct, defaultProduct, cha
               {productStyles.map((photo, index) => {
                 return (
                   <SmallerImgWrapper key={index}>
-                    <SmallImg src={photo.thumbnail_url} onClick={() => changePreviewImage(index)}/>
+                    <SmallImg src={photo.thumbnail_url} onClick={() => changePreviewImage(index)} />
                   </SmallerImgWrapper>
                 );
               })}
             </Wrapper>
             {slideIndex >= index ? null : (
-              <ArrowWrapper
-                direction="right"
-                onClick={() => handleClick("right")}
-              >
+              <ArrowWrapper direction='right' onClick={() => handleClick('right')}>
                 <Arrow>
                   <FaAngleRight size={20} />
                 </Arrow>

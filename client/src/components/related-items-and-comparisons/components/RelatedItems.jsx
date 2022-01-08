@@ -1,8 +1,8 @@
-import React from "react";
-import RelatedItem from "./RelatedItem.jsx";
-import styled from "styled-components";
-import { useState } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import React from 'react';
+import RelatedItem from './RelatedItem.jsx';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const Container = styled.div`
   display: flex;
@@ -21,8 +21,8 @@ const ArrowWrapper = styled.div`
   justify-content: center;
   z-index: 2;
   position: absolute;
-  left: ${(props) => props.direction === "left" && "17px"};
-  right: ${(props) => props.direction === "right" && "7.5px"};
+  left: ${(props) => props.direction === 'left' && '17px'};
+  right: ${(props) => props.direction === 'right' && '7.5px'};
   top: 0px;
   bottom: 0px;
   margin: auto;
@@ -47,18 +47,13 @@ const Arrow = styled.div`
   border-radius: 50%;
 `;
 
-const RelatedItems = ({
-  setRelatedItems,
-  relatedItems,
-  changeCurrentProduct,
-  currentProduct,
-}) => {
+const RelatedItems = ({ setRelatedItems, relatedItems, changeCurrentProduct, currentProduct }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const index = relatedItems.length - 3;
 
   const handleClick = (direction) => {
-    if (direction === "left") {
+    if (direction === 'left') {
       setSlideIndex(slideIndex - 1);
     } else {
       setSlideIndex(slideIndex + 1);
@@ -68,7 +63,7 @@ const RelatedItems = ({
   return (
     <Container>
       {slideIndex <= 0 ? null : (
-        <ArrowWrapper direction="left" onClick={() => handleClick("left")}>
+        <ArrowWrapper direction='left' onClick={() => handleClick('left')}>
           <Arrow>
             <FaAngleLeft size={30} />
           </Arrow>
@@ -91,7 +86,7 @@ const RelatedItems = ({
         </Wrapper>
       ) : null}
       {slideIndex >= index ? null : (
-        <ArrowWrapper direction="right" onClick={() => handleClick("right")}>
+        <ArrowWrapper direction='right' onClick={() => handleClick('right')}>
           <Arrow>
             <FaAngleRight size={30} />
           </Arrow>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
-import { FaSearch } from "react-icons/fa";
-import axios from "../../haxios";
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import { FaSearch } from 'react-icons/fa';
+import axios from '../../haxios';
 
 const Container = styled.div`
   background-color: lightgrey;
@@ -19,7 +19,6 @@ const Announcement = styled.div`
   font-weight: 800;
   color: white;
   margin: 0 -4px;
-
 `;
 
 const Wrapper = styled.div`
@@ -114,7 +113,7 @@ const Logo = styled.img`
 const Index = ({ changeCurrentProduct }) => {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   // API FETCH
   const fetchAllProducts = () => {
@@ -134,15 +133,12 @@ const Index = ({ changeCurrentProduct }) => {
 
   const handleFilter = (e) => {
     const searchTerm = e.target.value;
-    setValue(searchTerm)
+    setValue(searchTerm);
     const newProductList = products.filter((product) => {
-      return Object.values(product)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+      return Object.values(product).join(' ').toLowerCase().includes(searchTerm.toLowerCase());
     });
 
-    if (searchTerm === "") {
+    if (searchTerm === '') {
       setSearchResults([]);
     } else {
       setSearchResults(newProductList);
@@ -152,7 +148,7 @@ const Index = ({ changeCurrentProduct }) => {
   const changeCurrentItem = (itemId) => {
     changeCurrentProduct(itemId);
     setSearchResults([]);
-    setValue("");
+    setValue('');
   };
 
   return (
@@ -165,12 +161,7 @@ const Index = ({ changeCurrentProduct }) => {
           </Left>
           <Right>
             <SearchBar>
-              <Input
-                type="text"
-                placeholder="search..."
-                onChange={handleFilter}
-                value={value}
-              />
+              <Input type='text' placeholder='search...' onChange={handleFilter} value={value} />
               <Icon>
                 <FaSearch />
               </Icon>
@@ -179,10 +170,7 @@ const Index = ({ changeCurrentProduct }) => {
               <Results>
                 {searchResults.slice(0, 20).map((product, key) => {
                   return (
-                    <Item
-                      key={key}
-                      onClick={() => changeCurrentItem(product.id)}
-                    >
+                    <Item key={key} onClick={() => changeCurrentItem(product.id)}>
                       {product.name}
                     </Item>
                   );

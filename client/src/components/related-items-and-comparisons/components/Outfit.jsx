@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import cardLoader from "../card-loader/cardLoader";
-import { FaRegTimesCircle } from "react-icons/fa";
-import axios from "../../../haxios";
-import { Stars } from "../../sharedComponents.jsx";
-import utils from "../../../Utils.js";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import cardLoader from '../card-loader/cardLoader';
+import { FaRegTimesCircle } from 'react-icons/fa';
+import axios from '../../../haxios';
+import { Stars } from '../../sharedComponents.jsx';
+import utils from '../../../Utils.js';
 
 const Container = styled.div`
   display: flex;
@@ -86,15 +86,8 @@ const ReviewWrapper = styled.div`
   padding-top: 0px;
 `;
 
-const Outfit = ({
-  outfits,
-  outfitProductId,
-  removeFromOutfit,
-  currentStyleId,
-}) => {
-  const [defaultProductStyle, setDefaultProductStyle] = useState(
-    cardLoader.photos
-  );
+const Outfit = ({ outfits, outfitProductId, removeFromOutfit, currentStyleId }) => {
+  const [defaultProductStyle, setDefaultProductStyle] = useState(cardLoader.photos);
   const [outfitProduct, setOutfitProduct] = useState([]);
   const [metadata, setMetadata] = useState({});
 
@@ -153,7 +146,7 @@ const Outfit = ({
             </ActionButton>
             <ImgWrapper>
               {defaultProductStyle[0].thumbnail_url === null ? (
-                <Image src="./img/imageNotAvailable.png" />
+                <Image src='./img/imageNotAvailable.png' />
               ) : (
                 <Image src={defaultProductStyle[0].thumbnail_url} />
               )}
