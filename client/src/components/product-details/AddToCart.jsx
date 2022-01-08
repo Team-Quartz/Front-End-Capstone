@@ -2,42 +2,48 @@ import MakeSizesEntry from './MakeSizesEntry.jsx';
 import MakeQuantityEntry from './MakeQuantityEntry.jsx';
 import React from 'react';
 
-class AddToCart extends React.Component{
-  constructor (props) {
+class AddToCart extends React.Component {
+  constructor(props) {
     super(props);
-    const {selectedStyle} = props;
+    const { selectedStyle } = props;
     this.state = {
       selectedStyle: selectedStyle || null,
       quantity: 0,
       size: null,
       sku: null,
       selectedQuantity: 0,
-    }
+    };
     this.handleSkuSelection = this.handleSkuSelection.bind(this);
     this.handleQuantitySelection = this.handleQuantitySelection.bind(this);
   }
 
-  handleSkuSelection (targetSku) {
+  handleSkuSelection(targetSku) {
     const currentSku = this.state.selectedStyle.skus[targetSku];
-    this.setState({size: currentSku.size, sku: targetSku, quantity: currentSku.quantity});
+    this.setState({ size: currentSku.size, sku: targetSku, quantity: currentSku.quantity });
   }
-  handleQuantitySelection (targetQuantity) {
-    this.setState({selectedQuantity: targetQuantity});
+  handleQuantitySelection(targetQuantity) {
+    this.setState({ selectedQuantity: targetQuantity });
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.props.selectedStyle !== prevState.selectedStyle) {
-      this.setState({quantity: 0, size: null, sku:null, selectedQuantity: 0, selectedStyle: this.props.selectedStyle})
+      this.setState({
+        quantity: 0,
+        size: null,
+        sku: null,
+        selectedQuantity: 0,
+        selectedStyle: this.props.selectedStyle,
+      });
     }
   }
   render() {
-   const sizeList = [];
-    if(this.state.selectedStyle !== null) {
+    const sizeList = [];
+    if (this.state.selectedStyle !== null) {
       const skuList = this.state.selectedStyle.skus;
       for (const sku in skuList) {
-        const {size, quantity} = skuList[sku];
+        const { size, quantity } = skuList[sku];
         if (quantity === 0) continue;
-        const sizeOption = <MakeSizesEntry entry={{sku, size, quantity}} key={sku} />
-        sizeList.push(sizeOption)
+        const sizeOption = <MakeSizesEntry entry={{ sku, size, quantity }} key={sku} />;
+        sizeList.push(sizeOption);
       }
     }
     let quantityList = [];
@@ -47,31 +53,49 @@ class AddToCart extends React.Component{
     }
 
     return (
-      <form className="style-selctor" onSubmit={(e) => {
-        e.preventDefault();
-      }}
-        id='shopping-cart'>
-        <label htmlFor="size-selector">{'Size: '}</label>
-        {
-          sizeList.length > 0 ?
-        <select name="size"  onChange={(e) => this.handleSkuSelection(e.target.value)} id='size-selector'>
-          <option value="default" key="0">{"--Select size---"}</option>
-          {sizeList}
-        </select>
-          :
-          <select name="size" id='size-selector' disabled={true}>
-            <option value="default" key="0">{"OUT OF STOCK"}</option>
+      <form
+        className='style-selctor'
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        id='shopping-cart'
+      >
+        <label htmlFor='size-selector'>{'Size: '}</label>
+        {sizeList.length > 0 ? (
+          <select
+            name='size'
+            onChange={(e) => this.handleSkuSelection(e.target.value)}
+            id='size-selector'
+          >
+            <option value='default' key='0'>
+              {'--Select size---'}
+            </option>
+            {sizeList}
           </select>
-        }
-        <label htmlFor="quantity-selector">{'Quantity: '}</label>
-        <select name="quantity"  onChange={(e) => this.handleQuantitySelection(e.target.value)} id='quantity-selector'>
-          <option value="default" key="0">{"-"}</option>
+        ) : (
+          <select name='size' id='size-selector' disabled={true}>
+            <option value='default' key='0'>
+              {'OUT OF STOCK'}
+            </option>
+          </select>
+        )}
+        <label htmlFor='quantity-selector'>{'Quantity: '}</label>
+        <select
+          name='quantity'
+          onChange={(e) => this.handleQuantitySelection(e.target.value)}
+          id='quantity-selector'
+        >
+          <option value='default' key='0'>
+            {'-'}
+          </option>
           {quantityList}
         </select>
 
-        <button id="add-to-cart" type='submit' form='shopping-cart'>Add To Cart</button>
+        <button id='add-to-cart' type='submit' form='shopping-cart'>
+          Add To Cart
+        </button>
       </form>
-    )
+    );
   }
 }
 
