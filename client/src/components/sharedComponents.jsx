@@ -1,5 +1,36 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+
+export const commonBorder = 'border-radius: 3px;';
+
+export const styleInteractable = `
+  transition-duration: .2s;
+  &:hover {
+    transition-duration: .1s;
+    box-shadow: -2px -3px 10px 0 inset #00000020,
+                1px 2px 8px 0 #00000030;
+  }
+  &:active {
+    transition-duration: .05s;
+    box-shadow: 2px 3px 12px 0 inset #00000080;
+  }
+`;
+
+export const CommonStyle = `
+  ${commonBorder}
+  box-shadow: 0 0 8px 0 #00000066;
+`;
+
+export const ButtonStyled = styled.button`
+  ${commonBorder}
+  background-color: #fefefe;
+  border: 1px solid LightGrey;
+  ${styleInteractable}
+`;
+
+export const SelectStyled = styled.select`
+  ${styleInteractable}
+`;
 
 export const AppContainer = styled.div`
   max-width: 1200px;
@@ -15,7 +46,6 @@ export const AppStyle = styled.div`
   ${rootStyle}
   * {
     margin: inherit;
-
   }
 `;
 
@@ -24,23 +54,41 @@ export const FlexRow = styled.div`
   flex-direction: row;
 `;
 
-export const TextButton = styled.button`
-border: 0.5px solid 303030;
-background: white;
-margin: 10px;
-padding: 10px;
-height: 50px;
-font-size: 14px;
-font-weight: bold;
-color: 424242;
-cursor: pointer;
+export const Title = styled.div`
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: light;
+  color: grey;
+  margin-left: 2px;
 `;
 
-export const BodyText = styled.div`
+export const TextButton = styled.button`
+  border: 0.5px solid 303030;
+  background: white;
+  margin: 10px;
+  padding: 10px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: 424242;
+  cursor: pointer;
+  ${styleInteractable}
+`;
+
+export const styleBody = `
 margin-left: -7px;
 font-size: 17px;
 font-weight: bold;
 color: 424242;
+`;
+
+export const BodyText = styled.div`
+  ${styleBody}
+`;
+
+export const BodyLabel = styled.label`
+  ${styleBody}
+  margin-left: 8px;
 `;
 
 export const Feedback = styled.span`
@@ -69,7 +117,26 @@ export const Details = styled.span`
 export const Clickable = styled.span`
   font-weight: bold;
   text-decoration: underline;
-  cursor: pointer;
+  ${({ disabled }) =>
+    disabled
+      ? ''
+      : `
+    cursor: pointer;
+    &:hover:not(:disabled) {
+      color: red;
+      transform: translateY(-1px);
+    }
+  `}
+`;
+
+export const ImageThumbnail = styled.img`
+  ${styleInteractable}
+  width: auto;
+  height: 3.5rem;
+  max-width: 6rem;
+  &:hover {
+    transform: scale(110%);
+  }
 `;
 
 const StarBounds = styled.div`
@@ -136,14 +203,23 @@ const ModalBody = styled.div`
   position: fixed;
   width: auto;
   height: auto;
+  max-height: 85vh;
+  max-width: 85vh;
+  overflow: auto;
   background: white;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 2em;
-  margin: 4px;
 `;
 
+const ButtonCloseModal = styled(ButtonStyled)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 2em;
+  width: 2em;
+`;
 
 /**
  *
@@ -156,7 +232,7 @@ export function Modal({ show, onClose, children }) {
   const [lastTarget, setLastTarget] = React.useState(null);
   function escListener(e) {
     if (show) {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onClose();
       }
     }
@@ -167,9 +243,9 @@ export function Modal({ show, onClose, children }) {
     }
   }
   React.useEffect(() => {
-    window.addEventListener("keydown", escListener);
+    window.addEventListener('keydown', escListener);
     return () => {
-      window.removeEventListener("keydown", escListener);
+      window.removeEventListener('keydown', escListener);
     };
   });
   if (show) {
@@ -177,15 +253,17 @@ export function Modal({ show, onClose, children }) {
     //TODO: test returns for different values of show, test that onClose is properly working
     return (
       <ModalBackground onMouseDown={(e) => setLastTarget(e.target)} onClick={onClickBackground}>
-        <ModalBody onClick={(e) => e.stopPropagation()}>
-          <button onClick={onClose} onKeyDown={(e) => onEsc(e, onClose)}>
-            X
-          </button>
-          {children}
-        </ModalBody>
+        <div style={{ margin: '4px' }}>
+          <ModalBody onClick={(e) => e.stopPropagation()}>
+            <ButtonCloseModal
+              onClick={onClose}
+              onKeyDown={(e) => onEsc(e, onClose)}
+            ></ButtonCloseModal>
+            {children}
+          </ModalBody>
+        </div>
       </ModalBackground>
     );
   }
-  return "";
+  return '';
 }
-

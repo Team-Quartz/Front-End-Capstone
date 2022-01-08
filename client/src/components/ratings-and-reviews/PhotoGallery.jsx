@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-
-const ImageThumbnail = styled.img`
-  width: 5em;
-  height: auto;
-  max-height: 10em;
-  &:hover {
-    transform: scale(110%);
-  }
-`;
+import { ImageThumbnail } from '../sharedComponents.jsx';
 
 export function PhotoGallery({ photos, onDoneLoading = () => {}, onClickThumbnail = () => {} }) {
   if (photos) {
