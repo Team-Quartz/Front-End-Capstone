@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "webp": "webpack --watch",
-    "web-aws": "webpack",
+    "webp-dev": "webpack --watch --config webpack.config.dev.js",
+    "webp": "webpack",
     "start": "node server",
     "start-aws": "pm2 start server",
     "stop-aws": "pm2 stop server"
