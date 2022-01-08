@@ -10,7 +10,6 @@ import utils from '../../Utils.js';
 const defaultFilters = [true, false, false, false, false, false];
 
 const blankState = {
-  //TODO: should we persist reviewSorting and filters when product changes?
   reviewSorting: 'relevant',
   filters: defaultFilters,
   reviews: null,
