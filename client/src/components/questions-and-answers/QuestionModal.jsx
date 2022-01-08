@@ -11,13 +11,13 @@ class QuestionModal extends React.Component {
       nicknameInput: '',
       emailInput: '',
       showErrorModal: false,
-      errorMessage: 'inputs must not be blank and email address must be valid'
-    }
+      errorMessage: 'inputs must not be blank and email address must be valid',
+    };
     this.handleQuestionChange = this.handleQuestionChange.bind(this);
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.checkQuestionsInputValidity = this.checkQuestionsInputValidity.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
+    this.checkQuestionsInputValidity = this.checkQuestionsInputValidity.bind(this);
     this.openErrorModal = this.openErrorModal.bind(this);
     this.closeUponSuccess = this.closeUponSuccess.bind(this);
     this.cancelQuestionModal = this.cancelQuestionModal.bind(this);
@@ -25,17 +25,17 @@ class QuestionModal extends React.Component {
 
   handleQuestionChange(e) {
     e.preventDefault();
-    this.setState({questionInput: e.target.value});
+    this.setState({ questionInput: e.target.value });
   }
 
   handleNicknameChange(e) {
     e.preventDefault();
-    this.setState({nicknameInput: e.target.value});
+    this.setState({ nicknameInput: e.target.value });
   }
 
   handleEmailChange(e) {
     e.preventDefault();
-    this.setState({emailInput: e.target.value});
+    this.setState({ emailInput: e.target.value });
   }
 
   validateEmail(email) {
@@ -52,16 +52,24 @@ class QuestionModal extends React.Component {
     } else if (!this.validateEmail(this.state.emailInput)) {
       this.openErrorModal(true);
     } else {
-      utils.submitQuestion(this.state.questionInput, this.state.nicknameInput, this.state.emailInput, this.props.productId)
+      utils
+        .submitQuestion(
+          this.state.questionInput,
+          this.state.nicknameInput,
+          this.state.emailInput,
+          this.props.productId
+        )
         .then(() => {
-          this.closeUponSuccess()
+          this.closeUponSuccess();
           this.setState({
             questionInput: '',
             nicknameInput: '',
             emailInput: '',
-          })
+          });
         })
-        .catch(() => {this.openErrorModal(true)})
+        .catch(() => {
+          this.openErrorModal(true);
+        });
     }
   }
 
@@ -82,7 +90,7 @@ class QuestionModal extends React.Component {
       questionInput: '',
       nicknameInput: '',
       emailInput: '',
-    })
+    });
   }
 
   render() {
@@ -98,16 +106,14 @@ class QuestionModal extends React.Component {
         <p>Your email</p>
         <input onChange={this.handleEmailChange} />
         <p>For authentication reasons, you will not be emailed</p>
-        <button onClick={this.checkQuestionsInputValidity}>
-          Submit Question
-        </button>
+        <button onClick={this.checkQuestionsInputValidity}>Submit Question</button>
         <ErrorModal
           onClose={() => this.openErrorModal(false)}
           show={this.state.showErrorModal}
           message={this.state.errorMessage}
         />
       </Modal>
-    )
+    );
   }
 }
 
