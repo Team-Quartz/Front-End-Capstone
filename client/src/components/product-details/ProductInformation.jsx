@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+import {AppStyle, BodyText, Feedback, ResponseText} from '../sharedComponents.jsx'
 
+<<<<<<< HEAD
 const ProductInfoDiv = styled.div`
   flex-direction: column;
 `;
@@ -11,6 +13,21 @@ const CategoryStyle = styled(Descriptors)`
 const OriginalPriceStyled = styled(Descriptors)`
   text-decoration-line: line-through;
 `;
+=======
+
+const ProductInfoDiv = styled(AppStyle)`
+  flex-direction: column;
+`;
+
+const Descriptors = styled(ResponseText)`
+`
+const CategoryStyle = styled(BodyText)`
+  font-size: 2em;
+`;
+const OriginalPriceStyled = styled(Feedback)`
+text-decoration-line: line-through;
+`
+>>>>>>> main
 const DiscountedPriceStyled = styled(Descriptors)`
   color: red;
 `;

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
+import {AppStyle, ImageThumbnail} from '../sharedComponents.jsx'
 
+const StyledImage = styled(ImageThumbnail)`
+
+<<<<<<< HEAD
 const StyledImage = styled.img`
   width: 75px;
   height: 75px;
@@ -9,6 +13,14 @@ const StyledBorder = styled.div`
   border-color: green;
 `;
 const StyleSelectorMaker = ({ styleObject, handler, selectedStyle = null }) => {
+=======
+`
+const StyledBorder = styled(AppStyle)`
+border: solid;
+border-color: green;
+`
+const StyleSelectorMaker = ({styleObject, handler, selectedStyle = null}) => {
+>>>>>>> main
   const styleId = styleObject.style_id + '';
 
   let outputStyle = (
