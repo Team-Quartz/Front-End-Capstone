@@ -14,6 +14,5 @@ export default function PopupImage(props) {
     <Modal show={props.show} onClose={props.onClose}>
       <Image src={props.image} />
     </Modal>
-  )
+  );
 }
-

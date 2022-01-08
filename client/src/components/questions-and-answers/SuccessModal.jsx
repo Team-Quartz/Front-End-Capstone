@@ -8,6 +8,5 @@ export default function SuccessModal(props) {
       <p>Thank you for your input.</p>
       <button onClick={props.onClose}>OK</button>
     </Modal>
-  )
+  );
 }
-

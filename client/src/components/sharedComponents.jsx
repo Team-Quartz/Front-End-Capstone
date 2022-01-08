@@ -62,6 +62,15 @@ export const Title = styled.div`
   margin-left: 2px;
 `;
 
+export const BigInput = styled.textarea`
+  width: 90%;
+  height: 100px;
+`;
+
+export const SmallInput = styled.input`
+  width: 90%;
+`;
+
 export const TextButton = styled.button`
   border: 0.5px solid 303030;
   background: white;

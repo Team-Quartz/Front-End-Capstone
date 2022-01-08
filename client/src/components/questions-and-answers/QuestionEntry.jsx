@@ -24,8 +24,8 @@ class QuestionEntry extends React.Component {
       answerCount: 2,
       writeNewAnswer: false,
       isHelpful: false,
-      isReported: false
-    }
+      isReported: false,
+    };
     this.showMoreAnswers = this.showMoreAnswers.bind(this);
     this.updateQuestionHelpfulCount = this.updateQuestionHelpfulCount.bind(this);
     this.openAnswerModal = this.openAnswerModal.bind(this);
@@ -35,18 +35,20 @@ class QuestionEntry extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.answers !== this.state.answers) {
-
     }
   }
 
   componentDidMount() {
-    utils.fetchAnswers(this.props.question.question_id)
+    utils
+      .fetchAnswers(this.props.question.question_id)
       .then((answers) => {
         this.setState({
           answers: answers,
-        })
+        });
       })
-      .catch(() => {console.log('APP: THERE WAS AN ERROR RETRIEVING THE ANSWERS')})
+      .catch((err) => {
+        err;
+      });
   }
 
   showMoreAnswers() {
@@ -54,12 +56,11 @@ class QuestionEntry extends React.Component {
   }
 
   updateQuestionHelpfulCount() {
-    utils.markQuestionHelpful(this.props.question.question_id)
-      .then(() => {
-        this.setState({
-          isHelpful: 1
-        })
-      })
+    utils.markQuestionHelpful(this.props.question.question_id).then(() => {
+      this.setState({
+        isHelpful: 1,
+      });
+    });
   }
 
   openAnswerModal(open) {
@@ -69,21 +70,35 @@ class QuestionEntry extends React.Component {
   }
 
   fetchAnswersAfterSubmit() {
-    this.openAnswerModal(false)
-    utils.fetchAnswers(this.props.question.question_id)
-      .then((answers) => {
-        this.setState({
-          answers: answers,
-        })
-        this.renderAnswers();
-      })
+    this.openAnswerModal(false);
+    utils.fetchAnswers(this.props.question.question_id).then((answers) => {
+      this.setState({
+        answers: answers,
+      });
+      this.renderAnswers();
+    });
   }
 
   renderAnswers() {
-    return Object.keys(this.state.answers).slice(0, this.state.answerCount).map((answerKey, idx) => {
-      return idx === 0 ? <AnswerEntry key={answerKey} a={'A:'} color={{ color: '424242' }} answer={this.state.answers[answerKey]}/>
-      : <AnswerEntry key={idx} a={'A:'} color={{ color: 'white' }} answer={this.state.answers[answerKey]}/>
-    })
+    return Object.keys(this.state.answers)
+      .slice(0, this.state.answerCount)
+      .map((answerKey, idx) => {
+        return idx === 0 ? (
+          <AnswerEntry
+            key={answerKey}
+            a={'A:'}
+            color={{ color: '424242' }}
+            answer={this.state.answers[answerKey]}
+          />
+        ) : (
+          <AnswerEntry
+            key={answerKey}
+            a={'A:'}
+            color={{ color: 'white' }}
+            answer={this.state.answers[answerKey]}
+          />
+        );
+      });
   }
 
   render() {
@@ -93,12 +108,15 @@ class QuestionEntry extends React.Component {
           <BodyText>Q: {this.props.question.question_body}</BodyText>
           <Feedback>
             <b>Helpful?</b>
-            {this.state.isHelpful
-            ? <u><b>Yes!</b></u>
-            : <Clickable onClick={this.updateQuestionHelpfulCount}>Yes</Clickable>
-            }
-            ({this.props.question.question_helpfulness + this.state.isHelpful})&nbsp;
-            &nbsp;|&nbsp;<Clickable onClick={() => this.openAnswerModal(true)}>Add Answer</Clickable>
+            {this.state.isHelpful ? (
+              <u>
+                <b>Yes!</b>
+              </u>
+            ) : (
+              <Clickable onClick={this.updateQuestionHelpfulCount}>Yes</Clickable>
+            )}
+            ({this.props.question.question_helpfulness + this.state.isHelpful})&nbsp; &nbsp;|&nbsp;
+            <Clickable onClick={() => this.openAnswerModal(true)}>Add Answer</Clickable>
           </Feedback>
         </FlexRow>
         <AnswerModal
@@ -111,14 +129,12 @@ class QuestionEntry extends React.Component {
         />
         {/* TODO: optimize using Object.entries */}
         {this.renderAnswers()}
-        {Object.keys(this.state.answers).length > this.state.answerCount
-        ? <MoreAnswers onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</MoreAnswers>
-        : null
-        }
+        {Object.keys(this.state.answers).length > this.state.answerCount ? (
+          <MoreAnswers onClick={this.showMoreAnswers}>LOAD MORE ANSWERS</MoreAnswers>
+        ) : null}
       </div>
-    )
+    );
   }
 }
 
 export default QuestionEntry;
-

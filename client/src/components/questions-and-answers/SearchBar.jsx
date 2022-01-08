@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from "styled-components";
-import { FaSearch } from "react-icons/fa";
+import styled from 'styled-components';
+import { FaSearch } from 'react-icons/fa';
 
 const Container = styled.div`
   background-color: white;
@@ -48,9 +48,9 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       searchFilter: '',
-      placeholder: 'HAVE A QUESTION? SEARCH FOR ANSWERS...'
-    }
-    this.handleChange =this.handleChange.bind(this);
+      placeholder: 'HAVE A QUESTION? SEARCH FOR ANSWERS...',
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
@@ -61,7 +61,7 @@ class SearchBar extends React.Component {
     if (e.target.value.length < 3) {
       this.props.updateSearchFilter('');
     }
-    this.setState({searchFilter: e.target.value});
+    this.setState({ searchFilter: e.target.value });
   }
 
   render() {
@@ -70,7 +70,7 @@ class SearchBar extends React.Component {
         <Wrapper>
           <SearchField>
             <Input
-              type="text"
+              type='text'
               value={this.state.value}
               onChange={this.handleChange}
               placeholder={this.state.placeholder}
@@ -81,9 +81,8 @@ class SearchBar extends React.Component {
           </SearchField>
         </Wrapper>
       </Container>
-    )
+    );
   }
 }
 
 export default SearchBar;
-

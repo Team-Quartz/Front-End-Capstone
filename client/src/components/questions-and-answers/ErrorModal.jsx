@@ -9,6 +9,5 @@ export default function ErrorModal(props) {
       <p>{props.message}</p>
       <button onClick={props.onClose}>OK</button>
     </Modal>
-  )
+  );
 }
-
