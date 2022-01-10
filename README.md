@@ -1,52 +1,33 @@
-# Front-End-Capstone
+//header image
 
-**DO NOT MAKE CHANGES DIRECTLY TO MAIN BRANCH**
+# Hack Reactor Front End Capstone
 
-### Initial Setup Steps
+### Table of Contents
 
-`git clone https://github.com/Team-Quartz/Front-End-Capstone.git`
+### Introduction
+An e-commerce application produced during a 2-week project at Hack Reactor.
 
-`brew install sass/sass/sass`
-`npm install`
-`npm run webp`
+### Demo
+//insert gifs here
+![alt text](link placeholder)
 
-## Git Workflow
+### Technologies
+- Axios : version 0.24.0
+- Express : version 4.17.2
+- React : version 17.0.2
+- Styled Components : version 5.3.3
+- Babel : version 6.23.0
+- Webpack : version 5.65.0
+### Local Setup
+1. `git clone https://github.com/Team-Quartz/Front-End-Capstone.git`
+2. `npm install`
+3. `npm run webp`
+4. `npm start`
 
-### frequently (any time anyone merges changes, or when you start a new ticket)
-
-- `git checkout main`
-- `git pull origin main`
-
-### Starting work on a ticket
-- `git checkout main` (to make sure your new branch is based off of main)
-- `git checkout -b <ticket-name>`
-  - **it is important to make branch so that you aren't on the main branch** (this is called cutting a branch)
-  - `<firstname>/<ticket-name>`
-    - e.g. `liam/crash-when-opening-page`
-
-_if you make changes while on main (or the wrong branch), you can cut a new branch before committing - it will save your work so you can push it to your branch_
-
-### Completing a ticket
-In terminal
-- `git add <all the files you changed>`
-- `git commit` <- please do many regular, granular commits with clear names!
-- `git push origin <ticket name>`
-
-_if ticket is not complete, you can push an incomplete ticket (just don't make a pull request)_
-
-On GitHub website
-- make pull request from <ticket name> to main
-- have pull request reviewed by team before merging (pending)
-- keep pull request open until resolved by team member
-- when resolved and ready to merge, the person who's pull request it is will hit the merge button
-- in the event of merge conflicts, the person who's pull request it is should:
-  - `git checkout main`
-  - `git pull origin main`
-  - `git checkout <branch-name>`
-  - `git merge main`
-  - resolve conflicts in editor (consult team if necessary)
-  - `git add <changed files>`
-  - `git commit` ('resolve conflicts')
-  - `git push origin <branch-name>`
-  - return to pull request on website (should be auto-updated)
-  - merge
+### Contributors
+//add links for github or linkdin profiles
+[name](profile link)
+- Liam Richardson
+- Javier Tamez
+- Matthew Raquepo
+- Himmat Khalsa
