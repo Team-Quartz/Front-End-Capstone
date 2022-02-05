@@ -11,6 +11,9 @@ An e-commerce application produced during a 2-week project at Hack Reactor.
 //insert gifs here
 ![alt text](link placeholder)
 
+### Reviews
+![A screen recording of the ratings and reviews section of the app](./Admin/Reviews.gif)
+
 ### Technologies
 - Axios : version 0.24.0
 - Express : version 4.17.2
