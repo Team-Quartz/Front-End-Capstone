@@ -25,12 +25,14 @@ Related Products displays product cards of similiar items that may interest the 
 * Scrollable list of product cards
 * Scrollable preview images with each product cards
 * A feature comparison table
-* Conditionally rendered scroll buttons at either end of the carousel 
+* Conditionally rendered scroll buttons at either end of the carousel
 
 The Outfit allows users to save and track individual products based on their interest. This component includes:
 * Add to Outfit card which adds the current product to your Outfit list
 * A delete card icon that removes the product from the list
 * Upon refresh of the application, your Outfit list persists
+### Reviews
+![A screen recording of the ratings and reviews section of the app](./Admin/Reviews.gif)
 
 ### Technologies
 
