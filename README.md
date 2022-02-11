@@ -31,6 +31,14 @@ The Outfit allows users to save and track individual products based on their int
 * Add to Outfit card which adds the current product to your Outfit list
 * A delete card icon that removes the product from the list
 * Upon refresh of the application, your Outfit list persists
+
+### Questions and Answers
+
+![Demo of scrolling through Q&A](./Admin/Questions1.gif)
+Questions and Answers conditionally render more upon click
+![Demo of scrolling through Q&A](./Admin/Questions2.gif)
+Modals for adding Questions and Answers
+
 ### Reviews
 ![A screen recording of the ratings and reviews section of the app](./Admin/Reviews.gif)
 
@@ -53,6 +61,6 @@ The Outfit allows users to save and track individual products based on their int
 ### Contributors
 
 - Liam Richardson | [LinkedIn](https://www.linkedin.com/in/richardson-liam/) | [GitHub](https://github.com/CptOblivion)
-- Javier Tamez  | [LinkedIn](https://www.linkedin.com/in/javier-tamez/) | [GitHub](https://github.com/ProwlingLynx)
+- Javier Tamez | [LinkedIn](https://www.linkedin.com/in/javier-tamez/) | [GitHub](https://github.com/ProwlingLynx)
 - Matthew Raquepo | [LinkedIn](https://www.linkedin.com/in/matthew-raquepo/) | [GitHub](https://github.com/maraquepo)
 - Himmat Khalsa | [LinkedIn](https://www.linkedin.com/in/himmatkhalsa/) | [GitHub](https://github.com/thehimmat)
